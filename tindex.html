@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="#111c16" data-react-helmet="true" name="theme-color" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@300&display=swap');
+        body{
+            background-color: #090f0c;
+            font-family: "Chivo Mono";
+        }
+        #time{
+            position: absolute;
+            top:50%;
+            left:50%;
+            transform: translate(-50%,-50%);
+            width: 100vw;
+            text-align: center;
+        }
+        #timeOutput{
+            color: #d4ffd1;
+            font-size: 4vw;
+        }
+        #developmentTxt{
+            color: #f00;
+        }
+    </style>
+    <title>2024 Countdown</title>
+</head>
+<body>
+    <!-- <span id="developmentTxt">If you're seeing this, it means that this website is currently under development!</span> -->
+    <div id="time"><span id="timeOutput"></span></div>
+    <script>
+        let output = document.querySelector("#timeOutput");
+        
+        function showTime() {
+            let crTime = new Date();
+            let cdTime = new Date(2025,0,1,0,0,0);
+            let timeDifference = cdTime.getTime()-crTime.getTime();
+            if (timeDifference>=0) {
+                output.innerHTML = Math.floor(timeDifference/(24*60*60*1000)) + " Days, ";
+                output.innerHTML+= Math.floor(timeDifference%(24*60*60*1000)/(60*60*1000)) + "h, ";
+                output.innerHTML+= Math.floor(timeDifference%(60*60*1000)/(60*1000)) + "m, ";
+                output.innerHTML+= Math.floor(timeDifference%(60*1000)/1000) + "s";
+            }else{
+                output.innerHTML = "Happy New Year!"
+            }
+        }
+        function refresh() {
+            window.location.reload();
+        }
+        setInterval(showTime,100)
+        setInterval(refresh,(1000*60*60))
+    </script>
+</body>
+</html>
