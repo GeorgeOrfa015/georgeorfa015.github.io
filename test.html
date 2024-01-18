@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+                @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        body{
+            background: #111c16;
+            color: #d4ffd1;
+            font-family: poppins;
+        }
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 0.6vw;
+        }
+        /* Track */
+        ::-webkit-scrollbar-track {
+            background: #102b1b;
+        }
+        
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: #154126;
+            transition: 0.3s;
+        }
+        
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #17532e;
+        }
+        button{
+            background: #11291b;
+            border: 0.2vw outset #11291b;
+            transition: 0.3s;
+            color: #d4ffd1;
+            font-size: 1.2vw;
+            font-family: inherit;
+        }
+        button:hover{
+            background: #103b21;
+            border: 0.2vw outset #103b21;
+        }
+        .button-top{
+            margin-right: 1vw;
+            margin-bottom: 0.5vw;
+        }
+        .button-delete{
+            background-color: #411;
+            border: 0.2vw outset #411;
+            color: #fdd;
+            width: 100%;
+            height: 50%;
+            font-size: 1vw;
+        }
+        .button-delete:hover{
+            background-color: #522;
+            border: 0.2vw outset #522;
+            color: #fdd;
+            width: 100%;
+        }
+        .button-copy{
+            height: 50%;
+            font-size: 1vw;
+        }
+        .button-id{
+            height: 20%;
+            font-size: 0.8vw;
+        }
+        .note-container{
+            display: flex;
+            flex-direction: row;
+        }
+        .note{
+            height: 10vw;
+            width: 20vw;
+            background: #111c16;
+            border: 0.2vw inset #111c16;
+            padding: 0.3vw;
+            overflow-y: scroll;
+        }
+        .note-text{
+            outline: none;
+            width: 100%;
+            padding-right: 1vw;
+            font-size: 1.5vw;
+        }
+        .controls{
+            width: fit-content;
+            background: #111c16;
+            border: 0.2vw inset #111c16;
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
+</head>
+<body>
+    <button class="button-top" onclick="newNote()">Create new note...</button>
+    <div class="note-container">
+        <div class="note">
+            <span class="note-text" contenteditable>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ornare arcu dui vivamus arcu. Est placerat in egestas erat. Vestibulum lectus mauris ultrices eros in cursus turpis massa. Sit amet massa vitae tortor condimentum. Sit amet consectetur adipiscing elit duis. Ultrices dui sapien eget mi proin sed libero enim sed. Erat velit scelerisque in dictum non consectetur a. Neque volutpat ac tincidunt vitae semper quis. Posuere morbi leo urna molestie at elementum eu facilisis sed. Sed id semper risus in hendrerit. Lacus viverra vitae congue eu consequat. Nunc sed blandit libero volutpat. Diam sit amet nisl suscipit adipiscing bibendum est ultricies. A scelerisque purus semper eget duis at. Sem viverra aliquet eget sit amet tellus. Fames ac turpis egestas maecenas pharetra convallis posuere morbi leo.</span>
+        </div>
+        <div class="controls">
+            <button class="button-copy">Copy</button>
+            <button class="button-delete">Delete</button>
+            <button class="button-id">ID</button>
+        </div>
+    </div>
+</body>
+</html>
