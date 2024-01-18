@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="George Orfanides" property="og:title" />
+    <meta content="Every HTML project of George Orfanides." property="og:description" />
+    <meta content="http://orfanidesg15.free.nf/" property="og:url" />
+    <meta content="https://i.imgur.com/fv55MPW.png" property="og:image" />
+    <meta content="#090f0c" data-react-helmet="true" name="theme-color" id="theme-color"/>
+    <link rel="icon" href="WebsiteLogo2.ico">
+    <title>OrfanidesG15</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        body{
+            background: #090f0c;
+            color: #b1d1ae;
+            font-family: poppins;
+        }
+        a{
+            text-decoration: none;
+        }
+        span.welcome{
+            font-size: 6.5vw;
+            font-family: poppins;
+            font-weight: 300;
+        }
+        .welcomeName{
+            font-size: 8.4vw;
+            font-family: poppins;
+            font-weight: 600;
+        }
+        .welcome-cont{
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 25px;
+        }
+        .homepage-bg-cont{
+            width: 100%;
+            height: 35vw;
+            position: absolute;
+            background: linear-gradient(0deg, #090f0c 0%, #030806 100%);
+            top: 0;
+            left: 0;
+        }
+        .body-bg-cont{
+            position: absolute;
+            width: 100%;
+            height: fit-content;
+            top: 30vw;
+            left: 0;
+        }
+        .projects-cont{
+            margin: 50px;
+        }
+        .project-link-cont{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            width: fit-content;
+        }
+        .project-heading{
+            font-size: 2.3vw;
+        }
+        .project{
+            font-size: 1.6vw;
+            width: 13.7vw;
+            height: 5.5vw;
+            margin-right: 1vw;
+            text-align: center;
+            border-radius: 0.5vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            transition: 0.3s;
+        }
+        .link{
+            background: #0f7a3c;
+            color: #d4ffd1;
+        }
+        .indev{
+            background: #08381c;
+            color: #aacea8;
+            cursor:not-allowed
+        }
+        .link:hover{
+            transform: scale(1.05);
+        }
+        @media(max-width:600px){
+            .welcome-cont{
+                text-align: center;
+            }
+            .projects-cont{
+            text-align: center;
+            margin: 50px 25vw 0 25vw;
+            }
+            .project-link-cont{
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                width: 100%;
+            }
+            .project-heading{
+                font-size: 6.9vw;
+            }
+            .project{
+                font-size: 5vw;
+                width: 100%;
+                height: 15.5vw;
+                margin-bottom: 3vw;
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                transition: 0.3s;
+                border-radius: 2vw;
+            }            
+        };
+    </style>
+</head>
+<body>
+    <div class="homepage-bg-cont">
+        <div class="welcome-cont">
+            <span class="welcome">Welcome to the website of</span><br>
+                <b class="welcomeName">George Orfanides</b>
+        </div>
+    </div>
+    <div class="body-bg-cont">
+        <div class="projects-cont">
+            <h1 class="project-heading">My Projects:</h1>
+            <h4>Released</h4>
+            <div class="project-link-cont">
+                <a href="progress-bars/index.html"><div class="project link"><span class="project-link-description">Progress bars</span></div></a>
+                <a href="timer/index.html"><div class="project link"><span class="project-link-description">Countdown to<br>Next Year</span></div></a>
+                <a href="chase-button/index.html"><div class="project link"><span class="project-link-description">Chase The <br>Button Game</span></div></a>
+            </div>
+            <h4>In Development</h4>
+            <div class="project-link-cont">
+                <div class="project indev"><span class="project-link-description">Notes</span></div>
+                <div class="project indev"><span class="project-link-description">Precise Age <br>Calculator</span></div>
+                
+            </div>
+        </div>
+    </div>
+</body>
+</html>
