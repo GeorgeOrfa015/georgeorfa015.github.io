@@ -1,0 +1,319 @@
+<html>
+    <head>
+        <title>Chase the button game!</title>
+        <meta charset="UTF-8">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+            :root{
+                --up1display: none;
+                --up2display: none;
+                --setdisplay: none;
+                --themeBGColorScrollbar: #222;
+            }
+            body{
+                background: #111;
+                color: #fff;
+                font-family: Poppins;
+                font-weight: 300;
+                transition: 0.2s;
+            }
+            #balance{
+                font-size: 1.45vw;
+                transition: 0.2s
+            }
+            #button{
+                position: fixed;
+                top: 50%;
+                margin: none;
+                left: 50%;
+                transition: 0.2s;
+                background: #d00;
+                border: none;
+                border-radius: 0.5vw;
+                width: 20px;
+                height: 20px;
+                transform: translate(-50%,-50%)
+            }
+            button{
+                margin: 0.3vw;
+                font-size: 1.3vw;
+                transition: 0.2s;
+                background: #0f7a3c;
+                border:none;
+                border-radius: 0.5vw;
+                width: fit-content;
+                height: fit-content;
+                color: #fff;
+                align-content: center;
+            }
+            button:hover{
+                transform: scale(1.05);
+            }
+            button[disabled]{
+                background: #444;
+                color: #aaa;
+                transition: 0.2s;
+            }
+            button[disabled]{
+                transform: none;
+            }
+            .status{
+                color: #fff;
+                font-size: 1.3vw;
+                transition: 0.2s;
+            }
+            .upgrade1{
+                display: var(--up1display);
+                font-size: 1.45vw;
+            }
+            .upgrade2{
+                display: var(--up2display);
+                font-size: 1.45vw;
+            }
+            #container{
+                position: fixed;
+                top: 2px;
+                left: 2px;
+                width: 23vw;
+                transition: 0.2s;
+            }
+            .div_innerContainer{
+                padding: 5px;
+                background: #333;
+                border-radius: 0.5vw;
+                margin: 3px;
+                transition: 0.2s;
+            }
+            .settings{
+                position: fixed;
+                right: 2px;
+                top: 2px;
+                font-size: 1.3vw;
+            }
+            .settingsMenu{
+                display: var(--setdisplay);
+                position: fixed;
+                left: 35%;
+                width: 30%;
+                height: 60%;
+                z-index: 1;
+                transition: 0.2s;
+                overflow-y: scroll;
+            }
+            .settingsMenu::-webkit-scrollbar{
+                width: 10px;
+            }
+            .settingsMenu::-webkit-scrollbar-thumb{
+                background: #222;
+                border-radius: 10px;
+                width: 5px;
+            }
+            .settingsMenu::-webkit-scrollbar-track{
+                background: #333;
+                border-radius: 10px;
+                width: 5px;
+                margin: 4px;
+            }
+            .closeSettingsMenu{
+                width: 100%;
+                color: #fff
+            }
+            #settingsClose{
+                background: #555;
+                border-radius: 0.5vw;
+                padding: 0.2vw;
+            }
+            .settingsHeadingText{
+                font-size: 1.45vw;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="container">
+            <div class="div_innerContainer">
+                <span id="balance">Hover over the colored <br> button and get points!</span>
+            </div>
+            <div class="div_innerContainer upgrade1">
+                Upgrade Size - 20 <br><button id="sizeUp" onclick="sizeUp()">⮝</button>
+                <span id="sizeUpOut" class="status"></span>
+            </div>
+            <div class="div_innerContainer upgrade2">
+                Upgrade Balance Gain - 50 <br><button id="balanceGainUp" onclick="balanceGainUp()">⮝</button>
+                <span id="balanceGainUpOut" class="status"></span>
+            </div>
+        </div>
+
+        <div class="settings div_innerContainer"><a onclick="settings()" style="cursor: pointer;">Settings</a></div>
+        <div class="settingsMenu div_innerContainer">
+            <table class="closeSettingsMenu">
+                <tr>
+                    <td style="font-size: 1.45vw">Settings</td>
+                    <td style="font-size: 1.45vw" align="right"><span id="settingsClose" onclick="hideSettings()" style="cursor: pointer;">Back</span></td>
+                </tr>
+            </table>
+            <div class="div_innerContainer">
+                <span class="settingsHeadingText">Change button color: </span><button class="settingButton" id="changeColor" onclick="changeColor()">&nbsp;</button><br>
+                <span class="status">Red<br>Green<br>Blue<br>White</span>
+            </div>
+            <div class="div_innerContainer">
+                <span class="settingsHeadingText">Warning! This website doesn't support saving yet, so if you close it, your progress will be lost!</span>
+            </div>
+            <!-- <div class="div_innerContainer">
+                Change theme: <button id="changeTheme" onclick="changeTheme()">&nbsp;</button>
+                <section class="status">Available themes are: <br>Dark<br>Light</section>
+            </div> -->
+        </div>
+
+        <button id="button" onmouseenter="move()" onclick="move()"></button>
+        <script>
+            let bal=0;
+            let balOut=document.querySelector('#balance');
+
+            let button=document.querySelector('#button');
+            let buttonSize=20;
+            
+            let sizeUpIn=document.querySelector('#sizeUp')
+            let sizeUpOut=document.querySelector('#sizeUpOut');
+            let sizeLvl=document.querySelector('#sizeLvl');
+
+            let balanceGainUpOut=document.querySelector('#balanceGainUpOut');
+            let balanceGain=1;
+
+            let color=1;
+            let theme=0;
+            /* Setup Upgrade Text */
+            sizeUpOut.innerHTML=buttonSize+"px";
+            balanceGainUpOut.innerHTML=balanceGain+" per hover";
+            /* Setup Functions */
+            function randomnumber(min,max) {
+                return Math.floor(Math.random()*(max-min)+min);
+            }
+
+            /* Upgrade Show */
+            function revealUp1() {
+                document.documentElement.style.setProperty("--up1display","block");
+            }
+            function revealUp2() {
+                document.documentElement.style.setProperty("--up2display","block");
+            }
+            /* Upgrade */
+            function sizeUp() {
+                if(buttonSize<=145) {
+                    if(bal>=20) {
+                        sizeUpOut.style.color="#fff";
+                        buttonSize=buttonSize+5;
+                        button.style.width=buttonSize;
+                        button.style.height=buttonSize;
+                        sizeUpOut.innerHTML=buttonSize+"px";
+                        bal=bal-20;
+                        updateBalance();
+                        if(buttonSize==150) {
+                            sizeUpOut.innerHTML+=" | Max level reached";
+                            sizeUpIn.disabled="true";
+                        }
+                    }else{
+                        sizeUpOut.innerHTML=buttonSize+"px";
+                        sizeUpOut.innerHTML+=" | Balance too low";
+                        sizeUpOut.style.color="#faa";
+                    }
+                }
+            }
+            function balanceGainUp() {
+                if(bal>=50) {
+                    balanceGainUpOut.style.color="#fff";
+                    balanceGain=balanceGain+1;
+                    balanceGainUpOut.innerHTML="";
+                    balanceGainUpOut.innerHTML=balanceGain+" per hover"
+                    bal=bal-50;
+                    updateBalance();
+                }else{
+                    balanceGainUpOut.innerHTML=balanceGain+" per hover";
+                    balanceGainUpOut.innerHTML+=" | Balance too low";
+                    balanceGainUpOut.style.color="#faa";
+                }
+            }
+
+            /* Button Functions */
+            function move() {                
+                bal=bal+balanceGain;
+                button.style.position="fixed";
+                button.style.top=randomnumber((window.innerHeight-buttonSize),0);
+                button.style.left=randomnumber((window.innerWidth-buttonSize),0)
+                updateBalance();
+            }
+
+            /* Balance Functions */
+            function updateBalance() {
+                balOut.innerHTML="Balance: "+bal;
+                if (bal>=5) {
+                    revealUp1();
+                }
+                if (buttonSize>=40) {
+                    revealUp2();
+                }
+            }
+
+            /* Color Changes */
+            function changeColor() {
+                let buttonBGColor = [
+                    "#b00",
+                    "#0f7a3c",
+                    "#1c1c85",
+                    "#fff"
+                ]
+                button.style.background=buttonBGColor[color];
+                color=color+1;
+                if (color>=buttonBGColor.length) {
+                    color=0;
+                }
+                
+            }
+            // function changeTheme() {
+            //     let themeBGColor = [
+            //         "#eee",
+            //         "#111"
+            //     ]
+            //     let themeBorderColor = [
+            //         "#fff",
+            //         "#555"
+            //     ]
+            //     let themeTextColor = [
+            //         "#000",
+            //         "#fff"
+            //     ]
+            //     let themeBGColorDisabled = [
+            //         "#ccc",
+            //         "#444"
+            //     ]
+            //     let themeBorderColorDisabled = [
+            //         "#ddd",
+            //         "#666"
+            //     ]
+            //     let themeTextColorDisabled = [
+            //         "#888",
+            //         "#aaa"
+            //     ]
+            //     let themeBGColorScrollbar = [
+            //         "#ccc",
+            //         "#222"
+            //     ]
+            //     document.documentElement.style.setProperty("--themeBGColor", themeBGColor[theme]);
+            //     document.documentElement.style.setProperty("--themeBorderColor", themeBorderColor[theme]);
+            //     document.documentElement.style.setProperty("--themeTextColor", themeTextColor[theme]);
+            //     document.documentElement.style.setProperty("--themeBGColorDisabled", themeBGColorDisabled[theme]);
+            //     document.documentElement.style.setProperty("--themeBorderColorDisabled", themeBorderColorDisabled[theme]);
+            //     document.documentElement.style.setProperty("--themeTextColorDisabled", themeTextColorDisabled[theme]);
+            //     document.documentElement.style.setProperty("--themeBGColorScrollbar", themeBGColorScrollbar[theme]);
+            //     theme=theme+1
+            //     if (theme>1) {
+            //         theme=0;
+            //     }
+            // }
+            function settings() {
+                document.documentElement.style.setProperty("--setdisplay","block");
+        
+            }
+            function hideSettings() {
+                document.documentElement.style.setProperty("--setdisplay","none");
+            }
+        </script>
