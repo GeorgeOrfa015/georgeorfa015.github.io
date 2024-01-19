@@ -11,7 +11,7 @@
             font-weight: 900;
             font-size: 24vw;
             background-color: #000;
-            color: rgb(4, 254, 21);
+            color: #14a946;
         }
         #clock{
             position: absolute;
@@ -34,7 +34,11 @@
             currentHours = ("0" + currentHours).slice(-2);
             document.getElementById("output").innerHTML=currentHours+":"+currentMinutes;
         }
+        function reload() {
+            location.reload();
+        }
         setInterval(getTime, 500);
+        setInterval(reload, 10000);
     </script>
 </body>
 </html>
