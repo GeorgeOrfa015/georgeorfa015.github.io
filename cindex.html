@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@300;900&display=swap');
+        body{
+            font-family: "Chivo Mono";
+            font-weight: 900;
+            font-size: 24vw;
+            background-color: #000;
+            color: rgb(4, 54, 21);
+        }
+        #clock{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+        }
+    </style>
+</head>
+<body>
+    <div id="clock">
+        <span id="output"></span>
+    </div>
+
+    <script>
+        function getTime() {
+            var date = new Date();
+            currentMinutes = date.getMinutes();
+            currentHours = date.getHours();
+            currentHours = ("0" + currentHours).slice(-2);
+            document.getElementById("output").innerHTML=currentHours+":"+currentMinutes;
+        }
+        setInterval(getTime, 500);
+    </script>
+</body>
+</html>
