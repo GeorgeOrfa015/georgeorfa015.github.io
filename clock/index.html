@@ -3,42 +3,256 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Wall Clock</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@300;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
         body{
-            font-family: "Chivo Mono";
-            font-weight: 900;
-            font-size: 24vw;
-            background-color: #000;
-            color: #14a946;
+            background-color: #000000;
+            color: #fff;
+            font-family: poppins;
         }
         #clock{
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%,-50%);
+            font-size: 24vw;
+            font-family: "Chivo Mono";
+            font-weight: 900;
+            
+        }
+        #background{
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;    
+        }
+        #output{
+            background: #fff;
+            -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text; 
+        }        
+        #outputDate{
+            background: #fff;
+            -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text; 
+        }
+        #settings{
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+        }
+        .sectionTxt{
+            font-size: 3vw;
+            display:flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-left: 1vw;
+        }
+        .button{
+            background: #0f7a3c;
+            color: #d4ffd1;
+            /* width: 16.3vw; */
+            padding-left: 1vw;
+            padding-right: 1vw;
+            height: 30%;
+            margin-left: 1vw;
+            text-align: center;
+            border-radius: 0.5vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            transition: 0.3s;
+            font-size: 3vw;
+            font-family: inherit;
+            cursor: pointer;
+        }
+        .button:hover{
+            transform: scale(1.05);
+        }
+        input{
+            background:#053017;
+            color: #a5f8d1;
+            border: none;
+            border-radius: 0.5vw;
+            margin-left: 1vw;
+            width: 16vw;
+            text-align: center;
+            font-size: 3vw;
+            font-family: "Chivo Mono";
+        }
+        input::placeholder{
+            color: #1d553f
+        }
+        input:focus{
+            outline: none;
+            background: #0f7a3c;
+        
+        }
+        input:focus::placeholder{
+            color: #649380
+        }
+        .submit{
+            right: 1vw;
+            position: absolute;
+        }
+        #gradientIn1{
+            margin-left: 6.5vw;
+        }
+        #solidIn{
+            margin-left: 3.6vw;
+        }
+        .section{
+            display: flex;
+            flex-direction: row;
+            margin-bottom: 1vw;
+            width: 100%;
+        }
+        #date{
+            position: absolute;
+            top: 6vw;
+            font-size: 5vw;
+            left: 50%;
+            transform: translate(-50%);
+            font-family: "Chivo Mono";
+            
         }
     </style>
 </head>
 <body>
+    <div id="background"></div>
+    <div id="date">
+        <b><span id="outputDate"></span></b>
+    </div>
     <div id="clock">
         <span id="output"></span>
     </div>
+    <div id="settings">
+        <div class="section">
+            <div class="sectionTxt">Solid Color:</div>
+            <input id="solidIn" type="text" placeholder="#FFFFFF">
+            <div id="solidSubmit" class="button submit" onclick="solidSubmit()">Submit</div>
+        </div>
+        <div class="section">
+            <div class="sectionTxt">Gradient:</div>
+            <input id="gradientIn1" type="text" placeholder="#FFFFFF">
+            <input id="gradientIn2" type="text" placeholder="#FFFFFF">
+            <input id="gradientRotationIn" type="text" placeholder="Rotation">
+            <div id="gradientSubmit" class="button submit" onclick="gradientSubmit()">Submit</div>
+        </div>
+        <div class="section">
+            <div class="sectionTxt">Date Format:</div>
+            <div id="dateFormatDDMMYY" class="button" onclick="dateFormat(0)">DD/MM/YYYY</div>
+            <div id="dateFormatMMDDYY" class="button" onclick="dateFormat(1)">MM/DD/YYYY</div>
+        
+        </div>
+    </div>
 
     <script>
-        function getTime() {
-            var date = new Date();
+        let colorSelection = localStorage.getItem("colorSelection");
+        let clock = document.querySelector("#output");
+        let date = document.querySelector("#outputDate");
+        function solidSubmit() {
+            let colorSolid = document.querySelector("#solidIn").value;
+            localStorage.setItem("colorSolid", colorSolid);
+            clock.style.background = colorSolid;
+            clock.style["-webkit-text-fill-color"] = "transparent";
+            clock.style["-webkit-background-clip"] = "text";
+            clock.style["background-clip"] = "text";
+            date.style.background = colorSolid;
+            date.style["-webkit-text-fill-color"] = "transparent";
+            date.style["-webkit-background-clip"] = "text";
+            date.style["background-clip"] = "text";
+            colorSelection="0";
+            localStorage.setItem('colorSelection', 0);
+
+
+        }
+        function gradientSubmit() {
+            let colorGradient1 = document.querySelector("#gradientIn1").value;
+            let colorGradient2 = document.querySelector("#gradientIn2").value;
+            let rotationGradient = document.querySelector("#gradientRotationIn").value;
+            localStorage.setItem("colorGradient1", colorGradient1);
+            localStorage.setItem("colorGradient2", colorGradient2);
+            localStorage.setItem("rotationGradient", rotationGradient);
+            if(isNaN(rotationGradient)||rotationGradient=="") {
+                clock.style.background = `linear-gradient(180deg, ${colorGradient1}, ${colorGradient2})`
+                date.style.background = `linear-gradient(180deg, ${colorGradient1}, ${colorGradient2})`
+            }else{
+                clock.style.background = `linear-gradient(${rotationGradient}deg, ${colorGradient1}, ${colorGradient2})`
+                date.style.background = `linear-gradient(${rotationGradient}deg, ${colorGradient1}, ${colorGradient2})`
+            }
+            clock.style["-webkit-text-fill-color"] = "transparent";
+            clock.style["-webkit-background-clip"] = "text";
+            clock.style["background-clip"] = "text";
+            date.style["-webkit-text-fill-color"] = "transparent";
+            date.style["-webkit-background-clip"] = "text";
+            date.style["background-clip"] = "text";
+            colorSelection="1";
+            localStorage.setItem('colorSelection', 1);
+
+        }
+        function gettime() {
+            let date = new Date();
             currentMinutes = date.getMinutes();
+            currentMinutes = ("0" + currentMinutes).slice(-2);
+            
             currentHours = date.getHours();
             currentHours = ("0" + currentHours).slice(-2);
             document.getElementById("output").innerHTML=currentHours+":"+currentMinutes;
         }
+        var datemode = localStorage.getItem("dateMode");
+        function dateFormat(mode) {
+            datemode = mode;
+            localStorage.setItem("dateMode", datemode);
+            getdate();
+        }
+        function getdate() {
+            let date = new Date();
+            currentDay = date.getDate();
+            currentMonth = date.getMonth()+1
+            currentYear = date.getFullYear();
+            if (datemode==0||datemode==undefined) {
+                document.getElementById("outputDate").innerHTML = currentDay+"-"+currentMonth+"-"+currentYear
+            }else if (datemode==1) {
+                document.getElementById("outputDate").innerHTML = currentMonth+"-"+currentDay+"-"+currentYear
+            }
+        }
+
+
+        document.querySelector("#solidIn").value = localStorage.getItem("colorSolid");
+        document.querySelector("#gradientIn1").value = localStorage.getItem("colorGradient1");
+        document.querySelector("#gradientIn2").value = localStorage.getItem("colorGradient2");
+        document.querySelector("#gradientRotationIn").value = localStorage.getItem("rotationGradient");
+
+
+        if(colorSelection==0){
+            localStorage.setItem("colorGradient1", "");
+            localStorage.setItem("colorGradient2", "");
+            localStorage.setItem("rotationGradient", "");
+            solidSubmit();
+        }else{
+            localStorage.setItem("colorSolid", "");
+            gradientSubmit();
+        }
+
+        
+
         function reload() {
             location.reload();
         }
-        setInterval(getTime, 500);
-        setInterval(reload, 10000);
+
+
+        gettime();
+        getdate();
+        setInterval(gettime, 1000);
+        setInterval(getdate, 1000);
+        setInterval(reload, 60*60*1000);
     </script>
 </body>
 </html>
