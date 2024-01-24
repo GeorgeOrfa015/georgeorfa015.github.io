@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
+<!-- saved from url=(0038)http://orfanidesg15.free.nf/clock/?i=1 -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wall Clock</title>
     <style>
@@ -85,6 +85,7 @@
             text-align: center;
             font-size: 3vw;
             font-family: "Chivo Mono";
+            transition: 0.3s;
         }
         input::placeholder{
             color: #1d553f
@@ -95,7 +96,7 @@
         
         }
         input:focus::placeholder{
-            color: #649380
+            color: #4a9d7c
         }
         .submit{
             right: 1vw;
@@ -115,22 +116,35 @@
         }
         #date{
             position: absolute;
-            top: 6vw;
+            top: 12vh;
             font-size: 5vw;
             left: 50%;
             transform: translate(-50%);
             font-family: "Chivo Mono";
             
         }
+        .descriptionTxt{
+            font-size: 2vw;
+            justify-content: center;
+            margin-left: 1vw;
+        }
+        a{
+            text-decoration: none;
+            color: #33c26e;
+            transition: 0.2s;
+        }
+        a:hover{
+            color: #95e4b6;
+        }
     </style>
 </head>
 <body>
     <div id="background"></div>
     <div id="date">
-        <b><span id="outputDate"></span></b>
+        <b><span id="outputDate" style="-webkit-text-fill-color: transparent; background-clip: text;">24-1-2024</span></b>
     </div>
     <div id="clock">
-        <span id="output"></span>
+        <span id="output" style="-webkit-text-fill-color: transparent; background-clip: text;">13:07</span>
     </div>
     <div id="settings">
         <div class="section">
@@ -149,8 +163,12 @@
             <div class="sectionTxt">Date Format:</div>
             <div id="dateFormatDDMMYY" class="button" onclick="dateFormat(0)">DD/MM/YYYY</div>
             <div id="dateFormatMMDDYY" class="button" onclick="dateFormat(1)">MM/DD/YYYY</div>
-        
         </div>
+        <div class="section">
+            <div class="descriptionTxt">
+                Any hex code can be used for the colors, in addition to any of the colors in the <a target="_blank" href="https://www.w3.org/wiki/CSS3/Color/Extended_color_keywords">CSS Extended Color Keywords List</a>, or in RGB format (e.g. rbg(255,255,255)). Rotation is defined in degrees.
+            </div>
+        </div>  
     </div>
 
     <script>
@@ -254,5 +272,5 @@
         setInterval(getdate, 1000);
         setInterval(reload, 60*60*1000);
     </script>
-</body>
-</html>
+
+</body></html>
