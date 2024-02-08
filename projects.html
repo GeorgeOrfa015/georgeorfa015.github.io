@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Projects</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
+        body{
+            font-family: "Poppins", "Manrope";
+            font-weight: 500;
+            background: #090f0c;
+        }
+        #header{
+            width: 99vw;
+            height: 12vw;
+            position: absolute;
+            left: 0;
+            top: 0;
+            text-align: center;
+            color: #d4ffd1;
+            font-weight: 700;  
+            padding-top: 3vw;
+        }
+        .headerText{
+            font-size: 6.5vw;
+        }
+        #project-cont{
+            position: absolute;
+            top: 15vw;
+            left: 0;
+            padding: 0.5vw;
+            text-align: center;
+            width: 98vw;
+        }
+        .project{
+            background: #0f7a3c;
+            width: 31vw;
+            border-radius: 0.5vw;
+            margin: 0.5vw;
+            padding: 0.5vw;
+            transition: 0.3s;
+            text-align: left;
+        }
+        .project:hover{
+            transform: scale(1.02);
+        }
+        .project:focus{
+            outline: none;
+            transform: scale(1.02);
+            background: #0b9243;
+        }
+        .project-title{
+            color: #d4ffd1;
+            font-size: 2vw
+        }
+        .project-hyperlink{
+            color: #7fb48f;
+        }
+        .project-cont-inner{
+            display: flex;
+            flex-direction: row;
+            justify-content:center;
+        }
+        a{
+            text-decoration: none;
+        }
+        h1{
+            color: #d4ffd1;
+            font-size: 2.5vw;
+            margin-top: 4vw;
+            margin-bottom: 1vw;
+        }
+        ::-webkit-scrollbar {
+            width: 1vw;
+            transition: 0.3s;
+        }
+        ::-webkit-scrollbar-thumb{
+            background: #042511;
+            border-radius: 0.5vw;
+            width: 0.1vw;
+            transition: 0.3s;
+        }
+        ::-webkit-scrollbar-thumb:hover{
+            background: #063117;
+        }
+        ::-webkit-scrollbar-thumb:active{
+            background: #094220;
+        }
+        ::-webkit-scrollbar-track{
+            background: #07180e;
+            border-radius: 0.5vw;
+            transition: 0.3s;
+
+        }
+    </style>
+</head>
+<body>
+    <div id="header">
+        <span class="headerText">Σχολικές Παρουσιάσεις</span>
+    </div>
+    <div id="project-cont">
+        <h1>Α' Λυκείου &nbsp; 2023-2024</h1>
+        <div class="project-cont-inner">
+            <a class="project" href="https://docs.google.com/presentation/d/1HJ4p1I8hA3PSTGPLd8FCNg4NWOeQwBQiGJHSB9-Apyo/edit?usp=sharing">
+                <span class="project-title">Art Forms</span><br>
+                <span class="project-hyperlink">Αγγλικά - Google Slides</span>
+            </a>
+        </div>
+        <h1>Γ' Γυμνασίου &nbsp; 2022-2023</h1>
+        <div class="project-cont-inner">
+            <a class="project" href="https://www.canva.com/design/DAFiP-CJnZ4/8W8XRPBe2J9sJYVYIv8_bg/view?utm_content=DAFiP-CJnZ4&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink">
+                <span class="project-title">Μυθικά στοιχεία στην Ελένη</span><br>
+                <span class="project-hyperlink">Ελένη - Canva</span>
+            </a>
+            <a class="project" href="https://docs.google.com/presentation/d/1KeSU6rvRRTJg-oBvebRUg61J1n2ssXo4zz_O4iCIVJ0/edit?usp=sharing">
+                <span class="project-title">World Tour</span><br>
+                <span class="project-hyperlink">Αγγλικά - Google Slides</span>
+            </a>
+            
+        </div>
+        <h1>Β' Γυμνασίου &nbsp; 2021-2022</h1>
+        <div class="project-cont-inner">
+            <a class="project" href="https://docs.google.com/presentation/d/1D1RQS3JJ7QqXPc5lOc_aftLV5CfzADkNHyFJvGxCA4Y/edit?usp=sharing">
+                <span class="project-title">Τσουνάμι από Σεισμούς</span><br>
+                <span class="project-hyperlink">Εργαστήρια Δεξιοτήτων - Google Slides</span>
+            </a>
+        </div>
+    </div>
+</body>
+</html>
