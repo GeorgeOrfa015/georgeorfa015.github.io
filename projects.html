@@ -55,8 +55,9 @@
             color: #d4ffd1;
             font-size: 2vw
         }
-        .project-hyperlink{
+        .project-desc{
             color: #7fb48f;
+            font-size: 1.8vw;
         }
         .project-cont-inner{
             display: flex;
@@ -92,7 +93,53 @@
             background: #07180e;
             border-radius: 0.5vw;
             transition: 0.3s;
-
+        }
+        @media(max-width:600px){
+            #header{
+                height: 35vw;
+                width: 100vw;
+            }
+            
+            .headerText{
+                font-size: 12vw;
+            }
+            #project-cont{
+                top: 12vw;
+                left: 0;
+                padding: 0.5vw;
+                text-align: center;
+                width: 100vw;
+            }
+            .project-cont-inner{
+                flex-direction:column;
+            }
+            .project{
+                background: #0f7a3c;
+                width: 95vw;
+                border-radius: 2vw;
+                margin: 2vw;
+                text-align: center;
+            }
+            .project-title{
+                font-size: 6vw
+            }
+            .project-desc{
+                font-size: 4.5vw;
+            }
+            h1{
+                color: #d4ffd1;
+                font-size: 6.5vw;
+                margin-top: 4vw;
+                margin-bottom: 1vw;
+            }
+            #project-cont{
+                position: absolute;
+                top: 35vw;
+                left: 0;
+                padding: 0vw;
+                text-align: center;
+                width: 98vw;
+            }
         }
     </style>
 </head>
@@ -105,18 +152,18 @@
         <div class="project-cont-inner">
             <a class="project" href="https://docs.google.com/presentation/d/1HJ4p1I8hA3PSTGPLd8FCNg4NWOeQwBQiGJHSB9-Apyo/edit?usp=sharing">
                 <span class="project-title">Art Forms</span><br>
-                <span class="project-hyperlink">Αγγλικά - Google Slides</span>
+                <span class="project-desc">Αγγλικά - Google Slides</span>
             </a>
         </div>
         <h1>Γ' Γυμνασίου &nbsp; 2022-2023</h1>
         <div class="project-cont-inner">
             <a class="project" href="https://www.canva.com/design/DAFiP-CJnZ4/8W8XRPBe2J9sJYVYIv8_bg/view?utm_content=DAFiP-CJnZ4&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink">
                 <span class="project-title">Μυθικά στοιχεία στην Ελένη</span><br>
-                <span class="project-hyperlink">Ελένη - Canva</span>
+                <span class="project-desc">Ελένη - Canva</span>
             </a>
             <a class="project" href="https://docs.google.com/presentation/d/1KeSU6rvRRTJg-oBvebRUg61J1n2ssXo4zz_O4iCIVJ0/edit?usp=sharing">
                 <span class="project-title">World Tour</span><br>
-                <span class="project-hyperlink">Αγγλικά - Google Slides</span>
+                <span class="project-desc">Αγγλικά - Google Slides</span>
             </a>
             
         </div>
@@ -124,7 +171,7 @@
         <div class="project-cont-inner">
             <a class="project" href="https://docs.google.com/presentation/d/1D1RQS3JJ7QqXPc5lOc_aftLV5CfzADkNHyFJvGxCA4Y/edit?usp=sharing">
                 <span class="project-title">Τσουνάμι από Σεισμούς</span><br>
-                <span class="project-hyperlink">Εργαστήρια Δεξιοτήτων - Google Slides</span>
+                <span class="project-desc">Εργαστήρια Δεξιοτήτων - Google Slides</span>
             </a>
         </div>
     </div>
