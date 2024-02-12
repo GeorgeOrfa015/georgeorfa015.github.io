@@ -4,9 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>School Projects</title>
+    <meta content="G. Orfanides | School Projects" property="og:title" />
+    <meta content="School Presentations" property="og:description" />
+    <meta content="https://georgeorfa015.github.io/" property="og:url" />
+    <meta content="https://i.imgur.com/fv55MPW.png" property="og:image" />
+    <meta content="#0f7a3c" data-react-helmet="true" name="theme-color" id="theme-color"/>
+    <link rel="icon" href="../WebsiteLogo2.ico">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@300;900&display=swap');
         body{
             font-family: "Poppins", "Manrope";
             font-weight: 500;
@@ -94,6 +101,42 @@
             border-radius: 0.5vw;
             transition: 0.3s;
         }
+        #content{
+            display: none;
+        }
+    
+        #password{
+            display: flex;
+            justify-content: center;
+        }
+        #password-inner{
+            position: absolute;
+            top: 50%;
+            transform: translate(0,-50%);
+            text-align: center;
+        }
+        #pass{
+            background: #094220;
+            border: none;
+            border-radius: 0.5vw;
+            padding: 0.5vw;
+            font-size: 1.75vw;
+            color:#d4ffd1;
+        }
+        #pass::placeholder{
+            color:#318554
+        }
+        #passSubmit{
+            background: #0f7a3c;
+            border: none;
+            border-radius: 0.5vw;
+            font-size: 1.75vw;
+            padding: 0.5vw;
+            color: #d4ffd1
+        }
+        #passOut{
+            color: #ce3737;
+        }
         @media(max-width:600px){
             #header{
                 height: 35vw;
@@ -141,39 +184,173 @@
                 width: 98vw;
             }
         }
+
     </style>
 </head>
 <body>
-    <div id="header">
-        <span class="headerText">Σχολικές Παρουσιάσεις</span>
-    </div>
-    <div id="project-cont">
-        <h1>Α' Λυκείου &nbsp; 2023-2024</h1>
-        <div class="project-cont-inner">
-            <a class="project" href="https://docs.google.com/presentation/d/1HJ4p1I8hA3PSTGPLd8FCNg4NWOeQwBQiGJHSB9-Apyo/edit?usp=sharing">
-                <span class="project-title">Art Forms</span><br>
-                <span class="project-desc">Αγγλικά - Google Slides</span>
-            </a>
-        </div>
-        <h1>Γ' Γυμνασίου &nbsp; 2022-2023</h1>
-        <div class="project-cont-inner">
-            <a class="project" href="https://www.canva.com/design/DAFiP-CJnZ4/8W8XRPBe2J9sJYVYIv8_bg/view?utm_content=DAFiP-CJnZ4&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink">
-                <span class="project-title">Μυθικά στοιχεία στην Ελένη</span><br>
-                <span class="project-desc">Ελένη - Canva</span>
-            </a>
-            <a class="project" href="https://docs.google.com/presentation/d/1KeSU6rvRRTJg-oBvebRUg61J1n2ssXo4zz_O4iCIVJ0/edit?usp=sharing">
-                <span class="project-title">World Tour</span><br>
-                <span class="project-desc">Αγγλικά - Google Slides</span>
-            </a>
-            
-        </div>
-        <h1>Β' Γυμνασίου &nbsp; 2021-2022</h1>
-        <div class="project-cont-inner">
-            <a class="project" href="https://docs.google.com/presentation/d/1D1RQS3JJ7QqXPc5lOc_aftLV5CfzADkNHyFJvGxCA4Y/edit?usp=sharing">
-                <span class="project-title">Τσουνάμι από Σεισμούς</span><br>
-                <span class="project-desc">Εργαστήρια Δεξιοτήτων - Google Slides</span>
-            </a>
+    <div id="password">
+        <div id="password-inner">
+            <input id="pass" type="password" placeholder="Enter Password">
+            <button id ="passSubmit" onclick="submitPassword()">Submit</button><br><span id="passOut">&nbsp;</span>
         </div>
     </div>
+    <div id="content">
+        <div id="header">
+            <span class="headerText">Σχολικές Παρουσιάσεις</span>
+        </div>
+        <div id="project-cont">
+            <h1>Α' Λυκείου &nbsp; 2023-2024</h1>
+            <div class="project-cont-inner">
+                <a class="project" href="https://docs.google.com/presentation/d/1HJ4p1I8hA3PSTGPLd8FCNg4NWOeQwBQiGJHSB9-Apyo/edit?usp=sharing">
+                    <span class="project-title">Art Forms</span><br>
+                    <span class="project-desc">Αγγλικά - Google Slides</span>
+                </a>
+            </div>
+            <h1>Γ' Γυμνασίου &nbsp; 2022-2023</h1>
+            <div class="project-cont-inner">
+                <a class="project" href="https://www.canva.com/design/DAFiP-CJnZ4/8W8XRPBe2J9sJYVYIv8_bg/view?utm_content=DAFiP-CJnZ4&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink">
+                    <span class="project-title">Μυθικά στοιχεία στην Ελένη</span><br>
+                    <span class="project-desc">Ελένη - Canva</span>
+                </a>
+                <a class="project" href="https://docs.google.com/presentation/d/1KeSU6rvRRTJg-oBvebRUg61J1n2ssXo4zz_O4iCIVJ0/edit?usp=sharing">
+                    <span class="project-title">World Tour</span><br>
+                    <span class="project-desc">Αγγλικά - Google Slides</span>
+                </a>
+                
+            </div>
+            <h1>Β' Γυμνασίου &nbsp; 2021-2022</h1>
+            <div class="project-cont-inner">
+                <a class="project" href="https://docs.google.com/presentation/d/1D1RQS3JJ7QqXPc5lOc_aftLV5CfzADkNHyFJvGxCA4Y/edit?usp=sharing">
+                    <span class="project-title">Τσουνάμι από Σεισμούς</span><br>
+                    <span class="project-desc">Εργαστήρια Δεξιοτήτων - Google Slides</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <span>
+        <span>
+            <span>
+                <span>
+                    <span>
+                        <span>
+                            <span>
+                                <span>
+                                    <span>
+                                        <span>
+                                            <span>
+                                                <span>
+                                                    <span>
+                                                        <span>
+                                                            <span>
+                                                                <span>
+                                                                    <span>
+                                                                        <span>
+                                                                            <span>
+                                                                                <span>
+                                                                                    <span>
+                                                                                        <span>
+                                                                                            <span>
+                                                                                                <span>
+                                                                                                    <span>
+                                                                                                        <span>
+                                                                                                            <span>
+                                                                                                                <span>
+                                                                                                                    <span>
+                                                                                                                        <span>
+                                                                                                                            <span>
+                                                                                                                                <span>
+                                                                                                                                    <span>
+                                                                                                                                        <span>
+                                                                                                                                            <span>
+                                                                                                                                                <span>
+                                                                                                                                                    <span>
+                                                                                                                                                        <span>
+                                                                                                                                                            <span>
+                                                                                                                                                                <span>
+                                                                                                                                                                    <span>
+                                                                                                                                                                        <span>
+                                                                                                                                                                            <span>
+                                                                                                                                                                                <span>
+                                                                                                                                                                                    <span>
+                                                                                                                                                                                        <span>
+                                                                                                                                                                                            <span>
+                                                                                                                                                                                                <span>
+                                                                                                                                                                                                    <span>
+                                                                                                                                                                                                        <span>
+                                                                                                                                                                                                            <span>
+                                                                                                                                                                                                                <span>
+                                                                                                                                                                                                                    <span>
+                                                                                                                                                                                                                        <span>
+                                                                                                                                                                                                                            <span>
+                                                                                                                                                                                                                                <span>
+                                                                                                                                                                                                                                    <script>
+                                                                                                                                                                                                                                        function submitPassword() {
+                                                                                                                                                                                                                                            let input = document.getElementById("pass").value;
+                                                                                                                                                                                                                                            var password = (Math.floor(6.3245**2))%24+"lorem"+(299792459-1**24654**25676543**223**254)+"ipsum";
+                                                                                                                                                                                                                                            // For clarification, I have never used this password and will never use it, so don't bother trying to bruteforce my email or smth
+                                                                                                                                                                                                                                            if (input==password) {
+                                                                                                                                                                                                                                                document.getElementById("content").style.display="block"
+                                                                                                                                                                                                                                                document.getElementById("password").style.display="none";
+                                                                                                                                                                                                                                            }else{
+                                                                                                                                                                                                                                                document.getElementById("passOut").innerHTML="Wrong password!"
+                                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                                    </script>
+                                                                                                                                                                                                                                </span>
+                                                                                                                                                                                                                            </span>
+                                                                                                                                                                                                                        </span>
+                                                                                                                                                                                                                    </span>
+                                                                                                                                                                                                                </span>
+                                                                                                                                                                                                            </span>
+                                                                                                                                                                                                        </span>
+                                                                                                                                                                                                    </span>
+                                                                                                                                                                                                </span>
+                                                                                                                                                                                            </span>
+                                                                                                                                                                                        </span>
+                                                                                                                                                                                    </span>
+                                                                                                                                                                                </span>
+                                                                                                                                                                            </span>
+                                                                                                                                                                        </span>
+                                                                                                                                                                    </span>
+                                                                                                                                                                </span>
+                                                                                                                                                            </span>
+                                                                                                                                                        </span>
+                                                                                                                                                    </span>
+                                                                                                                                                </span>
+                                                                                                                                            </span>
+                                                                                                                                        </span>
+                                                                                                                                    </span>
+                                                                                                                                </span>
+                                                                                                                            </span>
+                                                                                                                        </span>
+                                                                                                                    </span>
+                                                                                                                </span>
+                                                                                                            </span>
+                                                                                                        </span>
+                                                                                                    </span>
+                                                                                                </span>
+                                                                                            </span>
+                                                                                        </span>
+                                                                                    </span>
+                                                                                </span>
+                                                                            </span>
+                                                                        </span>
+                                                                    </span>
+                                                                </span>
+                                                            </span>
+                                                        </span>
+                                                    </span>
+                                                </span>
+                                            </span>
+                                        </span>
+                                    </span>
+                                </span>
+                            </span>
+                        </span>
+                    </span>
+                </span>
+            </span>
+        </span>
+    </span>
 </body>
 </html>
