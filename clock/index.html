@@ -107,13 +107,17 @@
         .submit{
             right: 1vw;
             position: absolute;
-            height: 5vw
+            height: 5vw;
+            width: 15vw;
         }
         #gradientIn1{
             margin-left: 6.5vw;
         }
         #solidIn{
             margin-left: 3.6vw;
+        }
+        #randomStatus{
+            margin-left: 6.5vw;
         }
         .section{
             display: flex;
@@ -167,21 +171,45 @@
             <div id="gradientSubmit" class="button submit" onclick="gradientSubmit()">Submit</div>
         </div>
         <div class="section">
+            <div class="sectionTxt">Random:</div>
+            <div class="sectionTxt" id="randomStatus">Enabled</div>
+            <div id="randomSubmit" class="button submit" onclick="randomSubmit()">Select</div>
+        
+        </div>
+        <div class="section">
             <div class="sectionTxt">Date Format:</div>
             <div id="dateFormatDDMMYY" class="button" onclick="dateFormat(0)">DD/MM/YYYY</div>
             <div id="dateFormatMMDDYY" class="button" onclick="dateFormat(1)">MM/DD/YYYY</div>
         </div>
         <div class="section">
             <div class="descriptionTxt">
-                Any hex code can be used for the colors, in addition to any of the colors in the <a target="_blank" href="https://www.w3.org/wiki/CSS3/Color/Extended_color_keywords">CSS Extended Color Keywords List</a>, or in RGB format (e.g. rbg(255,255,255)). Rotation is defined in degrees.
+                Any hex code can be used for the colors, in addition to any of the colors in the <a target="_blank" href="https://www.w3.org/wiki/CSS3/Color/Extended_color_keywords">CSS Extended Color Keywords List</a>, or in RGB format (e.g. rbg(255,255,255)). Rotation is defined in degrees. Random color changes every 30 minutes when the page automatically refreshes.
             </div>
         </div>  
     </div>
 
     <script>
+
+        function randomnumber(min,max) {
+            return Math.floor(Math.random()*(max-min)+min);
+        }    
+        function randomColor() {
+            let decR = randomnumber(0,255);
+            let hexR = decR.toString(16);
+            hexR = ("0" + hexR).slice(-2);
+            let decG = randomnumber(0,255);
+            let hexG = decG.toString(16);
+            hexG = ("0" + hexG).slice(-2);
+            let decB = randomnumber(0,255);
+            let hexB = decB.toString(16);
+            hexB = ("0" + hexB).slice(-2);
+            return `#${hexR}${hexG}${hexB}`;
+        }
+
         let colorSelection = localStorage.getItem("colorSelection");
         let clock = document.querySelector("#output");
         let date = document.querySelector("#outputDate");
+        let randomOutput = document.querySelector("#randomStatus");
         function solidSubmit() {
             let colorSolid = document.querySelector("#solidIn").value;
             localStorage.setItem("colorSolid", colorSolid);
@@ -195,8 +223,7 @@
             date.style["background-clip"] = "text";
             colorSelection="0";
             localStorage.setItem('colorSelection', 0);
-
-
+            randomOutput.innerHTML="Disabled"  
         }
         function gradientSubmit() {
             let colorGradient1 = document.querySelector("#gradientIn1").value;
@@ -220,7 +247,24 @@
             date.style["background-clip"] = "text";
             colorSelection="1";
             localStorage.setItem('colorSelection', 1);
-
+            randomOutput.innerHTML="Disabled"  
+        
+        }
+        function randomSubmit() {
+            let colorRandom1 = randomColor();
+            let colorRandom2 = randomColor();
+            let rotationRandom = randomnumber(0,360);
+            clock.style.background = `linear-gradient(${rotationRandom}deg, ${colorRandom1}, ${colorRandom2})`
+            date.style.background = `linear-gradient(${rotationRandom}deg, ${colorRandom1}, ${colorRandom2})`
+            clock.style["-webkit-text-fill-color"] = "transparent";
+            clock.style["-webkit-background-clip"] = "text";
+            clock.style["background-clip"] = "text";
+            date.style["-webkit-text-fill-color"] = "transparent";
+            date.style["-webkit-background-clip"] = "text";
+            date.style["background-clip"] = "text";
+            colorSelection="2"
+            localStorage.setItem('colorSelection', 2);     
+            randomOutput.innerHTML="Enabled"  
         }
         function gettime() {
             let date = new Date();
@@ -256,15 +300,21 @@
         document.querySelector("#gradientRotationIn").value = localStorage.getItem("rotationGradient");
 
 
-        if(colorSelection==0){
+        if(colorSelection==0||colorSelection==undefined){
             localStorage.setItem("colorGradient1", "");
             localStorage.setItem("colorGradient2", "");
             localStorage.setItem("rotationGradient", "");
             solidSubmit();
-        }else{
+        }else if(colorSelection==1){
             localStorage.setItem("colorSolid", "");
             gradientSubmit();
-        }
+        }else{
+            localStorage.setItem("colorGradient1", "");
+            localStorage.setItem("colorGradient2", "");
+            localStorage.setItem("rotationGradient", "");
+            localStorage.setItem("colorSolid", "");
+            randomSubmit();
+         }
 
         
 
@@ -277,7 +327,7 @@
         getdate();
         setInterval(gettime, 1000);
         setInterval(getdate, 1000);
-        setInterval(reload, 60*60*1000);
+        setInterval(reload, 30*60*1000);
     </script>
 </body>
 </html>
