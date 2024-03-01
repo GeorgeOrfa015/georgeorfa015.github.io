@@ -18,6 +18,10 @@
             color: #fff;
             line-height: 1.75vw;
         }
+        input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button { 
+            -webkit-appearance: none; 
+            margin: 0; 
+        }
         .outerProjectContainer{
             width: 96vw;
             height: 15vw;
@@ -42,6 +46,7 @@
         }
         .projectInput{
             margin-left: 0;
+            text-align: center;
         }
         .projectOutput{
             width: 46.25vw;
@@ -69,10 +74,12 @@
             border: none;
             height: 3.5vw;
             border-radius: 0.5vw;
-            width: 22.125vw;
+            width: 22.25vw;
             text-align: center;
             font-size: 1.5vw;
             font-family: inherit;
+            padding: 0;
+               
         }
         input:focus{
             outline:none;
@@ -163,7 +170,7 @@
             </span>
         </div>
         <div class="projectInput">
-            <input class="input" id="calc1in" placeholder="Enter an integer..." oninput="calc1()">
+            <input type="number" class="input" id="calc1in" placeholder="Enter an integer..." oninput="calc1()">
         </div>
         <div class="projectOutput">
             <span class="itemHeading">Factors</span><br><span id="calc1out"></span>
@@ -179,7 +186,7 @@
         </span>
         </div>
         <div class="projectInput">
-            <input class="input" id="calc2in" placeholder="Enter an integer..." oninput="calc2()">
+            <input type="number" class="input" id="calc2in" placeholder="Enter an integer..." oninput="calc2()">
         </div>
         <div class="projectOutput">
             <span class="itemHeading">Triangular Numbers</span><br><span id="calc2out"></span>
