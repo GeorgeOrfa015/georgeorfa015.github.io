@@ -87,6 +87,67 @@
         #cont2{
             top: 16vw;
         }
+        @media(max-width:600px){
+            body{
+                line-height: 4.5vw;
+            }
+            .outerProjectContainer{
+                width: 94vw;
+                height: 150vw;
+                margin: 1.5vw 3vw 1.5vw 3vw;
+                flex-direction: column;
+                border-radius: 2vw;
+                overflow: hidden;
+            }   
+            .projectDescription,.projectInput{
+                width: 86vw;
+                margin: 2vw;
+                border-radius: 2vw;
+                padding: 2vw;
+                height: 35vw;
+            }
+            .projectInput{
+                margin-top: 0;
+                text-align: center;
+            }
+            .projectOutput{
+                width: 86vw;
+                height: 72vw;
+                background: #023116;
+                border-radius: 2vw;
+                margin: 2vw;
+                padding: 2vw;
+                margin-top: 0;
+            }
+            input{
+                background:#10813f;
+                color: #fff;
+                border: none;
+                height: 11vw;
+                border-radius: 2vw;
+                width: 85vw;
+                text-align: center;
+                font-size: 4.8vw;
+                font-family: inherit;
+            }
+
+
+            .itemHeading{
+                font-size:  5vw;
+                font-weight: 600;
+            }
+            span,.itemDescription{
+                font-size: 3.5vw;
+                font-weight: 300;
+        }
+            
+            #cont1{
+                margin-top: 3vw;
+            }
+            #cont2{
+                top: 154vw;
+            }   
+        }
     </style>
 </head>
 <body>
@@ -116,12 +177,11 @@
             Output: 1+2+3+...+n
         </span>
         </div>
-        <div class="projectOutput">
-            <span class="itemHeading">Triangular Numbers</span><br><span id="calc2out"></span>
-        </div>
         <div class="projectInput">
             <input class="input" id="calc2in" placeholder="Enter an integer..." oninput="calc2()">
-        
+        </div>
+        <div class="projectOutput">
+            <span class="itemHeading">Triangular Numbers</span><br><span id="calc2out"></span>
         </div>
     </div>
     <script>
