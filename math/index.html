@@ -79,7 +79,7 @@
             font-size: 1.5vw;
             font-family: inherit;
             padding: 0;
-               
+            margin-bottom: 1vw;
         }
         input:focus{
             outline:none;
@@ -93,6 +93,9 @@
 
         #cont2{
             top: 16vw;
+        }
+        #cont3{
+            top: 32vw;
         }
         @media(max-width:600px){
             body{
@@ -161,7 +164,7 @@
 <body>
     <div class="outerProjectContainer" id="cont1">
         <div class="projectDescription">
-            <span class="itemHeading">Factor Calculator</span><br>
+            <span class="itemHeading">Factor Finder</span><br>
             <span class="itemDescription">
                 Find all factors of any integer<br>
                 <br>
@@ -189,7 +192,23 @@
             <input type="number" class="input" id="calc2in" placeholder="Enter an integer..." oninput="calc2()">
         </div>
         <div class="projectOutput">
-            <span class="itemHeading">Triangular Numbers</span><br><span id="calc2out"></span>
+            <span class="itemHeading">n-th Triangular Number</span><br><span id="calc2out"></span>
+        </div>
+    </div>
+    <div class="outerProjectContainer" id="cont3">
+        <div class="projectDescription">
+            <span class="itemHeading">Factorial Calculator</span><br>
+            <span class="itemDescription">The factorial n! is equal to n multiplied by every number that precedes it. Alternatively, in mathematical terms, n! is equal to n(n-1)<br>
+                <br>
+                Input: Any integer (n)<br>
+                Output: n(n-1)
+        </span>
+        </div>
+        <div class="projectInput">
+            <input type="number" class="input" id="calc3in" placeholder="Enter an integer..." oninput="calc3()">
+        </div>
+        <div class="projectOutput">
+            <span class="itemHeading">Factorial n!</span><br><span id="calc3out"></span>
         </div>
     </div>
     <script>
@@ -228,7 +247,26 @@
         }else{
             output.innerHTML=sum+" = "+desc;
         }
-
+    }
+    function calc3() {
+        let input = document.querySelector("#calc3in").value;
+        let output = document.querySelector("#calc3out");
+        let factorial = 1;
+        let desc = "";
+        for (i=1;i<=input;i++) {
+            factorial*=i;
+        }
+        desc = desc.slice(0, -2);
+        
+        if (input==0) {
+            factorial=1;
+        }
+        if (isNaN(input)||input==""){
+            output.innerHTML="";
+        }else{
+            output.innerHTML=input+"! = "+factorial;
+            
+        };
     }
         
         
