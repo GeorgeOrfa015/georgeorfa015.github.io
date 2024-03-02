@@ -97,6 +97,9 @@
         #cont3{
             top: 32vw;
         }
+        #cont4{
+            top: 48vw;
+        }
         @media(max-width:600px){
             body{
                 line-height: 5.25vw;
@@ -161,6 +164,9 @@
             #cont3{
                 top: 310vw;
             }
+            #cont4{
+                top: 465vw;
+            }
         }
     </style>
 </head>
@@ -212,6 +218,22 @@
         </div>
         <div class="projectOutput">
             <span class="itemHeading">Factorial n!</span><br><span id="calc3out"></span>
+        </div>
+    </div>
+    <div class="outerProjectContainer" id="cont4">
+        <div class="projectDescription">
+            <span class="itemHeading">Least Common Multiple</span><br>
+            <span class="itemDescription">The least common multiple is defined as the smallest non-zero multiple that two or more numbers have in common.<br>
+                <br>
+                Input: Multiple integers separated by a space i.e 15 83 31<br>
+                Output: The least common multiple of the numbers
+        </span>
+        </div>
+        <div class="projectInput">
+            <input class="input" id="calc4in" placeholder="Enter numbers..." oninput="calc4()">
+        </div>
+        <div class="projectOutput">
+            <span class="itemHeading">Least Common Multiple</span><br><span id="calc4out"></span>
         </div>
     </div>
     <script>
@@ -271,7 +293,49 @@
             
         };
     }
+    function calc4() {
+        function lcm(numList) {
+            let multiple = Math.max.apply(null,numList);
+
+            while (!allFactors(numList, multiple)) {
+                multiple += 1
+            }
+            
+            return multiple;
+        }
+        function allFactors(numList, x){
+            for (let number of numList){
+                if (x % number != 0) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        let input = document.querySelector("#calc4in").value;
+        let output = document.querySelector("#calc4out");
+        if (input==""){
+            output.innerHTML=""; //empty input
+        }else if (input.split(" ").includes("")) { //has empty element
+            output.innerHTML="Error: Extra space character detected."; //error empty element
+        }else if (input==0||input.split(" ").includes("0")){ //is or includes 0
+            output.innerHTML="Error: The LCM of 0 is not defined." //error 0 not defined
+        }else if (input.split(" ").length<2) { //has less than 2 elements or is empty
+            if(!isNaN(input)){ //is a number
+                output.innerHTML="LCM("+input+") = "+input;//success 1 element
+            }else{ //is not a number
+                output.innerHTML="Error: Input contains text."; //error not a number
+            }
+        }else{ // has 2 or more elements
+            if (input.split(" ").every((element) => !isNaN(element))) { //array does not include text
+                output.innerHTML="LCM("+input.replace(/ /g, ", ")+") = " + lcm(input.split(" ")); //success 2 or more elements
+            }else{ //array includes text
+                output.innerHTML="Error: Input contains text." //error text in array
+            }
+        }
         
+    }
+    
+    
         
     </script>
 </body>
