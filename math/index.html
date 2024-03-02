@@ -22,6 +22,9 @@
             -webkit-appearance: none; 
             margin: 0; 
         }
+        .outerContainer{
+            height: 66vw;
+        }
         .outerProjectContainer{
             width: 96vw;
             height: 15vw;
@@ -89,20 +92,24 @@
         }
 
 
-
-
+        #cont1{
+            top: 1vw;
+        }
         #cont2{
-            top: 16vw;
+            top: 17vw;
         }
         #cont3{
-            top: 32vw;
+            top: 33vw;
         }
         #cont4{
-            top: 48vw;
+            top: 49vw;
         }
         @media(max-width:600px){
             body{
                 line-height: 5.25vw;
+            }
+            .outerContainer{
+                height: 620vw;
             }
             .outerProjectContainer{
                 width: 94vw;
@@ -153,24 +160,25 @@
             span,.itemDescription{
                 font-size: 3.5vw;
                 font-weight: 300;
-        }
+            }
             
             #cont1{
-                margin-top: 3vw;
+                margin-top: 2vw;
             }
             #cont2{
-                top: 155vw;
+                top: 156vw;
             }   
             #cont3{
-                top: 310vw;
+                top: 312vw;
             }
             #cont4{
-                top: 465vw;
+                top: 468vw;
             }
         }
     </style>
 </head>
 <body>
+<div class="outerContainer">
     <div class="outerProjectContainer" id="cont1">
         <div class="projectDescription">
             <span class="itemHeading">Factor Finder</span><br>
@@ -236,6 +244,7 @@
             <span class="itemHeading">Least Common Multiple</span><br><span id="calc4out"></span>
         </div>
     </div>
+</div>
     <script>
     function calc1() {
         let input = document.querySelector("#calc1in");
