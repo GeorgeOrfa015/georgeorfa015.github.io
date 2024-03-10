@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wall Clock</title>
+    <meta content="G. Orfanides | Countdown to next year" property="og:title" />
+    <meta content="COuntdown to next year" property="og:description" />
+    <meta content="https://georgeorfa015.github.io/timer/" property="og:url" />
+    <meta content="https://i.imgur.com/fv55MPW.png" property="og:image" />
+    <meta content="#000" data-react-helmet="true" name="theme-color" id="theme-color"/>
+    <link rel="icon" href="../WebsiteLogo2.ico">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@300;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        body{
+            background-color: #000000;
+            color: #fff;
+            font-family: poppins;
+        }
+        #clock{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            font-size: 6vw;
+            font-family: "Chivo Mono";
+            font-weight: 900;
+            width: 100%;
+            text-align: center;
+        }
+        #background{
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;    
+        }
+        #output{
+            background: #fff;
+            -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text; 
+        }        
+        #settings{
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+        }
+        .sectionTxt{
+            font-size: 3vw;
+            display:flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-left: 1vw;
+        }
+        .button{
+            background: #0f7a3c;
+            color: #d4ffd1;
+            /* width: 16.3vw; */
+            padding-left: 1vw;
+            padding-right: 1vw;
+            height: 20%;
+            margin-left: 1vw;
+            text-align: center;
+            border-radius: 0.5vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            transition: 0.3s;
+            font-size: 3vw;
+            font-family: inherit;
+            cursor: pointer;
+        }
+        .button:hover{
+            transform: scale(1.05);
+        }
+        input{
+            background:#053017;
+            color: #a5f8d1;
+            border: none;
+            border-radius: 0.5vw;
+            margin-left: 1vw;
+            width: 16vw;
+            text-align: center;
+            font-size: 3vw;
+            font-family: "Chivo Mono";
+            transition: 0.3s;
+        }
+        input::placeholder{
+            color: #1d553f
+        }
+        input:focus{
+            outline: none;
+            background: #0f7a3c;
+        
+        }
+        input:focus::placeholder{
+            color: #4a9d7c
+        }
+        .submit{
+            right: 1vw;
+            position: absolute;
+            height: 5vw;
+            width: 15vw;
+        }
+        #gradientIn1{
+            margin-left: 6.5vw;
+        }
+        #solidIn{
+            margin-left: 3.6vw;
+        }
+        #randomStatus{
+            margin-left: 6.5vw;
+        }
+        .section{
+            display: flex;
+            flex-direction: row;
+            margin-bottom: 1vw;
+            width: 100%;
+        }
+        .descriptionTxt{
+            font-size: 2vw;
+            justify-content: center;
+            margin-left: 1vw;
+        }
+        a{
+            text-decoration: none;
+            color: #33c26e;
+            transition: 0.2s;
+        }
+        a:hover{
+            color: #95e4b6;
+        }
+    </style>
+</head>
+<body>
+    <div id="background"></div>
+    <div id="clock">
+        Next year in:<br><span id="output"></span>
+    </div>
+    <div id="settings">
+        <div class="section">
+            <div class="sectionTxt">Solid Color:</div>
+            <input id="solidIn" type="text" placeholder="#FFFFFF">
+            <div id="solidSubmit" class="button submit" onclick="solidSubmit()">Submit</div>
+        </div>
+        <div class="section">
+            <div class="sectionTxt">Gradient:</div>
+            <input id="gradientIn1" type="text" placeholder="#FFFFFF">
+            <input id="gradientIn2" type="text" placeholder="#FFFFFF">
+            <input id="gradientRotationIn" type="text" placeholder="Rotation">
+            <div id="gradientSubmit" class="button submit" onclick="gradientSubmit()">Submit</div>
+        </div>
+        <div class="section">
+            <div class="sectionTxt">Random:</div>
+            <div class="sectionTxt" id="randomStatus">Enabled</div>
+            <div id="randomSubmit" class="button submit" onclick="randomSubmit()">Select</div>
+        
+        </div>
+        <div class="section">
+            <div class="descriptionTxt">
+                Any hex code can be used for the colors, in addition to any of the colors in the <a target="_blank" href="https://www.w3.org/wiki/CSS3/Color/Extended_color_keywords">CSS Extended Color Keywords List</a>, or in RGB format (e.g. rbg(255,255,255)). Rotation is defined in degrees.
+            </div>
+        </div>  
+    </div>
+
+    <script>
+        function randomnumber(min,max) {
+            return Math.floor(Math.random()*(max-min)+min);
+        }    
+        function randomColor() {
+            let decR = randomnumber(0,255);
+            let hexR = decR.toString(16);
+            hexR = ("0" + hexR).slice(-2);
+            let decG = randomnumber(0,255);
+            let hexG = decG.toString(16);
+            hexG = ("0" + hexG).slice(-2);
+            let decB = randomnumber(0,255);
+            let hexB = decB.toString(16);
+            hexB = ("0" + hexB).slice(-2);
+            return `#${hexR}${hexG}${hexB}`;
+        }
+        
+        let colorSelection = localStorage.getItem("colorSelection");
+        let clock = document.querySelector("#output");
+        let randomOutput = document.querySelector("#randomStatus");
+        function solidSubmit() {
+            let colorSolid = document.querySelector("#solidIn").value;
+            localStorage.setItem("colorSolid", colorSolid);
+            clock.style.background = colorSolid;
+            clock.style["-webkit-text-fill-color"] = "transparent";
+            clock.style["-webkit-background-clip"] = "text";
+            clock.style["background-clip"] = "text";
+            colorSelection="0";
+            localStorage.setItem('colorSelection', 0);
+
+
+            randomOutput.innerHTML="Disabled"  
+       }
+        function gradientSubmit() {
+            let colorGradient1 = document.querySelector("#gradientIn1").value;
+            let colorGradient2 = document.querySelector("#gradientIn2").value;
+            let rotationGradient = document.querySelector("#gradientRotationIn").value;
+            localStorage.setItem("colorGradient1", colorGradient1);
+            localStorage.setItem("colorGradient2", colorGradient2);
+            localStorage.setItem("rotationGradient", rotationGradient);
+            if(isNaN(rotationGradient)||rotationGradient=="") {
+                clock.style.background = `linear-gradient(180deg, ${colorGradient1}, ${colorGradient2})`
+            }else{
+                clock.style.background = `linear-gradient(${rotationGradient}deg, ${colorGradient1}, ${colorGradient2})`
+            }
+            clock.style["-webkit-text-fill-color"] = "transparent";
+            clock.style["-webkit-background-clip"] = "text";
+            clock.style["background-clip"] = "text";
+            colorSelection="1";
+            localStorage.setItem('colorSelection', 1);
+
+            randomOutput.innerHTML="Disabled"  
+       }
+       function randomSubmit() {
+            let colorRandom1 = randomColor();
+            let colorRandom2 = randomColor();
+            let rotationRandom = randomnumber(0,360);
+            clock.style.background = `linear-gradient(${rotationRandom}deg, ${colorRandom1}, ${colorRandom2})`
+            clock.style["-webkit-text-fill-color"] = "transparent";
+            clock.style["-webkit-background-clip"] = "text";
+            clock.style["background-clip"] = "text";
+            colorSelection="2"
+            localStorage.setItem('colorSelection', 2);     
+            randomOutput.innerHTML="Enabled"  
+        }
+        function gettime() {
+            let crTime = new Date();
+            let cdTime = new Date(2024,2,11,1,0,0);
+            let timeDifference = cdTime.getTime()-crTime.getTime();
+            if (timeDifference>=0) {
+                clock.innerHTML = Math.floor(timeDifference/(24*60*60*1000)) + " Days ";
+                clock.innerHTML+= Math.floor(timeDifference%(24*60*60*1000)/(60*60*1000)) + "h ";
+                clock.innerHTML+= Math.floor(timeDifference%(60*60*1000)/(60*1000)) + "m ";
+                clock.innerHTML+= Math.floor(timeDifference%(60*1000)/1000) + "s";
+            }else{
+                clock.innerHTML = "Happy New Year!"
+            }
+        }
+        var datemode = localStorage.getItem("dateMode");
+        
+
+
+        document.querySelector("#solidIn").value = localStorage.getItem("colorSolid");
+        document.querySelector("#gradientIn1").value = localStorage.getItem("colorGradient1");
+        document.querySelector("#gradientIn2").value = localStorage.getItem("colorGradient2");
+        document.querySelector("#gradientRotationIn").value = localStorage.getItem("rotationGradient");
+
+
+        if(colorSelection==0){
+            localStorage.setItem("colorGradient1", "");
+            localStorage.setItem("colorGradient2", "");
+            localStorage.setItem("rotationGradient", "");
+            solidSubmit();
+        }else if(colorSelection==1){
+            localStorage.setItem("colorSolid", "");
+            gradientSubmit();
+        }else{
+            localStorage.setItem("colorGradient1", "");
+            localStorage.setItem("colorGradient2", "");
+            localStorage.setItem("rotationGradient", "");
+            localStorage.setItem("colorSolid", "");
+            randomSubmit();
+         }
+
+        
+
+        function reload() {
+            location.reload();
+        }
+
+
+        gettime();
+        setInterval(gettime, 1000);
+        setInterval(reload, 60*60*1000);
+    </script>
+</body>
+</html>
