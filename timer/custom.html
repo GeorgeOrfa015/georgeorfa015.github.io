@@ -138,7 +138,7 @@
 <body>
     <div id="background"></div>
     <div id="clock">
-        CLUB BYE BYE in:<br><span id="output"></span>
+        Departing from Thessaloniki in:<br><span id="output"></span>
     </div>
     <div id="settings">
         <div class="section">
@@ -233,7 +233,7 @@
         }
         function gettime() {
             let crTime = new Date();
-            let cdTime = new Date(2024,2,11,1,0,0);
+            let cdTime = new Date(2024,2,12,19,10,0);
             let timeDifference = cdTime.getTime()-crTime.getTime();
             if (timeDifference>=0) {
                 clock.innerHTML = Math.floor(timeDifference/(24*60*60*1000)) + " Days ";
@@ -241,7 +241,7 @@
                 clock.innerHTML+= Math.floor(timeDifference%(60*60*1000)/(60*1000)) + "m ";
                 clock.innerHTML+= Math.floor(timeDifference%(60*1000)/1000) + "s";
             }else{
-                clock.innerHTML = "Happy New Year!"
+                clock.innerHTML = "Have a safe flight!"
             }
         }
         var datemode = localStorage.getItem("dateMode");
