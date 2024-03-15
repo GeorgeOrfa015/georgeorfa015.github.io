@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta content="G. Orfanides | Mathematical Equations" property="og:title" />
+    <meta content="Some (maybe useful) mathematical equations" property="og:description" />
+    <meta content="https://georgeorfa015.github.io/math/" property="og:url" />
+    <meta content="https://i.imgur.com/fv55MPW.png" property="og:image" />
+    <meta content="#000000" data-react-helmet="true" name="theme-color" id="theme-color"/>
+    <link rel="icon" href="../WebsiteLogo2.ico">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Timers</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        body{
+            background: #000;
+            font-family: poppins;
+        }
+        #outer-container{
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1vw;
+            background: none;
+            margin-top: 1vw;
+        }
+        div{
+            overflow: hidden;
+        }
+        .timer-outer-cont{
+            padding: 0.75vw;
+            height: 18vw;
+            background: #045527;
+            border-radius: 0.75vw;
+        }
+        .time-inner-cont{
+            height: 15vw;
+            margin-bottom: 0.75vw;
+            background: #000;
+            border-radius: 0.5vw;
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            justify-content: center;
+        }
+        .settings-inner-cont{
+            height: 2.25vw;
+            display: grid;
+            grid-template-columns: 5fr 5fr 5fr 5fr 5fr 1fr; 
+            gap: 1vw;
+        }
+        .time{
+            color: #fff;
+            font-size: 1.75vw
+        }
+        button{
+            margin: none;
+            padding: none;
+            font-family: inherit;
+            font-size: 1.3vw;
+            transition: 0.2s;
+            background: #10813f;
+            border: none;
+            color: #fff;
+            border-radius: 0.5vw;
+        }
+        button:hover{
+            background: #1b8b49;
+        }
+        .settings{
+            background: #10813f;
+            border: none;
+            color: #fff;
+            border-radius: 0.5vw;
+        }
+        .delete{
+            background: #ad3d3d;
+            font-size: 1.3vw;
+        }
+        .delete:hover{
+            background: #ba4848;
+        }
+        input{
+            background:#0f7a3c;
+            color: #a5f8d1;
+            border: none;
+            border-radius: 0.5vw;
+            width: 100%;
+            text-align: center;
+            font-size: 1.2vw;
+            font-family: inherit;
+            margin: none;
+            padding: none;
+        }
+        input::placeholder{
+            color: #49c694
+        }
+        input:focus{
+            outline:none;
+        }
+    </style>
+</head>
+<body>
+    <button onclick="newTimer()">New</button>
+    <div id="outer-container">
+        <div class="timer-outer-cont" id="TOC0">
+            <div class="time-inner-cont" id="TIC0">
+                <span class="time" id="out0"> 365 Days 23h 59m 59m</span>
+            </div>
+            <div class="settings-inner-cont" id="SIC0">
+                <input id="year0" type="text" placeholder="Year" value="2024">
+                <input id="month0" type="text" placeholder="Month" value="3">
+                <input id="day0" type="text" placeholder="Day" value="16">
+                <input id="hour0" type="text" placeholder="Hour" value="0">
+                <input id="minute0" type="text" placeholder="Minute" value="10">
+                <button class="settings delete" onclick="delTimer(0)">&#x2715;</button>
+            </div>
+        </div>
+
+
+
+
+        
+        
+    
+    </div>
+    <script>
+        let timerID = 1;
+        
+        function updateTime(id) {
+            let year = document.getElementById("year"+id).value;
+            let month = document.getElementById("month"+id).value;
+            let day = document.getElementById("day"+id).value;
+            let hour = document.getElementById("hour"+id).value;
+            let minute = document.getElementById("minute"+id).value;
+            let output = document.getElementById("out"+id);
+            let crTime = new Date();
+            let cdTime = new Date(year,month-1,day,hour,minute,0);
+            let timeDifference = cdTime.getTime()-crTime.getTime()+1000;
+            if (timeDifference>=0) {
+                output.innerHTML = Math.floor(timeDifference/(24*60*60*1000)) + " Days ";
+                output.innerHTML+= Math.floor(timeDifference%(24*60*60*1000)/(60*60*1000)) + "h ";
+                output.innerHTML+= Math.floor(timeDifference%(60*60*1000)/(60*1000)) + "m ";
+                output.innerHTML+= Math.floor(timeDifference%(60*1000)/1000) + "s";
+                console.log("hj")
+            }else{
+                let timeDifferenceNegative = crTime.getTime() - cdTime.getTime();
+                output.innerHTML = Math.floor(timeDifferenceNegative/(24*60*60*1000)) + " Days ";
+                output.innerHTML+= Math.floor(timeDifferenceNegative%(24*60*60*1000)/(60*60*1000)) + "h ";
+                output.innerHTML+= Math.floor(timeDifferenceNegative%(60*60*1000)/(60*1000)) + "m ";
+                output.innerHTML+= Math.floor(timeDifferenceNegative%(60*1000)/1000) + "s";
+                console.log("test")
+            }
+        }
+        
+        setInterval(function(){updateTime(0)}, 100)
+        
+        
+        function newTimer() {
+            // timer-outer-cont
+            let timerOuterCont = document.createElement("div");
+            timerOuterCont.className="timer-outer-cont";
+            timerOuterCont.id="TOC"+timerID;
+
+            // timer-outer-cont > time-inner-cont
+            let timeInnerCont = document.createElement("div");
+            timeInnerCont.className="time-inner-cont";
+            timeInnerCont.id="TIC"+timerID;
+
+            // timer-outer-cont > time-inner-cont > time
+            let time = document.createElement("span");
+            time.className="time";
+            time.id="out"+timerID;
+
+            // timer-outer-cont > settings-inner-cont
+            let settingsInnerCont = document.createElement("div");
+            settingsInnerCont.className="settings-inner-cont";
+            settingsInnerCont.id="SIC"+timerID;
+
+            // timer-outer-cont > settings-inner-cont > input#year
+            let yearInput = document.createElement("input");
+            yearInput.id="year"+timerID;
+            yearInput.placeholder="Year";
+            
+            // timer-outer-cont > settings-inner-cont > input#month
+            let monthInput = document.createElement("input");
+            monthInput.id="month"+timerID;
+            monthInput.placeholder="Month";
+            
+            // timer-outer-cont > settings-inner-cont > input#day
+            let dayInput = document.createElement("input");
+            dayInput.id="day"+timerID;
+            dayInput.placeholder="Day";
+
+            // timer-outer-cont > settings-inner-cont > input#hour
+            let hourInput = document.createElement("input");
+            hourInput.id="hour"+timerID;
+            hourInput.placeholder="Hour";
+
+            // timer-outer-cont > settings-inner-cont > input#minute
+            let minuteInput = document.createElement("input");
+            minuteInput.id="minute"+timerID;
+            minuteInput.placeholder="Minute";
+
+            // timer-outer-cont > settings-inner-cont > button.f(delTimer(id))
+            let buttonDelete = document.createElement("button");
+            buttonDelete.setAttribute("onclick", `setDate(${timerID})`);
+            buttonDelete.innerHTML="&#x2715;";
+            buttonDelete.className="settings delete";
+
+            // timer-outer-cont > time-update-script
+            let timeUpdateScript = document.createElement("script");
+            timeUpdateScript.className="time-update-script";
+            timeUpdateScript.innerHTML=`setInterval(function(){updateTime(${timerID})}, 100)`;
+ 
+            // Appending Children
+            timerOuterCont.appendChild(timeInnerCont);
+            timeInnerCont.appendChild(time);
+            timerOuterCont.appendChild(settingsInnerCont);
+            settingsInnerCont.appendChild(yearInput);
+            settingsInnerCont.appendChild(monthInput);
+            settingsInnerCont.appendChild(dayInput);
+            settingsInnerCont.appendChild(hourInput);
+            settingsInnerCont.appendChild(minuteInput);
+            settingsInnerCont.appendChild(buttonDelete);
+            timerOuterCont.appendChild(timeUpdateScript);
+            document.getElementById("outer-container").appendChild(timerOuterCont);
+
+            timerID = timerID + 1;
+        }
+    </script>
+</body>
+</html>
