@@ -75,6 +75,10 @@
         .delete{
             background: #ad3d3d;
             font-size: 1.3vw;
+            height: 2.25vw;
+            margin: 0;
+            padding: 0;
+            width: 2.25vw;
         }
         .delete:hover{
             background: #ba4848;
@@ -84,12 +88,13 @@
             color: #a5f8d1;
             border: none;
             border-radius: 0.5vw;
-            width: 100%;
+            width: 4.4vw;
             text-align: center;
             font-size: 1.2vw;
             font-family: inherit;
-            margin: none;
-            padding: none;
+            margin: 0;
+            padding: 0;
+            height: 2.25vw;
         }
         input::placeholder{
             color: #49c694
@@ -97,12 +102,55 @@
         input:focus{
             outline:none;
         }
+        @media(max-width:600px){
+            #outer-container{
+                grid-template-columns: 1fr;
+            }
+            .timer-outer-cont{
+                padding: 2vw;
+                height: 45vw;
+                border-radius: 2vw;
+            }
+            .time-inner-cont{
+                height: 38vw;
+                margin-bottom: 2vw;
+                border-radius: 1.75vw;
+            }
+            .time{
+                font-size: 5vw;
+            }
+            button{
+                font-size: 4vw;
+                transition: 0.2s;
+                border-radius: 2vw;
+            }
+            .delete{
+                background: #ad3d3d;
+                font-size: 3vw;
+                height: 5vw;
+                margin: 0;
+                padding: 0;
+                width: 5vw;
+                border-radius: 1.75vw;
+            }
+            .settings-inner-cont{
+                height: 5vw;
+            }
+            input{
+                border-radius: 1.75vw;
+                width: 15.2vw;
+                text-align: center;
+                font-size: 3vw;
+                height: 5vw;
+            }
+        }
+
     </style>
 </head>
 <body>
     <button onclick="newTimer()">New</button>
     <div id="outer-container">
-        <div class="timer-outer-cont" id="TOC0">
+        <!-- <div class="timer-outer-cont" id="TOC0">
             <div class="time-inner-cont" id="TIC0">
                 <span class="time" id="out0"> 365 Days 23h 59m 59m</span>
             </div>
@@ -114,7 +162,7 @@
                 <input id="minute0" type="text" placeholder="Minute" value="10">
                 <button class="settings delete" onclick="delTimer(0)">&#x2715;</button>
             </div>
-        </div>
+        </div> -->
 
 
 
@@ -125,7 +173,57 @@
     </div>
     <script>
         let timerID = 1;
-        
+         
+        function save() {
+            console.log("Attempting to save...")
+            let timers = document.getElementsByClassName("timer-outer-cont");
+            let items = Object.keys(timers).length; 
+            let saveCode = "";
+            console.log(timers.childNodes);
+
+            for (i=0;i<items;i++) {
+                let savePart=timers[i].id.replace("TOC","")+"/";
+                savePart+=timers[i].childNodes[1].childNodes[0].value+"/" // year
+                savePart+=timers[i].childNodes[1].childNodes[1].value+"/" // month
+                savePart+=timers[i].childNodes[1].childNodes[2].value+"/" // day
+                savePart+=timers[i].childNodes[1].childNodes[3].value+"/" // day
+                savePart+=timers[i].childNodes[1].childNodes[4].value+"/" // day
+                saveCode+=savePart+".";
+            }
+            
+            localStorage.setItem("SavedBars", saveCode);
+            console.log(saveCode.split("."))
+            return saveCode;
+        }
+
+        function load() {
+            let saveCode=localStorage.getItem("SavedBars");
+            console.log(saveCode);
+
+            let splitTimers = saveCode.split(".");
+            console.log(splitTimers);
+
+            let itemsToLoad = Object.keys(splitTimers).length-1;
+
+            for (i=0;i<itemsToLoad;i++) {
+
+                let splitTimerData = splitTimers[i].split("/");
+                let timerID_load = splitTimerData[0];
+                let year_load = splitTimerData[1];
+                let month_load = splitTimerData[2];
+                let day_load = splitTimerData[3];
+                let hour_load = splitTimerData[4];
+                let minute_load = splitTimerData[5];
+                timerID = timerID_load;
+                newTimer();
+                document.getElementById("year"+timerID_load).value=year_load;
+                document.getElementById("month"+timerID_load).value=month_load;
+                document.getElementById("day"+timerID_load).value=day_load;
+                document.getElementById("hour"+timerID_load).value=hour_load;
+                document.getElementById("minute"+timerID_load).value=minute_load;
+            }
+        }
+
         function updateTime(id) {
             let year = document.getElementById("year"+id).value;
             let month = document.getElementById("month"+id).value;
@@ -141,19 +239,29 @@
                 output.innerHTML+= Math.floor(timeDifference%(24*60*60*1000)/(60*60*1000)) + "h ";
                 output.innerHTML+= Math.floor(timeDifference%(60*60*1000)/(60*1000)) + "m ";
                 output.innerHTML+= Math.floor(timeDifference%(60*1000)/1000) + "s";
-                console.log("hj")
             }else{
                 let timeDifferenceNegative = crTime.getTime() - cdTime.getTime();
                 output.innerHTML = Math.floor(timeDifferenceNegative/(24*60*60*1000)) + " Days ";
                 output.innerHTML+= Math.floor(timeDifferenceNegative%(24*60*60*1000)/(60*60*1000)) + "h ";
                 output.innerHTML+= Math.floor(timeDifferenceNegative%(60*60*1000)/(60*1000)) + "m ";
                 output.innerHTML+= Math.floor(timeDifferenceNegative%(60*1000)/1000) + "s";
-                console.log("test")
             }
         }
         
-        setInterval(function(){updateTime(0)}, 100)
+       
         
+        function delTimer(id) {
+            let outerContainer = document.getElementById("TOC"+id);
+            let timeStopScript = document.createElement("script");
+            timeStopScript.innerHTML=`clearInterval(updateTimeInterval${id});`;
+            document.body.appendChild(timeStopScript);
+            outerContainer.innerHTML="";
+            outerContainer.remove();
+            timeStopScript.remove();
+            setTimeout(save, 100);
+        }
+
+
         
         function newTimer() {
             // timer-outer-cont
@@ -179,38 +287,44 @@
             // timer-outer-cont > settings-inner-cont > input#year
             let yearInput = document.createElement("input");
             yearInput.id="year"+timerID;
+            yearInput.setAttribute("oninput", `save()`);
             yearInput.placeholder="Year";
             
             // timer-outer-cont > settings-inner-cont > input#month
             let monthInput = document.createElement("input");
             monthInput.id="month"+timerID;
+            monthInput.setAttribute("oninput", `save()`);
             monthInput.placeholder="Month";
             
             // timer-outer-cont > settings-inner-cont > input#day
             let dayInput = document.createElement("input");
             dayInput.id="day"+timerID;
+            dayInput.setAttribute("oninput", `save()`);
             dayInput.placeholder="Day";
 
             // timer-outer-cont > settings-inner-cont > input#hour
             let hourInput = document.createElement("input");
             hourInput.id="hour"+timerID;
+            hourInput.setAttribute("oninput", `save()`);
             hourInput.placeholder="Hour";
 
             // timer-outer-cont > settings-inner-cont > input#minute
             let minuteInput = document.createElement("input");
             minuteInput.id="minute"+timerID;
+            minuteInput.setAttribute("oninput", `save()`);
             minuteInput.placeholder="Minute";
 
             // timer-outer-cont > settings-inner-cont > button.f(delTimer(id))
             let buttonDelete = document.createElement("button");
-            buttonDelete.setAttribute("onclick", `setDate(${timerID})`);
+            buttonDelete.setAttribute("onclick", `delTimer(${timerID})`);
             buttonDelete.innerHTML="&#x2715;";
             buttonDelete.className="settings delete";
 
             // timer-outer-cont > time-update-script
             let timeUpdateScript = document.createElement("script");
             timeUpdateScript.className="time-update-script";
-            timeUpdateScript.innerHTML=`setInterval(function(){updateTime(${timerID})}, 100)`;
+            timeUpdateScript.id="TUS"+timerID;
+            timeUpdateScript.innerHTML=`var updateTimeInterval${timerID} = setInterval(function(){updateTime(${timerID})}, 100)`;
  
             // Appending Children
             timerOuterCont.appendChild(timeInnerCont);
@@ -225,8 +339,10 @@
             timerOuterCont.appendChild(timeUpdateScript);
             document.getElementById("outer-container").appendChild(timerOuterCont);
 
-            timerID = timerID + 1;
+            timerID = Number(timerID) + 1;
+            setTimeout(save, 100);
         }
+        setTimeout(load, 1)
     </script>
 </body>
 </html>
