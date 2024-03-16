@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta content="G. Orfanides | Mathematical Equations" property="og:title" />
-    <meta content="Some (maybe useful) mathematical equations" property="og:description" />
-    <meta content="https://georgeorfa015.github.io/math/" property="og:url" />
+    <meta content="G. Orfanides | Custom Timers" property="og:title" />
+    <meta content="Create your own countdowns or timers!" property="og:description" />
+    <meta content="https://georgeorfa015.github.io/timers/" property="og:url" />
     <meta content="https://i.imgur.com/fv55MPW.png" property="og:image" />
     <meta content="#000000" data-react-helmet="true" name="theme-color" id="theme-color"/>
     <link rel="icon" href="../WebsiteLogo2.ico">
@@ -299,19 +299,23 @@
             let crTime = new Date();
             let cdTime = new Date(year,month-1,day,hour,minute,0);
             let timeDifference = cdTime.getTime()-crTime.getTime()+1000;
-            if (timeDifference>=0) {
-                output.innerHTML = Math.floor(timeDifference/(24*60*60*1000)) + " Days ";
-                output.innerHTML+= Math.floor(timeDifference%(24*60*60*1000)/(60*60*1000)) + "h ";
-                output.innerHTML+= Math.floor(timeDifference%(60*60*1000)/(60*1000)) + "m ";
-                output.innerHTML+= Math.floor(timeDifference%(60*1000)/1000) + "s";
-                output.innerHTML+= "<br>until"
+            if (year==""||month==""||day==""||hour==""||minute==""||isNaN(year)||isNaN(month)||isNaN(day)||isNaN(hour)||isNaN(minute)) {
+                output.innerHTML = "Please enter a valid date";
             }else{
-                let timeDifferenceNegative = crTime.getTime() - cdTime.getTime();
-                output.innerHTML = Math.floor(timeDifferenceNegative/(24*60*60*1000)) + " Days ";
-                output.innerHTML+= Math.floor(timeDifferenceNegative%(24*60*60*1000)/(60*60*1000)) + "h ";
-                output.innerHTML+= Math.floor(timeDifferenceNegative%(60*60*1000)/(60*1000)) + "m ";
-                output.innerHTML+= Math.floor(timeDifferenceNegative%(60*1000)/1000) + "s";
-                output.innerHTML+= "<br>since"
+                if (timeDifference>=0) {
+                    output.innerHTML = Math.floor(timeDifference/(24*60*60*1000)) + " Days ";
+                    output.innerHTML+= Math.floor(timeDifference%(24*60*60*1000)/(60*60*1000)) + "h ";
+                    output.innerHTML+= Math.floor(timeDifference%(60*60*1000)/(60*1000)) + "m ";
+                    output.innerHTML+= Math.floor(timeDifference%(60*1000)/1000) + "s";
+                    output.innerHTML+= "<br>until"
+                }else{
+                    let timeDifferenceNegative = crTime.getTime() - cdTime.getTime();
+                    output.innerHTML = Math.floor(timeDifferenceNegative/(24*60*60*1000)) + " Days ";
+                    output.innerHTML+= Math.floor(timeDifferenceNegative%(24*60*60*1000)/(60*60*1000)) + "h ";
+                    output.innerHTML+= Math.floor(timeDifferenceNegative%(60*60*1000)/(60*1000)) + "m ";
+                    output.innerHTML+= Math.floor(timeDifferenceNegative%(60*1000)/1000) + "s";
+                    output.innerHTML+= "<br>since"
+                }
             }
         }
         
