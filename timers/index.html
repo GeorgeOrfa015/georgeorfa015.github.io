@@ -12,6 +12,7 @@
     <title>Custom Timers</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@300;900&display=swap');
         body{
             background: #000;
             font-family: poppins;
@@ -50,7 +51,8 @@
         }
         .time{
             color: #fff;
-            font-size: 1.75vw
+            font-size: 1.75vw;
+            font-family: "Chivo Mono";
         }
         button{
             margin: none;
@@ -102,6 +104,32 @@
         input:focus{
             outline:none;
         }
+        .timer-desc{
+            background: none;
+            color: #fff;
+            text-align: center;
+            width: 100%;
+        }
+        .timer-desc::placeholder{
+            color: #aaa;
+        }
+        #load-code-input{
+            width: fit-content;
+            height: 2.25vw;
+            background:#065427;
+            font-size: 1.3vw;
+        }
+        #load-code-input::placeholder{
+            color: #61b08b;
+            
+        }
+        .top-buttons{
+            height: 2.25vw;
+        }
+        #button-container{
+            display: flex;
+            flex-direction: row;
+        }
         @media(max-width:600px){
             #outer-container{
                 grid-template-columns: 1fr;
@@ -143,12 +171,36 @@
                 font-size: 3vw;
                 height: 5vw;
             }
+            .top-buttons{
+                height: 5vw;
+                font-size: 3vw;
+            }
+            #load-code-input{
+                width: fit-content;
+                height: 5vw;
+                background:#065427;
+                font-size: 3vw;
+            }
+            #button-container{
+                display: flex;
+                flex-direction: column;
+                text-align: center;
+            }
         }
 
     </style>
 </head>
 <body>
-    <button onclick="newTimer()">New</button>
+    <div id="button-container">
+        <div id="button-inner-container-1">
+            <button class="top-buttons" onclick="newTimer()">New Timer</button>
+            <button class="top-buttons" onclick="exportCode()" id="export-code-button">Export Save Code</button>&nbsp;&nbsp;&nbsp;
+        </div>
+        <div id="button-inner-container-2">
+            <input id="load-code-input" placeholder="Enter your code...">
+            <button class="top-buttons" onclick="loadCode()">Load Save Code</button>
+        </div>
+    </div>
     <div id="outer-container">
         <!-- <div class="timer-outer-cont" id="TOC0">
             <div class="time-inner-cont" id="TIC0">
@@ -175,45 +227,44 @@
         let timerID = 1;
          
         function save() {
-            console.log("Attempting to save...")
             let timers = document.getElementsByClassName("timer-outer-cont");
             let items = Object.keys(timers).length; 
             let saveCode = "";
-            console.log(timers.childNodes);
 
             for (i=0;i<items;i++) {
-                let savePart=timers[i].id.replace("TOC","")+"/";
-                savePart+=timers[i].childNodes[1].childNodes[0].value+"/" // year
-                savePart+=timers[i].childNodes[1].childNodes[1].value+"/" // month
-                savePart+=timers[i].childNodes[1].childNodes[2].value+"/" // day
-                savePart+=timers[i].childNodes[1].childNodes[3].value+"/" // day
-                savePart+=timers[i].childNodes[1].childNodes[4].value+"/" // day
-                saveCode+=savePart+".";
+                let savePart=timers[i].id.replace("TOC","")+"/:/";
+                savePart+=timers[i].childNodes[1].childNodes[0].value+"/:/" // year
+                savePart+=timers[i].childNodes[1].childNodes[1].value+"/:/" // month
+                savePart+=timers[i].childNodes[1].childNodes[2].value+"/:/" // day
+                savePart+=timers[i].childNodes[1].childNodes[3].value+"/:/" // hour
+                savePart+=timers[i].childNodes[1].childNodes[4].value+"/:/" // minute
+                savePart+=timers[i].childNodes[0].childNodes[1].value
+                saveCode+=savePart+"/;/";
             }
             
             localStorage.setItem("SavedTimers", saveCode);
-            console.log(saveCode.split("."))
+            console.log(saveCode.split("/;/"))
             return saveCode;
         }
 
         function load() {
             let saveCode=localStorage.getItem("SavedTimers");
-            console.log(saveCode);
 
-            let splitTimers = saveCode.split(".");
+            let splitTimers = saveCode.split("/;/");
             console.log(splitTimers);
 
             let itemsToLoad = Object.keys(splitTimers).length-1;
 
             for (i=0;i<itemsToLoad;i++) {
 
-                let splitTimerData = splitTimers[i].split("/");
+                let splitTimerData = splitTimers[i].split("/:/");
                 let timerID_load = splitTimerData[0];
                 let year_load = splitTimerData[1];
                 let month_load = splitTimerData[2];
                 let day_load = splitTimerData[3];
                 let hour_load = splitTimerData[4];
                 let minute_load = splitTimerData[5];
+                let timerDesc_load = splitTimerData[6];
                 timerID = timerID_load;
                 newTimer();
                 document.getElementById("year"+timerID_load).value=year_load;
@@ -221,7 +272,21 @@
                 document.getElementById("day"+timerID_load).value=day_load;
                 document.getElementById("hour"+timerID_load).value=hour_load;
                 document.getElementById("minute"+timerID_load).value=minute_load;
+                document.getElementById("TD"+timerID_load).value=timerDesc_load;
             }
+        }
+
+        function exportCode() {
+            let code = localStorage.getItem("SavedTimers");
+            navigator.clipboard.writeText(code);
+            document.getElementById("export-code-button").innerHTML="Code copied!";
+            setTimeout(function() {document.getElementById("export-code-button").innerHTML="Export Save Code"}, 2000)
+        }
+
+        function loadCode() {
+            let code = document.getElementById("load-code-input").value;
+            localStorage.setItem("SavedTimers", code);
+            window.location.reload();
         }
 
         function updateTime(id) {
@@ -239,12 +304,14 @@
                 output.innerHTML+= Math.floor(timeDifference%(24*60*60*1000)/(60*60*1000)) + "h ";
                 output.innerHTML+= Math.floor(timeDifference%(60*60*1000)/(60*1000)) + "m ";
                 output.innerHTML+= Math.floor(timeDifference%(60*1000)/1000) + "s";
+                output.innerHTML+= "<br>until"
             }else{
                 let timeDifferenceNegative = crTime.getTime() - cdTime.getTime();
                 output.innerHTML = Math.floor(timeDifferenceNegative/(24*60*60*1000)) + " Days ";
                 output.innerHTML+= Math.floor(timeDifferenceNegative%(24*60*60*1000)/(60*60*1000)) + "h ";
                 output.innerHTML+= Math.floor(timeDifferenceNegative%(60*60*1000)/(60*1000)) + "m ";
                 output.innerHTML+= Math.floor(timeDifferenceNegative%(60*1000)/1000) + "s";
+                output.innerHTML+= "<br>since"
             }
         }
         
@@ -278,6 +345,13 @@
             let time = document.createElement("span");
             time.className="time";
             time.id="out"+timerID;
+
+            // timer-outer-cont > time-inner-cont > timer-desc
+            let timerDesc = document.createElement("input");
+            timerDesc.className="timer-desc";
+            timerDesc.id="TD"+timerID;
+            timerDesc.placeholder="Description..."
+            timerDesc.setAttribute("oninput", `save()`)
 
             // timer-outer-cont > settings-inner-cont
             let settingsInnerCont = document.createElement("div");
@@ -329,6 +403,7 @@
             // Appending Children
             timerOuterCont.appendChild(timeInnerCont);
             timeInnerCont.appendChild(time);
+            timeInnerCont.appendChild(timerDesc);
             timerOuterCont.appendChild(settingsInnerCont);
             settingsInnerCont.appendChild(yearInput);
             settingsInnerCont.appendChild(monthInput);
@@ -343,6 +418,10 @@
             setTimeout(save, 100);
         }
         setTimeout(load, 1);
+        const originalString = "Hello world!";
+const escapedString = escape(originalString);
+console.log(escapedString);
+
     </script>
 </body>
 </html>
