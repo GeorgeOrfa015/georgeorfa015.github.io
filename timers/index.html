@@ -191,13 +191,13 @@
                 saveCode+=savePart+".";
             }
             
-            localStorage.setItem("SavedBars", saveCode);
+            localStorage.setItem("SavedTimers", saveCode);
             console.log(saveCode.split("."))
             return saveCode;
         }
 
         function load() {
-            let saveCode=localStorage.getItem("SavedBars");
+            let saveCode=localStorage.getItem("SavedTimers");
             console.log(saveCode);
 
             let splitTimers = saveCode.split(".");
@@ -342,7 +342,7 @@
             timerID = Number(timerID) + 1;
             setTimeout(save, 100);
         }
-        setTimeout(load, 1)
+        setTimeout(load, 1);
     </script>
 </body>
 </html>
