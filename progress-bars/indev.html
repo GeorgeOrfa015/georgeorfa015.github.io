@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@300;900&display=swap');
+        body{
+            font-family: "Poppins";
+            background: #000;
+        }
+        #outer-container{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1vw;
+        }
+        .bar-outer-cont{
+            padding: 1vw;
+            background: #222;
+            border-radius: 0.75vw;
+        }
+        .bar-inner-cont{
+            margin-bottom: 1vw;
+            border-radius: 0.5vw;
+            overflow: hidden;
+            background: #111;
+        }
+        .bar{
+            height: 2.5vw;
+            background: #10813f;
+            width: 0%; /* Percentage of completion */
+            color: #fff;
+            text-align: center;
+            padding-top: 0.1vw;
+            font-size: 1.5vw;
+            transition: 0.2s;
+        }
+        .settings-inner-cont{
+            display: grid;
+            grid-template-columns: 3fr 3fr 3fr 1fr 1fr 1fr 1fr;
+            background: none;
+            color: #fff;
+        }
+        input{
+            background: #045527;
+            color: #a5f8d1;
+            border: none;
+            border-radius: 0.5vw;
+            width: 4.4vw;
+            text-align: center;
+            font-size: 1.4vw;
+            font-family: inherit;
+            margin: 0;
+            padding: 0;
+            height: 2.25vw;
+            transition: 0.2s;
+        }
+        .number-input{
+            width: 4.4vw;
+        }
+        input:focus{
+            outline: none;
+            background: #096d34;
+        }
+        input::placeholder{
+            color: #2b8561
+        }
+        .out-of-text{
+            font-size: 1.45vw;
+        }
+        .bar-name{
+            background: none;
+            outline: none;
+            border: none;
+            width: 20vw;
+            text-align: left;
+            color: #fff;
+        }
+        .bar-name:focus{
+            background: #333;
+        }
+        .bar-name::placeholder{
+            color: #888;
+        }
+        button{
+            margin: none;
+            padding: none;
+            font-family: inherit;
+            font-size: 1.35vw;
+            transition: 0.2s;
+            background: #10813f;
+            border: none;
+            color: #fff;
+            border-radius: 0.5vw;
+        }
+        button:hover{
+            background: #189b4f;
+        }
+        .color-input{
+            width: 7vw;
+        }
+        .step-input{
+            width: 7vw;
+        }
+        .add-remove-button{
+            height: 2.25vw;
+            width: 2.25vw;
+            margin-right: 0.5vw;
+        }
+        .delete-button{
+            background: #ad3d3d;
+        }
+        .delete-button:hover{
+            background: #d05555;
+        }
+        .settings-hidden-inner-cont{
+            display: none;
+            gap: 1vw;
+            grid-template-columns: 1fr 5fr 1fr;
+            margin-top: 1vw;
+        }
+        @media(max-width: 600px) {
+            #outer-container{
+                grid-template-columns: 1fr;
+                gap: 2vw;
+            }
+            .bar-outer-cont{
+                padding: 2vw;
+                border-radius: 2vw;
+            }
+            .bar-inner-cont{
+                margin-bottom: 2vw;
+                border-radius: 1vw;
+            }
+            .bar{
+                height: 7vw;
+                width: 0%; /* Percentage of completion */
+                font-size: 5vw;
+            }
+            .settings-inner-cont{
+                grid-template-columns: 3fr 2fr 3fr 1fr 1fr;
+                gap: 1vw;
+            }
+            input{
+                border-radius: 1.75vw;
+                width: 15.2vw;
+                font-size: 4vw;
+                height: 6vw;
+            }
+            .number-input{
+                width:100%;
+            }
+            .out-of-text{
+                font-size: 3.8vw;
+                text-align: center;
+            }
+            .bar-name{
+                width: 100%;
+                text-align: center;
+                grid-column-start: 1;
+                grid-column-end: 6;
+            }
+            .bar-name::placeholder{
+                color: #888;
+            }
+            button{
+                font-size: 4vw;
+                border-radius: 1.75vw;
+                height: 6vw;
+            }
+            .color-input{
+                width: 100%;
+            }
+            .step-input{
+                width: 100%;
+            }
+            .add-remove-button{
+                height: 6vw;
+                width: 100%;
+                font-size: 4vw;
+            }
+            .settings-hidden-inner-cont{
+                gap: 1vw;
+                grid-template-columns: 1fr;
+                margin-top: 1vw;
+            }
+            .settings-button{
+                width: 100%;
+                grid-column-start: 1;
+                grid-column-end: 6;
+                font-size: 4vw;
+            }
+            .top-buttons{
+                height: 5vw;
+                font-size: 3vw;
+            }
+            #load-code-input{
+                width: fit-content;
+                height: 5vw;
+                background:#065427;
+                font-size: 3vw;
+            }
+            #button-container{
+                display: flex;
+                flex-direction: column;
+                text-align: center;
+                gap: 1vw;
+                margin-bottom: 1vw;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="button-container">
+        <div id="button-inner-container-1">
+            <button class="top-buttons" onclick="newBar()">New Bar</button>
+            <button class="top-buttons" onclick="exportCode()" id="export-code-button">Export Save Code</button>&nbsp;&nbsp;&nbsp;
+        </div>
+        <div id="button-inner-container-2">
+            <input id="load-code-input" placeholder="Enter your code...">
+            <button class="top-buttons" onclick="loadCode()">Load Save Code</button>
+        </div>
+    </div>
+    <div id="outer-container">
+        <div class="bar-outer-cont" id="BOC0">
+            <div class="bar-inner-cont" id="BIC0">
+                <div id="bar0" class="bar">0%</div>
+            </div>
+            <div class="settings-inner-cont" id="SIC0">
+                <input oninput="updateBar(0)" placeholder="0" class="number-input" id="in1_0"><span class="out-of-text" id="OOT0">out of</span>
+                <input oninput="updateBar(0)" placeholder="100" class="number-input" id="in2_0">
+                <button class="add-remove-button" id="RB0" onclick="remProg(0)">-</button>
+                <button class="add-remove-button" id="AB0" onclick="addProg(0)">+</button>
+                <input placeholder="Description..." class="bar-name" id="BN0">
+                <button class="settings-button" id="SB0" onclick="revealSettings(0)">Show Settings</button>
+            </div>
+            <div class="settings-hidden-inner-cont" id="SHIC0">
+                <input class="color-input" placeholder="Color" id="CI0">
+                <input class="step-input" placeholder="Step" id="SI0">
+                <button class="delete-button" id="DB0">Delete</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        function revealSettings(id) {
+            let settingsHiddenInnerCont = document.getElementById("SHIC"+id);
+            let settingsButton = document.getElementById("SB"+id);
+            settingsHiddenInnerCont.style.display="grid";
+            settingsButton.setAttribute("onclick", `hideSettings(${id})`);
+            settingsButton.innerHTML="Hide Settings";
+        }
+        function hideSettings(id) {
+            let settingsHiddenInnerCont = document.getElementById("SHIC"+id);
+            let settingsButton = document.getElementById("SB"+id);
+            settingsHiddenInnerCont.style.display="none";
+            settingsButton.setAttribute("onclick", `revealSettings(${id})`);
+            settingsButton.innerHTML="Show Settings";
+        }
+        function updateBar(id) {
+            let value = document.getElementById("in1_"+id).value;
+            let outOf = document.getElementById("in2_"+id).value;
+            let bar = document.getElementById("bar"+id);
+            if (outOf=="") {
+                outOf = 100;
+            }
+            let valueEnd = (value * 100) / outOf;
+            bar.style.width = valueEnd + "%";
+            bar.innerHTML = Math.round(valueEnd) + "%";
+        }
+        function addProg(id) {
+            let output = document.getElementById("in1_"+id);
+            let value = parseInt(output.value);
+            let step = Number(document.getElementById("SI"+id).value);
+            if (step==""||isNaN(step)) {
+                step = 1;
+            }
+            if (isNaN(value)||value=="") {
+                value = 0;
+            }
+            value += step;
+            output.value = value;
+            updateBar(id);
+        }
+        function remProg(id) {
+            let output = document.getElementById("in1_"+id);
+            let value = parseInt(output.value);
+            let step = Number(document.getElementById("SI"+id).value);
+            if (step==""||isNaN(step)) {
+                step = 1;
+            }
+            if (isNaN(value)||value=="") {
+                value = 0;
+            }
+            value -= step;
+            output.value = value;
+            updateBar(id);
+        }
+        let barID = 1;
+        function newBar() {
+            // bar-outer-cont
+            let barOuterCont = document.createElement("div");
+            barOuterCont.className="bar-outer-cont";
+            barOuterCont.id="BOC"+barID;
+
+            // bar-outer-cont > bar-inner-cont
+            let barInnerCont = document.createElement("div");
+            barInnerCont.className="bar-inner-cont";
+            barInnerCont.id="BIC"+barID;
+
+            // bar-outer-cont > bar-inner-cont > bar
+            let bar = document.createElement("div");
+            bar.className="bar";
+            bar.id="bar"+barID;
+            bar.innerHTML="0%"
+
+            // bar-outer-cont > settings-inner-cont
+            let settingsInnerCont = document.createElement("div");
+            settingsInnerCont.className="settings-inner-cont";
+            settingsInnerCont.id="SIC"+barID;
+
+            // bar-outer-cont > settings-inner-cont > input#in1_id
+            let inputIn1 = document.createElement("input");
+            inputIn1.className="number-input";
+            inputIn1.id="in1_"+barID;
+            inputIn1.placeholder="0";
+            inputIn1.value=5
+            inputIn1.setAttribute("oninput", `updateBar(${barID})`);
+
+            // bar-outer-cont > settings-inner-cont > out-of-text
+            let outOfText = document.createElement("span");
+            outOfText.innerHTML="out of";
+            outOfText.className="out-of-text";
+            outOfText.id="OOT"+barID;
+
+            // bar-outer-cont > settings-inner-cont > input#in2_id
+            let inputIn2 = document.createElement("input");
+            inputIn2.className="number-input";
+            inputIn2.id="in2_"+barID;
+            inputIn2.placeholder="100";
+            inputIn2.setAttribute("oninput", `updateBar(${barID})`);
+
+            // bar-outer-cont > settings-inner-cont > button.f(remProg(id))
+            let remButton = document.createElement("button");
+            remButton.className="add-remove-button";
+            remButton.id="RB"+barID;
+            remButton.setAttribute("onclick", `remProg(${barID})`);
+            remButton.innerHTML="-"
+
+            // bar-outer-cont > settings-inner-cont > button.f(addProg(id))
+            let addButton = document.createElement("button");
+            addButton.className="add-remove-button";
+            addButton.id="AB"+barID;
+            addButton.setAttribute("onclick", `addProg(${barID})`);
+            addButton.innerHTML="+"
+            
+            // bar-outer-cont > settings-inner-cont > input#BNid
+            let barName = document.createElement("input");
+            barName.className="bar-name";
+            barName.placeholder="Description..."
+            barName.id="BN"+barID;
+
+            // bar-outer-cont > settings-inner-cont > button.f(revealSettings(id))
+            let settingsButton = document.createElement("button");
+            settingsButton.className="settings-button";
+            settingsButton.id="SB"+barID;
+            settingsButton.setAttribute("onclick", `revealSettings(${barID})`);
+            settingsButton.innerHTML="Show Settings";
+
+            // bar-outer-cont > settings-hidden-inner-cont
+            let settingsHiddenInnerCont = document.createElement("div");
+            settingsHiddenInnerCont.className="settings-hidden-inner-cont";
+            settingsHiddenInnerCont.id="SHIC"+barID;
+
+            // bar-outer-cont > settings-hidden-inner-cont > input#CIid
+            let colorInput = document.createElement("input");
+            colorInput.className="color-input";
+            colorInput.id="CI"+barID;
+            colorInput.placeholder="Color"
+            colorInput.setAttribute("oninput", `barColor(${barID})`);
+
+            // bar-outer-cont > settings-hidden-inner-cont > input#SIid
+            let stepInput = document.createElement("input");
+            stepInput.className="step-input";
+            stepInput.id="SI"+barID;
+            stepInput.placeholder="Step";
+
+            // bar-outer-cont > settings-hidden-inner-cont > button.f(deleteBar(id))
+            let deleteButton = document.createElement("button");
+            deleteButton.className="delete-button";
+            deleteButton.id="DB"+barID;
+            deleteButton.setAttribute("onclick", `deleteBar(${barID})`);
+            deleteButton.innerHTML="Delete";
+
+            // Appending Children
+            barOuterCont.appendChild(barInnerCont);
+            barInnerCont.appendChild(bar);
+            barOuterCont.appendChild(settingsInnerCont);
+            settingsInnerCont.appendChild(inputIn1);
+            settingsInnerCont.appendChild(outOfText);
+            settingsInnerCont.appendChild(inputIn2);
+            settingsInnerCont.appendChild(remButton);
+            settingsInnerCont.appendChild(addButton);
+            settingsInnerCont.appendChild(barName);
+            settingsInnerCont.appendChild(settingsButton);
+            barOuterCont.appendChild(settingsHiddenInnerCont);
+            settingsHiddenInnerCont.appendChild(colorInput);
+            settingsHiddenInnerCont.appendChild(stepInput);
+            settingsHiddenInnerCont.appendChild(deleteButton);
+            document.getElementById("outer-container").appendChild(barOuterCont);
+            barID = Number(barID) + 1;
+        }
+
+        function deleteBar(id) {
+            let outerContainer = document.getElementById("BOC"+id);
+            outerContainer.innerHTML="";
+            outerContainer.remove();
+            // setTimeout(save, 100);
+        }
+
+        function barColor(id) {
+            let bar = document.getElementById("bar"+id);
+            let color = document.getElementById("CI"+id).value;
+            bar.style.background=color;
+        }
+
+        
+
+        
+    </script>
+</body>
+</html>
