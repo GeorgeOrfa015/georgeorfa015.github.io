@@ -359,7 +359,7 @@
             }
             let valueEnd = (value * 100) / outOf;
             bar.style.width = valueEnd + "%";
-            bar.innerHTML = Math.round(valueEnd) + "%";
+            bar.innerHTML = Math.round(valueEnd *100) / 100 + "%";
             setTimeout(save, 100);
         }
         function addProg(id) {
