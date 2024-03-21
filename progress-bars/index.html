@@ -358,8 +358,12 @@
                 outOf = 100;
             }
             let valueEnd = (value * 100) / outOf;
-            bar.style.width = valueEnd + "%";
-            bar.innerHTML = Math.round(valueEnd *100) / 100 + "%";
+            if (valueEnd < 0) {
+                bar.style.width = "0%";
+            }else{
+                bar.style.width = valueEnd + "%";
+            }
+            bar.innerHTML = Math.round(valueEnd * 100) / 100 + "%";
             setTimeout(save, 100);
         }
         function addProg(id) {
