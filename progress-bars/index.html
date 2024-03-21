@@ -480,6 +480,7 @@
             stepInput.className="step-input";
             stepInput.id="SI"+barID;
             stepInput.placeholder="Step";
+            stepInput.setAttribute("oninput", "save()");
 
             // bar-outer-cont > settings-hidden-inner-cont > button.f(deleteBar(id))
             let deleteButton = document.createElement("button");
