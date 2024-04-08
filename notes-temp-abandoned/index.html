@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post-It Notes</title>
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+    body{
+        background: #111c16;
+        color: #d4ffd1;
+        font-family: poppins;
+    }
+    span:focus{
+        outline:none;
+    }
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+        width: 0.6vw;
+    }
+    /* Track */
+    ::-webkit-scrollbar-track {
+        background: #102b1b;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: #154126;
+        transition: 0.3s;
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #17532e;
+    }
+    button{
+        background: #11291b;
+        border: 0.2vw outset #11291b;
+        transition: 0.3s;
+        color: #d4ffd1;
+        font-size: 1.2vw;
+        font-family: inherit;
+    }
+    button:hover{
+        background: #103b21;
+        border: 0.2vw outset #103b21;
+    }
+    .button-top{
+        margin-right: 1vw;
+        margin-bottom: 0.5vw;
+    }
+    .button-delete{
+        background-color: #411;
+        border: 0.2vw outset #411;
+        color: #fdd;
+        width: 100%;
+        height: 50%;
+        font-size: 1vw;
+    }
+    .button-delete:hover{
+        background-color: #522;
+        border: 0.2vw outset #522;
+        color: #fdd;
+        width: 100%;
+    }
+    .button-copy{
+        height: 50%;
+        font-size: 1vw;
+    }
+    .note-container{
+        display: flex;
+        flex-direction: row;
+    }
+    .note{
+        height: 10vw;
+        width: 20vw;
+        background: #111c16;
+        border: 0.2vw inset #111c16;
+        padding: 0.3vw;
+        overflow-y: scroll;
+    }
+    .note-text{
+        outline: none;
+        width: 100%;
+        padding-right: 1vw;
+        font-size: 1.5vw;
+    }
+    .controls{
+        width: fit-content;
+        background: #111c16;
+        border: 0.2vw inset #111c16;
+        display: flex;
+        flex-direction: column;
+    }
+    </style>
+</head>
+<body>
+    <button class="button-top" onclick="newNote()">Create new note...</button>
+    <script>
+
+        function newNote() {
+            let noteContainer = document.createElement("div");
+            noteContainer.className="note-container";
+            noteContainer.id="note-container";
+
+            let note = document.createElement("div");
+            note.className = "note";
+
+            let controls = document.createElement("div");
+            controls.className = "controls";
+
+            let noteText = document.createElement("span");
+            noteText.class = "note-text";
+            noteText.contentEditable = "true"
+            noteText.innerHTML='';
+
+            let buttonCopy = document.createElement("button");
+            buttonCopy.className = "button-copy";
+            buttonCopy.innerHTML = "Copy";
+
+            let buttonDelete = document.createElement("button");
+            buttonDelete.className = "button-delete";
+            buttonDelete.innerHTML = "Delete"
+            buttonDelete.setAttribute("onclick", "deleteNote()");
+
+            document.body.appendChild(noteContainer);
+            noteContainer.appendChild(note);
+            noteContainer.appendChild(controls);
+            note.appendChild(noteText);
+            controls.appendChild(buttonCopy);
+            controls.appendChild(buttonDelete);
+        }
+        function deleteNote(index) {
+            let selection = document.querySelector("#note-container");
+            selection.remove();
+            
+        }
+    </script>
+</body>
+</html>
