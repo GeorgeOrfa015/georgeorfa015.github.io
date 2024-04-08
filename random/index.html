@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Generators</title>
+    <meta content="G. Orfanides | Random Generators" property="og:title" />
+    <meta content="A selection of random generators, from numbers to colors to gradients." property="og:description" />
+    <meta content="https://georgeorfa015.github.io/random/" property="og:url" />
+    <meta content="https://i.imgur.com/fv55MPW.png" property="og:image" />
+    <meta content="#000000" data-react-helmet="true" name="theme-color" id="theme-color"/>
+    <link rel="icon" href="../WebsiteLogo2.ico">
+    <style>
+        div{
+            border-radius: 0.5vw;
+            border: 0px solid #f00;
+        }
+        b{
+            font-weight: 700;
+        }
+        input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button { 
+            -webkit-appearance: none; 
+            margin: 0; 
+        }
+        body{
+            background: #000;
+            font-family: poppins;
+            color: #fff;
+            line-height: 1.75vw;
+        }
+        .outerContainer{
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1vw;
+            padding: 1vw 2vw 0 2vw;
+        }
+        .moduleOuterContainer{
+            display: grid;
+            grid-template-columns: 1fr 1fr 2fr;
+            gap: 0.75vw;
+            padding: 0.75vw;
+            background: #222;
+        }
+        .moduleDescription{
+            height: 14vw;
+            background: #444;
+            overflow-y: scroll;
+            border-radius: 0.5vw;
+            padding: 0.75vw;
+            scrollbar-width: none;
+        }
+        .moduleInput{
+            background: #444;
+            overflow-y: scroll;
+            border-radius: 0.5vw;
+            padding: 0.75vw;
+            scrollbar-width: none;
+        }
+        .moduleOutput{
+            background: #333;
+            overflow-y: scroll;
+            border-radius: 0.5vw;
+            padding: 0.75vw;
+            scrollbar-width: none;
+            text-wrap:wrap;
+        }
+        .text{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .color{
+            display: grid;
+            gap: 0.75vw;
+        }
+        .colorOutput{
+            height: 10vw;
+            background: #181818;
+        }
+        .colorOutputOptions{
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            gap: 0.75vw;
+        }
+        .outputOptions{
+            margin-bottom: 0;
+            margin: 0;
+            padding: 0;
+        }
+        input.outputOptions{
+            text-align: center;
+            background: #444;
+        }
+        .moduleInputFlex{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75vw;
+        }
+        .groupOuterContainer{
+            display: grid;
+            gap: 1.25vw;
+            grid-template-columns: 1fr;
+            padding: 1vw;
+            background: #111;
+            margin: 2vw 0 2vw 0
+        }
+        .groupHeading{
+            font-size: 2.25vw;
+            font-weight: 600;
+        }
+        .moduleHeading{
+            font-size: 1.75vw;
+            font-weight: 500;
+        }
+        .outputText{
+            text-align: center;
+            font-size: 2vw
+        }
+        input{
+            background:#167c40;
+            color: #fff;
+            border: none;
+            height: 3.5vw;
+            border-radius: 0.5vw;
+            width: 100%;
+            text-align: center;
+            font-size: 1.5vw;
+            font-family: inherit;
+            padding: 0;
+            margin-bottom: 1vw;
+        }
+        button{
+            background:#16964c;
+            color: #fff;
+            border: none;
+            height: 3.5vw;
+            border-radius: 0.5vw;
+            width: 100%;
+            text-align: center;
+            font-size: 1.5vw;
+            font-family: inherit;
+            padding: 0;
+            margin-bottom: 1vw;
+            transition: 0.2s;
+        }
+        button:hover{
+            background:#1ca856;
+        }
+        button:active{
+            background:#24bd64;
+            transition: none;
+        }
+        input:focus{
+            outline:none;
+        }
+        input::placeholder{
+            color: #79e6ba;
+            align-self: center;;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="outerContainer">
+        <div class="moduleOuterContainer">
+            <div class="moduleDescription">
+                <span class="moduleHeading">Random Number</span><br>
+                <span class="moduleBody">Generate a random non-decimal number between the minimum and maximum value provided.<br>
+                    <br>
+                    Min: Smallest number<br>
+                    Max: Largest number
+                </span>
+            </div>
+            <div class="moduleInput">
+                <div class="moduleInputFlex">
+                    <input type="number" class="input" id="calc1in1" placeholder="Min">
+                    <input type="number" class="input" id="calc1in2" placeholder="Max">
+                </div>
+                <button onclick="randomNumberModule()">Generate</button>
+            </div>
+            <div class="moduleOutput text">
+                <span class="outputText" id="calc1out"></span>
+            </div>
+        </div>
+        <div class="moduleOuterContainer">
+            <div class="moduleDescription">
+                <span class="moduleHeading">Random Letter</span><br>
+                <span class="moduleBody">Generate a random letter from the latin alphabet.</span>
+            </div>
+            <div class="moduleInput">
+                <button onclick="randomLetterModule()">Generate</button>
+            </div>
+            <div class="moduleOutput text">
+                <span class="outputText" id="calc2out"></span>
+            </div>
+        </div>
+        <div class="moduleOuterContainer">
+            <div class="moduleDescription">
+                <span class="moduleHeading">Random Color</span><br>
+                <span class="moduleBody">Generate a random color and copy it as a HEX code.</span>
+            </div>
+            <div class="moduleInput">
+                <button onclick="randomColorModule()">Generate</button>
+            </div>
+            <div class="moduleOutput color">
+                <div class="colorOutput" id="calc3out1"></div>
+                <div class="colorOutputOptions">
+                    <input id="calc3out2" class="outputOptions" type="text" disabled><button class="outputOptions" onclick="copyColor()" id="copyColorButton">Copy</button>
+                </div>
+            </div>
+        </div>
+        <div class="moduleOuterContainer">
+            <div class="moduleDescription">
+                <span class="moduleHeading">Random Gradient</span><br>
+                <span class="moduleBody">Generate a random linear gradient with a set rotation and amount of colors and copy it in CSS format.<br>
+                    <br>
+                    <b>Colors:</b> Amount of colors the gradient should contain. Minimum is 2<br>
+                    <b>Rotation:</b> Defined in degrees. Input a number to determine the gradient's rotation. If none is set, a number will be selected at random.
+                </span>
+            </div>
+            <div class="moduleInput">
+                <div class="moduleInputFlex">
+                    <input type="number" class="input" id="calc4in1" placeholder="Colors">
+                    <input type="number" class="input" id="calc4in2" placeholder="Rotation">
+                </div>
+                <button onclick="randomGradientModule()">Generate</button>
+            </div>
+            <div class="moduleOutput color">
+                <div class="colorOutput" id="calc4out1"></div>
+                <div class="colorOutputOptions">
+                    <input id="calc4out2" class="outputOptions" type="text" disabled><button class="outputOptions" onclick="copyGradient()" id="copyGradientButton">Copy</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var copy_color = "";
+        var copy_gradient = "";
+        function randomNumber(min,max) {
+            return Math.round(Math.random() * (max - min)) + Number(min);
+        }
+        function randomColor() {
+            let decR = randomNumber(0,255);
+            let hexR = decR.toString(16);
+            hexR = ("0" + hexR).slice(-2);
+            let decG = randomNumber(0,255);
+            let hexG = decG.toString(16);
+            hexG = ("0" + hexG).slice(-2);
+            let decB = randomNumber(0,255);
+            let hexB = decB.toString(16);
+            hexB = ("0" + hexB).slice(-2);
+            return `#${hexR}${hexG}${hexB}`;
+        }
+        
+        function randomNumberModule() {
+            let min = document.getElementById("calc1in1").value;
+            let max = document.getElementById("calc1in2").value;
+            let out = document.getElementById("calc1out");
+            out.innerHTML = randomNumber(min, max);
+        }
+        function randomLetterModule() {
+            let out = document.getElementById("calc2out");
+            let lettersStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            let letters = lettersStr.split("");
+            out.innerHTML = letters[randomNumber(0,25)];
+        }
+        function randomColorModule() {
+            let out1 = document.getElementById("calc3out1");
+            let out2 = document.getElementById("calc3out2");
+            let color = randomColor();
+            out1.style.background = color;
+            out2.value = color;
+            copy_color = color;
+        }
+        function randomGradientModule() {
+            let colors = document.getElementById("calc4in1").value;
+            let rotation = document.getElementById("calc4in2").value;
+            let out1 = document.getElementById("calc4out1");
+            let out2 = document.getElementById("calc4out2");
+            if (isNaN(rotation)||rotation=="") {
+                rotation = randomNumber(0,359);
+            }
+            let gradient = `linear-gradient(${rotation}deg, `;
+            
+            for (i=0;i<colors;i++) {
+                gradient += randomColor() + ", ";
+            }
+            gradient = gradient.slice(0, -2);
+            gradient += ")";
+            out1.style.background = gradient;
+            out2.value = gradient;
+            if (colors<2) {
+                out2.value = "ERR: Colors must be greater than 2"
+            }
+            copy_gradient = gradient;
+        }
+
+        function copyColor() {
+            if (copy_color!="") {
+                navigator.clipboard.writeText(copy_color);   
+                document.getElementById("copyColorButton").innerHTML = "Copied!"
+                setTimeout(function() {document.getElementById("copyColorButton").innerHTML = "Copy"}, 3000)     
+            }
+        }
+        function copyGradient() {
+            if (copy_gradient!="") {
+                navigator.clipboard.writeText(copy_gradient);  
+                document.getElementById("copyGradientButton").innerHTML = "Copied!"
+                setTimeout(function() {document.getElementById("copyGradientButton").innerHTML = "Copy"}, 3000)           
+            }
+        }
+    </script>
+</body>
+</html>

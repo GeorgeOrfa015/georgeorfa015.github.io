@@ -8,15 +8,16 @@
    <script>
    function calculate() {
       document.getElementById("output").innerHTML="";
-      let a1 = 1
-      let o = 1
-      let n = 10
+      let a1 = 2
+      let d = 3
+      let n = 6
       let sum = 0
       for (i=1;i<=n;i++) {
-         sum += a1 + (i-1) * o;
-         document.write(sum+" ")
+         sum += a1 + (i-1) * d;
+         console.log(a1+(i-1)*d);
       }
    }
+   calculate();
    </script>
 </body>
 </html>
