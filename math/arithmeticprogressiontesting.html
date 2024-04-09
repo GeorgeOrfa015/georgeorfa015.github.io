@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="G. Orfanides | Mathematical Equations" property="og:title" />
+    <meta content="Some (maybe useful) mathematical equations" property="og:description" />
+    <meta content="https://georgeorfa015.github.io/math/" property="og:url" />
+    <meta content="https://i.imgur.com/fv55MPW.png" property="og:image" />
+    <meta content="#000000" data-react-helmet="true" name="theme-color" id="theme-color"/>
+    <link rel="icon" href="../WebsiteLogo2.ico">
+    <title>Mathematical Equations</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        body{
+            background: #000;
+            font-family: poppins;
+            color: #fff;
+            line-height: 1.75vw;
+        }
+        input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button { 
+            -webkit-appearance: none; 
+            margin: 0; 
+        }
+        .outerContainer{
+            height: 66vw;
+        }
+        .outerProjectContainer{
+            width: 96vw;
+            height: 15vw;
+            margin: 1vw 2vw 1vw 2vw;
+            background: #01150a;
+            position: absolute;
+            left: 0;
+            top: 0;
+            display: flex;
+            flex-direction: row;
+            border-radius: 0.5vw;
+            overflow: hidden;
+        }
+        .projectDescription,.projectInput{
+            width: 23.125vw;
+            background: #056c30;
+            margin: 0.5vw;
+            overflow-y: scroll;
+            border-radius: 0.5vw;
+            padding: 0.75vw;
+            scrollbar-width: none;
+        }
+        .projectInput{
+            margin-left: 0;
+            text-align: center;
+        }
+        .projectOutput{
+            width: 46.25vw;
+            background: #023116;
+            border-radius: 0.5vw;
+            margin: 0.5vw;
+            padding: 0.75vw;
+            overflow-y: scroll;
+            scrollbar-width: none;
+            margin-left: 0;
+            text-wrap:wrap;
+            
+        }
+        .itemHeading{
+            font-size: 1.6vw;
+            font-weight: 600;
+        }
+        span,.itemDescription{
+            font-size: 1.2vw;
+            font-weight: 300;
+        }
+        input{
+            background:#10813f;
+            color: #fff;
+            border: none;
+            height: 3.5vw;
+            border-radius: 0.5vw;
+            width: 22.25vw;
+            text-align: center;
+            font-size: 1.5vw;
+            font-family: inherit;
+            padding: 0;
+            margin-bottom: 1vw;
+        }
+        input:focus{
+            outline:none;
+        }
+        input::placeholder{
+            color: #e5e5e5
+        }
+
+
+        #cont1{
+            top: 1vw;
+        }
+        #cont2{
+            top: 17vw;
+        }
+        #cont3{
+            top: 33vw;
+        }
+        #cont4{
+            top: 49vw;
+        }
+        @media(max-width:600px){
+            body{
+                line-height: 5.25vw;
+            }
+            .outerContainer{
+                height: 620vw;
+            }
+            .outerProjectContainer{
+                width: 94vw;
+                height: 150vw;
+                margin: 1.5vw 3vw 1.5vw 3vw;
+                flex-direction: column;
+                border-radius: 2vw;
+                overflow: hidden;
+            }   
+            .projectDescription,.projectInput{
+                width: 86vw;
+                margin: 2vw;
+                border-radius: 2vw;
+                padding: 2vw;
+                height: 35vw;
+            }
+            .projectInput{
+                margin-top: 0;
+                text-align: center;
+            }
+            .projectOutput{
+                width: 86vw;
+                height: 72vw;
+                background: #023116;
+                border-radius: 2vw;
+                margin: 2vw;
+                padding: 2vw;
+                margin-top: 0;
+            }
+            input{
+                background:#10813f;
+                color: #fff;
+                border: none;
+                height: 11vw;
+                border-radius: 2vw;
+                width: 86vw;
+                padding: 0;
+                text-align: center;
+                font-size: 4.8vw;
+                font-family: inherit;
+            }
+
+
+            .itemHeading{
+                font-size:  5vw;
+                font-weight: 600;
+            }
+            span,.itemDescription{
+                font-size: 3.5vw;
+                font-weight: 300;
+            }
+            
+            #cont1{
+                margin-top: 2vw;
+            }
+            #cont2{
+                top: 156vw;
+            }   
+            #cont3{
+                top: 312vw;
+            }
+            #cont4{
+                top: 468vw;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="outerContainer">
+    <div class="outerProjectContainer" id="cont1">
+        <div class="projectDescription">
+            <span class="itemHeading">Factor Finder</span><br>
+            <span class="itemDescription">
+                Find all factors of any integer<br>
+                <br>
+                Input: Any integer<br>
+                Output: The integer's factors
+            </span>
+        </div>
+        <div class="projectInput">
+            <input type="number" class="input" id="calc1in" placeholder="Enter an integer..." oninput="calc1()">
+        </div>
+        <div class="projectOutput">
+            <span class="itemHeading">Factors</span><br><span id="calc1out"></span>
+        </div>
+    </div>
+    <div class="outerProjectContainer" id="cont2">
+        <div class="projectDescription">
+            <span class="itemHeading">Triangular Numbers</span><br>
+            <span class="itemDescription">The n-th triangular number is the number of dots in the triangular arrangement with n dots on each side, or in other words, 1+2+3+...+n<br>
+            <br>
+            Input: Any integer (n) <br>
+            Output: 1+2+3+...+n
+        </span>
+        </div>
+        <div class="projectInput">
+            <input type="number" class="input" id="calc2in" placeholder="Enter an integer..." oninput="calc2()">
+        </div>
+        <div class="projectOutput">
+            <span class="itemHeading">n-th Triangular Number</span><br><span id="calc2out"></span>
+        </div>
+    </div>
+    <div class="outerProjectContainer" id="cont3">
+        <div class="projectDescription">
+            <span class="itemHeading">Factorial Calculator</span><br>
+            <span class="itemDescription">The factorial n! is equal to n multiplied by every number that precedes it. Alternatively, in mathematical terms, n! is equal to n(n-1)<br>
+                <br>
+                Input: Any integer (n)<br>
+                Output: n(n-1)
+        </span>
+        </div>
+        <div class="projectInput">
+            <input type="number" class="input" id="calc3in" placeholder="Enter an integer..." oninput="calc3()">
+        </div>
+        <div class="projectOutput">
+            <span class="itemHeading">Factorial n!</span><br><span id="calc3out"></span>
+        </div>
+    </div>
+    <div class="outerProjectContainer" id="cont4">
+        <div class="projectDescription">
+            <span class="itemHeading">Least Common Multiple</span><br>
+            <span class="itemDescription">The least common multiple is defined as the smallest non-zero multiple that two or more numbers have in common.<br>
+                <br>
+                Input: Multiple integers separated by a space i.e 15 83 31<br>
+                Output: The least common multiple of the numbers
+        </span>
+        </div>
+        <div class="projectInput">
+            <input class="input" id="calc4in" placeholder="Enter numbers..." oninput="calc4()">
+        </div>
+        <div class="projectOutput">
+            <span class="itemHeading">Least Common Multiple</span><br><span id="calc4out"></span>
+        </div>
+    </div>
+    <div class="outerProjectContainer" id="cont4">
+        <div class="projectDescription">
+            <span class="itemHeading">Arithmetic Progression Calculator</span><br>
+            <span class="itemDescription">Lorem Ipsum Dolor Sit<br>
+                <br>
+                Input: Multiple integers separated by a space i.e 15 83 31<br>
+                Output: The least common multiple of the numbers
+        </span>
+        </div>
+        <div class="projectInput">
+            <input class="input" id="calc5in1" placeholder="a₁" oninput="calc5()">
+            <input class="input" id="calc5in2" placeholder="d" oninput="calc5()">
+            <input class="input" id="calc5in3" placeholder="n" oninput="calc5()">
+        </div>
+        <div class="projectOutput">
+            <span class="itemHeading">Least Common Multiple</span><br><span id="calc5out1"></span><br><span id="calc5out2"></span>
+        </div>
+    </div>
+</div>
+    <script>
+    function calc1() {
+        let input = document.querySelector("#calc1in");
+        let output = document.querySelector("#calc1out"); 
+        let factors = "";
+        if (input.value!=0||!isNaN(input.value)){
+            for (i=1;i<=input.value;i++) {
+                if (input.value%i==0) {
+                    factors+=i+", ";
+                };
+            };
+            factors = factors.slice(0, -2); 
+        }else{
+            factors = "undefined";
+        };
+        output.innerHTML=factors;
+    }
+    function calc2() {
+        let input = document.querySelector("#calc2in").value;
+        let output = document.querySelector("#calc2out");
+        let sum = 0;
+        let desc = "";
+        for (i=1;i<=input;i++) {
+            sum+=i
+            desc+=i+" + "
+        }
+        desc = desc.slice(0, -2);
+
+        if (desc=="") {
+            desc = 0
+        }
+        if (input=="") {
+            output.innerHTML="";
+        }else{
+            output.innerHTML=sum+" = "+desc;
+        }
+    }
+    function calc3() {
+        let input = document.querySelector("#calc3in").value;
+        let output = document.querySelector("#calc3out");
+        let factorial = 1;
+        let desc = "";
+        for (i=1;i<=input;i++) {
+            factorial*=i;
+        }
+        desc = desc.slice(0, -2);
+        
+        if (input==0) {
+            factorial=1;
+        }
+        if (isNaN(input)||input==""){
+            output.innerHTML="";
+        }else{
+            output.innerHTML=input+"! = "+factorial;
+            
+        };
+    }
+    function calc4() {
+        function lcm(numList) {
+            let multiple = Math.max.apply(null,numList);
+
+            while (!allFactors(numList, multiple)) {
+                multiple += 1
+            }
+            
+            return multiple;
+        }
+        function allFactors(numList, x){
+            for (let number of numList){
+                if (x % number != 0) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        let input = document.querySelector("#calc4in").value;
+        let output = document.querySelector("#calc4out");
+        if (input==""){
+            output.innerHTML=""; //empty input
+        }else if (input.split(" ").includes("")) { //has empty element
+            output.innerHTML="Error: Extra space character detected."; //error empty element
+        }else if (input==0||input.split(" ").includes("0")){ //is or includes 0
+            output.innerHTML="Error: The LCM of 0 is not defined." //error 0 not defined
+        }else if (input.split(" ").length<2) { //has less than 2 elements or is empty
+            if(!isNaN(input)){ //is a number
+                output.innerHTML="LCM("+input+") = "+input;//success 1 element
+            }else{ //is not a number
+                output.innerHTML="Error: Input contains text."; //error not a number
+            }
+        }else{ // has 2 or more elements
+            if (input.split(" ").every((element) => !isNaN(element))) { //array does not include text
+                output.innerHTML="LCM("+input.replace(/ /g, ", ")+") = " + lcm(input.split(" ")); //success 2 or more elements
+            }else{ //array includes text
+                output.innerHTML="Error: Input contains text." //error text in array
+            }
+        }
+        
+    }
+    function calc5() {
+        let a1 = Number(document.getElementById("calc5in1").value);
+        let d = Number(document.getElementById("calc5in2").value);
+        let n = Number(document.getElementById("calc5in3").value);
+        let out1 = document.getElementById("calc5out1");
+        let out2 = document.getElementById("calc5out2");
+        let a2 = a1 + d;
+        let a3 = a2 + d;
+        let a4 = a3 + d;
+        let an = a1 + (n-1) * d;
+        if (a1==""||isNaN(a1)||d==""||isNaN(d)) {
+            out1.innerHTML = "ERR: Please define the progression correctly.";
+        }else if (a1==""&&d=="") {
+            out1.innerHTML = "";
+        }else if (n==""||isNaN(n)) {
+            an = "a<sub>n</sub>";
+        }
+        if (n>=6) {
+            out1.innerHTML = `${a1}, ${a2}, ${a3}, ${a4} ... ${an}`;
+        }else if (n==5) {
+            out1.innerHTML = `${a1}, ${a2}, ${a3}, ${a4}, ${an}`;
+        }else if (n==4) {
+            out1.innerHTML = `${a1}, ${a2}, ${a3}, ${an}`;
+        }else if (n==3) {
+            out1.innerHTML = `${a1}, ${a2}, ${an}`;
+        }else if (n==2) {
+            out1.innerHTML = `${a1}, ${an}`;
+        }else if (n==1) {
+            out1.innerHTML = `${an}`;
+        }else if (n<1) {
+            out1.innerHTML = "ERR: a<sub>n</sub> with n equal or less than 0 is not defined."
+        }
+    }
+    
+    
+        
+    </script>
+</body>
+</html>
