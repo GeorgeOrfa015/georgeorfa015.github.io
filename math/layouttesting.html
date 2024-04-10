@@ -32,7 +32,7 @@
             background: #222;
         }
         .moduleDescription{
-            height: 14vw;
+            height: 16.25vw;
             background: #444;
             overflow-y: scroll;
             border-radius: 0.5vw;
@@ -45,6 +45,13 @@
             border-radius: 0.5vw;
             padding: 0.75vw;
             scrollbar-width: none;
+            height: 16.25vw;
+        }
+        .moduleInputInnerContainer{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75vw;
+            height: fit-content;
         }
         .moduleOutput{
             background: #333;
@@ -71,6 +78,25 @@
             font-weight: 500;
         }
         input{
+            background:#13713a;
+            color: #fff;
+            border: none;
+            height: 3.5vw;
+            border-radius: 0.5vw;
+            width: 100%;
+            text-align: center;
+            font-size: 1.5vw;
+            font-family: inherit;
+            padding: 0;
+        }
+        input:focus{
+            outline:none;
+        }
+        input::placeholder{
+            color: #79e6ba;
+            align-self: center;
+        }
+        button{
             background:#16964c;
             color: #fff;
             border: none;
@@ -81,14 +107,18 @@
             font-size: 1.5vw;
             font-family: inherit;
             padding: 0;
-            margin-bottom: 1vw;
+            transition: background 0.2s;
         }
-        input:focus{
-            outline:none;
+        button:hover{
+            background:#1ca856;
         }
-        input::placeholder{
-            color: #79e6ba;
-            align-self: center;;
+        button:active{
+            background:#24bd64;
+            transition: none;
+        }
+        .longItem{
+            grid-column-start: 1;
+            grid-column-end: 3;
         }
         
     </style>
@@ -97,18 +127,30 @@
     <div class="outerContainer">
         <div class="moduleOuterContainer">
             <div class="moduleDescription">
-                <span class="moduleHeading">Factor Finder</span><br>
-                <span class="moduleBody">Find all factors of any integer<br>
-                    <br>
-                    Input: Any integer<br>
-                    Output: The integer's factors
-                </span>
+                <span class="moduleHeading">Heading</span><br>
+                <span class="moduleBody">Text</span>
             </div>
             <div class="moduleInput">
-                <input type="number" class="input" id="calc1in" placeholder="Enter an Integer..." oninput="calc1()">
+                <div class="moduleInputInnerContainer">
+                    <input placeholder="Placeholder"><input value="Value"><input class="longItem"><button>Button</button><button>Button</button><button class="longItem">Button</button>
+                </div>
             </div>
             <div class="moduleOutput">
-                <span class="moduleHeading">Factors</span><br><span id="calc1out"></span>
+
+            </div>
+        </div>
+        <div class="moduleOuterContainer">
+            <div class="moduleDescription">
+                <span class="moduleHeading">Heading</span><br>
+                <span class="moduleBody">Text</span>
+            </div>
+            <div class="moduleInput">
+                <div class="moduleInputInnerContainer">
+                    <input placeholder="Placeholder"><input value="Value"><input class="longItem"><button>Button</button><button>Button</button><button class="longItem">Button</button>
+                </div>
+            </div>
+            <div class="moduleOutput">
+
             </div>
         </div>
         <div class="groupOuterContainer">
@@ -116,50 +158,30 @@
             <div class="moduleOuterContainer">
                 <div class="moduleDescription">
                     <span class="moduleHeading">Heading</span><br>
-                    <span class="moduleBody">Lorem ipsum dolor sit amet</span>
+                    <span class="moduleBody">Text</span>
                 </div>
                 <div class="moduleInput">
-
+                    <div class="moduleInputInnerContainer">
+                        <input placeholder="Placeholder"><input value="Value"><input class="longItem"><button>Button</button><button>Button</button><button class="longItem">Button</button>
+                    </div>
                 </div>
                 <div class="moduleOutput">
-
+    
                 </div>
             </div>
             <div class="moduleOuterContainer">
                 <div class="moduleDescription">
                     <span class="moduleHeading">Heading</span><br>
-                    <span class="moduleBody">Lorem ipsum dolor sit amet</span>
+                    <span class="moduleBody">Text</span>
                 </div>
                 <div class="moduleInput">
-    
+                    <div class="moduleInputInnerContainer">
+                        <input placeholder="Placeholder"><input value="Value"><input class="longItem"><button>Button</button><button>Button</button><button class="longItem">Button</button>
+                    </div>
                 </div>
                 <div class="moduleOutput">
     
                 </div>
-            </div>
-        </div>
-        <div class="moduleOuterContainer">
-            <div class="moduleDescription">
-                <span class="moduleHeading">Heading</span><br>
-                <span class="moduleBody">Lorem ipsum dolor sit amet</span>
-            </div>
-            <div class="moduleInput">
-
-            </div>
-            <div class="moduleOutput">
-
-            </div>
-        </div>
-        <div class="moduleOuterContainer">
-            <div class="moduleDescription">
-                <span class="moduleHeading">Heading</span><br>
-                <span class="moduleBody">Lorem ipsum dolor sit amet</span>
-            </div>
-            <div class="moduleInput">
-
-            </div>
-            <div class="moduleOutput">
-
             </div>
         </div>
     </div>
