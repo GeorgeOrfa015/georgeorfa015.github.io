@@ -256,7 +256,7 @@
         <div class="projectInput">
             <input class="input" id="calc5in1" placeholder="a₁" oninput="calc5()">
             <input class="input" id="calc5in2" placeholder="d" oninput="calc5()">
-            <input class="input" id="calc5in3" placeholder="n" oninput="calc5()">
+            <input class="input" id="calc5in3" type="number" placeholder="n" oninput="calc5()">
         </div>
         <div class="projectOutput">
             <span class="itemHeading">Least Common Multiple</span><br><span id="calc5out1"></span><br><br><span id="calc5out2"></span>
@@ -406,7 +406,7 @@
                 }else if (n==1) {
                     out1.innerHTML = `${an}`;
                     out2.innerHTML = `a<sub>${n}</sub> = ${an}`;
-                }else if (n<=0) {
+                }else if (n==0) {
                     out1.innerHTML = "ERR: a<sub>n</sub> with n less or equal to 0 is not defined."
                     out2.innerHTML = "";
                 }
