@@ -251,11 +251,12 @@
         let output = document.querySelector("#calc1out"); 
         let factors = "";
         if (input.value!=0||!isNaN(input.value)){
-            for (i=1;i<=input.value;i++) {
+            for (i=1;i<=Math.floor(input.value/2+1);i++) {
                 if (input.value%i==0) {
                     factors+=i+", ";
                 };
             };
+            factors = factors+=input.value+", ";
             factors = factors.slice(0, -2); 
         }else{
             factors = "undefined";

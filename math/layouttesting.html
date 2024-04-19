@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mathematical Equations Layout Testing</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@300;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
         div{
             border-radius: 0.5vw;
         }
@@ -125,9 +127,68 @@
             grid-column-end: 3;
         }
         @media(max-width:700px){
+            body{
+                line-height: 5.25vw;
+            }
             .outerContainer{
-                gap: 1vw;
-                padding: 1vw 2vw 0 2vw;
+                gap: 3vw;
+                padding: 1vw 1vw 0 1vw;
+            }
+            .moduleOuterContainer{
+                grid-template-columns: 1fr;
+                gap: 1.75vw;
+                padding: 2vw;
+                border-radius: 3vw;
+            }
+            .moduleDescription{
+                padding: 2vw;
+                border-radius: 1.5vw;
+                height: 30vw;
+            }
+            .moduleInput{
+                border-radius: 1.5vw;
+                padding: 1.5vw;
+                height: 48.75vw;
+            }
+            .moduleInputInnerContainer{
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 1.5vw;
+                height: fit-content;
+            }
+            .moduleOutput{
+                border-radius: 1.5vw;
+                padding: 1.5vw;
+                height: 25vw;
+            }
+            .moduleHeading{
+                font-size: 5vw;
+                font-weight: 500;
+            }
+            .moduleBody{
+                font-size: 3.5vw;
+            }
+            .groupOuterContainer{
+                border-radius: 3vw;
+                padding: 2vw;
+                gap: 2.5vw;
+            }
+            .groupHeading{
+                font-size: 5vw;
+            }
+            input{
+                border: none;
+                height: 11vw;
+                border-radius: 1.5vw;
+                font-size: 5vw;
+            }
+            button{
+                height: 11vw;
+                border-radius: 1.5vw;
+                font-size: 5vw;
+                font-family: inherit;
+                padding: 0;
+                transition: background 0.2s;
             }
         }
         
