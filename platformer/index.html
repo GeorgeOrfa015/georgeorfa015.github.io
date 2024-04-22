@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2D platformer</title>
+    <meta content="G. Orfanides | Platformer" property="og:title" />
+    <meta content="A simple 2D Platformer" property="og:description" />
+    <meta content="https://georgeorfa015.github.io/" property="og:url" />
+    <meta content="https://i.imgur.com/fv55MPW.png" property="og:image" />
+    <meta content="#090f0c" data-react-helmet="true" name="theme-color" id="theme-color"/>
+    <link rel="icon" href="../WebsiteLogo2.ico">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@300;900&display=swap');
+        body{
+            background: #000;
+            color: #fff;
+            font-family: Poppins;
+        }
+        #canvasOuterCont{
+            height: fit-content;
+            width: fit-content;
+            margin: auto;
+            padding: 2.5vw;
+            background-color: #222;
+            border-radius: 1.5vw;
+        }
+        #canvasCont{
+            border-radius: 0.75vw;
+            overflow: hidden;
+            padding: none;
+        }
+        h2{
+            text-align: center;
+            font-size: 6vw;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        p{
+            text-align: center;
+            font-size: 1.75vw;
+        }
+        a{
+            color: #54df8e;
+            transition: 0.1s;
+            text-decoration:underline;
+            text-decoration-color: #065629;
+        }
+    </style>
+</head>
+<body>
+    <h2>2D Platformer Game</h2>
+    <div id="canvasOuterCont">
+        <div id="canvasCont">
+            <canvas></canvas>
+        </div>
+    </div>
+    <p>
+        This project was made with a tutorial from Chris Courses on YouTube.<br>
+        It can be found <a href="https://youtu.be/rTVoyWu8r6g?si=_mgNpwnmddKi_EEc">here</a>.
+    </p>
+
+    <script src="js/utils.js"></script>
+    <script src="js/data/collision.js"></script>
+    <script src="js/sprite.js"></script>
+    <script src="js/player.js"></script>
+    <script src="js/collisionBlocks.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>
