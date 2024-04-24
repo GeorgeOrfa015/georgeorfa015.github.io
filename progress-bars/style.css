@@ -1,0 +1,232 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@300;900&display=swap');
+body{
+    font-family: "Poppins";
+    background: #000;
+}
+#outer-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1vw;
+}
+.bar-outer-cont{
+    padding: 0.75vw;
+    background: #222;
+    border-radius: 0.75vw;
+}
+.bar-inner-cont{
+    margin-bottom: 0.75vw;
+    border-radius: 0.5vw;
+    overflow: hidden;
+    background: #111;
+}
+.bar{
+    height: 2.5vw;
+    background: #10813f;
+    width: 0%; /* Percentage of completion */
+    color: #fff;
+    text-align: center;
+    padding-top: 0.1vw;
+    font-size: 1.5vw;
+    transition: width 0.5s, color 0.2s;
+}
+.settings-inner-cont{
+    display: grid;
+    gap: 0.75vw;
+    grid-template-columns: 2fr 2.6fr 2fr 1fr 1fr 8fr 5.1fr;
+    background: none;
+    color: #fff;
+}
+input{
+    background: #045527;
+    color: #a5f8d1;
+    border: none;
+    border-radius: 0.5vw;
+    width: 4.4vw;
+    text-align: center;
+    font-size: 1.4vw;
+    font-family: inherit;
+    margin: 0;
+    padding: 0;
+    height: 2.25vw;
+    transition: 0.2s;
+}
+.number-input{
+    width: 100%;
+}
+input:focus{
+    outline: none;
+    background: #096d34;
+}
+input::placeholder{
+    color: #2b8561
+}
+.out-of-text{
+    font-size: 1.4vw;
+    text-align: center;
+
+}
+.bar-name{
+    background: none;
+    outline: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    color: #fff;
+    font-size: 1.1vw;
+}
+.bar-name:focus{
+    background: #333;
+}
+.bar-name::placeholder{
+    color: #888;
+}
+button{
+    margin: none;
+    padding: none;
+    font-family: inherit;
+    font-size: 1.35vw;
+    transition: 0.2s;
+    background: #10813f;
+    border: none;
+    color: #fff;
+    border-radius: 0.5vw;
+}
+button:hover{
+    background: #189b4f;
+}
+.color-input{
+    width: 100%;
+}
+.step-input{
+    width: 100%;
+}
+.add-remove-button{
+    height: 2.25vw;
+    width: 100%;
+    margin-right: 0.5vw;
+}
+.delete-button{
+    background: #ad3d3d;
+}
+.delete-button:hover{
+    background: #d05555;
+}
+.settings-hidden-inner-cont{
+    display: none;
+    gap: 1vw;
+    grid-template-columns: 5fr 1fr 1fr;
+    margin-top: 1vw;
+}
+.settings-button{
+    font-size: 0.9vw;
+}
+#load-code-input{
+    width: fit-content;
+    height: 2.25vw;
+    background:#065427;
+    font-size: 1.3vw;
+}
+#load-code-input::placeholder{
+    color: #61b08b;
+    
+}
+.top-buttons{
+    height: 2.25vw;
+}
+#button-container{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 0.5vw;
+}
+@media(max-width: 600px) {
+    #outer-container{
+        grid-template-columns: 1fr;
+        gap: 2vw;
+    }
+    .bar-outer-cont{
+        padding: 2vw;
+        border-radius: 2vw;
+    }
+    .bar-inner-cont{
+        margin-bottom: 2vw;
+        border-radius: 1vw;
+    }
+    .bar{
+        height: 7vw;
+        width: 0%; /* Percentage of completion */
+        font-size: 5vw;
+    }
+    .settings-inner-cont{
+        grid-template-columns: 3fr 2fr 3fr 1fr 1fr;
+        gap: 1vw;
+    }
+    input{
+        border-radius: 1.75vw;
+        width: 15.2vw;
+        font-size: 4vw;
+        height: 6vw;
+    }
+    .number-input{
+        width:100%;
+    }
+    .out-of-text{
+        font-size: 3.8vw;
+        text-align: center;
+    }
+    .bar-name{
+        width: 100%;
+        text-align: center;
+        grid-column-start: 1;
+        grid-column-end: 4;
+        font-size: 4vw;
+        text-align: left;
+    }
+    .bar-name::placeholder{
+        color: #888;
+    }
+    button{
+        font-size: 4vw;
+        border-radius: 1.75vw;
+        height: 6vw;
+    }
+    .color-input{
+        width: 100%;
+    }
+    .step-input{
+        width: 100%;
+    }
+    .add-remove-button{
+        height: 6vw;
+        width: 100%;
+        font-size: 4vw;
+    }
+    .settings-hidden-inner-cont{
+        gap: 1vw;
+        grid-template-columns: 1fr;
+        margin-top: 1vw;
+    }
+    .settings-button{
+        width: 100%;
+        grid-column-start: 4;
+        grid-column-end: 6;
+        font-size: 1.9vw;
+    }
+    .top-buttons{
+        height: 5vw;
+        font-size: 3vw;
+    }
+    #load-code-input{
+        width: fit-content;
+        height: 5vw;
+        background:#065427;
+        font-size: 3vw;
+    }
+    #button-container{
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        gap: 1vw;
+        margin-bottom: 1vw;
+    }
+}

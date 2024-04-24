@@ -1,0 +1,164 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+body{
+    background: #000;
+    font-family: poppins;
+    color: #fff;
+    line-height: 1.75vw;
+}
+input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none; 
+    margin: 0; 
+}
+.outerContainer{
+    height: 66vw;
+}
+.outerProjectContainer{
+    width: 96vw;
+    height: 15vw;
+    margin: 1vw 2vw 1vw 2vw;
+    background: #01150a;
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: flex;
+    flex-direction: row;
+    border-radius: 0.5vw;
+    overflow: hidden;
+}
+.projectDescription,.projectInput{
+    width: 23.125vw;
+    background: #056c30;
+    margin: 0.5vw;
+    overflow-y: scroll;
+    border-radius: 0.5vw;
+    padding: 0.75vw;
+    scrollbar-width: none;
+}
+.projectInput{
+    margin-left: 0;
+    text-align: center;
+}
+.projectOutput{
+    width: 46.25vw;
+    background: #023116;
+    border-radius: 0.5vw;
+    margin: 0.5vw;
+    padding: 0.75vw;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    margin-left: 0;
+    text-wrap:wrap;
+    
+}
+.itemHeading{
+    font-size: 1.6vw;
+    font-weight: 600;
+}
+span,.itemDescription{
+    font-size: 1.2vw;
+    font-weight: 300;
+}
+input{
+    background:#10813f;
+    color: #fff;
+    border: none;
+    height: 3.5vw;
+    border-radius: 0.5vw;
+    width: 22.25vw;
+    text-align: center;
+    font-size: 1.5vw;
+    font-family: inherit;
+    padding: 0;
+    margin-bottom: 1vw;
+}
+input:focus{
+    outline:none;
+}
+input::placeholder{
+    color: #e5e5e5
+}
+
+
+#cont1{
+    top: 1vw;
+}
+#cont2{
+    top: 17vw;
+}
+#cont3{
+    top: 33vw;
+}
+#cont4{
+    top: 49vw;
+}
+@media(max-width:600px){
+    body{
+        line-height: 5.25vw;
+    }
+    .outerContainer{
+        height: 620vw;
+    }
+    .outerProjectContainer{
+        width: 94vw;
+        height: 150vw;
+        margin: 1.5vw 3vw 1.5vw 3vw;
+        flex-direction: column;
+        border-radius: 2vw;
+        overflow: hidden;
+    }   
+    .projectDescription,.projectInput{
+        width: 86vw;
+        margin: 2vw;
+        border-radius: 2vw;
+        padding: 2vw;
+        height: 35vw;
+    }
+    .projectInput{
+        margin-top: 0;
+        text-align: center;
+    }
+    .projectOutput{
+        width: 86vw;
+        height: 72vw;
+        background: #023116;
+        border-radius: 2vw;
+        margin: 2vw;
+        padding: 2vw;
+        margin-top: 0;
+    }
+    input{
+        background:#10813f;
+        color: #fff;
+        border: none;
+        height: 11vw;
+        border-radius: 2vw;
+        width: 86vw;
+        padding: 0;
+        text-align: center;
+        font-size: 4.8vw;
+        font-family: inherit;
+    }
+
+
+    .itemHeading{
+        font-size:  5vw;
+        font-weight: 600;
+    }
+    span,.itemDescription{
+        font-size: 3.5vw;
+        font-weight: 300;
+    }
+    
+    #cont1{
+        margin-top: 2vw;
+    }
+    #cont2{
+        top: 156vw;
+    }   
+    #cont3{
+        top: 312vw;
+    }
+    #cont4{
+        top: 468vw;
+    }
+}

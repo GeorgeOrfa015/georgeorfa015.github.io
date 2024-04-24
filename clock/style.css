@@ -1,0 +1,136 @@
+@import url('https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@300;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+body{
+    background-color: #000000;
+    color: #fff;
+    font-family: poppins;
+}
+#clock{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    font-size: 24vw;
+    font-family: "Chivo Mono";
+    font-weight: 900;
+    
+}
+#background{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;    
+}
+#output{
+    background: #fff;
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text; 
+}        
+#outputDate{
+    background: #fff;
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text; 
+}
+#settings{
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+}
+.sectionTxt{
+    font-size: 3vw;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 1vw;
+}
+.button{
+    background: #0f7a3c;
+    color: #d4ffd1;
+    /* width: 16.3vw; */
+    padding-left: 1vw;
+    padding-right: 1vw;
+    height: 20%;
+    margin-left: 1vw;
+    text-align: center;
+    border-radius: 0.5vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: 0.3s;
+    font-size: 3vw;
+    font-family: inherit;
+    cursor: pointer;
+}
+.button:hover{
+    transform: scale(1.05);
+}
+input{
+    background:#053017;
+    color: #a5f8d1;
+    border: none;
+    border-radius: 0.5vw;
+    margin-left: 1vw;
+    width: 16vw;
+    text-align: center;
+    font-size: 3vw;
+    font-family: "Chivo Mono";
+    transition: 0.3s;
+}
+input::placeholder{
+    color: #1d553f
+}
+input:focus{
+    outline: none;
+    background: #0f7a3c;
+
+}
+input:focus::placeholder{
+    color: #4a9d7c
+}
+.submit{
+    right: 1vw;
+    position: absolute;
+    height: 5vw;
+    width: 15vw;
+}
+#gradientIn1{
+    margin-left: 6.5vw;
+}
+#solidIn{
+    margin-left: 3.6vw;
+}
+#randomStatus{
+    margin-left: 6.5vw;
+}
+.section{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 1vw;
+    width: 100%;
+}
+#date{
+    position: absolute;
+    top: 12vh;
+    font-size: 5vw;
+    left: 50%;
+    transform: translate(-50%);
+    font-family: "Chivo Mono";
+    
+}
+.descriptionTxt{
+    font-size: 2vw;
+    justify-content: center;
+    margin-left: 1vw;
+}
+a{
+    text-decoration: none;
+    color: #33c26e;
+    transition: 0.2s;
+}
+a:hover{
+    color: #95e4b6;
+}
