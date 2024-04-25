@@ -1,5 +1,5 @@
 class Player{
-    constructor({position, collisionBlocks, platformCollisionBlocks}) {
+    constructor({position, collisionBlocks, platformCollisionBlocks, color}) {
         this.position = position;
         this.velocity = {
             x: 0,
@@ -8,12 +8,13 @@ class Player{
         }
         this.height = 8/scale
         this.width = 8/scale
+        this.color = color
         this.collisionBlocks = collisionBlocks
         this.platformCollisionBlocks = platformCollisionBlocks
     }
 
     draw() {
-        c.fillStyle = "red";
+        c.fillStyle = this.color;
         c.fillRect(this.position.x, this.position.y, this.width, this.height);
     }
 

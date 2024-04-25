@@ -1,6 +1,8 @@
 const canvas = document.querySelector("canvas");
 const c = canvas.getContext('2d');
 
+let fly = true;
+
 const scale = 1;
 canvas.width = 864*scale;
 canvas.height = 648*scale;
@@ -67,6 +69,7 @@ const player = new Player({
     },
     collisionBlocks: floorCollisionBlocks,
     platformCollisionBlocks: platformCollisionBlocks,
+    color: "red"
 });
 
 const keys = {
@@ -74,6 +77,9 @@ const keys = {
         pressed: false,
     },
     a: {
+        pressed: false,
+    },
+    w: {
         pressed: false,
     },
 }
@@ -100,6 +106,19 @@ function animate() {
 
     c.restore()
 
+    if (keys.w.pressed) {
+        if (player.velocity.y != 0) {
+            if (fly) {
+                player.velocity.y += -0.3
+                player.color = "#ff0"
+            }
+        }else{
+            player.velocity.y = -6
+            fly = false;
+            player.color = "#f00"
+        } 
+    }
+        if (player.velocity.y == 0) player.color = "#f00"
     if (keys.d.pressed) {
         if (player.velocity.x < 2.5) player.velocity.x += friction
         if (player.velocity.x_ > 0) player.velocity.x_ -= friction
@@ -118,6 +137,9 @@ function animate() {
             player.velocity.x_ = 0;
         }
     }
+    if (!fly) {
+        player.color = "#f00"
+    }
 }
 
 animate()
@@ -131,7 +153,7 @@ window.addEventListener('keydown', (event) => {
             keys.a.pressed = true
             break
         case 'w':
-            player.velocity.y = -6;
+            keys.w.pressed = true
             break
     }
 })
@@ -143,5 +165,8 @@ window.addEventListener('keyup', (event) => {
         case 'a':
             keys.a.pressed = false
             break
+        case 'w':
+            keys.w.pressed = false
+            fly = true;
     }
 })
