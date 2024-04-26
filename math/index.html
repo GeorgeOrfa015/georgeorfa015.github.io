@@ -3,83 +3,293 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="G. Orfanides | Mathematical Equations" property="og:title" />
-    <meta content="Some (maybe useful) mathematical equations" property="og:description" />
-    <meta content="https://georgeorfa015.github.io/math/" property="og:url" />
-    <meta content="https://i.imgur.com/fv55MPW.png" property="og:image" />
-    <meta content="#000000" data-react-helmet="true" name="theme-color" id="theme-color"/>
-    <link rel="icon" href="../WebsiteLogo2.ico">
-    <link rel="stylesheet" href="style.css">
-    <title>Mathematical Equations</title>
+    <title>Mathematical Equations Layout Testing</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@300;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        div{
+            border-radius: 0.5vw;
+        }
+        input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button { 
+            -webkit-appearance: none; 
+            margin: 0; 
+        }
+        body{
+            background: #000;
+            font-family: poppins;
+            color: #fff;
+            line-height: 1.9vw;
+        }
+        .outerContainer{
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1vw;
+            padding: 1vw 2vw 0 2vw;
+        }
+        .moduleOuterContainer{
+            display: grid;
+            grid-template-columns: 1fr 1fr 2fr;
+            gap: 0.75vw;
+            padding: 0.75vw;
+            background: #222;
+        }
+        .moduleDescription{
+            height: 16.25vw;
+            background: #444;
+            overflow-y: scroll;
+            border-radius: 0.5vw;
+            padding: 0.75vw;
+            scrollbar-width: none;
+        }
+        .moduleInput{
+            background: #444;
+            overflow-y: scroll;
+            border-radius: 0.5vw;
+            padding: 0.75vw;
+            scrollbar-width: none;
+            height: 16.25vw;
+        }
+        .moduleInputInnerContainer{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75vw;
+            height: fit-content;
+        }
+        .moduleOutput{
+            height: 16.25vw;
+            background: #333;
+            overflow-y: scroll;
+            border-radius: 0.5vw;
+            padding: 0.75vw;
+            scrollbar-width: none;
+            text-wrap:wrap;
+        }
+        .groupOuterContainer{
+            display: grid;
+            gap: 1.25vw;
+            grid-template-columns: 1fr;
+            padding: 1vw;
+            background: #111;
+            margin: 2vw 0 2vw 0
+        }
+        .groupHeading{
+            font-size: 2.25vw;
+            font-weight: 600;
+        }
+        .groupBody{
+            font-size: 1.50vw;
+            font-weight: 400;
+        }
+        .moduleHeading{
+            font-size: 1.75vw;
+            font-weight: 500;
+        }
+        .moduleBody{
+            font-size: 1.2vw;
+        }
+        input{
+            background:#13713a;
+            color: #fff;
+            border: none;
+            height: 3.5vw;
+            border-radius: 0.5vw;
+            width: 100%;
+            text-align: center;
+            font-size: 1.5vw;
+            font-family: inherit;
+            padding: 0;
+        }
+        input:focus{
+            outline:none;
+        }
+        input::placeholder{
+            color: #79e6ba;
+            align-self: center;
+        }
+        button{
+            background:#16964c;
+            color: #fff;
+            border: none;
+            height: 3.5vw;
+            border-radius: 0.5vw;
+            width: 100%;
+            text-align: center;
+            font-size: 1.5vw;
+            font-family: inherit;
+            padding: 0;
+            transition: background 0.2s;
+        }
+        button:hover{
+            background:#1ca856;
+        }
+        button:active{
+            background:#24bd64;
+            transition: none;
+        }
+        .longItem{
+            grid-column-start: 1;
+            grid-column-end: 3;
+        }
+        @media(max-width:700px){
+            body{
+                line-height: 5.25vw;
+            }
+            .outerContainer{
+                gap: 3vw;
+                padding: 1vw 1vw 0 1vw;
+            }
+            .moduleOuterContainer{
+                grid-template-columns: 1fr;
+                gap: 1.75vw;
+                padding: 2vw;
+                border-radius: 3vw;
+            }
+            .moduleDescription{
+                padding: 2vw;
+                border-radius: 1.5vw;
+                height: 30vw;
+            }
+            .moduleInput{
+                border-radius: 1.5vw;
+                padding: 1.5vw;
+                height: 48.75vw;
+            }
+            .moduleInputInnerContainer{
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 1.5vw;
+                height: fit-content;
+            }
+            .moduleOutput{
+                border-radius: 1.5vw;
+                padding: 1.5vw;
+                height: 25vw;
+            }
+            .moduleHeading{
+                font-size: 5vw;
+                font-weight: 500;
+            }
+            .moduleBody{
+                font-size: 3.5vw;
+            }
+            .groupOuterContainer{
+                border-radius: 3vw;
+                padding: 2vw;
+                gap: 2.5vw;
+            }
+            .groupHeading{
+                font-size: 5vw;
+            }
+            .groupBody{
+                font-size: 4.5vw;
+            }
+            input{
+                border: none;
+                height: 11vw;
+                border-radius: 1.5vw;
+                font-size: 5vw;
+            }
+            button{
+                height: 11vw;
+                border-radius: 1.5vw;
+                font-size: 5vw;
+                font-family: inherit;
+                padding: 0;
+                transition: background 0.2s;
+            }
+        }
+        
+    </style>
 </head>
 <body>
-<div class="outerContainer">
-    <div class="outerProjectContainer" id="cont1">
-        <div class="projectDescription">
-            <span class="itemHeading">Factor Finder</span><br>
-            <span class="itemDescription">
-                Find all factors of any integer<br>
-                <br>
-                Input: Any integer<br>
-                Output: The integer's factors
+    <div class="outerContainer">
+        <div class="moduleOuterContainer">
+            <div class="moduleDescription">
+                <span class="moduleHeading">Factor Finder</span><br>
+                <span class="moduleBody">
+                    Find all factors of any integer<br>
+                    <br>
+                    Input: Any integer<br>
+                    Output: The integer's factors
+                </span>
+            </div>
+            <div class="moduleInput">
+                <div class="moduleInputInnerContainer">
+                    <input placeholder="Enter an integer..." id="calc1in" class="longItem" oninput="calc1()">
+                </div>
+            </div>
+            <div class="moduleOutput">
+                <span class="moduleHeading">Factors</span><br>
+                <span class="moduleBody" id="calc1out"></span>
+            </div>
+        </div>
+        <div class="moduleOuterContainer">
+            <div class="moduleDescription">
+                <span class="moduleHeading">Factorial Calculator</span><br>
+                <span class="moduleBody">The factorial n! is equal to n multiplied by every number that precedes it. Alternatively, in mathematical terms, n! is equal to n(n-1)<br>
+                    <br>
+                    Input: Any integer (n)<br>
+                    Output: n(n-1)</span>
+            </div>
+            <div class="moduleInput">
+                <div class="moduleInputInnerContainer">
+                    <input placeholder="Placeholder" id="calc3in" class="longItem" oninput="calc3()">
+                </div>
+            </div>
+            <div class="moduleOutput">
+                <span class="moduleHeading">Factorial n!</span><br>
+                <span class="moduleBody" id="calc3out"></span>
+            </div>
+        </div>
+        <div class="moduleOuterContainer">
+            <div class="moduleDescription">
+                <span class="moduleHeading">Least Common Multiple</span><br>
+                <span class="moduleBody">The least common multiple is defined as the smallest non-zero multiple that two or more numbers have in common.<br>
+                    <br>
+                    Input: Multiple integers separated by a space i.e 15 83 31<br>
+                    Output: The least common multiple of the numbers</span>
+            </div>
+            <div class="moduleInput">
+                <div class="moduleInputInnerContainer">
+                    <input placeholder="Enter numbers..." id="calc4in" class="longItem" oninput="calc4()">
+                </div>
+            </div>
+            <div class="moduleOutput">
+                <span class="moduleHeading">Least Common Multiple</span><br>
+                <span class="moduleBody" id="calc4out"></span>
+            </div>
+        </div>
+        <div class="groupOuterContainer">
+            <span class="groupHeading">Arithmetic Progressions</span>
+            <span class="groupBody">
+                An arithmetic progression is a sequence of numbers where each successive term is equal to the preceding term plus a fixed number (d). The first number in this list is defined as a₁. An example of an arithmetic progression is: 2, 5, 8, 11, 14, 17... where a₁ = 2 and d = 3
             </span>
-        </div>
-        <div class="projectInput">
-            <input type="number" class="input" id="calc1in" placeholder="Enter an integer..." oninput="calc1()">
-        </div>
-        <div class="projectOutput">
-            <span class="itemHeading">Factors</span><br><span id="calc1out"></span>
-        </div>
-    </div>
-    <div class="outerProjectContainer" id="cont2">
-        <div class="projectDescription">
-            <span class="itemHeading">Triangular Numbers</span><br>
-            <span class="itemDescription">The n-th triangular number is the number of dots in the triangular arrangement with n dots on each side, or in other words, 1+2+3+...+n<br>
-            <br>
-            Input: Any integer (n) <br>
-            Output: 1+2+3+...+n
-        </span>
-        </div>
-        <div class="projectInput">
-            <input type="number" class="input" id="calc2in" placeholder="Enter an integer..." oninput="calc2()">
-        </div>
-        <div class="projectOutput">
-            <span class="itemHeading">n-th Triangular Number</span><br><span id="calc2out"></span>
-        </div>
-    </div>
-    <div class="outerProjectContainer" id="cont3">
-        <div class="projectDescription">
-            <span class="itemHeading">Factorial Calculator</span><br>
-            <span class="itemDescription">The factorial n! is equal to n multiplied by every number that precedes it. Alternatively, in mathematical terms, n! is equal to n(n-1)<br>
-                <br>
-                Input: Any integer (n)<br>
-                Output: n(n-1)
-        </span>
-        </div>
-        <div class="projectInput">
-            <input type="number" class="input" id="calc3in" placeholder="Enter an integer..." oninput="calc3()">
-        </div>
-        <div class="projectOutput">
-            <span class="itemHeading">Factorial n!</span><br><span id="calc3out"></span>
+            <div class="moduleOuterContainer">
+                <div class="moduleDescription">
+                    <span class="moduleHeading">a<sub>n</sub> calculator</span><br>
+                    <span class="moduleBody">
+                        The n-th number of an arithmetic progression (or a<sub>n</sub>) can be found using the following formula: <br>
+                        a<sub>n</sub> = a₁ + (n-1) × d<br>
+                        <br>
+                        Input: <br>
+                        a₁ - First term in the progression<br>
+                        d - Number added with each term<br>
+                        n - Index of a<sub>n</sub>
+                    </span>
+                </div>
+                <div class="moduleInput">
+                    <div class="moduleInputInnerContainer">
+                        <input placeholder="a₁" id="calc2in1" oninput="calc2()"><input placeholder="d" id="calc2in2" oninput="calc2()"><input placeholder="n" id="calc2in3" class="longItem" oninput="calc2()">
+                    </div>
+                </div>
+                <div class="moduleOutput">
+                    <span class="moduleHeading">a<sub>n</sub> of progression</span><br>
+                    <span class="moduleBody" id="calc2out1"></span><br>
+                    <span class="moduleBody" id="calc2out2"></span>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="outerProjectContainer" id="cont4">
-        <div class="projectDescription">
-            <span class="itemHeading">Least Common Multiple</span><br>
-            <span class="itemDescription">The least common multiple is defined as the smallest non-zero multiple that two or more numbers have in common.<br>
-                <br>
-                Input: Multiple integers separated by a space i.e 15 83 31<br>
-                Output: The least common multiple of the numbers
-        </span>
-        </div>
-        <div class="projectInput">
-            <input class="input" id="calc4in" placeholder="Enter numbers..." oninput="calc4()">
-        </div>
-        <div class="projectOutput">
-            <span class="itemHeading">Least Common Multiple</span><br><span id="calc4out"></span>
-        </div>
-    </div>
-</div>
     <script src="index.js"></script>
 </body>
 </html>

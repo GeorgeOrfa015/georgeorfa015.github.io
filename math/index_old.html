@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="G. Orfanides | Mathematical Equations" property="og:title" />
+    <meta content="Some (maybe useful) mathematical equations" property="og:description" />
+    <meta content="https://georgeorfa015.github.io/math/" property="og:url" />
+    <meta content="https://i.imgur.com/fv55MPW.png" property="og:image" />
+    <meta content="#000000" data-react-helmet="true" name="theme-color" id="theme-color"/>
+    <link rel="icon" href="../WebsiteLogo2.ico">
+    <link rel="stylesheet" href="style.css">
+    <title>Mathematical Equations</title>
+</head>
+<body>
+<div class="outerContainer">
+    <div class="outerProjectContainer" id="cont1">
+        <div class="projectDescription">
+            <span class="itemHeading">Factor Finder</span><br>
+            <span class="itemDescription">
+                Find all factors of any integer<br>
+                <br>
+                Input: Any integer<br>
+                Output: The integer's factors
+            </span>
+        </div>
+        <div class="projectInput">
+            <input type="number" class="input" id="calc1in" placeholder="Enter an integer..." oninput="calc1()">
+        </div>
+        <div class="projectOutput">
+            <span class="itemHeading">Factors</span><br><span id="calc1out"></span>
+        </div>
+    </div>
+    <div class="outerProjectContainer" id="cont2">
+        <div class="projectDescription">
+            <span class="itemHeading">Triangular Numbers</span><br>
+            <span class="itemDescription">The n-th triangular number is the number of dots in the triangular arrangement with n dots on each side, or in other words, 1+2+3+...+n<br>
+            <br>
+            Input: Any integer (n) <br>
+            Output: 1+2+3+...+n
+        </span>
+        </div>
+        <div class="projectInput">
+            <input type="number" class="input" id="calc2in" placeholder="Enter an integer..." oninput="calc2()">
+        </div>
+        <div class="projectOutput">
+            <span class="itemHeading">n-th Triangular Number</span><br><span id="calc2out"></span>
+        </div>
+    </div>
+    <div class="outerProjectContainer" id="cont3">
+        <div class="projectDescription">
+            <span class="itemHeading">Factorial Calculator</span><br>
+            <span class="itemDescription">The factorial n! is equal to n multiplied by every number that precedes it. Alternatively, in mathematical terms, n! is equal to n(n-1)<br>
+                <br>
+                Input: Any integer (n)<br>
+                Output: n(n-1)
+        </span>
+        </div>
+        <div class="projectInput">
+            <input type="number" class="input" id="calc3in" placeholder="Enter an integer..." oninput="calc3()">
+        </div>
+        <div class="projectOutput">
+            <span class="itemHeading">Factorial n!</span><br><span id="calc3out"></span>
+        </div>
+    </div>
+    <div class="outerProjectContainer" id="cont4">
+        <div class="projectDescription">
+            <span class="itemHeading">Least Common Multiple</span><br>
+            <span class="itemDescription">The least common multiple is defined as the smallest non-zero multiple that two or more numbers have in common.<br>
+                <br>
+                Input: Multiple integers separated by a space i.e 15 83 31<br>
+                Output: The least common multiple of the numbers
+        </span>
+        </div>
+        <div class="projectInput">
+            <input class="input" id="calc4in" placeholder="Enter numbers..." oninput="calc4()">
+        </div>
+        <div class="projectOutput">
+            <span class="itemHeading">Least Common Multiple</span><br><span id="calc4out"></span>
+        </div>
+    </div>
+</div>
+    <script src="index.js"></script>
+</body>
+</html>
