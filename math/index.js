@@ -39,26 +39,26 @@ function calc2() {
             out2.innerHTML = "";
         }else if(n=="") {
             out1.innerHTML = `${a1}, ${a2}, ${a3}, ${a4} ... a<sub>n</sub>`;
-            out2.innerHTML = "a<sub>n</sub>";
+            out2.innerHTML = `a<sub>n</sub> = ${a1} + (n - 1) × ${d}`;
         }else{
             if (n>=6) {
                 out1.innerHTML = `${a1}, ${a2}, ${a3}, ${a4} ... ${an}`;
-                out2.innerHTML = `a<sub>${n}</sub> = ${an}`;
+                out2.innerHTML = `a<sub>${n}</sub> = ${a1} + (${n} - 1) × ${d} = <b>${an}</b>`;
             }else if (n==5) {
                 out1.innerHTML = `${a1}, ${a2}, ${a3}, ${a4}, ${an}`;
-                out2.innerHTML = `a<sub>${n}</sub> = ${an}`;
+                out2.innerHTML = `a<sub>${n}</sub> = ${a1} + (${n} - 1) × ${d} = <b>${an}</b>`;
             }else if (n==4) {
                 out1.innerHTML = `${a1}, ${a2}, ${a3}, ${an}`;
-                out2.innerHTML = `a<sub>${n}</sub> = ${an}`;
+                out2.innerHTML = `a<sub>${n}</sub> = ${a1} + (${n} - 1) × ${d} = <b>${an}</b>`;
             }else if (n==3) {
                 out1.innerHTML = `${a1}, ${a2}, ${an}`;
-                out2.innerHTML = `a<sub>${n}</sub> = ${an}`;
+                out2.innerHTML = `a<sub>${n}</sub> = ${a1} + (${n} - 1) × ${d} = <b>${an}</b>`;
             }else if (n==2) {
                 out1.innerHTML = `${a1}, ${an}`;
-                out2.innerHTML = `a<sub>${n}</sub> = ${an}`;
+                out2.innerHTML = `a<sub>${n}</sub> = ${a1} + (${n} - 1) × ${d} = <b>${an}</b>`;
             }else if (n==1) {
                 out1.innerHTML = `${an}`;
-                out2.innerHTML = `a<sub>${n}</sub> = ${an}`;
+                out2.innerHTML = `a<sub>${n}</sub> = ${a1} + (${n} - 1) × ${d} = <b>${an}</b>`;
             }else if (n==0) {
                 out1.innerHTML = "ERR: a<sub>n</sub> with n less or equal to 0 is not defined."
                 out2.innerHTML = "";
