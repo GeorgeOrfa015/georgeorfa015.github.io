@@ -237,6 +237,17 @@
                 setTimeout(function() {sizeCounter(counterID_load)}, 10);
             }
         }
+        function exportCode() {
+            let code = localStorage.getItem("SavedCounters");
+            navigator.clipboard.writeText(code);
+            document.getElementById("export-code-button").innerHTML="Code copied!";
+            setTimeout(function() {document.getElementById("export-code-button").innerHTML="Export Save Code"}, 2000)
+        }
+        function loadCode() {
+            let code = document.getElementById("load-code-input").value;
+            localStorage.setItem("SavedCounters", code);
+            window.location.reload();
+        }
         function settingsShow(id) {
             let panelCont = document.getElementById(`PIC${id}`)
             let settingsCont = document.getElementById(`SIC${id}`)
