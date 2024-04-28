@@ -119,17 +119,7 @@ button:hover{
     margin-top: 1vw;
 }
 .settings-button{
-    font-size: 0.9vw;
-}
-#load-code-input{
-    width: fit-content;
-    height: 2.25vw;
-    background:#065427;
-    font-size: 1.3vw;
-}
-#load-code-input::placeholder{
-    color: #61b08b;
-    
+    font-size: 1.35vw;
 }
 .top-buttons{
     height: 2.25vw;
@@ -210,7 +200,7 @@ button:hover{
         width: 100%;
         grid-column-start: 4;
         grid-column-end: 6;
-        font-size: 1.9vw;
+        font-size: 3vw;
     }
     .top-buttons{
         height: 5vw;

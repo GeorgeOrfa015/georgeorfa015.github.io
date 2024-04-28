@@ -63,14 +63,12 @@ function revealSettings(id) {
     let settingsButton = document.getElementById("SB"+id);
     settingsHiddenInnerCont.style.display="grid";
     settingsButton.setAttribute("onclick", `hideSettings(${id})`);
-    settingsButton.innerHTML="Hide Settings";
 }
 function hideSettings(id) {
     let settingsHiddenInnerCont = document.getElementById("SHIC"+id);
     let settingsButton = document.getElementById("SB"+id);
     settingsHiddenInnerCont.style.display="none";
     settingsButton.setAttribute("onclick", `revealSettings(${id})`);
-    settingsButton.innerHTML="Show Settings";
 }
 function updateBar(id) {
     let value = document.getElementById("in1_"+id).value;
@@ -187,7 +185,7 @@ function newBar() {
     settingsButton.className="settings-button";
     settingsButton.id="SB"+barID;
     settingsButton.setAttribute("onclick", `revealSettings(${barID})`);
-    settingsButton.innerHTML="Show Settings";
+    settingsButton.innerHTML="Settings";
 
     // bar-outer-cont > settings-hidden-inner-cont
     let settingsHiddenInnerCont = document.createElement("div");

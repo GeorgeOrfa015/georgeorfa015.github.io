@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counters</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@300;900&display=swap');
+        body{
+            font-family: poppins;
+            background-color: #000;
+            color: #fff;
+        }
+        div{
+            border: 0px solid #f00;
+        }
+        input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button { 
+            -webkit-appearance: none; 
+            margin: 0; 
+        }
+        #outer-container{
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+            gap: 1vw;
+        }
+        .counter-outer-cont{
+            padding: 1vw;
+            display: grid;
+            gap: 0.75vw;
+            grid-template-columns: 1fr;
+            background: #222;
+            border-radius: 0.75vw;
+            height: fit-content
+        }
+        .counter-inner-cont{
+            height: 10vw;
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: 1fr 4fr;
+            border-radius: 0.5vw;
+            color: #fff;
+            background: #000;
+        }
+        .counter-output-cont{
+            align-content: center;
+            text-align: center;
+            overflow: hidden;
+        }
+        .counter-name{
+            background-color: #0000;
+            color: #ddd;
+        }
+        .counter-name::placeholder{
+            color: #555;
+        }
+        .counter-name:focus{
+            outline: none;
+            background: #0000;
+        }
+        .counter-output{
+            font-size: 3vw;
+            color: #fff;
+            background: #0000;
+        }
+        .counter-output:focus{
+            outline: none;  
+            background: #0000;
+        }
+        .counter-output::placeholder{
+            color: #555;
+        }
+        .panel-inner-cont{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75vw;
+        }
+        .settings-show{
+            grid-column-start: 1;
+            grid-column-end: 3;
+        }
+        .settings-inner-cont{
+            display: none;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75vw;
+        }
+        .input-color{
+            grid-column-start: 1;
+            grid-column-end: 3;
+        }
+        .delete-confirmation-inner-cont, .reset-confirmation-inner-cont{
+            display: none;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75vw;
+            text-align: center;
+        }
+        .confirmation-text{
+            grid-column: span 2;
+        }
+        button{
+            margin: none;
+            padding: none;
+            font-family: inherit;
+            font-size: 1.35vw;
+            transition: 0.2s background;
+            background: #10813f;
+            border: none;
+            color: #fff;
+            border-radius: 0.5vw;
+            width: 100%;
+        }
+        button:hover{
+            background: #189b4f;
+        } 
+        button:active{
+            background: #1fb15c;
+            transition: 0s;
+        }
+        .delete-button, .final-delete-button, .reset-button, .final-reset-button{
+            background: #ad3d3d;
+        }
+        .delete-button:hover, .final-delete-button:hover, .reset-button:hover, .final-reset-button:hover{
+            background: #d05555;
+        }
+        .settings-hide{
+            grid-column: span 2;
+        }
+        input{
+            background: #045527;
+            color: #a5f8d1;
+            border: none;
+            border-radius: 0.5vw;
+            text-align: center;
+            font-size: 1.4vw;
+            font-family: inherit;
+            margin: 0;
+            padding: 0;
+            transition: 0.2s background;
+            width: 100%;
+        }
+        input:focus{
+            outline: none;
+            background: #096d34;
+        }
+        input::placeholder{
+            color: #2b8561
+        }
+        .top-buttons{
+            height: 2.25vw;
+            width: fit-content;
+            margin-right: 0.5vw;
+        }
+        #button-container{
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 0.5vw;
+        }
+        #button-inner-container-1{
+            display: flex;
+            flex-direction: row;
+            margin-bottom: 0.5vw;
+        }
+        #button-inner-container-2{
+            display: flex;
+            flex-direction: row;
+        }
+        #load-code-input{
+            width: fit-content;
+            height: 2.25vw;
+            background:#065427;
+            font-size: 1.3vw;
+            margin-right: 0.5vw;
+        }
+        #load-code-input::placeholder{
+            color: #61b08b;
+        }
+    </style>
+</head>
+<body>
+    <div id="button-container">
+        <div id="button-inner-container-1">
+            <button class="top-buttons" onclick="newCounter()">New Counter</button>
+            <button class="top-buttons" onclick="exportCode()" id="export-code-button">Export Save Code</button>&nbsp;&nbsp;&nbsp;
+        </div>
+        <div id="button-inner-container-2">
+            <input id="load-code-input" placeholder="Enter your code...">
+            <button class="top-buttons" onclick="loadCode()">Load Save Code</button>
+        </div>
+    </div>
+    <div id="outer-container">
+    </div>
+    <script>
+        function save() {
+            let counters = document.getElementsByClassName("counter-outer-cont");
+            let items = Object.keys(counters).length; 
+            let saveCode = "";
+
+            for (i=0;i<items;i++) {
+                let savePart=counters[i].id.replace("COC","")+"/:/";
+                savePart+=counters[i].childNodes[0].childNodes[0].value+"/:/" // name
+                savePart+=counters[i].childNodes[0].childNodes[1].value+"/:/" // value
+                savePart+=counters[i].childNodes[2].childNodes[0].value+"/:/" // step
+                savePart+=counters[i].childNodes[2].childNodes[1].value+"/:/" // size
+                savePart+=counters[i].childNodes[2].childNodes[2].value+"/:/" // color
+                saveCode+=savePart+"/;/";
+            }
+
+            localStorage.setItem("SavedCounters", saveCode);
+            console.log(saveCode.split("/;/"))
+            return saveCode;
+        }
+        function load() {
+            let saveCode=localStorage.getItem("SavedCounters");
+
+            let splitCounters = saveCode.split("/;/");
+            console.log(splitCounters);
+
+            let itemsToLoad = Object.keys(splitCounters).length-1;
+
+            for (i=0;i<itemsToLoad;i++) {
+
+                let splitCounterData = splitCounters[i].split("/:/");
+                let counterID_load = splitCounterData[0];
+                let name_load = splitCounterData[1];
+                let value_load = splitCounterData[2];
+                let step_load = splitCounterData[3];
+                let size_load = splitCounterData[4];
+                let color_load = splitCounterData[5];
+                counterID = counterID_load;
+                newCounter();
+                document.getElementById("CN"+counterID_load).value=name_load;
+                document.getElementById("CO"+counterID_load).value=value_load;
+                document.getElementById("IS"+counterID_load).value=step_load;
+                document.getElementById("IW"+counterID_load).value=size_load;
+                document.getElementById("IC"+counterID_load).value=color_load;
+                setTimeout(function() {colorCounter(counterID_load)}, 10);
+                setTimeout(function() {sizeCounter(counterID_load)}, 10);
+            }
+        }
+        function settingsShow(id) {
+            let panelCont = document.getElementById(`PIC${id}`)
+            let settingsCont = document.getElementById(`SIC${id}`)
+            let deleteConfirmationCont = document.getElementById(`DCIC${id}`)
+            let resetConfirmationCont = document.getElementById(`RCIC${id}`)
+            panelCont.style.display = "none";
+            settingsCont.style.display = "grid";
+            deleteConfirmationCont.style.display = "none";
+            resetConfirmationCont.style.display = "none";
+        }
+        function panelShow(id) {
+            let panelCont = document.getElementById(`PIC${id}`)
+            let settingsCont = document.getElementById(`SIC${id}`)
+            let deleteConfirmationCont = document.getElementById(`DCIC${id}`)
+            let resetConfirmationCont = document.getElementById(`RCIC${id}`)
+            panelCont.style.display = "grid";
+            settingsCont.style.display = "none";
+            deleteConfirmationCont.style.display = "none";
+            resetConfirmationCont.style.display = "none";
+        }
+        function deleteConfirmationShow(id) {
+            let panelCont = document.getElementById(`PIC${id}`)
+            let settingsCont = document.getElementById(`SIC${id}`)
+            let deleteConfirmationCont = document.getElementById(`DCIC${id}`)
+            let resetConfirmationCont = document.getElementById(`RCIC${id}`)
+            panelCont.style.display = "none";
+            settingsCont.style.display = "none";
+            deleteConfirmationCont.style.display = "grid";
+            resetConfirmationCont.style.display = "none";
+        }
+        function resetConfirmationShow(id) {
+            let panelCont = document.getElementById(`PIC${id}`)
+            let settingsCont = document.getElementById(`SIC${id}`)
+            let deleteConfirmationCont = document.getElementById(`DCIC${id}`)
+            let resetConfirmationCont = document.getElementById(`RCIC${id}`)
+            panelCont.style.display = "none";
+            settingsCont.style.display = "none";
+            deleteConfirmationCont.style.display = "none";
+            resetConfirmationCont.style.display = "grid";
+        }
+        function addCounter(id) {
+            let output = document.getElementById(`CO${id}`);
+            let value = Number(output.value)
+            let step = Number(document.getElementById(`IS${id}`).value);
+            if (value==""||isNaN(value)) value = 0
+            if (step==""||isNaN(step)) step = 1;
+            value += step
+            output.value = value;
+            setTimeout(save, 100);
+        }
+        function remCounter(id) {
+            let output = document.getElementById(`CO${id}`);
+            let value = Number(output.value)
+            let step = Number(document.getElementById(`IS${id}`).value);
+            if (value==""||isNaN(value)) value = 0
+            if (step==""||isNaN(step)) step = 1;
+            value -= step
+            output.value = value;
+            setTimeout(save, 100);
+        }
+        function delCounter(id) {
+            let counter = document.getElementById(`COC${id}`);
+            counter.innerHTML="";
+            counter.remove()
+            setTimeout(save, 100);
+        }
+        function resetCounter(id) {
+            let value = document.getElementById(`CO${id}`);
+            value.value = "";
+            panelShow(id)
+            setTimeout(save, 100);
+        }
+        function colorCounter(id) {
+            let color = document.getElementById(`IC${id}`);
+            let counterBackground = document.getElementById(`CIC${id}`)
+            counterBackground.style.background = color.value
+            setTimeout(save, 100);
+        }
+        function sizeCounter(id){
+            let size = document.getElementById(`IW${id}`).value;            
+            let counter = document.getElementById(`COC${id}`);
+            if (size=="") size = 1;
+            counter.style.gridColumn = `span ${size}`;
+            setTimeout(save, 100);
+        }
+        let counterID = 1
+        function newCounter() {
+            // counter-outer-cont
+            let counterOuterCont = document.createElement("div");
+            counterOuterCont.className = "counter-outer-cont";
+            counterOuterCont.id = "COC"+counterID;
+
+            // counter-outer-cont > counter-inner-cont
+            let counterInnerCont = document.createElement("div");
+            counterInnerCont.className = "counter-inner-cont";
+            counterInnerCont.id = "CIC"+counterID;
+
+            // counter-outer-cont > counter-inner-cont > input#CNid
+            let counterName = document.createElement("input");
+            counterName.placeholder = "Name counter...";
+            counterName.className = "counter-name";
+            counterName.id = "CN"+counterID;
+            counterName.setAttribute("oninput", "save()")
+
+            // counter-outer-cont > counter-inner-cont > input#COid
+            let counterOutput = document.createElement("input");
+            counterOutput.placeholder = "0";
+            counterOutput.type = "number";
+            counterOutput.className = "counter-output";
+            counterOutput.contentEditable = "true";
+            counterOutput.id = "CO"+counterID;
+            counterOutput.setAttribute("oninput", "save()")
+
+            // counter-outer-cont > panel-inner-cont
+            let panelInnerCont = document.createElement("div");
+            panelInnerCont.className = "panel-inner-cont";
+            panelInnerCont.id = "PIC"+counterID
+
+            // counter-outer-cont > panel-inner-cont > button.f(remCounter(id))
+            let remButton = document.createElement("button");
+            remButton.className = "button-rem";
+            remButton.id = "BR"+counterID;
+            remButton.setAttribute("onclick", `remCounter(${counterID})`);
+            remButton.innerHTML = "-";
+
+            // counter-outer-cont > panel-inner-cont > button.f(addCounter(id))
+            let addButton = document.createElement("button");
+            addButton.className = "button-add";
+            addButton.id = "BA"+counterID;
+            addButton.setAttribute("onclick", `addCounter(${counterID})`);
+            addButton.innerHTML = "+";
+
+            // counter-outer-cont > panel-inner-cont > button.f(settingsShow(id))
+            let settingsButton = document.createElement("button");
+            settingsButton.className = "settings-show";
+            settingsButton.id = "SS"+counterID;
+            settingsButton.setAttribute("onclick", `settingsShow(${counterID})`);
+            settingsButton.innerHTML = "Settings";
+
+            // counter-outer-cont > settings-inner-cont
+            let settingsInnerCont = document.createElement("div");
+            settingsInnerCont.className = "settings-inner-cont";
+            settingsInnerCont.id = "SIC"+counterID
+
+            // counter-outer-cont > settings-inner-cont > input#ISid
+            let stepInput = document.createElement("input");
+            stepInput.placeholder = "Step - 1";
+            stepInput.className = "input-step";
+            stepInput.id = "IS"+counterID
+            stepInput.setAttribute("oninput", "save()")
+
+            // counter-outer-cont > settings-inner-cont > input#IWid
+            let widthInput = document.createElement("input");
+            widthInput.placeholder = "Size - 1";
+            widthInput.className = "input-width";
+            widthInput.id = "IW"+counterID
+            widthInput.setAttribute("oninput", `sizeCounter(${counterID})`)
+
+            // counter-outer-cont > settings-inner-cont > input#ICid
+            let colorInput = document.createElement("input");
+            colorInput.placeholder = "Color - #000000";
+            colorInput.className = "input-color";
+            colorInput.id = "IC"+counterID
+            colorInput.setAttribute("oninput", `colorCounter(${counterID})`)
+
+            // counter-outer-cont > settings-inner-cont > button.f(resetConfirmationShow(id))
+            let resetButton = document.createElement("button");
+            resetButton.className = "reset-button";
+            resetButton.id = "RB"+counterID;
+            resetButton.setAttribute("onclick", `resetConfirmationShow(${counterID})`);
+            resetButton.innerHTML = "Reset";
+
+            // counter-outer-cont > settings-inner-cont > button.f(deleteConfirmationShow(id))
+            let deleteButton = document.createElement("button");
+            deleteButton.className = "delete-button";
+            deleteButton.id = "DB"+counterID;
+            deleteButton.setAttribute("onclick", `deleteConfirmationShow(${counterID})`);
+            deleteButton.innerHTML = "Delete";
+
+            // counter-outer-cont > settings-inner-cont > button.f(panelShow(id))
+            let settingsHideButton = document.createElement("button");
+            settingsHideButton.className = "settings-hide";
+            settingsHideButton.id = "SH"+counterID;
+            settingsHideButton.setAttribute("onclick", `panelShow(${counterID})`);
+            settingsHideButton.innerHTML = "Back";
+
+            // counter-outer-cont > delete-confirmation-inner-cont
+            let deleteConfirmationInnerCont = document.createElement("div");
+            deleteConfirmationInnerCont.className = "delete-confirmation-inner-cont";
+            deleteConfirmationInnerCont.id = "DCIC"+counterID;
+
+            // counter-outer-cont > delete-confirmation-inner-cont > confirmation-text
+            let confirmationTextDelete = document.createElement("span");
+            confirmationTextDelete.className = "confirmation-text";
+            confirmationTextDelete.id = "CT"+counterID;
+            confirmationTextDelete.innerHTML = "Are you sure?"
+
+            // counter-outer-cont > delete-confirmation-inner-cont > button.f(delCounter(id))
+            let finalDeleteButton = document.createElement("button");
+            finalDeleteButton.className = "final-delete-button";
+            finalDeleteButton.id = "FDB"+counterID;
+            finalDeleteButton.setAttribute("onclick", `delCounter(${counterID})`);
+            finalDeleteButton.innerHTML = "Delete";
+
+            // counter-outer-cont > delete-confirmation-inner-cont > button.f(settingsShow(id))
+            let deleteBackButton = document.createElement("button");
+            deleteBackButton.className = "back-button";
+            deleteBackButton.id = "BB"+counterID;
+            deleteBackButton.setAttribute("onclick", `settingsShow(${counterID})`);
+            deleteBackButton.innerHTML = "Back";
+
+            // counter-outer-cont > reset-confirmation-inner-cont
+            let resetConfirmationInnerCont = document.createElement("div");
+            resetConfirmationInnerCont.className = "reset-confirmation-inner-cont";
+            resetConfirmationInnerCont.id = "RCIC"+counterID
+            
+            // counter-outer-cont > reset-confirmation-inner-cont > confirmation-text
+            let confirmationTextReset = document.createElement("span");
+            confirmationTextReset.className = "confirmation-text";
+            confirmationTextReset.id = "CT"+counterID;
+            confirmationTextReset.innerHTML = "Are you sure?"
+
+
+            // counter-outer-cont > reset-confirmation-inner-cont > button.f(resetCounter(id))
+            let finalResetButton = document.createElement("button");
+            finalResetButton.className = "final-reset-button";
+            finalResetButton.id = "FRB"+counterID;
+            finalResetButton.setAttribute("onclick", `resetCounter(${counterID})`);
+            finalResetButton.innerHTML = "Reset";
+
+            // counter-outer-cont > reset-confirmation-inner-cont > button.f(settingsShow(id))
+            let resetBackButton = document.createElement("button");
+            resetBackButton.className = "back-button";
+            resetBackButton.id = "BB"+counterID;
+            resetBackButton.setAttribute("onclick", `settingsShow(${counterID})`);
+            resetBackButton.innerHTML = "Back";
+
+            counterOuterCont.appendChild(counterInnerCont)
+            counterOuterCont.appendChild(panelInnerCont)
+            counterOuterCont.appendChild(settingsInnerCont)
+            counterOuterCont.appendChild(deleteConfirmationInnerCont)
+            counterOuterCont.appendChild(resetConfirmationInnerCont)
+            counterInnerCont.appendChild(counterName)
+            counterInnerCont.appendChild(counterOutput)
+            panelInnerCont.appendChild(remButton)
+            panelInnerCont.appendChild(addButton)
+            panelInnerCont.appendChild(settingsButton)
+            settingsInnerCont.appendChild(stepInput)
+            settingsInnerCont.appendChild(widthInput)
+            settingsInnerCont.appendChild(colorInput)
+            settingsInnerCont.appendChild(resetButton)
+            settingsInnerCont.appendChild(deleteButton)
+            settingsInnerCont.appendChild(settingsHideButton)
+            deleteConfirmationInnerCont.appendChild(confirmationTextDelete)
+            deleteConfirmationInnerCont.appendChild(finalDeleteButton)
+            deleteConfirmationInnerCont.appendChild(deleteBackButton)
+            resetConfirmationInnerCont.appendChild(confirmationTextReset)
+            resetConfirmationInnerCont.appendChild(finalResetButton)
+            resetConfirmationInnerCont.appendChild(resetBackButton)
+            document.getElementById("outer-container").appendChild(counterOuterCont);
+            counterID = Number(counterID) + 1;
+            setTimeout(save, 100);
+        }
+        load();
+    </script>
+</body>
+</html>
