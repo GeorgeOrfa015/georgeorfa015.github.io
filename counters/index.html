@@ -98,8 +98,8 @@
             grid-column: span 2;
         }
         button{
-            margin: none;
-            padding: none;
+            margin: 0;
+            padding: 0;
             font-family: inherit;
             font-size: 1.35vw;
             transition: 0.2s background;
@@ -145,48 +145,85 @@
         input::placeholder{
             color: #2b8561
         }
-        .top-buttons{
-            height: 2.25vw;
+        .top-buttons, #load-code-input{
             width: fit-content;
-            margin-right: 0.5vw;
+            height: 2.1vw;
+            padding: 0 1vw 0 1vw;
         }
         #button-container{
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 0.5vw;
-        }
-        #button-inner-container-1{
-            display: flex;
+            margin-bottom: 1vw;
             flex-direction: row;
-            margin-bottom: 0.5vw;
-        }
-        #button-inner-container-2{
             display: flex;
-            flex-direction: row;
         }
-        #load-code-input{
-            width: fit-content;
-            height: 2.25vw;
-            background:#065427;
-            font-size: 1.3vw;
-            margin-right: 0.5vw;
+        #button-container-1{
+            margin-right: 1vw;
         }
-        #load-code-input::placeholder{
-            color: #61b08b;
+        @media(max-width:600px) {
+            #outer-container{
+                grid-template-columns: 1fr 1fr;
+                gap: 2vw;
+            }
+            .counter-outer-cont{
+                padding: 2vw;
+                border-radius: 2vw;
+                gap: 2vw
+            }
+            .counter-inner-cont{
+                border-radius: 1vw;
+                height: 30vw;
+                border-radius: 1.75vw;
+                gap: 1vw;
+            }
+            button{
+                font-size: 4vw;
+                border-radius: 1.75vw;
+                height: 6vw;
+            }
+            input{
+                border-radius: 1.75vw;
+                font-size: 4vw;
+            }
+            .panel-inner-cont, .settings-inner-cont, .delete-confirmation-inner-cont, .reset-confirmation-inner-cont{
+                gap: 2vw;
+            }
+            .counter-output{
+                font-size: 10vw;
+            }
+            .counter-name{
+                font-size: 4vw;
+            }
+            .top-buttons, #load-code-input{
+                width: fit-content;
+                height: 6vw;
+                padding: 0 1vw 0 1vw;
+            }
+            #button-container{
+                margin-bottom: 1vw;
+                flex-direction: column;
+                display: flex;
+                justify-content: center;
+            }
+            #button-container-1{
+                margin-bottom: 1vw;
+                text-align: center;
+            }
+            #button-container-2{
+                text-align: center;
+            }
         }
     </style>
 </head>
 <body>
     <div id="button-container">
-        <div id="button-inner-container-1">
+        <div id="button-container-1">
             <button class="top-buttons" onclick="newCounter()">New Counter</button>
-            <button class="top-buttons" onclick="exportCode()" id="export-code-button">Export Save Code</button>&nbsp;&nbsp;&nbsp;
+            <button class="top-buttons" onclick="exportCode()" id="export-code-button">Export Save Code</button>
         </div>
-        <div id="button-inner-container-2">
+        <div id="button-container-2">
             <input id="load-code-input" placeholder="Enter your code...">
             <button class="top-buttons" onclick="loadCode()">Load Save Code</button>
         </div>
-    </div>
+        </div>
     <div id="outer-container">
     </div>
     <script>
