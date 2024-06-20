@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="George Orfanides" property="og:title" />
+    <meta content="Every HTML project of George Orfanides." property="og:description" />
+    <meta content="http://orfanidesg15.free.nf/" property="og:url" />
+    <meta content="https://i.imgur.com/fv55MPW.png" property="og:image" />
+    <meta content="#090f0c" data-react-helmet="true" name="theme-color" id="theme-color"/>
+    <meta name="google-site-verification" content="-lrHI5oPyUX3BqcopmztJGiredsAKYtobVhyVNhx4fg" />
+    <link rel="icon" href="WebsiteLogo2.ico">
+    <title>George Orfanides</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        body{
+            background: #090f0c;
+            color: #e5e5e5;
+            font-family: poppins;
+            line-height: 3.5vw;
+        }
+        a{
+            text-decoration: none;
+        }
+        span.welcome{
+            font-size: 6.5vw;
+            font-family: poppins;
+            font-weight: 300;
+        }
+        .welcomeName{
+            font-size: 8.4vw;
+            font-family: poppins;
+            font-weight: 600;
+        }
+        .welcome-cont{
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 25px;
+            line-height: normal;
+        }
+        .homepage-bg-cont{
+            width: 100%;
+            height: 35vw;
+            position: absolute;
+            background: linear-gradient(0deg, #090f0c 0%, #030806 100%);
+            top: 0;
+            left: 0;
+        }
+        .body-bg-cont{
+            position: absolute;
+            width: 100%;
+            height: fit-content;
+            top: 30vw;
+            left: 0;
+        }
+        .projects-cont{
+            margin: 2vw;
+        }
+        .project-link-cont{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            width: fit-content;
+            margin-top: 0.5vw;
+            margin-bottom: 2vw;
+        }
+        .special-thanks-cont{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            width: fit-content;
+            margin-top: 0.5vw;
+            margin-bottom: 2vw;
+        }
+        .h1{
+            font-size: 2.3vw;
+            font-weight: 600;
+        }
+        .h2{
+            font-size: 2vw;
+            font-weight: 600;
+        }
+        .h3{
+            font-size: 1.7vw;
+            font-weight: 600;
+        }
+        .h4{
+            font-size: 1.4vw;
+            font-weight: 600;
+        }
+        .h5{
+            font-size: 1.1vw;
+            font-weight: 600;
+        }
+        .card{
+            font-size: 1.6vw;
+            padding: 0.5vw;
+            width: 15vw;
+            height: 5vw;
+            margin-right: 1vw;
+            text-align: center;
+            border-radius: 0.5vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            transition: 0.3s;
+            line-height: 1.8vw;
+        }
+        .link{
+            background: #056c30;
+            color: #ffffff;
+        }
+        .indev{
+            background: #023116;
+            color: #e5e5e5;
+            cursor:not-allowed
+        }
+        .link:hover{
+            transform: scale(1.05);
+        }
+        .contributors-cont{
+            margin: 2vw;
+        }
+        .contributor-cont{
+            display: flex;
+            flex-direction: row;
+        }
+        .contributor{
+            background: #04421f;
+            width: 32vw;
+            color: #ffffff;
+            height: 10vw;
+            padding: 0.5vw;
+            display: block;
+            text-align: left;
+            line-height: 2vw;
+        }
+        .contributor-description{
+            font-size: 1.4vw;
+            
+        }
+        a.contributor-url{
+            color: #54df8e;
+            transition: 0.1s;
+            text-decoration:underline;
+            text-decoration-color: #065629;
+        }
+        a.contributor-url:hover{
+            color: #85f6b4;
+            text-decoration-color: #0b7338;
+        }
+        @media(max-width:600px){
+            body{
+                line-height: 10vw;
+            }
+            .welcome-cont{
+                text-align: center;
+            }
+            .projects-cont{
+                text-align: center;
+                margin: 2vw 25vw 0 25vw;
+            }
+            .project-link-cont{
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                width: 100%;
+            }
+            .h1{
+                font-size: 6.9vw;
+            }
+            .h2{
+                font-size: 6.3vw;
+            }
+            .h3{
+                font-size: 5.7vw;
+            }
+            .h4{
+                font-size: vw;
+            }
+            .h5{
+                font-size: vw;
+            }
+            .card{
+                font-size: 5vw;
+                width: 100%;
+                height: 15vw;
+                margin-bottom: 3vw;
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                transition: 0.3s;
+                border-radius: 2vw;
+                line-height: 5vw;
+            }  
+            .contributors-cont{
+                text-align: center;
+                margin: 2vw 12.5vw 0 12.5vw;
+            }
+            .contributor-cont{
+                flex-direction: column;
+            }
+            .contributor{
+                width: calc(100% - 6vw);
+                height: 24vw;
+                padding: 3vw;
+                display: block;
+                text-align: left;
+                line-height: 4.5vw;
+            }
+            .contributor-description{
+                font-size: 3vw;
+            }          
+        };
+    </style>
+</head>
+<body>
+    <div class="homepage-bg-cont">
+        <div class="welcome-cont">
+            <span class="welcome">Welcome to the website of</span><br>
+                <b class="welcomeName">George Orfanides</b>
+        </div>
+    </div>
+    <div class="body-bg-cont">
+        <div class="projects-cont">
+            <span class="h1">My Projects:</span><br>
+            <span class="h2">Released</span><br>
+            <span class="h3">Utility</span>
+            <div class="project-link-cont">
+                <a href="math/"><div class="card link"><span class="project-link-description">Mathematical Equations</span></div></a>
+                <a href="progress-bars/"><div class="card link"><span class="project-link-description">Progress Bars</span></div></a>
+                <a href="counters/"><div class="card link"><span class="project-link-description">Counters</span></div></a>
+                <a href="timers/"><div class="card link"><span class="project-link-description">Custom Timers</span></div></a>
+                <a href="random/"><div class="card link"><span class="project-link-description">Random Generators</span></div></a>
+            </div>
+            <span class="h3">Dates and Times</span>
+            <div class="project-link-cont">
+                <a href="timer/"><div class="card link"><span class="project-link-description">Countdown to<br>Next Year</span></div></a>
+                <a href="clock/"><div class="card link"><span class="project-link-description">Customizable<br>Wall Clock</span></div></a>
+            </div>
+            <span class="h3">Fun and Games</span>
+            <div class="project-link-cont">
+                <a href="chase-button/"><div class="card link"><span class="project-link-description">Chase The <br>Button Game</span></div></a>
+                <a href="platformer/"><div class="card link"><span class="project-link-description">2D Platformer</span></div></a>
+            </div>
+            <!--
+                <div class="project-link-cont">
+                    <a href=""><div class="card link"><span class="project-link-description"></span></div></a>
+                </div>
+            -->
+        </div>
+        <div class="contributors-cont">
+            <span class="h1">Contributors</span><br>
+            <div class="contributor-cont">
+                <div class="card contributor">
+                    <span class="h3 500">Jacey Li</span><br>
+                    <span class="contributor-description">Website:<br><a class="contributor-url" href="https://gimpysploosh.github.io/thing">https://gimpysploosh.github.io/thing</a></span>
+                </div>
+                <!-- 
+                    <div class="card contributor">
+                        <span class="h3 500"></span><br>
+                        <span class="contributor-description">Website:<br><a></a></span>
+                    </div>
+                -->
+            </div>
+        </div>
+    </div>
+</body>
+</html>

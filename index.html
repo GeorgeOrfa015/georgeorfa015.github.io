@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="George Orfanides" property="og:title" />
-    <meta content="Every HTML project of George Orfanides." property="og:description" />
-    <meta content="http://orfanidesg15.free.nf/" property="og:url" />
+    <meta content="The website of George Orfanides." property="og:description" />
+    <meta content="http://georgeorfa015.github.io/" property="og:url" />
     <meta content="https://i.imgur.com/fv55MPW.png" property="og:image" />
     <meta content="#090f0c" data-react-helmet="true" name="theme-color" id="theme-color"/>
     <meta name="google-site-verification" content="-lrHI5oPyUX3BqcopmztJGiredsAKYtobVhyVNhx4fg" />
@@ -13,259 +13,393 @@
     <title>George Orfanides</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-        body{
-            background: #090f0c;
-            color: #e5e5e5;
-            font-family: poppins;
-            line-height: 3.5vw;
+        div{
+            background-color: #ffffff00;
+            padding: 0px;
         }
         a{
             text-decoration: none;
+            color: #fff;
         }
-        span.welcome{
-            font-size: 6.5vw;
-            font-family: poppins;
-            font-weight: 300;
+        body{
+            font-family: Poppins;
+            background: #000;
+            color: #fff;
         }
-        .welcomeName{
-            font-size: 8.4vw;
-            font-family: poppins;
-            font-weight: 600;
-        }
-        .welcome-cont{
+        #outer-container{
             position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            left: 25px;
-            line-height: normal;
-        }
-        .homepage-bg-cont{
-            width: 100%;
-            height: 35vw;
-            position: absolute;
-            background: linear-gradient(0deg, #090f0c 0%, #030806 100%);
             top: 0;
             left: 0;
-        }
-        .body-bg-cont{
-            position: absolute;
             width: 100%;
-            height: fit-content;
-            top: 30vw;
-            left: 0;
+            display: grid;
+            grid-template-columns: auto;
+            gap: 3vw;
         }
-        .projects-cont{
-            margin: 2vw;
+        #topMessage{
+            padding: 2vw;
         }
-        .project-link-cont{
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            width: fit-content;
-            margin-top: 0.5vw;
-            margin-bottom: 2vw;
+        #topMessageText{
+            color: #fff;
+            position: relative;
+            top: 0vw;
+            left: 0vw;
+            transform: translateY(1vh);
+            font-size: 6.9vw;
+            font-weight: 300;
+            transition: 0;
+            opacity: 0;
         }
-        .special-thanks-cont{
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            width: fit-content;
-            margin-top: 0.5vw;
-            margin-bottom: 2vw;
-        }
-        .h1{
-            font-size: 2.3vw;
+        #topMessageTextName{
+            font-size: 8.4vw;
             font-weight: 600;
         }
-        .h2{
-            font-size: 2vw;
-            font-weight: 600;
+        #aboutMe, #latestNews, #contactMe{
+            display: grid;
+            grid-template-columns: 1fr 4fr;
+            margin: 0 2vw 0 2vw;
+            background-color: #0d0d0d;
+            border-radius: 1vw;
+            overflow: hidden;
+            transform: translateY(1vh);
+            opacity: 0;
         }
-        .h3{
-            font-size: 1.7vw;
-            font-weight: 600;
-        }
-        .h4{
-            font-size: 1.4vw;
-            font-weight: 600;
-        }
-        .h5{
-            font-size: 1.1vw;
-            font-weight: 600;
-        }
-        .card{
-            font-size: 1.6vw;
-            padding: 0.5vw;
-            width: 15vw;
-            height: 5vw;
-            margin-right: 1vw;
+        #aboutMeTitle, #latestNewsTitle, #contactMeTitle{
+            font-size: 2.4vw;
             text-align: center;
-            border-radius: 0.5vw;
+            font-weight: 600;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            transition: 0.3s;
-            line-height: 1.8vw;
+            background: #151515;
+            padding: 0.75vw;
         }
-        .link{
-            background: #056c30;
-            color: #ffffff;
-        }
-        .indev{
-            background: #023116;
-            color: #e5e5e5;
-            cursor:not-allowed
-        }
-        .link:hover{
-            transform: scale(1.05);
-        }
-        .contributors-cont{
-            margin: 2vw;
-        }
-        .contributor-cont{
+        #aboutMeText, #latestNewsText, #contactMeText{
             display: flex;
-            flex-direction: row;
+            flex-direction: column;
+            justify-content: center;
+            font-size: 1.6vw;
+            padding: 1vw;
+        }
+        #projects{
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1vw;
+            margin: 0 2vw 0 2vw;
+            overflow: hidden;
+            transform: translateY(1vh);
+            opacity: 0;
+        }
+        .projectsTitle{
+            font-size: 3.5vw;
+            font-weight: 500;
+        }
+        .projectsSubtitle{
+            font-size: 2.6vw;
+            opacity: 0;
+        }
+        .projectsCont{
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 1vw; 
+            opacity: 0;
+            margin-bottom: 1vw;
+        }
+        .project{
+            background-color: #056c30;
+            padding: 0.75vw;
+            border-radius: 0.75vw;
+            line-height: 2vw;
+            text-align: center;
+        }
+        .projectTitle{
+            font-size: 1.8vw;
+            font-weight: 600;
+        }
+        .projectDescription{
+            font-size: 1.4vw;
+            font-weight: 300;
+        }
+        #contributors{
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1vw;
+            margin: 0 2vw 0 2vw;
+            overflow: hidden;
+            transform: translateY(1vh);
+            opacity: 0;
+        }
+        #contributorsTitle{
+            font-size: 3.5vw;
+            font-weight: 500;
+        }
+        #contributorsCont{
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1vw; 
         }
         .contributor{
-            background: #04421f;
-            width: 32vw;
-            color: #ffffff;
-            height: 10vw;
-            padding: 0.5vw;
-            display: block;
-            text-align: left;
+            border-radius: 0.75vw;
             line-height: 2vw;
+            text-align: left;
+            display: grid;
+            grid-template-columns: 1fr;
+            overflow: hidden;
         }
-        .contributor-description{
+        .contributorTitle{
+            font-size: 1.8vw;
+            font-weight: 600;
+            padding: 0.75vw;
+            background: #056c30
+        }
+        .contributorDescription{
             font-size: 1.4vw;
-            
+            padding: 0.75vw;
+            font-weight: 300;
+            background:#045827
         }
-        a.contributor-url{
+        a.contributor-url, a.email{
             color: #54df8e;
-            transition: 0.1s;
+            transition: 0.1s color;
             text-decoration:underline;
             text-decoration-color: #065629;
         }
-        a.contributor-url:hover{
+        a.contributor-url:hover, a.email:hover{
             color: #85f6b4;
             text-decoration-color: #0b7338;
         }
-        @media(max-width:600px){
-            body{
-                line-height: 10vw;
+        @media(max-width:700px) {
+            #outer-container{
+                gap: 6vw;
             }
-            .welcome-cont{
+            #topMessage{
                 text-align: center;
             }
-            .projects-cont{
-                text-align: center;
-                margin: 2vw 25vw 0 25vw;
-            }
-            .project-link-cont{
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-                width: 100%;
-            }
-            .h1{
-                font-size: 6.9vw;
-            }
-            .h2{
-                font-size: 6.3vw;
-            }
-            .h3{
-                font-size: 5.7vw;
-            }
-            .h4{
-                font-size: vw;
-            }
-            .h5{
-                font-size: vw;
-            }
-            .card{
-                font-size: 5vw;
-                width: 100%;
-                height: 15vw;
-                margin-bottom: 3vw;
-                text-align: center;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                transition: 0.3s;
+            #aboutMe, #latestNews, #contactMe{
+                grid-template-columns: 1fr;
+                margin: 0 4vw 0 4vw;
                 border-radius: 2vw;
-                line-height: 5vw;
-            }  
-            .contributors-cont{
-                text-align: center;
-                margin: 2vw 12.5vw 0 12.5vw;
             }
-            .contributor-cont{
-                flex-direction: column;
+            #aboutMeTitle, #latestNewsTitle, #contactMeTitle{
+                font-size: 8vw;
+                padding: 1vw;
+            }
+            #aboutMeText, #latestNewsText, #contactMeText{
+                font-size: 5.5vw;
+                padding: 2vw;
+            }
+            #projects{
+                gap: 2vw;
+                margin: 0 15vw 0 15vw;
+                text-align: center;
+            }
+            .projectsTitle, #contributorsTitle{
+                font-size: 8vw;
+            }
+            .projectsSubtitle{
+                font-size: 6vw;
+            }
+            .projectsCont{
+                grid-template-columns: 1fr;
+                gap: 4vw; 
+                margin-bottom: 2vw;
+            }
+            .project{
+                padding: 3vw;
+                border-radius: 2vw;
+                line-height: 5.5vw;
+                text-align: center;
+            }
+            .projectTitle{
+                font-size: 5.9vw;
+            }
+            .projectDescription{
+                font-size: 4vw;
+            }
+            #contributors{
+                grid-template-columns: 1fr;
+                gap: 2vw;
+                margin: 0 4vw 0 4vw;
+                text-align: center;
+            }
+            #contributorsCont{
+                grid-template-columns: 1fr;
+                gap: 3vw; 
             }
             .contributor{
-                width: calc(100% - 6vw);
-                height: 24vw;
-                padding: 3vw;
-                display: block;
+                border-radius: 2vw;
+                line-height: 6.5vw;
                 text-align: left;
-                line-height: 4.5vw;
             }
-            .contributor-description{
-                font-size: 3vw;
-            }          
-        };
+            .contributorTitle{
+                font-size: 5.9vw;
+                padding: 3vw;
+                text-align: center;
+            }
+            .contributorDescription{
+                font-size: 4vw;
+                padding: 3vw;
+                line-height: 5.5vw;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="homepage-bg-cont">
-        <div class="welcome-cont">
-            <span class="welcome">Welcome to the website of</span><br>
-                <b class="welcomeName">George Orfanides</b>
+    <div id="outer-container">
+        <div id="topMessage">
+            <div id="topMessageText">Welcome to the website of <br><span id="topMessageTextName">George Orfanides</b></span></div>
         </div>
-    </div>
-    <div class="body-bg-cont">
-        <div class="projects-cont">
-            <span class="h1">My Projects:</span><br>
-            <span class="h2">Released</span><br>
-            <span class="h3">Utility</span>
-            <div class="project-link-cont">
-                <a href="math/"><div class="card link"><span class="project-link-description">Mathematical Equations</span></div></a>
-                <a href="progress-bars/"><div class="card link"><span class="project-link-description">Progress Bars</span></div></a>
-                <a href="counters/"><div class="card link"><span class="project-link-description">Counters</span></div></a>
-                <a href="timers/"><div class="card link"><span class="project-link-description">Custom Timers</span></div></a>
-                <a href="random/"><div class="card link"><span class="project-link-description">Random Generators</span></div></a>
-            </div>
-            <span class="h3">Dates and Times</span>
-            <div class="project-link-cont">
-                <a href="timer/"><div class="card link"><span class="project-link-description">Countdown to<br>Next Year</span></div></a>
-                <a href="clock/"><div class="card link"><span class="project-link-description">Customizable<br>Wall Clock</span></div></a>
-            </div>
-            <span class="h3">Fun and Games</span>
-            <div class="project-link-cont">
-                <a href="chase-button/"><div class="card link"><span class="project-link-description">Chase The <br>Button Game</span></div></a>
-                <a href="platformer/"><div class="card link"><span class="project-link-description">2D Platformer</span></div></a>
-            </div>
-            <!--
-                <div class="project-link-cont">
-                    <a href=""><div class="card link"><span class="project-link-description"></span></div></a>
-                </div>
-            -->
+        <div id="latestNews">
+            <div id="latestNewsTitle">Latest news</div><div id="latestNewsText">Friday, June 21, 2024 - Overhauled the home page! It now includes the latest news and an "About me" section, project descriptions, and a loading animation.</div>
         </div>
-        <div class="contributors-cont">
-            <span class="h1">Contributors</span><br>
-            <div class="contributor-cont">
-                <div class="card contributor">
-                    <span class="h3 500">Jacey Li</span><br>
-                    <span class="contributor-description">Website:<br><a class="contributor-url" href="https://gimpysploosh.github.io/thing">https://gimpysploosh.github.io/thing</a></span>
-                </div>
-                <!-- 
-                    <div class="card contributor">
-                        <span class="h3 500"></span><br>
-                        <span class="contributor-description">Website:<br><a></a></span>
+        <div id="projects">
+            <div class="projectsTitle">Projects</div>
+            <div class="projectsSubtitle" id="ps1">Utility</div>
+            <div class="projectsCont" id="pc1">
+                <a href="progress-bars/"><div class="project">
+                    <span class="projectTitle">Progress Bars</span><br>
+                    <span class="projectDescription">Create your own custom progress bars!</span>
+                </div></a>
+                <a href="math/"><div class="project">
+                    <span class="projectTitle">Math Tools</span><br>
+                    <span class="projectDescription">A variety of modules to help with Math.</span>
+                </div></a>
+                <a href="timers/"><div class="project">
+                    <span class="projectTitle">Custom Timers</span><br>
+                    <span class="projectDescription">See how long ago/in how much time a date is.</span>
+                </div></a>
+                <a href="counters/"><div class="project">
+                    <span class="projectTitle">Counters</span><br>
+                    <span class="projectDescription">Create tally counters for anything.</span>
+                </div></a>
+                <a href="random/"><div class="project">
+                    <span class="projectTitle">Random Generators</span><br>
+                    <span class="projectDescription">Generators for random numbers, letters and colors.</span>
+                </div></a>
+            </div>
+            <div class="projectsSubtitle" id="ps2">Dates and Times</div>
+            <div class="projectsCont" id="pc2">
+                <a href="timer/"><div class="project">
+                    <span class="projectTitle" id="yearTimerProject">Text filled by function.</span><br>
+                    <span class="projectDescription">A countdown to the next year with customization options.</span>
+                </div></a>
+                <a href="clock/"><div class="project">
+                    <span class="projectTitle">Custom Digital Clock</span><br>
+                    <span class="projectDescription">A time display with multiple customization options.</span>
+                </div></a>
+            </div>
+            <div class="projectsSubtitle" id="ps3">Fun and Games</div>
+            <div class="projectsCont" id="pc3">
+                <a href="chase-button/"><div class="project">
+                    <span class="projectTitle">Chase the Button</span><br>
+                    <span class="projectDescription">Chase a button with your cursor and get points!</span>
+                </div></a>
+                <a href="platformer/"><div class="project">
+                    <span class="projectTitle">2D Platformer</span><br>
+                    <span class="projectDescription">A simple platformer made from a YouTube tutorial.</span>
+                </div></a>
+            </div>
+        </div>
+        <div id="contributors">
+            <div id="contributorsTitle">Contributors</div>
+            <div id="contributorsCont">
+                <div class="contributor">
+                    <div class="contributorTitle">Jacey Li</div>
+                    <div class="contributorDescription">
+                        Website:<br>
+                        <a class="contributor-url" href="https://gimpysploosh.github.io/thing">https://gimpysploosh.github.io/thing</a><br>
+                        Helped with creating the Least Common Multiplier script in "Math Tools".
                     </div>
-                -->
+                </div>
             </div>
         </div>
+        <div id="aboutMe">
+            <div id="aboutMeTitle">About me</div><div id="aboutMeText">I am a high school student that enjoys making random websites with JavaScript to help with everyday life, or just have fun! I know how to use the three basic web development languages, these being HTML, CSS and JS.</div>
+        </div>
+        <div id="contactMe">
+            <div id="contactMeTitle">Contact me</div><div id="contactMeText"><span>Email: <a class="email" href="mailto:georgeorfa015@gmail.com">georgeorfa015@gmail.com</a></span></div>
+        </div>
+        <div></div>
     </div>
+    <script>
+        let delay = 0
+        let duration = 1;
+        function animation1() {
+            let item = document.getElementById("topMessageText");
+            item.style.transition = `${duration}s cubic-bezier(.2,.79,.51,.9) transform, ${duration}s cubic-bezier(.2,.79,.51,.9) opacity`
+            item.style.transform = "translateY(0%)";
+            item.style.opacity = 1
+            setTimeout(animation2, delay+100)
+        }
+        function animation2() {
+            let item = document.getElementById("latestNews");
+            item.style.transition = `${duration}s cubic-bezier(.2,.79,.51,.9) transform, ${duration}s cubic-bezier(.2,.79,.51,.9) opacity`
+            item.style.transform = "translateY(0%)";
+            item.style.opacity = 1;
+            setTimeout(animation3, delay)
+        }
+        function animation3() {
+            let item = document.getElementById("projects");
+            item.style.transition = `${duration}s cubic-bezier(.2,.79,.51,.9) transform, ${duration}s cubic-bezier(.2,.79,.51,.9) opacity`
+            item.style.transform = "translateY(0%)";
+            item.style.opacity = 1;
+            setTimeout(animation4, delay)
+        }
+        function animation4() {
+            let item = document.getElementById("pc1");
+            item.style.transition = `${duration}s cubic-bezier(.2,.79,.05,.99) transform, ${duration}s cubic-bezier(.2,.79,.05,.99) opacity`
+            item.style.transform = "translateY(0%)";
+            item.style.opacity = 1;
+            item = document.getElementById("ps1");
+            item.style.transition = `${duration}s cubic-bezier(.2,.79,.05,.99) transform, ${duration}s cubic-bezier(.2,.79,.05,.99) opacity`
+            item.style.transform = "translateY(0%)";
+            item.style.opacity = 1;
+            setTimeout(animation5, delay)
+        }
+        function animation5() {
+            let item = document.getElementById("pc2");
+            item.style.transition = `${duration}s cubic-bezier(.2,.79,.05,.99) transform, ${duration}s cubic-bezier(.2,.79,.05,.99) opacity`
+            item.style.transform = "translateY(0%)";
+            item.style.opacity = 1;
+            item = document.getElementById("ps2");
+            item.style.transition = `${duration}s cubic-bezier(.2,.79,.05,.99) transform, ${duration}s cubic-bezier(.2,.79,.05,.99) opacity`
+            item.style.transform = "translateY(0%)";
+            item.style.opacity = 1;
+            setTimeout(animation6, delay)
+        }
+        function animation6() {
+            let item = document.getElementById("pc3");
+            item.style.transition = `${duration}s cubic-bezier(.2,.79,.05,.99) transform, ${duration}s cubic-bezier(.2,.79,.05,.99) opacity`
+            item.style.transform = "translateY(0%)";
+            item.style.opacity = 1;
+            item = document.getElementById("ps3");
+            item.style.transition = `${duration}s cubic-bezier(.2,.79,.05,.99) transform, ${duration}s cubic-bezier(.2,.79,.05,.99) opacity`
+            item.style.transform = "translateY(0%)";
+            item.style.opacity = 1;
+            setTimeout(animation7, delay)
+        }
+        function animation7() {
+            let item = document.getElementById("contributors");
+            item.style.transition = `${duration}s cubic-bezier(.2,.79,.05,.99) transform, ${duration}s cubic-bezier(.2,.79,.05,.99) opacity`
+            item.style.transform = "translateY(0%)";
+            item.style.opacity = 1;
+            setTimeout(animation8, delay)
+        }
+        function animation8() {
+            let item = document.getElementById("aboutMe");
+            item.style.transition = `${duration}s cubic-bezier(.2,.79,.05,.99) transform, ${duration}s cubic-bezier(.2,.79,.05,.99) opacity`
+            item.style.transform = "translateY(0%)";
+            item.style.opacity = 1;
+            setTimeout(animation9, delay)
+        }
+        function animation9() {
+            let item = document.getElementById("contactMe");
+            item.style.transition = `${duration}s cubic-bezier(.2,.79,.05,.99) transform, ${duration}s cubic-bezier(.2,.79,.05,.99) opacity`
+            item.style.transform = "translateY(0%)";
+            item.style.opacity = 1;
+        }
+        setTimeout(animation1, 750)
+        let date = new Date();
+        document.getElementById("yearTimerProject").innerHTML = "Countdown to " + (date.getFullYear()+1);
+    </script>
 </body>
 </html>

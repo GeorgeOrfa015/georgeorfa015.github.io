@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 	<url>
-		<loc>https://www.georgeorfa015.github.io</loc>
+		<loc>https://www.georgeorfa015.github.io/archive</loc>
 		<priority>1.00</priority>
-		<lastmod>2024-04-29</lastmod>
+		<lastmod>2024-06-21</lastmod>
+	</url>
+	<url>
+		<loc>https://www.georgeorfa015.github.io</loc>
+		<priority>0.67</priority>
+		<lastmod>2024-06-21</lastmod>
 	</url>
 	<url>
 		<loc>https://www.georgeorfa015.github.io/years-temp-abandoned</loc>
@@ -19,11 +24,6 @@
 		<loc>https://www.georgeorfa015.github.io/timer</loc>
 		<priority>0.67</priority>
 		<lastmod>2024-04-24</lastmod>
-	</url>
-	<url>
-		<loc>https://www.georgeorfa015.github.io/test.html</loc>
-		<priority>0.67</priority>
-		<lastmod>2024-04-19</lastmod>
 	</url>
 	<url>
 		<loc>https://www.georgeorfa015.github.io/random</loc>
@@ -56,11 +56,6 @@
 		<lastmod>2024-04-27</lastmod>
 	</url>
 	<url>
-		<loc>https://www.georgeorfa015.github.io/indev.html</loc>
-		<priority>0.67</priority>
-		<lastmod>2024-06-16</lastmod>
-	</url>
-	<url>
 		<loc>https://www.georgeorfa015.github.io/counters</loc>
 		<priority>0.67</priority>
 		<lastmod>2024-04-29</lastmod>
@@ -74,6 +69,11 @@
 		<loc>https://www.georgeorfa015.github.io/chase-button</loc>
 		<priority>0.67</priority>
 		<lastmod>2024-06-16</lastmod>
+	</url>
+	<url>
+		<loc>https://www.georgeorfa015.github.io/indev/test.html</loc>
+		<priority>0.67</priority>
+		<lastmod>2024-06-21</lastmod>
 	</url>
 	<url>
 		<loc>https://www.georgeorfa015.github.io/indev/devicedimensions.html</loc>
