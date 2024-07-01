@@ -8,9 +8,9 @@
    <script>
    function calculate() {
       document.getElementById("output").innerHTML="";
-      let a1 = 2
-      let d = 3
-      let n = 6
+      let a1 = document.getElementById("test").value;
+      let d = document.getElementById("test2").value;
+      let n = document.getElementById("test3").value;
       let sum = 0
       for (i=1;i<=n;i++) {
          sum += a1 + (i-1) * d;
