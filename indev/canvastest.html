@@ -6,12 +6,10 @@
     <title>Document</title>
 </head>
 <body>
-    <canvas id="myCanvas" height="2656" width="5432" style="position: absolute; top: 0; left: 0;"></canvas>
+    <canvas id="myCanvas" height="4000" width="5432" style="position: absolute; top: 0; left: 0;"></canvas>
     <script>
         
         const canvas = document.getElementById("myCanvas");
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
         const ctx = canvas.getContext("2d");
 
         // for (x=0;x<1358*4;x++){
@@ -27,7 +25,7 @@
         let x = 4
         let y = 0
         function draw() {
-            if (y>=2656) {
+            if (y>=4000) {
                 x+=4;
                 y=0
             }
