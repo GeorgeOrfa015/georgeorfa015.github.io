@@ -8,7 +8,10 @@
 <body>
     <canvas id="myCanvas" height="2656" width="5432" style="position: absolute; top: 0; left: 0;"></canvas>
     <script>
+        
         const canvas = document.getElementById("myCanvas");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
         const ctx = canvas.getContext("2d");
 
         // for (x=0;x<1358*4;x++){
