@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="myCanvas" height="2656" width="5432" style="position: absolute; top: 0; left: 0;"></canvas>
+    <script>
+        const canvas = document.getElementById("myCanvas");
+        const ctx = canvas.getContext("2d");
+
+        // for (x=0;x<1358*4;x++){
+        //     for (y=0;y<664*4;y++){
+        //         let h = x*3
+        //         let s = 100
+        //         let l = 50
+                
+        //     ctx.fillStyle = `hsl(${h}, ${s}%, ${l}%)`;
+        //     ctx.fillRect(y, x, x, 1);
+        //     }
+        // }
+        let x = 4
+        let y = 0
+        function draw() {
+            if (y>=2656) {
+                x+=4;
+                y=0
+            }
+            let h = x
+            let s = 100
+            let l = 50
+            ctx.fillStyle = `hsl(${h}, ${s}%, ${l}%)`;
+            ctx.fillRect(x, y, 4, 4);
+            y+=x
+        }
+        setInterval(draw, 10);
+        
+
+    </script>
+</body>
+</html>
