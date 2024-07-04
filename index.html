@@ -249,7 +249,7 @@
             <div id="topMessageText">Welcome to the website of <br><span id="topMessageTextName">George Orfanides</b></span></div>
         </div>
         <div id="latestNews">
-            <div id="latestNewsTitle">Latest news</div><div id="latestNewsText">Friday, June 21, 2024 - Overhauled the home page! It now includes the latest news and an "About me" section, project descriptions, and a loading animation.</div>
+            <div id="latestNewsTitle">Latest news</div><div id="latestNewsText">Thursday, July 4, 2024 - Added a new "in development" link in the home page for all the hidden pages under /indev/, and added a calculator for the sum of a progression on Math tools.</div>
         </div>
         <div id="projects">
             <div class="projectsTitle">Projects</div>
@@ -296,6 +296,13 @@
                 <a href="platformer/"><div class="project">
                     <span class="projectTitle">2D Platformer</span><br>
                     <span class="projectDescription">A simple platformer made from a YouTube tutorial.</span>
+                </div></a>
+            </div>
+            <div class="projectsSubtitle" id="ps4">In development</div>
+            <div class="projectsCont" id="pc4">
+                <a href="indev/"><div class="project">
+                    <span class="projectTitle">Indev</span><br>
+                    <span class="projectDescription">Unsupported experimental scripts and pages.</span>
                 </div></a>
             </div>
         </div>
@@ -378,20 +385,31 @@
             setTimeout(animation7, delay)
         }
         function animation7() {
-            let item = document.getElementById("contributors");
+            let item = document.getElementById("pc4");
+            item.style.transition = `${duration}s cubic-bezier(.2,.79,.05,.99) transform, ${duration}s cubic-bezier(.2,.79,.05,.99) opacity`
+            item.style.transform = "translateY(0%)";
+            item.style.opacity = 1;
+            item = document.getElementById("ps4");
             item.style.transition = `${duration}s cubic-bezier(.2,.79,.05,.99) transform, ${duration}s cubic-bezier(.2,.79,.05,.99) opacity`
             item.style.transform = "translateY(0%)";
             item.style.opacity = 1;
             setTimeout(animation8, delay)
         }
         function animation8() {
-            let item = document.getElementById("aboutMe");
+            let item = document.getElementById("contributors");
             item.style.transition = `${duration}s cubic-bezier(.2,.79,.05,.99) transform, ${duration}s cubic-bezier(.2,.79,.05,.99) opacity`
             item.style.transform = "translateY(0%)";
             item.style.opacity = 1;
             setTimeout(animation9, delay)
         }
         function animation9() {
+            let item = document.getElementById("aboutMe");
+            item.style.transition = `${duration}s cubic-bezier(.2,.79,.05,.99) transform, ${duration}s cubic-bezier(.2,.79,.05,.99) opacity`
+            item.style.transform = "translateY(0%)";
+            item.style.opacity = 1;
+            setTimeout(animation10, delay)
+        }
+        function animation10() {
             let item = document.getElementById("contactMe");
             item.style.transition = `${duration}s cubic-bezier(.2,.79,.05,.99) transform, ${duration}s cubic-bezier(.2,.79,.05,.99) opacity`
             item.style.transform = "translateY(0%)";

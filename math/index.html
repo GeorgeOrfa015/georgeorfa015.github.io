@@ -99,6 +99,30 @@
                     <span class="moduleBody" id="calc2out2"></span>
                 </div>
             </div>
+            <div class="moduleOuterContainer">
+                <div class="moduleDescription">
+                    <span class="moduleHeading">S<sub>n</sub> calculator</span><br>
+                    <span class="moduleBody">
+                        The sum of an arithmetic progression (or S<sub>n</sub>) is called arithmetic series and it's the sum of all the progression's terms up to a<sub>n</sub>. It can be calculated using the following formula: <br>
+                        S<sub>n</sub> = n × (2 × a1 + (n - 1) × d) ÷ 2<br>
+                        <br>
+                        Input: <br>
+                        a₁ - First term in the progression<br>
+                        d - Number added with each term<br>
+                        n - Index of a<sub>n</sub>
+                    </span>
+                </div>
+                <div class="moduleInput">
+                    <div class="moduleInputInnerContainer">
+                        <input placeholder="a₁" id="calc5in1" oninput="calc5()"><input placeholder="d" id="calc5in2" oninput="calc5()"><input placeholder="n" id="calc5in3" class="longItem" oninput="calc5()">
+                    </div>
+                </div>
+                <div class="moduleOutput">
+                    <span class="moduleHeading">S<sub>n</sub> of series</span><br>
+                    <span class="moduleBody" id="calc5out1"></span><br>
+                    <span class="moduleBody" id="calc5out2"></span>
+                </div>
+            </div>
         </div>
     </div>
     <script src="index.js"></script>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>In Development Projects</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@300;900&display=swap');
+        body{
+            background: #000;
+            color: #14c425;
+            font-family: "Chivo mono";
+        }
+        a{
+            color: #14c425;
+        }
+        #title{
+            font-size: 1.5em;
+            text-emphasis:initial;
+        }
+    </style>
+</head>
+<body>
+    <span id="title">In development</span><br>
+    <a href="arithmeticprogressiontesting.html">arithmeticprogressiontesting.html</a><br>
+    <a href="canvastest.html">canvastest.html</a><br>
+    <a href="devicedimensions.html">devicedimensions.html</a><br>
+    <a href="helpscreentest.html">helpscreentest.html</a><br>
+    <a href="layouttesting.html">layouttesting.html</a><br>
+    <a href="test.html">test.html</a><br>
+    <a href="yearprogress.html">yearprogress.html</a><br>
+    <br>
+    Every project here is either me trying something new or testing a new addition to the website. Some of these might not work at all, and that may or may not be intentional. <br><br>
+    <span id="terminaldeco"></span><br>
+    <script>
+        let state = true
+        let item = document.getElementById("terminaldeco");
+        function terminal() {
+            switch(state){
+                case true:
+                    item.innerHTML = "><a style='text-decoration: none;' href='../index.html'>back</a>_"
+                    break;
+                case false:
+                    item.innerHTML = "><a style='text-decoration: none;' href='../index.html'>back</a>"
+                    break;
+            }
+            state = !state
+        }
+        terminal();
+        setInterval(terminal, 1000)
+    </script>
+</body>
+</html>

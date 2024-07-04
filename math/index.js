@@ -59,7 +59,7 @@ function calc2() {
             }else if (n==1) {
                 out1.innerHTML = `${an}`;
                 out2.innerHTML = `a<sub>${n}</sub> = ${a1} + (${n} - 1) × ${d} = <b>${an}</b>`;
-            }else if (n==0) {
+            }else if (n>=0) {
                 out1.innerHTML = "ERR: a<sub>n</sub> with n less or equal to 0 is not defined."
                 out2.innerHTML = "";
             }
@@ -123,6 +123,60 @@ function calc4() {
             output.innerHTML="LCM("+input.replace(/ /g, ", ")+") = " + lcm(input.split(" ")); //success 2 or more elements
         }else{ //array includes text
             output.innerHTML="Error: Input contains text." //error text in array
+        }
+    }
+    
+}
+function calc5() {
+    let a1 = Number(document.getElementById("calc5in1").value);
+    let d = Number(document.getElementById("calc5in2").value);
+    let n = Number(document.getElementById("calc5in3").value);
+    let out1 = document.getElementById("calc5out1");
+    let out2 = document.getElementById("calc5out2");
+    let an = a1 + (n-1) * d;
+    let a2 = a1 + d;
+    let a3 = a2 + d;
+    let a4 = a3 + d;
+    let sn = n * (2*a1+(n-1)*d) / 2
+    if (a1==""&&d=="") {
+        out1.innerHTML = "";
+        if (n!="") {
+            out1.innerHTML = "ERR: Please define a progression."
+        };
+        out2.innerHTML = "";
+    }else if (a1==""||d==""||isNaN(a1)||isNaN(d)) {
+        out1.innerHTML = "ERR: Please define the progression correctly.";
+        out2.innerHTML = "";
+    }else{
+        if (isNaN(n)) {
+            out1.innerHTML = 'ERR: Please input a number into the "n" field.';
+            out2.innerHTML = "";
+        }else if(n=="") {
+            out1.innerHTML = `S<sub>n</sub> = ${a1} + ${a2} + ${a3} + ${a4} + ... + a<sub>n</sub>`;
+            out2.innerHTML = `S<sub>n</sub> = n × (2 × ${a1} + (n - 1) × ${d}) ÷ 2`;
+        }else{
+            if (n>=6) {
+                out1.innerHTML = `S<sub>${n}</sub> = ${a1} + ${a2} + ${a3} + ${a4} + ... + ${an}`;
+                out2.innerHTML = `S<sub>${n}</sub> = ${n} × (2 × ${a1} + (${n} - 1) × ${d}) ÷ 2 = <b>${sn}</b>`;
+            }else if (n==5) {
+                out1.innerHTML = `S<sub>${n}</sub> = ${a1} + ${a2} + ${a3} + ${a4} + ${an}`;
+                out2.innerHTML = `S<sub>${n}</sub> = ${n} × (2 × ${a1} + (${n} - 1) × ${d}) ÷ 2 = <b>${sn}</b>`;
+            }else if (n==4) {
+                out1.innerHTML = `S<sub>${n}</sub> = ${a1} + ${a2} + ${a3} + ${an}`;
+                out2.innerHTML = `S<sub>${n}</sub> = ${n} × (2 × ${a1} + (${n} - 1) × ${d}) ÷ 2 = <b>${sn}</b>`;
+            }else if (n==3) {
+                out1.innerHTML = `S<sub>${n}</sub> = ${a1} + ${a2} + ${an}`;
+                out2.innerHTML = `S<sub>${n}</sub> = ${n} × (2 × ${a1} + (${n} - 1) × ${d}) ÷ 2 = <b>${sn}</b>`;
+            }else if (n==2) {
+                out1.innerHTML = `S<sub>${n}</sub> = ${a1} + ${an}`;
+                out2.innerHTML = `S<sub>${n}</sub> = ${n} × (2 × ${a1} + (${n} - 1) × ${d}) ÷ 2 = <b>${sn}</b>`;
+            }else if (n==1) {
+                out1.innerHTML = `S<sub>${n}</sub> = ${an}`;
+                out2.innerHTML = `S<sub>${n}</sub> = ${n} × (2 × ${a1} + (${n} - 1) × ${d}) ÷ 2 = <b>${sn}</b>`;
+            }else if (n>=0) {
+                out1.innerHTML = "ERR: a<sub>n</sub> with n less or equal to 0 is not defined."
+                out2.innerHTML = "";
+            }
         }
     }
 }
