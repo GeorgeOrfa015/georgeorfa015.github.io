@@ -24,11 +24,11 @@
                 </span>
             </div>
             <div class="moduleInput">
-                <div class="moduleInputFlex">
+                <div class="moduleInputInnerContainer">
                     <input type="number" class="input" id="calc1in1" placeholder="Min">
                     <input type="number" class="input" id="calc1in2" placeholder="Max">
+                    <button onclick="randomNumberModule()" class="longItem">Generate</button>
                 </div>
-                <button onclick="randomNumberModule()">Generate</button>
             </div>
             <div class="moduleOutput text">
                 <span class="outputText" id="calc1out"></span>
@@ -40,7 +40,9 @@
                 <span class="moduleBody">Generate a random letter from the latin alphabet.</span>
             </div>
             <div class="moduleInput">
-                <button onclick="randomLetterModule()">Generate</button>
+                <div class="moduleInputInnerContainer">
+                    <button onclick="randomLetterModule()" class="longItem">Generate</button>
+                </div>
             </div>
             <div class="moduleOutput text">
                 <span class="outputText" id="calc2out"></span>
@@ -52,12 +54,16 @@
                 <span class="moduleBody">Generate a random color and copy it as a HEX code.</span>
             </div>
             <div class="moduleInput">
-                <button onclick="randomColorModule()">Generate</button>
+                <div class="moduleInputInnerContainer">
+                    <button onclick="randomColorModule()" class="longItem">Generate</button>
+                </div>
             </div>
             <div class="moduleOutput color">
-                <div class="colorOutput" id="calc3out1"></div>
-                <div class="colorOutputOptions">
-                    <input id="calc3out2" class="outputOptions" type="text" disabled><button class="outputOptions" onclick="copyColor()" id="copyColorButton">Copy</button>
+                <div class="colorOutputInnerCont">
+                    <div class="colorOutput" id="calc3out1"></div>
+                    <div class="colorOutputOptions">
+                        <input id="calc3out2" class="outputOptions" type="text" disabled><button class="outputOptions" onclick="copyColor()" id="copyColorButton">Copy</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -71,11 +77,11 @@
                 </span>
             </div>
             <div class="moduleInput">
-                <div class="moduleInputFlex">
+                <div class="moduleInputInnerContainer">
                     <input type="number" class="input" id="calc4in1" placeholder="Colors">
                     <input type="number" class="input" id="calc4in2" placeholder="Rotation">
+                    <button onclick="randomGradientModule()" class="longItem">Generate</button>
                 </div>
-                <button onclick="randomGradientModule()">Generate</button>
             </div>
             <div class="moduleOutput color">
                 <div class="colorOutput" id="calc4out1"></div>

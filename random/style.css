@@ -15,7 +15,7 @@ body{
     background: #000;
     font-family: poppins;
     color: #fff;
-    line-height: 1.75vw;
+    line-height: 1.9vw;
 }
 .outerContainer{
     display: grid;
@@ -31,7 +31,7 @@ body{
     background: #222;
 }
 .moduleDescription{
-    height: 14vw;
+    height: 16.25vw;
     background: #444;
     overflow-y: scroll;
     border-radius: 0.5vw;
@@ -44,8 +44,16 @@ body{
     border-radius: 0.5vw;
     padding: 0.75vw;
     scrollbar-width: none;
+    height: 16.25vw;
+}
+.moduleInputInnerContainer{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75vw;
+    height: fit-content;
 }
 .moduleOutput{
+    height: 16.25vw;
     background: #333;
     overflow-y: scroll;
     border-radius: 0.5vw;
@@ -63,13 +71,19 @@ body{
     gap: 0.75vw;
 }
 .colorOutput{
-    height: 10vw;
+    height: 12vw;
     background: #181818;
 }
 .colorOutputOptions{
     display: grid;
     grid-template-columns: 3fr 1fr;
     gap: 0.75vw;
+    height: 100%;
+}
+.colorOutputInnerCont{
+    display: grid;
+    gap: 0.75vw;
+    grid-template-columns: 1fr;
 }
 .outputOptions{
     margin-bottom: 0;
@@ -97,16 +111,23 @@ input.outputOptions{
     font-size: 2.25vw;
     font-weight: 600;
 }
+.groupBody{
+    font-size: 1.50vw;
+    font-weight: 400;
+}
 .moduleHeading{
     font-size: 1.75vw;
     font-weight: 500;
+}
+.moduleBody{
+    font-size: 1.2vw;
 }
 .outputText{
     text-align: center;
     font-size: 2vw
 }
 input{
-    background:#167c40;
+    background:#13713a;
     color: #fff;
     border: none;
     height: 3.5vw;
@@ -116,7 +137,16 @@ input{
     font-size: 1.5vw;
     font-family: inherit;
     padding: 0;
-    margin-bottom: 1vw;
+}
+input:focus{
+    outline:none;
+}
+input::placeholder{
+    color: #79e6ba;
+    align-self: center;
+}
+input:disabled{
+    color: #fff;
 }
 button{
     background:#16964c;
@@ -129,8 +159,7 @@ button{
     font-size: 1.5vw;
     font-family: inherit;
     padding: 0;
-    margin-bottom: 1vw;
-    transition: 0.2s;
+    transition: background 0.2s;
 }
 button:hover{
     background:#1ca856;
@@ -139,10 +168,95 @@ button:active{
     background:#24bd64;
     transition: none;
 }
-input:focus{
-    outline:none;
+.longItem{
+    grid-column-start: 1;
+    grid-column-end: 3;
 }
-input::placeholder{
-    color: #79e6ba;
-    align-self: center;;
+@media(max-width:700px){
+    body{
+        line-height: 5.25vw;
+    }
+    .outerContainer{
+        gap: 3vw;
+        padding: 1vw 1vw 0 1vw;
+    }
+    .moduleOuterContainer{
+        grid-template-columns: 1fr;
+        gap: 1.75vw;
+        padding: 2vw;
+        border-radius: 3vw;
+    }
+    .moduleDescription{
+        padding: 2vw;
+        border-radius: 1.5vw;
+        height: 30vw;
+    }
+    .moduleInput{
+        border-radius: 1.5vw;
+        padding: 1.5vw;
+        height: 48.75vw;
+    }
+    .moduleInputInnerContainer{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5vw;
+        height: fit-content;
+    }
+    .moduleOutput{
+        border-radius: 1.5vw;
+        padding: 1.5vw;
+        height: 48.75vw;
+    }
+    .moduleHeading{
+        font-size: 5vw;
+        font-weight: 500;
+    }
+    .moduleBody{
+        font-size: 3.5vw;
+    }
+    .groupOuterContainer{
+        border-radius: 3vw;
+        padding: 2vw;
+        gap: 2.5vw;
+    }
+    .groupHeading{
+        font-size: 5vw;
+    }
+    .groupBody{
+        font-size: 4.5vw;
+    }
+    input{
+        border: none;
+        height: 11vw;
+        border-radius: 1.5vw;
+        font-size: 5vw;
+    }
+    button{
+        height: 11vw;
+        border-radius: 1.5vw;
+        font-size: 5vw;
+        font-family: inherit;
+        padding: 0;
+        transition: background 0.2s;
+    }
+    .color{
+        display: grid;
+        gap: 2vw;
+    }
+    .colorOutput{
+        height: 35vw;
+        background: #181818;
+        border-radius: 1.5vw;
+    }
+    .colorOutputOptions{
+        display: grid;
+        grid-template-columns: 3fr 1fr;
+        gap: 2vw;
+        height: 100%;
+    }
+    .colorOutputInnerCont{
+        display: grid;
+        gap: 0.75vw;
+        grid-template-columns: 1fr;
+    }
 }
