@@ -40,14 +40,20 @@ function sizeUp() {
             bal=bal-20;
             updateBalance();
             if(buttonSize==150) {
-                sizeUpOut.innerHTML+=" | Max level reached";
+                sizeUpOut.innerHTML+="<br>Max level reached";
                 sizeUpIn.disabled="true";
             }
         }else{
             sizeUpOut.innerHTML=buttonSize+"px";
-            sizeUpOut.innerHTML+=" | Balance too low";
+            sizeUpOut.innerHTML+="<br>Balance too low";
             sizeUpOut.style.color="#faa";
         }
+    }
+}
+function sizeUpMax() {
+    while(bal>=20) {
+        sizeUp();
+        if (buttonSize>145) break;
     }
 }
 function balanceGainUp() {
@@ -60,9 +66,15 @@ function balanceGainUp() {
         updateBalance();
     }else{
         balanceGainUpOut.innerHTML=balanceGain+" per hover";
-        balanceGainUpOut.innerHTML+=" | Balance too low";
+        balanceGainUpOut.innerHTML+="<br>Balance too low";
         balanceGainUpOut.style.color="#faa";
     }
+}
+function balanceGainUpMax() {
+    while (bal>=50) {
+        balanceGainUp();
+    }
+    balanceGainUp()
 }
 
 /* Button Functions */

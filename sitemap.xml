@@ -8,7 +8,7 @@
 	<url>
 		<loc>https://www.georgeorfa015.github.io</loc>
 		<priority>0.67</priority>
-		<lastmod>2024-07-04</lastmod>
+		<lastmod>2024-07-13</lastmod>
 	</url>
 	<url>
 		<loc>https://www.georgeorfa015.github.io/years-temp-abandoned</loc>
@@ -68,7 +68,7 @@
 	<url>
 		<loc>https://www.georgeorfa015.github.io/chase-button</loc>
 		<priority>0.67</priority>
-		<lastmod>2024-06-16</lastmod>
+		<lastmod>2024-07-13</lastmod>
 	</url>
 	<url>
 		<loc>https://www.georgeorfa015.github.io/indev/test.html</loc>
@@ -124,5 +124,10 @@
 		<loc>https://www.georgeorfa015.github.io/indev/test2.html</loc>
 		<priority>0.33</priority>
 		<lastmod>2024-07-02</lastmod>
+	</url>
+	<url>
+		<loc>https://www.georgeorfa015.github.io/indev/test3.html</loc>
+		<priority>0.33</priority>
+		<lastmod>2024-07-09</lastmod>
 	</url>
 </urlset>
