@@ -16,7 +16,7 @@ body{
     font-size: 1.45vw;
     transition: 0.2s
 }
-#button{
+#button, #button2, #button3{
     position: fixed;
     top: 50%;
     margin: none;
@@ -24,7 +24,7 @@ body{
     transition: 0.2s;
     background: #d00;
     border: none;
-    border-radius: 0.5vw;
+    border-radius: 50%;
     width: 20px;
     height: 20px;
     transform: translate(-50%,-50%)
@@ -57,14 +57,11 @@ button[disabled]{
     font-size: 1.3vw;
     transition: 0.2s;
 }
-.upgrade1{
-    display: var(--up1display);
+.upgrade1, .upgrade2, .upgrade3{
+    display: block;
     font-size: 1.45vw;
 }
-.upgrade2{
-    display: var(--up2display);
-    font-size: 1.45vw;
-}
+
 #container{
     position: fixed;
     top: 2px;

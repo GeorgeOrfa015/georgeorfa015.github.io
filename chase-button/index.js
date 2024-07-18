@@ -1,4 +1,4 @@
-let bal=0;
+let bal=1000000;
 let balOut=document.querySelector('#balance');
 
 let button=document.querySelector('#button');
@@ -11,11 +11,15 @@ let sizeLvl=document.querySelector('#sizeLvl');
 let balanceGainUpOut=document.querySelector('#balanceGainUpOut');
 let balanceGain=1;
 
+let newButtonUpOut=document.getElementById("newButtonUpOut");
+let buttonNumber=1;
+
 let color=1;
 let theme=0;
 /* Setup Upgrade Text */
 sizeUpOut.innerHTML=buttonSize+"px";
 balanceGainUpOut.innerHTML=balanceGain+" per hover";
+newButtonUpOut.innerHTML=buttonNumber+" button"
 /* Setup Functions */
 function randomnumber(min,max) {
     return Math.round(Math.random() * (max - min)) + min;
@@ -76,7 +80,20 @@ function balanceGainUpMax() {
     }
     balanceGainUp()
 }
+function newButtonUp() {
+    if (buttonNumber<=3) {
+        if (bal>=100) {
+            newButtonUpOut.color = "#fff"
+            buttonNumber+=1
+            let newButton = document.createElement("button");
+            newButton.id = "button"+buttonNumber;
+            newButton.setAttribute("onclick", "move()");
+            newButton.setAttribute("onmouseenter", "move()");
+            document.body.appendChild(newButton);
 
+        }
+    }
+}
 /* Button Functions */
 function move() {                
     bal=bal+balanceGain;
