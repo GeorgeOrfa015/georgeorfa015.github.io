@@ -1,59 +1,397 @@
-<html>
-    <head>
-        <title>Chase the button - Game</title>
-        <meta charset="UTF-8">
-        <meta content="G. Orfanides | Chase the button" property="og:title" />
-        <meta content="A simple little game where you chase a red button with your mouse cursor." property="og:description" />
-        <meta content="https://georgeorfa015.github.io/chase-button/" property="og:url" />
-        <meta content="https://i.imgur.com/fv55MPW.png" property="og:image" />
-        <meta content="#111" data-react-helmet="true" name="theme-color" id="theme-color"/>
-        <link rel="icon" href="../WebsiteLogo2.ico">
-        <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
-        <div id="container">
-            <div class="div_innerContainer">
-                <span id="balance">Hover over the colored <br> button and get points!</span>
-            </div>
-            <div class="div_innerContainer upgrade1">
-                Button Size - 20 <br><button id="sizeUp" onclick="sizeUp()">Upgrade</button><button id="sizeUpMax" onclick="sizeUpMax()">Max</button>
-                <span id="sizeUpOut" class="status"></span>
-            </div>
-            <div class="div_innerContainer upgrade2">
-                Balance Gain - 50 <br><button id="balanceGainUp" onclick="balanceGainUp()">Upgrade</button><button id="balanceGainUpMax" onclick="balanceGainUpMax()">Max</button>
-                <span id="balanceGainUpOut" class="status"></span>
-            </div>
-            <div class="div_innerContainer upgrade3">
-                Number of buttons - 100 <br><button id="newButtonUp" onclick="newButtonUp()">Upgrade</button><button id="newButtonUpMax" onclick="newButtonUpMax()">Max</button>
-                <span id="newButtonUpOut" class="status"></span>
-            </div>
-        </div>
-
-        <div class="settings div_innerContainer"><a onclick="settings()" style="cursor: pointer;">Settings</a></div>
-        <div class="settingsMenu div_innerContainer">
-            <table class="closeSettingsMenu">
-                <tr>
-                    <td style="font-size: 1.45vw">Settings</td>
-                    <td style="font-size: 1.45vw" align="right"><span id="settingsClose" onclick="hideSettings()" style="cursor: pointer;">Back</span></td>
-                </tr>
-            </table>
-            <div class="div_innerContainer">
-                <span class="settingsHeadingText">Change button color: </span><button class="settingButton" id="changeColor" onclick="changeColor()">&nbsp;</button><br>
-                <span class="status">Red<br>Green<br>Blue<br>White</span>
-            </div>
-            <div class="div_innerContainer">
-                <span class="settingsHeadingText">Warning! This website doesn't support saving yet, so if you close it, your progress will be lost!</span>
-            </div>
-            <!-- <div class="div_innerContainer">
-                Change theme: <button id="changeTheme" onclick="changeTheme()">&nbsp;</button>
-                <section class="status">Available themes are: <br>Dark<br>Light</section>
-            </div> -->
-        </div>
-
-        <button id="button" onmouseenter="move()" onclick="move()"></button>
-        <div class="backToHP">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Chase the button - Game</title>
+    <meta charset="UTF-8">
+    <meta content="G. Orfanides | Chase the button" property="og:title" />
+    <meta content="A simple little game where you chase a red button with your mouse cursor." property="og:description" />
+    <meta content="https://georgeorfa015.github.io/chase-button/" property="og:url" />
+    <meta content="https://i.imgur.com/fv55MPW.png" property="og:image" />
+    <meta content="#111" data-react-helmet="true" name="theme-color" id="theme-color"/>
+    <link rel="icon" href="../WebsiteLogo2.ico">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        body{
+            background: #111;
+            color: #fff;
+            font-family: Poppins;
+        }
+        .button{
+            background: #ff0000aa;
+            height: 2vw;
+            width: 2vw;
+            border-radius: 50%;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transition: 0.1s;
+            z-index: 1;
+            padding: 0;
+            margin: 0;
+            border: 0;
+            /* box-shadow: 0px 0px 2px 2px; */
+        }
+        #balanceOuterCont, #showUpgrades, #showSettings{
+            position: absolute;
+            top: 1vw;
+            background: #222;
+            padding: 0.75vw;
+            border-radius: 1vw;
+            font-size: 1.5vw;
+        }
+        #balanceOuterCont{
+            left: 50%;
+            transform: translateX(-50%);
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0vw;
+            text-align: center;
+        }
+        #showUpgrades{
+            left: 1vw;
+            cursor: pointer;
+        }
+        #showSettings{
+            right: 1vw;
+            cursor: pointer;
+            display: none;
+        }
+        #upgrades{
+            position: absolute;
+            z-index: 2;
+            border-radius: 1.25vw;
+            background-color: #222;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: none;
+            grid-template-columns: 1fr 1fr;
+            padding: 0.75vw;
+            gap: 0.75vw;
+        }
+        .upgrade{
+            background: #333;
+            padding: 0.5vw;
+            border-radius: 0.5vw;
+            width: 17vw;
+            text-align: center;
+            display: grid;
+            grid-template-columns: 1fr;
+        }
+        .upgradeTitle{
+            font-size: 2vw;
+            font-weight: 600;
             
+        }
+        .upgradeInnerCont{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5vw;
+        }
+        .upgradeButton{
+            background-color: #0f7a3c;
+            border: none;
+            color: #fff;
+            font-size: 1.25vw;
+            border-radius: 0.5vw;
+            font-family: inherit;
+            padding: 0.25vw;
+            transition: 0.5s color;
+        }
+        .upgradeButton:disabled{
+            background-color: #444;
+            color: #aaa;
+        }
+        .currentLevel{
+            grid-column: span 2;
+            font-size: 1.25vw;
+        }
+        .upgradesTopBar{
+            grid-column: span 2;
+            display: grid;
+            gap: 1vw;
+            grid-template-columns: 1fr;
+        }
+        .backButton{
+            background: #333;
+            border: none;
+            color: #fff;
+            font-size: 1.65vw;
+            border-radius: 0.5vw;
+            font-family: inherit;
+            padding: 0.5vw;
+            position: absolute;
+            cursor: pointer;
+        }
+        .sectionTitle{
+            font-size: 2.2vw;
+            font-weight: 700;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+        }
+        #buttonSizeOuterCont{
+            display: none;
+        }
+        #balanceGainOuterCont{
+            display: none;
+        }
+        #buttonNumberOuterCont{
+            display: none;
+        }
+        #warning{
+            font-size: 0.75vw;
+            color: #f33;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <button class="button" id="button1" onmouseenter="move(1)" onclick="move(1)" tabindex="-1"></button>
+    <div id="balanceOuterCont">
+        <span id="balance">Balance: 0</span>
+        <span id="warning">Tab Patch Disabled!</span>
+    </div>
+    <div id="showUpgrades" onclick="showUpgrades()">Upgrades</div>
+    <div id="showSettings">Settings</div>
+    <div id="upgrades">
+        <div class="upgradesTopBar">
+            <button class="backButton" onclick="hideUpgrades()">Back</button>
+            <div class="sectionTitle">Upgrades</div>
         </div>
-        <script src="index.js"></script>
-    </body>
+        <div class="upgrade" id="buttonSizeOuterCont">
+            <span class="upgradeTitle">Button Size</span>
+            <div class="upgradeInnerCont">
+                <button class="upgradeButton" id="buttonSizeUp" onclick="buttonSizeUp()">Upgrade</button>
+                <button class="upgradeButton" id="buttonSizeUpMax" onclick="buttonSizeUpMax()">Max</button>
+                <span class="currentLevel" id="buttonSizeUpOut">20 - 0 Upgrades</span>
+            </div>
+        </div>
+        <div class="upgrade" id="buttonNumberOuterCont">
+            <span class="upgradeTitle">Buttons</span>
+            <div class="upgradeInnerCont">
+                <button class="upgradeButton" id="buttonNumberUp" onclick="buttonNumberUp()">Upgrade</button>
+                <button class="upgradeButton" id="buttonNumberUpMax" onclick="buttonNumberUpMax()">Max</button>
+                <span class="currentLevel" id="buttonNumberUpOut">50 - 1 Button</span>
+            </div>
+        </div>
+        <div class="upgrade" id="balanceGainOuterCont">
+            <span class="upgradeTitle">Balance Gain</span>
+            <div class="upgradeInnerCont">
+                <button class="upgradeButton" id="balanceGainUp" onclick="balanceGainUp(1)">Upgrade</button>
+                <button class="upgradeButton" id="balanceGainUpMax" onclick="balanceGainUpMax()">Max</button>
+                <span class="currentLevel" id="balanceGainUpOut">200 - 1 per hover</span>
+            </div>
+        </div>
+        <div class="upgrade unlockTab">
+            <span class="upgradeTitle" id="nextUpgrade">Next Upgrade</span>
+            <span class="currentLevel" id="nextUpgradeRequirements">Reach 5 Balance Points</span>
+        </div>
+    </div>
+    <script>
+        let balance = 0;
+        let balanceOut = document.getElementById("balance");
+        
+        let buttonSizeUpOut = document.getElementById("buttonSizeUpOut");
+        let buttonSizeUpButton = document.getElementById("buttonSizeUp");
+        let buttonSizeUpMaxButton = document.getElementById("buttonSizeUpMax");
+        let buttonSize = 2;
+
+        let balanceGainUpButton = document.getElementById("balanceGainUp");
+        let balanceGainUpMaxButton = document.getElementById("balanceGainUpMax");
+        let balanceGain = 1;
+
+        let buttonNumberUpButton = document.getElementById("buttonNumberUp");
+        let buttonNumberUpMaxButton = document.getElementById("buttonNumberUpMax");
+        let buttonNumberUpOut = document.getElementById("buttonNumberUpOut");
+        let buttonNumber = 1;
+
+
+        function randomNumber(min,max) {
+            return Math.round(Math.random() * (max - min)) + Number(min);
+        }
+        function move(index) {
+            let button = document.getElementById("button"+index);
+            button.style.top=randomNumber(0,10000)/100+"%";
+            button.style.left=randomNumber(0,10000)/100+"%";
+            balance+=balanceGain;
+            update();
+        }
+        function update() {
+            balanceOut.innerHTML = "Balance: "+balance;
+            upgradeCheck();
+            unlockCheck();
+        }
+        function upgradeCheck() {
+            if (buttonSize<17) {
+                if (balance>=20) {
+                    buttonSizeUpButton.disabled=false;
+                    buttonSizeUpMaxButton.disabled=false;
+                }else{
+                    buttonSizeUpButton.disabled=true;
+                    buttonSizeUpMaxButton.disabled=true;
+                }
+            }else{
+                buttonSizeUpButton.disabled=true;
+                buttonSizeUpMaxButton.disabled=true;
+            }
+            if (balance>=200) {
+                balanceGainUpButton.disabled=false;
+                balanceGainUpMaxButton.disabled=false;
+            }else{
+                balanceGainUpButton.disabled=true;
+                balanceGainUpMaxButton.disabled=true;
+            }
+            if (buttonNumber<10) {
+                if (balance>=50) {
+                    buttonNumberUpButton.disabled=false;
+                    buttonNumberUpMaxButton.disabled=false;
+                }else{
+                    buttonNumberUpButton.disabled=true;
+                    buttonNumberUpMaxButton.disabled=true;
+                }
+            }else{
+                buttonNumberUpButton.disabled=true;
+                buttonNumberUpMaxButton.disabled=true;
+            }
+        }
+        function unlockCheck() {
+            let outputTitle = document.getElementById("nextUpgrade");
+            let outputText = document.getElementById("nextUpgradeRequirements");
+            if (balance>=5) {
+                document.getElementById("buttonSizeOuterCont").style.display = "grid";
+                outputText.innerHTML = "Reach Lvl 3 Button Size"
+            }
+            if (buttonSize-2>=3) {
+                document.getElementById("buttonNumberOuterCont").style.display = "grid";
+                outputText.innerHTML = "Reach 3 Buttons"
+            }
+            if (buttonNumber>=3) {
+                document.getElementById("balanceGainOuterCont").style.display = "grid";
+                outputTitle.innerHTML = "Coming Soon..."
+                outputText.innerHTML = "Reach as many balance points as you can for now!"
+            }
+        }
+
+        function buttonSizeUp() {
+            if (buttonSize<=16) {
+                if (balance>=20) {
+                    let buttons = document.getElementsByClassName("button");
+                    buttonSize+=1
+                    for (i=0;i<Object.keys(buttons).length;i++) {
+                        buttons[i].style.width = buttonSize+"vw"
+                        buttons[i].style.height = buttonSize+"vw"
+                    } 
+                    balance-=20;
+                    buttonSizeUpOut.innerHTML = "20 - " + Number(buttonSize-2) + " Upgrades" 
+                    if (buttonSize>=17) buttonSizeUpOut.innerHTML = "Max - " + Number(buttonSize-2) + " Upgrades"
+                    update();
+                }
+            }
+        }
+        function buttonSizeUpMax() {
+            while (balance>=20) {
+                buttonSizeUp();
+                if (buttonSize>16) break;
+            }
+        }
+        function balanceGainUp(times) {
+            if (balance>=200) {
+                balanceGain+=1*times;
+                balance-=200*times;
+                balanceGainUpOut.innerHTML = "200 - " + balanceGain + " per hover"
+                update();
+            }
+        }
+        function balanceGainUpMax() {
+            balanceGainUp(Math.floor(balance/200));
+        }
+        function buttonNumberUp() {
+            if (buttonNumber<10) {
+                if (balance>=50) {
+                    buttonNumber+=1
+                    let newButton = document.createElement("button");
+                    newButton.id = "button"+buttonNumber;
+                    newButton.setAttribute("onclick", `move(${buttonNumber})`);
+                    newButton.setAttribute("onmouseenter", `move(${buttonNumber})`);
+                    newButton.className = "button"
+                    newButton.style.width = buttonSize + "vw"
+                    newButton.style.height = buttonSize + "vw"
+                    if (tabPatchEnableValue) newButton.tabIndex = -1
+                    document.body.appendChild(newButton);
+                    balance-=50;
+                    update();
+                    buttonNumberUpOut.innerHTML = "50 - " + buttonNumber + " buttons"
+                    if (buttonNumber>9) buttonNumberUpOut.innerHTML = "Max - " + buttonNumber + " buttons"
+                }
+            }
+        }
+        function buttonNumberUpMax() {
+            while (balance>=50) {
+                buttonNumberUp();
+                if (buttonNumber>=10) break;
+            }
+        }
+        let tabPatchSeal = true
+        let tabPatchEnableValue = true;
+        function tabPatchEnable(toggle) {
+            let warning = document.getElementById("warning")
+            if (toggle) {
+                let buttons = document.getElementsByClassName("button");
+                for (i=0;i<Object.keys(buttons).length;i++) {
+                    buttons[i].tabIndex = "-1";
+                }
+                
+                tabPatchEnableValue=toggle
+            }else{
+                let buttons = document.getElementsByClassName("button");
+                for (i=0;i<Object.keys(buttons).length;i++) {
+                    buttons[i].tabIndex = "1";
+                }
+                warning.style.display = "block"
+                tabPatchSeal = false;
+                tabPatchEnableValue=toggle
+            }
+        }
+        tabPatchEnable(tabPatchEnableValue);
+
+
+        function showUpgrades() {
+            document.getElementById("upgrades").style.display = "grid";
+        }
+        function hideUpgrades() {
+            document.getElementById("upgrades").style.display = "none";
+        }
+        update()
+        function tabPatchCheck() {
+            if (!tabPatchSeal) {
+                let message = document.getElementById("warning")
+                if (message==null) {
+                    let text = document.createElement("span");
+                    text.id = "warning";
+                    text.innerHTML = "Tab Patch Disabled!"
+                    document.getElementById("balanceOuterCont").appendChild(text);
+                }else{
+                    if (message.innerHTML!="Tab Patch Disabled!") {
+                        message.innerHTML="Tab Patch Disabled!";
+                    }
+                    if (message.style.display!="block") {
+                        message.style.display="block";
+                    }
+                    if (message.className!="") {
+                        message.className="";
+                    }
+
+                } 
+            } 
+        }
+        setInterval(tabPatchCheck, 100);
+
+
+    </script>
+</body>
 </html>

@@ -1,0 +1,59 @@
+<html>
+    <head>
+        <title>Chase the button - Game</title>
+        <meta charset="UTF-8">
+        <meta content="G. Orfanides | Chase the button" property="og:title" />
+        <meta content="A simple little game where you chase a red button with your mouse cursor." property="og:description" />
+        <meta content="https://georgeorfa015.github.io/chase-button/" property="og:url" />
+        <meta content="https://i.imgur.com/fv55MPW.png" property="og:image" />
+        <meta content="#111" data-react-helmet="true" name="theme-color" id="theme-color"/>
+        <link rel="icon" href="../WebsiteLogo2.ico">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div id="container">
+            <div class="div_innerContainer">
+                <span id="balance">Hover over the colored <br> button and get points!</span>
+            </div>
+            <div class="div_innerContainer upgrade1">
+                Button Size - 20 <br><button id="sizeUp" onclick="sizeUp()">Upgrade</button><button id="sizeUpMax" onclick="sizeUpMax()">Max</button>
+                <span id="sizeUpOut" class="status"></span>
+            </div>
+            <div class="div_innerContainer upgrade2">
+                Balance Gain - 50 <br><button id="balanceGainUp" onclick="balanceGainUp()">Upgrade</button><button id="balanceGainUpMax" onclick="balanceGainUpMax()">Max</button>
+                <span id="balanceGainUpOut" class="status"></span>
+            </div>
+            <div class="div_innerContainer upgrade3">
+                Number of buttons - 100 <br><button id="newButtonUp" onclick="newButtonUp()">Upgrade</button><button id="newButtonUpMax" onclick="newButtonUpMax()">Max</button>
+                <span id="newButtonUpOut" class="status"></span>
+            </div>
+        </div>
+
+        <div class="settings div_innerContainer"><a onclick="settings()" style="cursor: pointer;">Settings</a></div>
+        <div class="settingsMenu div_innerContainer">
+            <table class="closeSettingsMenu">
+                <tr>
+                    <td style="font-size: 1.45vw">Settings</td>
+                    <td style="font-size: 1.45vw" align="right"><span id="settingsClose" onclick="hideSettings()" style="cursor: pointer;">Back</span></td>
+                </tr>
+            </table>
+            <div class="div_innerContainer">
+                <span class="settingsHeadingText">Change button color: </span><button class="settingButton" id="changeColor" onclick="changeColor()">&nbsp;</button><br>
+                <span class="status">Red<br>Green<br>Blue<br>White</span>
+            </div>
+            <div class="div_innerContainer">
+                <span class="settingsHeadingText">Warning! This website doesn't support saving yet, so if you close it, your progress will be lost!</span>
+            </div>
+            <!-- <div class="div_innerContainer">
+                Change theme: <button id="changeTheme" onclick="changeTheme()">&nbsp;</button>
+                <section class="status">Available themes are: <br>Dark<br>Light</section>
+            </div> -->
+        </div>
+
+        <button id="button" onmouseenter="move()" onclick="move()"></button>
+        <div class="backToHP">
+            
+        </div>
+        <script src="index.js"></script>
+    </body>
+</html>

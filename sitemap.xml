@@ -16,11 +16,6 @@
 		<lastmod>2024-07-04</lastmod>
 	</url>
 	<url>
-		<loc>https://www.georgeorfa015.github.io/chase-button</loc>
-		<priority>0.67</priority>
-		<lastmod>2024-07-16</lastmod>
-	</url>
-	<url>
 		<loc>https://www.georgeorfa015.github.io/clock</loc>
 		<priority>0.67</priority>
 		<lastmod>2024-04-24</lastmod>
@@ -78,10 +73,15 @@
 	<url>
 		<loc>https://www.georgeorfa015.github.io</loc>
 		<priority>0.67</priority>
-		<lastmod>2024-07-16</lastmod>
+		<lastmod>2024-07-19</lastmod>
 	</url>
 	<url>
-		<loc>https://www.georgeorfa015.github.io/indev/button-game-v2</loc>
+		<loc>https://www.georgeorfa015.github.io/chase-button/legacy</loc>
+		<priority>0.67</priority>
+		<lastmod>2024-07-19</lastmod>
+	</url>
+	<url>
+		<loc>https://www.georgeorfa015.github.io/chase-button</loc>
 		<priority>0.33</priority>
 		<lastmod>2024-07-19</lastmod>
 	</url>
