@@ -259,4 +259,8 @@ button:active{
         gap: 0.75vw;
         grid-template-columns: 1fr;
     }
+    .outputText{
+        text-align: center;
+        font-size: 6vw;
+    }
 }
