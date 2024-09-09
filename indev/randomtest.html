@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="randomtest()">Roll</button><button onclick="autotest()">Automatic roll</button><br>
+    <span id="output"></span><br>
+    <span>Averaging the randomness of javascript (Math.random())</span>
+    <script>
+        let sum = 0;
+        let i = 0;
+        function randomtest() {
+            i++;
+            sum+=Math.random();
+            document.getElementById('output').innerHTML = sum/i;
+        }
+        function autotest() {
+            setInterval(randomtest, 10)
+        }
+    </script>
+</body>
+</html>
