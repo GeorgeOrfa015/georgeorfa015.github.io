@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let x = 45
+        let y = 60
+        let z = y
+        while(z!=0) {
+            z = x % y
+            x = y
+            y = z
+        }
+        console.log(x)
+    </script>
+</body>
+</html>
