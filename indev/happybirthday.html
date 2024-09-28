@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@300;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        body{
+            font-family: poppins;
+        }
+        .outer-cont{
+            height: 100%;
+            width: 100%;
+            top: 0;
+            left: 0;
+            position: absolute;
+            background: linear-gradient(#8c876b, #55742c);
+        }
+        .cont{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #fff;
+            text-align: center;
+        }
+        .title{
+            font-size: 5em;
+        }
+        #output{
+            font-family: "chivo mono";
+        }
+    </style>
+</head>
+<body>
+    <div class="outer-cont">
+        <div class="cont">
+            <span class="title">Happy birthday!!</span><br>
+            <span>Happy 16, boomer! Here's a random fact: You've been alive for <span id="output"></span> days! Isn't that cool? Alrighty, that's it, I kinda did this last second, sooooooo enjoy and happy birthday!!!!!</span>
+
+            
+        </div>
+    </div>
+    <script>
+        function updateOutput() {
+            let date = new Date();
+            let birthday = new Date(2008, 8, 26, 0, 0)
+            let output = document.getElementById("output")
+            output.innerHTML = ((date.getTime()-birthday.getTime())/(1000*60*60*24)).toFixed(6);
+        }
+        setInterval(updateOutput, 1)
+    </script>
+</body>
+</html>
