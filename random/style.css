@@ -65,6 +65,8 @@ body{
     display: flex;
     flex-direction: column;
     justify-content: center;
+    word-wrap: break-word;
+    font-family: "Chivo Mono";
 }
 .color{
     display: grid;
@@ -89,6 +91,7 @@ body{
     margin-bottom: 0;
     margin: 0;
     padding: 0;
+    font-family: "Chivo Mono";
 }
 input.outputOptions{
     text-align: center;
@@ -189,12 +192,12 @@ button:active{
     .moduleDescription{
         padding: 2vw;
         border-radius: 1.5vw;
-        height: 30vw;
+        height: fit-content;
     }
     .moduleInput{
         border-radius: 1.5vw;
         padding: 1.5vw;
-        height: 48.75vw;
+        height: fit-content;
     }
     .moduleInputInnerContainer{
         display: grid;
@@ -209,7 +212,7 @@ button:active{
     }
     .moduleHeading{
         font-size: 5vw;
-        font-weight: 500;
+        font-weight: 600;
     }
     .moduleBody{
         font-size: 3.5vw;
@@ -238,6 +241,10 @@ button:active{
         font-family: inherit;
         padding: 0;
         transition: background 0.2s;
+    }
+    .text{
+        height: fit-content;
+        min-height: 6vw;
     }
     .color{
         display: grid;
