@@ -3,6 +3,11 @@ var copy_gradient = "";
 function randomNumber(min,max) {
     return Math.round(Math.random() * (max - min)) + Number(min);
 }
+function randomLetter() {
+    let lettersStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    let letters = lettersStr.split("");
+    return letters[randomNumber(0,25)];
+}
 function randomColor() {
     let decR = randomNumber(0,255);
     let hexR = decR.toString(16);
@@ -22,11 +27,18 @@ function randomNumberModule() {
     let out = document.getElementById("calc1out");
     out.innerHTML = randomNumber(min, max);
 }
-function randomLetterModule() {
+function randomStringModule() {
+    let input = document.getElementById("calc2in").value;
     let out = document.getElementById("calc2out");
-    let lettersStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    let letters = lettersStr.split("");
-    out.innerHTML = letters[randomNumber(0,25)];
+    let str = "";
+    if (isNaN(input)) {
+        out.innerHTML = "Please enter a valid number";
+    }else{
+        for (i=0;i<input;i++) {
+            str += randomLetter();
+        }
+        out.innerHTML = str;
+    }
 }
 function randomColorModule() {
     let out1 = document.getElementById("calc3out1");
