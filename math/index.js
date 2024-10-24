@@ -1,3 +1,163 @@
+function sCopy(outputID) {
+    navigator.clipboard.writeText(document.getElementById(`scalc${outputID}out`).innerHTML);
+    let button = document.getElementById(`c${outputID}`)
+    button.innerHTML = "Copied!";
+    button.style.fontSize = "1.1vw";
+    setTimeout(function() {button.innerHTML = "Copy"; button.style.fontSize = "1.5vw"}, 1000)
+    
+}
+function scalc1() {
+    let in1 = Number(document.getElementById("scalc1in1").value);
+    let in2 = Number(document.getElementById("scalc1in2").value);
+    let out = document.getElementById("scalc1out");
+    if (in1 % 1 != 0||in2 % 1 != 0) {
+        out.style.fontSize = "1.3vw"
+        out.style.color = "#bbb"
+        out.innerHTML = "Decimals not allowed"
+    }else{
+        out.style.fontSize = "1.5vw"
+        out.style.color = "#fff"
+        if (in1==0&&in2==0) {
+            out.innerHTML = "";
+        }else{
+            out.innerHTML = in1 + in2;
+        }
+    }
+}
+function scalc2() {
+    let in1 = Number(document.getElementById("scalc2in1").value);
+    let in2 = Number(document.getElementById("scalc2in2").value);
+    let out = document.getElementById("scalc2out");
+    if (in1 % 1 != 0||in2 % 1 != 0) {
+        out.style.fontSize = "1.3vw"
+        out.style.color = "#bbb"
+        out.innerHTML = "Decimals not allowed"
+    }else{
+        out.style.fontSize = "1.5vw"
+        out.style.color = "#fff"
+        if (in1==0&&in2==0) {
+            out.innerHTML = "";
+        }else{
+            out.innerHTML = in1 - in2;
+        }
+    }
+}
+function scalc3() {
+    let in1 = Number(document.getElementById("scalc3in1").value);
+    let in2 = Number(document.getElementById("scalc3in2").value);
+    let out = document.getElementById("scalc3out");
+    if (in1 % 1 != 0||in2 % 1 != 0) {
+        out.style.fontSize = "1.3vw"
+        out.style.color = "#bbb"
+        out.innerHTML = "Decimals not allowed"
+    }else{
+        out.style.fontSize = "1.5vw"
+        out.style.color = "#fff"
+        if (in1==0&&in2==0) {
+            out.innerHTML = "";
+        }else{
+            out.innerHTML = in1 * in2;
+        }
+    }
+}
+function scalc4() {
+    let in1 = Number(document.getElementById("scalc4in1").value);
+    let in2 = Number(document.getElementById("scalc4in2").value);
+    let out = document.getElementById("scalc4out");
+    if (in1 % 1 != 0||in2 % 1 != 0) {
+        out.style.fontSize = "1.3vw"
+        out.style.color = "#bbb"
+        out.innerHTML = "Decimals not allowed"
+    }else{
+        out.style.fontSize = "1.5vw"
+        out.style.color = "#fff"
+        if (in1==0&&in2==0) {
+            out.innerHTML = "";
+        }else{
+            if (in2 == 0) {
+                out.innerHTML = "ERR: Division by 0"
+            }else{
+                out.innerHTML = parseFloat(Number((in1 / in2)).toFixed(12));
+            }
+        }
+    }
+}
+function scalc5() {
+    let in1 = Number(document.getElementById("scalc5in1").value);
+    let in2 = Number(document.getElementById("scalc5in2").value);
+    let out = document.getElementById("scalc5out");
+    if (in1 % 1 != 0||in2 % 1 != 0) {
+        out.style.fontSize = "1.3vw"
+        out.style.color = "#bbb"
+        out.innerHTML = "Decimals not allowed"
+    }else{
+        out.style.fontSize = "1.5vw"
+        out.style.color = "#fff"
+        if (in1==0&&in2==0) {
+            out.innerHTML = "";
+        }else{
+            out.innerHTML = in1 ** in2;
+        }
+    }
+}
+function scalc6() {
+    let in2 = Number(document.getElementById("scalc6in2").value);
+    let in1 = Number(document.getElementById("scalc6in1").value);
+    let out = document.getElementById("scalc6out");
+    if (in1 % 1 != 0||in2 % 1 != 0) {
+        out.style.fontSize = "1.3vw"
+        out.style.color = "#bbb"
+        out.innerHTML = "Decimals not allowed"
+    }else{
+        out.style.fontSize = "1.5vw"
+        out.style.color = "#fff"
+        if (in1==0&&in2==0) {
+            out.innerHTML = "";
+        }else{
+            out.innerHTML = in2 ** (1/in1);
+        }
+    }
+}
+function scalc7() {
+    let in2 = Number(document.getElementById("scalc7in2").value);
+    let in1 = Number(document.getElementById("scalc7in1").value);
+    let out = document.getElementById("scalc7out");
+    if (in1 % 1 != 0||in2 % 1 != 0) {
+        out.style.fontSize = "1.3vw"
+        out.style.color = "#bbb"
+        out.innerHTML = "Decimals not allowed"
+    }else{
+        out.style.fontSize = "1.5vw"
+        out.style.color = "#fff"
+        if (in1==0&&in2==0) {
+            out.innerHTML = "";
+        }else{
+            if (in2 == 0) {
+                out.innerHTML = "ERR: Division by 0"
+            }else{
+                out.innerHTML = in1 % in2;
+            }
+        }
+    }
+}
+function scalc8() {
+    let in2 = Number(document.getElementById("scalc8in2").value);
+    let in1 = Number(document.getElementById("scalc8in1").value);
+    let out = document.getElementById("scalc8out");
+    if (in1 % 1 != 0||in2 % 1 != 0) {
+        out.style.fontSize = "1.3vw"
+        out.style.color = "#bbb"
+        out.innerHTML = "Decimals not allowed"
+    }else{
+        out.style.fontSize = "1.5vw"
+        out.style.color = "#fff"
+        if (in1==0&&in2==0) {
+            out.innerHTML = "";
+        }else{
+            out.innerHTML = parseFloat(Number((in1/100 * in2)).toFixed(12));
+        }
+    }
+}
 function calc1() {
     let input = document.querySelector("#calc1in");
     let output = document.querySelector("#calc1out"); 
