@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #outer-container{
+
+        }
+    </style>
+</head>
+<body>
+    <select id="mm2">
+        <option value="6">6.0 mm²</option>
+        <option value="5">5.0 mm²</option>
+        <option value="4">4.0 mm²</option>
+        <option value="2.5">2.5 mm²</option>
+        <option value="1.5">1.5 mm²</option>
+        <option value="1">1.0 mm²</option>
+        <option value="0.75">0.75 mm²</option>
+        <option value="0.5">0.5 mm²</option>
+    </select>
+    <input type="number" placeholder="Voltage" id="V">
+    <input type="number" placeholder="Length" id="L"><br>
+    <input type="number" placeholder="Current" id="I"> or 
+    <input type="number" placeholder="Voltage Drop" id="Dv">
+    <button onclick="calculate()">Calculate</button><span id="output"></span>
+    <script>
+        function calculate() {
+            let mm2 = document.getElementById("mm2").value;
+            let I = document.getElementById("I").value;
+            let L = document.getElementById("L").value;
+            let Dv = document.getElementById("Dv").value;
+            let V = document.getElementById("V").value;
+
+            let mm2e = document.getElementById("mm2");
+            let Ie = document.getElementById("I");
+            let Le = document.getElementById("L");
+            let Dve = document.getElementById("Dv");
+            let Ve = document.getElementById("V");
+            
+            if (N<=0) {
+                N = 1
+            }
+
+
+
+            if(isNaN(I)){
+                if(isNaN(L||Dv||V)) {
+                    console.log(Error);
+                }else{
+                    if(N<=0) {
+                        N = 1
+                    }
+                    Ie.value=
+                }
+            }
+            
+            Dv.value =((2*I*L)/(56*V*mm2*N) * 100).toFixed(3);
+        }
+        
+    </script>
+</body>
+</html>
