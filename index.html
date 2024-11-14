@@ -249,7 +249,7 @@
             <div id="topMessageText">Welcome to the website of <br><span id="topMessageTextName">George Orfanides</b></span></div>
         </div>
         <div id="latestNews">
-            <div id="latestNewsTitle">Latest news</div><div id="latestNewsText"><span>Tuesday, October 8, 2024 - Replaced the random letter module in <a class="news">Random Generators</a> with a random string generator.</span></div>
+            <div id="latestNewsTitle">Latest news</div><div id="latestNewsText"><span><b>Friday, November 15, 2024</b> - Added a new project: <a href="voltage-drop/" class="news">Cable Voltage Drop</a>! It's a calculator designed for finding out what is the voltage drop of a cable of set length and cross-sectional area when Current is flowing through. It also calculates other useful metrics for that cable, like the efficiency and resistance of the wire.</span></div>
         </div>
         <div id="projects">
             <div class="projectsTitle">Projects</div>
@@ -259,10 +259,6 @@
                     <span class="projectTitle">Progress Bars</span><br>
                     <span class="projectDescription">Create your own custom progress bars!</span>
                 </div></a>
-                <a href="math/"><div class="project">
-                    <span class="projectTitle">Math Tools</span><br>
-                    <span class="projectDescription">A variety of modules to help with Math.</span>
-                </div></a>
                 <a href="timers/"><div class="project">
                     <span class="projectTitle">Custom Timers</span><br>
                     <span class="projectDescription">See how long ago/in how much time a date is.</span>
@@ -271,13 +267,24 @@
                     <span class="projectTitle">Counters</span><br>
                     <span class="projectDescription">Create tally counters for anything.</span>
                 </div></a>
+            </div>
+            <div class="projectsSubtitle" id="ps2">Calculators and Generators</div>
+            <div class="projectsCont" id="pc2">
+                <a href="math/"><div class="project">
+                    <span class="projectTitle">Math Tools</span><br>
+                    <span class="projectDescription">A variety of modules to help with Math.</span>
+                </div></a>
                 <a href="random/"><div class="project">
                     <span class="projectTitle">Random Generators</span><br>
                     <span class="projectDescription">Generators for random numbers, letters and colors.</span>
                 </div></a>
+                <a href="voltage-drop/"><div class="project">
+                    <span class="projectTitle">Cable Voltage Drop</span><br>
+                    <span class="projectDescription">Calculator for finding out the voltage drop of a cable.</span>
+                </div></a>
             </div>
-            <div class="projectsSubtitle" id="ps2">Dates and Times</div>
-            <div class="projectsCont" id="pc2">
+            <div class="projectsSubtitle" id="ps3">Dates and Times</div>
+            <div class="projectsCont" id="pc3">
                 <a href="timer/"><div class="project">
                     <span class="projectTitle" id="yearTimerProject">Text filled by function.</span><br>
                     <span class="projectDescription">A countdown to the next year with customization options.</span>
@@ -287,8 +294,8 @@
                     <span class="projectDescription">A time display with multiple customization options.</span>
                 </div></a>
             </div>
-            <div class="projectsSubtitle" id="ps3">Fun and Games</div>
-            <div class="projectsCont" id="pc3">
+            <div class="projectsSubtitle" id="ps4">Fun and Games</div>
+            <div class="projectsCont" id="pc4">
                 <a href="chase-button/"><div class="project">
                     <span class="projectTitle">Chase the Button</span><br>
                     <span class="projectDescription">Chase a button with your cursor and get points!</span>
@@ -298,8 +305,8 @@
                     <span class="projectDescription">A simple platformer made from a YouTube tutorial.</span>
                 </div></a>
             </div>
-            <div class="projectsSubtitle" id="ps4">In development</div>
-            <div class="projectsCont" id="pc4">
+            <div class="projectsSubtitle" id="ps5">In development</div>
+            <div class="projectsCont" id="pc5">
                 <a href="indev/"><div class="project">
                     <span class="projectTitle">Indev</span><br>
                     <span class="projectDescription">Unsupported experimental scripts and pages.</span>
@@ -396,20 +403,31 @@
             setTimeout(animation8, delay)
         }
         function animation8() {
-            let item = document.getElementById("contributors");
+            let item = document.getElementById("pc5");
             item.style.transition = `${duration}s cubic-bezier(.2,.79,.05,.99) transform, ${duration}s cubic-bezier(.2,.79,.05,.99) opacity`
             item.style.transform = "translateY(0%)";
             item.style.opacity = 1;
-            setTimeout(animation9, delay)
+            item = document.getElementById("ps5");
+            item.style.transition = `${duration}s cubic-bezier(.2,.79,.05,.99) transform, ${duration}s cubic-bezier(.2,.79,.05,.99) opacity`
+            item.style.transform = "translateY(0%)";
+            item.style.opacity = 1;
+            setTimeout(animation9, delay);
         }
         function animation9() {
-            let item = document.getElementById("aboutMe");
+            let item = document.getElementById("contributors");
             item.style.transition = `${duration}s cubic-bezier(.2,.79,.05,.99) transform, ${duration}s cubic-bezier(.2,.79,.05,.99) opacity`
             item.style.transform = "translateY(0%)";
             item.style.opacity = 1;
             setTimeout(animation10, delay)
         }
         function animation10() {
+            let item = document.getElementById("aboutMe");
+            item.style.transition = `${duration}s cubic-bezier(.2,.79,.05,.99) transform, ${duration}s cubic-bezier(.2,.79,.05,.99) opacity`
+            item.style.transform = "translateY(0%)";
+            item.style.opacity = 1;
+            setTimeout(animation11, delay)
+        }
+        function animation11() {
             let item = document.getElementById("contactMe");
             item.style.transition = `${duration}s cubic-bezier(.2,.79,.05,.99) transform, ${duration}s cubic-bezier(.2,.79,.05,.99) opacity`
             item.style.transform = "translateY(0%)";
