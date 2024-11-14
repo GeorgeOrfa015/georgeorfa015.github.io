@@ -8,9 +8,11 @@
         @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
         body{
             font-family: "Manrope";
+            background-color: #000;
+            color: #fff
         }
         #outer-container{
-            background-color: #fff0;
+            background-color: #0000;
             display: grid;
             grid-template-columns: 1fr 1fr 1fr 1fr;
             gap: 1em;
@@ -18,7 +20,7 @@
         }
         .required-inputs{
             padding: 1em;
-            background-color: #ddd;
+            background-color: #111;
             border-radius: 1em;
             grid-column: span 4;
             display: grid;
@@ -42,14 +44,14 @@
             height: 2em;
         }
         input, select{
-            background: #4d7be7;
+            background: #13713a;
             color: #fff;
         }
         input:focus, select:focus{
             outline: none;
         }
         input::placeholder{
-            color: #96b2f1
+            color: #79e6ba
         }
         .input{
             display: grid;
@@ -62,7 +64,7 @@
         }
         .DvOrI{
             padding: 1em;
-            background-color: #ddd;
+            background-color: #111;
             border-radius: 1em;
             grid-column: span 1;
             display: grid;
@@ -76,7 +78,7 @@
         }
         .outputs{
             padding: 1em;
-            background-color: #ddd;
+            background-color: #111;
             border-radius: 1em;
             grid-column: span 3;
             display: grid;
@@ -90,7 +92,7 @@
             height: fit-content;
         }
         .output{
-            background-color: #4d7be7;
+            background-color: #13713a;
             border-radius: 0.5em;
             border: 0px;
             text-align: center;
@@ -138,7 +140,7 @@
                 grid-column: span 2;
             }
             body{
-                background-color: #fff;
+                background-color: #000;
             }
             .label{
                 text-align: center;
@@ -178,11 +180,11 @@
             </div>
             <div class="input">
                 <span class="label">Voltage - V (V)</span>
-                <input type="number" id="V" oninput="calculate()" value="12">
+                <input type="number" id="V" oninput="calculate()" value="">
             </div>
             <div class="input">
                 <span class="label">Distance - S (m)</span>
-                <input type="number" id="S" oninput="calculate()" value="50">
+                <input type="number" id="S" oninput="calculate()" value="">
             </div>
             <div class="input">
                 <span class="label">Number of Parallels - N</span>
@@ -197,7 +199,7 @@
             <span id="OR"><s>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</s> OR <s>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</s></span>
             <div class="input">
                 <span class="label">Voltage Drop - Dv (V)</span>
-                <input type="number" id="Dv" oninput="inputDv()" value="0.3357">
+                <input type="number" id="Dv" oninput="inputDv()" value="">
             </div>
         </div>
         <div class="outputs">
