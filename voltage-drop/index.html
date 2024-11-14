@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
+        body{
+            font-family: "Manrope";
+            background-color: #000;
+            color: #fff
+        }
+        #outer-container{
+            background-color: #0000;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 1em;
+            padding: 0.5em;
+        }
+        .required-inputs{
+            padding: 1em;
+            background-color: #111;
+            border-radius: 1em;
+            grid-column: span 4;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 0.75em
+        }
+        input{
+            border-radius: 0.5em;
+            border: 0px;
+            font-size: 1.5em;
+            padding: 0.5em;
+            width: calc(100% - 1em);
+            height: 1em;
+        }
+        select{
+            border-radius: 0.5em;
+            border: 0px;
+            font-size: 1.5em;
+            padding: 0.5em;
+            width: 100%;
+            height: 2em;
+        }
+        input, select{
+            background: #13713a;
+            color: #fff;
+        }
+        input:focus, select:focus{
+            outline: none;
+        }
+        input::placeholder{
+            color: #79e6ba
+        }
+        .input{
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.25em;
+        }
+        .label{
+            font-size: 1.25em;
+            font-weight: 600;
+        }
+        .DvOrI{
+            padding: 1em;
+            background-color: #111;
+            border-radius: 1em;
+            grid-column: span 1;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0;
+            height: fit-content;
+        }
+        #OR{
+            font-size: 2em;
+            text-align: center;
+        }
+        .outputs{
+            padding: 1em;
+            background-color: #111;
+            border-radius: 1em;
+            grid-column: span 3;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 0.75em;
+            height: fit-content;
+        }
+        .section-title{
+            font-size: 2em;
+            font-weight: 600;
+            height: fit-content;
+        }
+        .output{
+            background-color: #13713a;
+            border-radius: 0.5em;
+            border: 0px;
+            text-align: center;
+            display: grid;
+            grid-template-columns: 1fr;
+            padding: 0.5em;
+        }
+        .output-header{
+            font-size: 1.5em;
+            font-weight: 400;
+        }
+        .output-value{
+            font-size: 3em;
+            font-weight: 300;
+        }
+        .output-comment{
+            font-size: 1.25em;
+            font-weight: 400;
+        }
+        .output-header, .output-value, .output-comment{
+            color: #fff
+        }
+        #requiredVariables{
+            grid-column: span 4;
+        }
+        #outputsHeader{
+            grid-column: span 3;
+        }
+        @media(max-width:700px){
+            #outer-container{
+                grid-template-columns: 1fr;
+            }
+            .required-inputs{
+                grid-template-columns: 1fr;
+                grid-column: span 1;
+            }
+            .outputs{
+                grid-column: span 1;
+                grid-template-columns: 1fr 1fr;
+            }
+            #requiredVariables{
+                grid-column: span 1;
+            }
+            #outputsHeader{
+                grid-column: span 2;
+            }
+            body{
+                background-color: #000;
+            }
+            .label{
+                text-align: center;
+            }
+            .section-title{
+                text-align: center;
+            }
+            .output-value{
+                font-size: 1.75em;
+                font-weight: 700;
+            }
+            .output-comment{
+                font-size: 0.95em;
+            }
+            .output-header{
+                font-size: 1.25em
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="outer-container">
+        <div class="required-inputs">
+            <span class="section-title" id="requiredVariables">Required Variables</span>
+            <div class="input">
+                <span class="label">Cable type</span>
+                <select id="A" oninput="calculate()">
+                    <option value="6">6.0 mm²</option>
+                    <option value="5">5.0 mm²</option>
+                    <option value="4">4.0 mm²</option>
+                    <option value="2.5">2.5 mm²</option>
+                    <option value="1.5">1.5 mm²</option>
+                    <option value="1">1.0 mm²</option>
+                    <option value="0.75">0.75 mm²</option>
+                    <option value="0.5">0.5 mm²</option>
+                </select>
+            </div>
+            <div class="input">
+                <span class="label">Voltage - V (V)</span>
+                <input type="number" id="V" oninput="calculate()" value="">
+            </div>
+            <div class="input">
+                <span class="label">Distance - S (m)</span>
+                <input type="number" id="S" oninput="calculate()" value="">
+            </div>
+            <div class="input">
+                <span class="label">Number of Parallels - N</span>
+                <input type="number" id="N" oninput="calculate()" placeholder="1 by default">
+            </div>
+        </div>
+        <div class="DvOrI">
+            <div class="input">
+                <span class="label">Current - I (A)</span>
+                <input type="number" id="I" oninput="inputI()">
+            </div>
+            <span id="OR"><s>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</s> OR <s>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</s></span>
+            <div class="input">
+                <span class="label">Voltage Drop - Dv (V)</span>
+                <input type="number" id="Dv" oninput="inputDv()" value="">
+            </div>
+        </div>
+        <div class="outputs">
+            <span class="section-title" id="outputsHeader">Outputs</span>
+            <div class="output">
+                <span class="output-header">Voltage Drop</span>
+                <span class="output-value"><span id="DvOut1"></span> V</span>
+                <span class="output-comment"><span id="DvOut2"></span>% of supply voltage</span>
+            </div>
+            <div class="output">
+                <span class="output-header">Output Voltage</span>
+                <span class="output-value"><span id="VOut"></span> V</span>
+                <span class="output-comment">at the load</span>
+            </div>
+            <div class="output">
+                <span class="output-header">Current</span>
+                <span class="output-value"><span id="IOut"></span> A</span>
+                <span class="output-comment">at the load</span>
+            </div>
+            <div class="output">
+                <span class="output-header">Power Loss</span>
+                <span class="output-value"><span id="WOut"></span> W</span>
+                <span class="output-comment">lost as heat</span>
+            </div>
+            <div class="output">
+                <span class="output-header">Power Transmission</span>
+                <span class="output-value"><span id="WFOut1"></span> W</span>
+                <span class="output-comment"><span id="WFOut2"></span>% efficiency</span>
+            </div>
+            <div class="output">
+                <span class="output-header">Total Resistance</span>
+                <span class="output-value"><span id="ROut"></span> Ω</span>
+                <span class="output-comment">from the cable</span>
+            </div>
+        </div>
+    </div>
+    <script>
+        function calculate() {
+            let A = document.getElementById("A").value;
+            let V = document.getElementById("V").value;
+            let S = document.getElementById("S").value;
+            let I = document.getElementById("I").value;
+            let Dv = document.getElementById("Dv").value;
+            let N = document.getElementById("N").value;
+            let DvOut1 = document.getElementById("DvOut1");
+            let DvOut2 = document.getElementById("DvOut2");
+            let VOut = document.getElementById("VOut");
+            let IOut = document.getElementById("IOut");
+            let WOut = document.getElementById("WOut");
+            let WFOut1 = document.getElementById("WFOut1");
+            let WFOut2 = document.getElementById("WFOut2");
+            let ROut = document.getElementById("ROut");
+            if (N<=0||N=="") {
+                N=1
+            }
+            if (isNaN(V)||isNaN(S)||V<=0||S<=0) {
+                DvOut1.innerHTML = "-";
+                DvOut2.innerHTML = "-";
+                VOut.innerHTML = "-";
+                IOut.innerHTML = "-";
+                WOut.innerHTML = "-";
+                WFOut1.innerHTML = "-";
+                WFOut2.innerHTML = "-";
+                ROut.innerHTML = "-";
+                console.log(1)
+            }else{
+                if((Dv<=0||isNaN(Dv))&&(I<=0||isNaN(Dv))) {
+                    DvOut1.innerHTML = "-";
+                    DvOut2.innerHTML = "-";
+                    VOut.innerHTML = "-";
+                    IOut.innerHTML = "-";
+                    WOut.innerHTML = "-";
+                    WFOut1.innerHTML = "-";
+                    WFOut2.innerHTML = "-";
+                    ROut.innerHTML = "-";
+                    console.log(2)
+                }else{
+                    if(Dv<=0||isNaN(Dv)) {
+                        DvP = ((2*I*S)/(59.6*V*A*N)).toFixed(5);
+                        DvN = DvP * V;
+                        DvOut1.innerHTML = Math.round(DvN*1000)/1000
+                        DvOut2.innerHTML = Math.round((DvP*100)*1000)/1000
+                        VOut.innerHTML = Math.round((V - DvN)*1000)/1000
+                        IOut.innerHTML = Math.round(Number(I)*1000)/1000
+                        WOut.innerHTML = Math.round((DvN * I)*1000)/1000
+                        WFOut1.innerHTML = Math.round(((V-DvN)*I)*1000)/1000
+                        WFOut2.innerHTML = Math.round((((V-DvN)*I)/(V*I))*100*1000)/1000
+                        ROut.innerHTML = Math.round((1.68*Math.pow(10,-8))*(S/(A*Math.pow(10,-6)))*1000)/1000
+                    }
+                    if(I<=0||isNaN(I)) {
+                        DvP = Dv/V;
+                        Ic = ((59.6*V*DvP*A*N)/(2*S)).toFixed(3);
+                        DvOut1.innerHTML = Math.round(Number(Dv)*1000)/1000
+                        DvOut2.innerHTML = Math.round((DvP*100)*1000)/1000
+                        VOut.innerHTML = Math.round((V-Dv)*1000)/1000
+                        IOut.innerHTML = Math.round(Number(Ic)*1000)/1000
+                        WOut.innerHTML = Math.round((Dv*Ic)*1000)/1000
+                        WFOut1.innerHTML = Math.round((V-Dv)*Ic*1000)/1000
+                        WFOut2.innerHTML = Math.round(((((V-Dv)*Ic)*100)/(V*Ic))*1000)/1000
+                        ROut.innerHTML = Math.round((1.68*Math.pow(10,-8))*(S/(A*Math.pow(10,-6)))*1000)/1000
+                    }
+                }
+            }
+        }
+        function inputI() {
+            document.getElementById("Dv").value="";
+            calculate();
+        }
+        function inputDv() {
+            document.getElementById("I").value="";
+            calculate();
+        }
+        calculate();
+    </script>
+</body>
+</html>
