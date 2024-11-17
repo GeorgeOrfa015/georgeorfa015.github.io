@@ -202,22 +202,24 @@
             .outerContainer{
                 gap: 3vw;
                 padding: 1vw 1vw 0 1vw;
+                grid-template-columns: 1fr;
             }
             .moduleOuterContainer{
                 grid-template-columns: 1fr;
                 gap: 1.75vw;
                 padding: 2vw;
                 border-radius: 3vw;
+                grid-column: span 1;
             }
             .moduleDescription{
                 padding: 2vw;
                 border-radius: 1.5vw;
-                height: 30vw;
+                height: fit-content;
             }
             .moduleInput{
                 border-radius: 1.5vw;
                 padding: 1.5vw;
-                height: 48.75vw;
+                height: fit-content
             }
             .moduleInputInnerContainer{
                 display: grid;
@@ -229,6 +231,7 @@
                 border-radius: 1.5vw;
                 padding: 1.5vw;
                 height: 25vw;
+                grid-column: span 1;
             }
             .moduleHeading{
                 font-size: 5vw;
@@ -241,6 +244,7 @@
                 border-radius: 3vw;
                 padding: 2vw;
                 gap: 2.5vw;
+                grid-column: span 1;
             }
             .groupHeading{
                 font-size: 5vw;
