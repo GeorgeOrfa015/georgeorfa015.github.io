@@ -49,7 +49,7 @@
         }
         .settings-inner-cont{
             display: none;
-            grid-template-columns: 1fr 1fr 1fr 1fr;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
             gap: 0.75vw;
         }
         .description{
@@ -69,7 +69,7 @@
             outline: none;
         }
         input{
-            background-color: #065427;
+            background-color: #0005;
             color: #fff;
             border: none;
             border-radius: 0.5vw;
@@ -82,14 +82,18 @@
             color-scheme: dark;
         }
         input::placeholder{
-            color: #2b8561
+            mix-blend-mode:hard-light;
+            color: #ddd
         }
         input[type=datetime-local]{
-            background:#0f7a3c;
+            background:#0005;
             -webkit-min-logical-width: calc(100% - 1vw);
         }
+        input[type=datetime-local]::placeholder{
+            background: #2b8561;
+        }
         button{
-            background-color: #0f7a3c;
+            background-color: #0005;
             color: #fff;
             border: none;
             border-radius: 0.5vw;
@@ -98,12 +102,19 @@
             padding: 0vw;
             transition: 0.2s background;
         }
+        .show-settings{
+            background-color: #0005;
+        }
         button:hover{
-            background: #1b8b49;
+            background: #fff3;
             transition: 0.2s background;
         }
         .top-button{
             padding: 0.15vw 0.4vw 0.15vw 0.4vw;
+            background-color: #0f7a3c;
+        }
+        button.top-button:hover{
+            background-color: #1b8b49;
         }
         .top-buttons{
             margin-bottom: 0.75vw;
@@ -117,22 +128,39 @@
         }
         input.top-button::placeholder{
             color: #61b08b;
+            mix-blend-mode: normal;
         }
         .color{
-            grid-column: span 3;
+            grid-column: span 5;
+        }
+        .border-color{
+            grid-column: span 5;
         }
         .back-button{
-            grid-column: span 4;
+            grid-column: span 5;
+        }
+        .time-text-color{
+            grid-column: span 5;
+        }
+        .text-color{
+            grid-column: span 5;
         }
         .delete-button:hover{
             background: #ba4848;
         }
         .delete-button{
             background: #ad3d3d;
+            grid-column: span 2;
+        }
+        .settings-text{
+            font-size: 0.9vw;
+            align-self: center;
+            grid-column: span 2;
         }
         @media(max-width:600px){
             #outer-container{
                 grid-template-columns: 1fr;
+                gap: 2vw
             }
             .timer-outer-container{
                 padding: 2vw;
@@ -159,6 +187,9 @@
                 grid-template-columns: 5fr 2fr;
                 gap: 2vw;
             }
+            .settings-inner-cont{
+                gap: 2vw;
+            }
             input{
                 border-radius: 1.75vw;
                 text-align: center;
@@ -182,6 +213,9 @@
                 height: 100%;
                 padding: 0;
             }
+            .settings-text{
+                font-size: 2.53vw;
+            }
         }
     </style>
 </head>
@@ -193,7 +227,7 @@
         <button class="top-button" onclick="loadCode()">Load Save Code</button>
     </div>
     <div id="outer-container">
-        <!-- <div class="timer-outer-container" id="TOC0">
+         <!-- <div class="timer-outer-container" id="TOC0">
             <div class="time-cont" id="TC0">
                 <span class="time" id="out0">25 Days 5h 34m 24s<br>since</span>
                 <input class="description" placeholder="Description..." id="D0">
@@ -203,11 +237,20 @@
                 <button class="show-settings" id="SS0">Settings</button>
             </div>
             <div class="settings-inner-cont" id="SIC0">
+                <span class="settings-text">Border Color</span>
+                <input class="border-color" placeholder="Border Color…" id="BC0">
+                <span class="settings-text">Background</span>
                 <input type="text" placeholder="Background Color..." class="color" id="C0">
-                <button class="delete-button" id="DB0">Delete</button>
+                <span class="settings-text">Time Text Color</span>
+                <input class="time-text-color" placeholder="Time Text Color..." id="TTC0">
+                <span class="settings-text">Input Background</span>
+                <input class="input-color" placeholder="Input Background..." id="IC0">
+                <span class="settings-text">Input Text Color</span>
+                <input class="input-text-color" placeholder="Input Text Color..." id="ITC0">
                 <button class="back-button" id="BB0">Back</button>
+                <button class="delete-button" id="DB0">Delete</button>
             </div>
-        </div>         -->
+        </div>          -->
     </div>
     <script>
         let timerID = 1;
@@ -218,9 +261,12 @@
             let saveCode = "";
         
             for (i=0;i<items;i++) {
-                let savePart=timers[i].id.replace("TOC","")+"/:/";
+                let savePart= "v2/:/"
+                savePart+=timers[i].id.replace("TOC","")+"/:/";
                 savePart+=timers[i].childNodes[1].childNodes[0].value+"/:/" // date
-                savePart+=timers[i].childNodes[2].childNodes[0].value+"/:/" // color
+                savePart+=timers[i].childNodes[2].childNodes[1].value+"/:/" // color
+                savePart+=timers[i].childNodes[2].childNodes[3].value+"/:/" // border color
+                savePart+=timers[i].childNodes[2].childNodes[5].value+"/:/" // text color
                 savePart+=timers[i].childNodes[0].childNodes[1].value       // description
                 saveCode+=savePart+"/;/";
             }
@@ -234,33 +280,39 @@
             let saveCode=localStorage.getItem("SavedTimers");
         
             let splitTimers = saveCode.split("/;/");
-            console.log(splitTimers);
         
             let itemsToLoad = Object.keys(splitTimers).length-1;
         
             for (i=0;i<itemsToLoad;i++) {
         
                 let splitTD = splitTimers[i].split("/:/");
-                if (Object.keys(splitTD).length > 6) {
+                if (splitTD[0]=="v2") {
+                    let timerID_load = splitTD[1];
+                    let date_load = splitTD[2];
+                    let borderColor_load = splitTD[3]
+                    let color_load = splitTD[4];
+                    let textColor_load = splitTD[5];
+                    let description_load = splitTD[6];
+                    timerID = timerID_load;
+                    newTimer()
+                    document.getElementById("ID"+timerID_load).value=date_load;
+                    document.getElementById("C"+timerID_load).value=color_load;
+                    document.getElementById("BC"+timerID_load).value=borderColor_load;
+                    document.getElementById("TXTC"+timerID_load).value=textColor_load;
+                    document.getElementById("D"+timerID_load).value=description_load;
+                    setTimeout(function() {timerColor(timerID_load)}, 0);
+                }else{
                     let timerID_load = splitTD[0];
                     let date_load = `${splitTD[1]}-${("0" + splitTD[2]).slice(-2)}-${("0" + splitTD[3]).slice(-2)}T${("0" + splitTD[4]).slice(-2)}:${("0" + splitTD[5]).slice(-2)}`
                     let color_load = ""
+                    let borderColor_load = ""
                     let description_load = splitTD[6]
                     timerID = timerID_load
                     newTimer();
                     document.getElementById("ID"+timerID_load).value=date_load;
                     document.getElementById("C"+timerID_load).value=color_load;
                     document.getElementById("D"+timerID_load).value=description_load;
-                }else{
-                    let timerID_load = splitTD[0];
-                    let date_load = splitTD[1];
-                    let color_load = splitTD[2];
-                    let description_load = splitTD[3];
-                    timerID = timerID_load;
-                    newTimer()
-                    document.getElementById("ID"+timerID_load).value=date_load;
-                    document.getElementById("C"+timerID_load).value=color_load;
-                    document.getElementById("D"+timerID_load).value=description_load;
+                    setTimeout(function() {timerColor(timerID_load)}, 500);
                 }
             }
         }
@@ -272,8 +324,8 @@
             setTimeout(function() {document.getElementById("export-code-button").innerHTML="Export Save Code"}, 2000)
         }
         
-        // 6/:/2025/:/1/:/1/:/00/:/00/:/2025/;/7/:/2008/:/10/:/15/:/11/:/30/:/I was born/;/
-        // 1/:/2025-01-01T00:00/://:/2025/;/
+        // 6/:/2025             /:/1        /:/1    /:/00       /:/00   /:/2025/;/
+        // v2/3/:/2058-01-08T00:45 /:/#38240c  /:/#0005/:/#c29325  /:/Shit./;/
 
         function loadCode() {
             let code = document.getElementById("load-code-input").value;
@@ -333,6 +385,25 @@
             controls.style.display = "grid";
         }
         
+        function timerColor(id) {
+            let timer = document.getElementById("TC"+id);
+            let color = document.getElementById("C"+id).value;
+            let timerBorder = document.getElementById("TOC"+id);
+            let borderColor = document.getElementById("BC"+id).value;
+            let timeText = document.getElementById("out"+id);
+            let description = document.getElementById("D"+id)
+            let textColor = document.getElementById("TXTC"+id).value;
+            let dateInput = document.getElementById("ID"+id);
+            let showSettings = document.getElementById("SS"+id);
+            timer.style.background = color;
+            timerBorder.style.background = borderColor
+            timeText.style.color = textColor
+            description.style.color = textColor
+            dateInput.style.color = textColor
+            showSettings.style.color = textColor
+            setTimeout(save, 100);
+        }
+
         function newTimer() {
             // timer-outer-container
             let timerOuterContainer = document.createElement("div");
@@ -379,12 +450,41 @@
             settingsInnerCont.id = "SIC"+timerID;
             settingsInnerCont.className = "settings-inner-cont"
         
-            // timer-outer-cont > settings-inner-cont > color
+            // timer-outer-container > settings-inner-cont > settings-text-border-color
+            let borderColorText = document.createElement("span");
+            borderColorText.className = "settings-text";
+            borderColorText.innerHTML = "Border Color"
+
+            // timer-outer-container > settings-inner-cont > borderColor
+            let borderColor = document.createElement("input");
+            borderColor.id = "BC"+timerID;
+            borderColor.setAttribute("oninput", `timerColor(${timerID})`);
+            borderColor.placeholder = "Border Color...";
+            borderColor.className = "border-color";
+
+            // timer-outer-container > settings-inner-cont > settings-text-color
+            let colorText = document.createElement("span");
+            colorText.className = "settings-text";
+            colorText.innerHTML = "Background Color"
+            
+            // timer-outer-container > settings-inner-cont > color
             let color = document.createElement("input");
-            color.id="C"+timerID;
-            color.setAttribute("oninput", `save()`);
+            color.id = "C"+timerID;
+            color.setAttribute("oninput", `timerColor(${timerID})`);
             color.placeholder="Background Color...";
             color.className = "color";
+
+            // timer-outer-container > settings-inner-cont > settigns-text-text-color
+            let textColorText = document.createElement("span");
+            textColorText.className = "settings-text";
+            textColorText.innerHTML = "Time Text Color";
+
+            // timer-outer-container > settings-inner-cont > text-color
+            let textColor = document.createElement("input");
+            textColor.id="TXTC"+timerID;
+            textColor.setAttribute("oninput", `timerColor(${timerID})`);
+            textColor.placeholder="Text Color...";
+            textColor.className = "text-color";
             
             // timer-outer-cont > settings-inner-cont > button.f(delTimer(id))
             let deleteButton = document.createElement("button");
@@ -404,7 +504,7 @@
             let timeUpdateScript = document.createElement("script");
             timeUpdateScript.className="time-update-script";
             timeUpdateScript.id="TUS"+timerID;
-            timeUpdateScript.innerHTML=`var updateTimeInterval${timerID} = setInterval(function(){updateTime(${timerID})}, 100)`;
+            timeUpdateScript.innerHTML=`var updateTimeInterval${timerID} = setInterval(function(){updateTime(${timerID})}, 0)`;
         
             // Appending Children
             timerOuterContainer.appendChild(timeCont);
@@ -414,9 +514,14 @@
             controlsInnerCont.appendChild(dateInput);
             controlsInnerCont.appendChild(showSettings);
             timerOuterContainer.appendChild(settingsInnerCont);
+            settingsInnerCont.appendChild(borderColorText);
+            settingsInnerCont.appendChild(borderColor);
+            settingsInnerCont.appendChild(colorText);
             settingsInnerCont.appendChild(color);
-            settingsInnerCont.appendChild(deleteButton);
+            settingsInnerCont.appendChild(textColorText);
+            settingsInnerCont.appendChild(textColor);
             settingsInnerCont.appendChild(backButton);
+            settingsInnerCont.appendChild(deleteButton);
             timerOuterContainer.appendChild(timeUpdateScript);
             document.getElementById("outer-container").appendChild(timerOuterContainer);
         
