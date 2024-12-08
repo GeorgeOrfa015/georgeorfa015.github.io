@@ -185,7 +185,7 @@
         }
         .smallModuleOutput{
             background: #333;
-            font-size: 1.5vw;
+            font-size: 1.3vw;
             overflow-y: scroll;
             border-radius: 0.5vw;
             padding: 0.4vw;
@@ -202,14 +202,14 @@
             .outerContainer{
                 gap: 3vw;
                 padding: 1vw 1vw 0 1vw;
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr 1fr;
             }
             .moduleOuterContainer{
                 grid-template-columns: 1fr;
                 gap: 1.75vw;
                 padding: 2vw;
                 border-radius: 3vw;
-                grid-column: span 1;
+                grid-column: span 2;
             }
             .moduleDescription{
                 padding: 2vw;
@@ -265,6 +265,55 @@
                 font-family: inherit;
                 padding: 0;
                 transition: background 0.2s;
+            }
+            .smallModuleOuterContainer{
+                padding: 2vw;
+                border-radius: 3vw;
+                gap: 1.75vw;
+            }
+            .smallModuleHeading{
+                text-align: center;
+                font-size: 5vw;
+                font-weight: 500;
+            }
+            .smallModuleInput{
+                height: fit-content;
+                border-radius: 1.5vw;
+                width: 100%;
+                text-align: center;
+                font-size: 3.5vw;
+                font-family: inherit;
+                padding: 0;
+            }
+            .operationSymbol{
+                font-size: 3.5vw;
+            }
+            #op8{
+                font-size: 2.5vw;
+            }
+            #smic8{
+                gap: .9vw;
+            }
+            .smallModuleInputContainer{
+                gap: 1.5vw;
+            }
+            .smallModuleOutputContainer{
+                gap: 1.5vw;
+                grid-template-rows: 1fr 1fr;
+                grid-template-columns: 1fr;
+            }
+            .smallModuleButton{
+                border-radius: 1.5vw;
+                font-size: 3.5vw;
+                height: fit-content;
+            }
+            .smallModuleOutput{
+                font-size: 5vw;
+                height: calc(100% - 0.8vw);
+                padding: 0.4vw;
+                border-radius: 1.5vw;
+                text-align: center;
+                align-content: center;
             }
         }
         
