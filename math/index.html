@@ -14,6 +14,103 @@
 </head>
 <body>
     <div class="outerContainer">
+        <div class="smallModuleOuterContainer">
+            <div class="smallModuleHeading">Addition</div>
+            <div class="smallModuleInputContainer">
+                <input type="number" class="smallModuleInput" placeholder="Number 1" id="scalc1in1" oninput="scalc1()">
+                <span class="operationSymbol">+</span>
+                <input type="number" class="smallModuleInput" placeholder="Number 2" id="scalc1in2" oninput="scalc1()">
+            </div>
+            <div class="smallModuleOutputContainer">
+                <span class="smallModuleOutput" id="scalc1out"></span>
+                <button class="smallModuleButton smallModuleCopy" onclick="sCopy(1)" id="c1">Copy</button>
+            </div>
+        </div>
+        <div class="smallModuleOuterContainer">
+            <div class="smallModuleHeading">Subtraction</div>
+            <div class="smallModuleInputContainer">
+                <input type="number" class="smallModuleInput" placeholder="Number 1" id="scalc2in1" oninput="scalc2()">
+                <span class="operationSymbol">-</span>
+                <input type="number" class="smallModuleInput" placeholder="Number 2" id="scalc2in2" oninput="scalc2()">
+            </div>
+            <div class="smallModuleOutputContainer">
+                <span class="smallModuleOutput" id="scalc2out"></span>
+                <button class="smallModuleButton smallModuleCopy" onclick="sCopy(2)" id="c2">Copy</button>
+            </div>
+        </div>
+        <div class="smallModuleOuterContainer">
+            <div class="smallModuleHeading">Multiplication</div>
+            <div class="smallModuleInputContainer">
+                <input type="number" class="smallModuleInput" placeholder="Number 1" id="scalc3in1" oninput="scalc3()">
+                <span class="operationSymbol">×</span>
+                <input type="number" class="smallModuleInput" placeholder="Number 2" id="scalc3in2" oninput="scalc3()">
+            </div>
+            <div class="smallModuleOutputContainer">
+                <span class="smallModuleOutput" id="scalc3out"></span>
+                <button class="smallModuleButton smallModuleCopy" onclick="sCopy(3)" id="c3">Copy</button>
+            </div>
+        </div>
+        <div class="smallModuleOuterContainer">
+            <div class="smallModuleHeading">Division</div>
+            <div class="smallModuleInputContainer">
+                <input type="number" class="smallModuleInput" placeholder="Dividend" id="scalc4in1" oninput="scalc4()">
+                <span class="operationSymbol">÷</span>
+                <input type="number" class="smallModuleInput" placeholder="Divisor" id="scalc4in2" oninput="scalc4()">
+            </div>
+            <div class="smallModuleOutputContainer">
+                <span class="smallModuleOutput" id="scalc4out"></span>
+                <button class="smallModuleButton smallModuleCopy" onclick="sCopy(4)" id="c4">Copy</button>
+            </div>
+        </div>
+        <div class="smallModuleOuterContainer">
+            <div class="smallModuleHeading">Exponentiation</div>
+            <div class="smallModuleInputContainer">
+                <input type="number" class="smallModuleInput" placeholder="Base" id="scalc5in1" oninput="scalc5()">
+                <span class="operationSymbol">^</span>
+                <input type="number" class="smallModuleInput" placeholder="Exponent" id="scalc5in2" oninput="scalc5()">
+            </div>
+            <div class="smallModuleOutputContainer">
+                <span class="smallModuleOutput" id="scalc5out"></span>
+                <button class="smallModuleButton smallModuleCopy" onclick="sCopy(5)" id="c5">Copy</button>
+            </div>
+        </div>
+        <div class="smallModuleOuterContainer">
+            <div class="smallModuleHeading">Rooting</div>
+            <div class="smallModuleInputContainer">
+                <input type="number" class="smallModuleInput" placeholder="Index" id="scalc6in1" oninput="scalc6()">
+                <span class="operationSymbol">√</span>
+                <input type="number" class="smallModuleInput" placeholder="Radicand" id="scalc6in2" oninput="scalc6()">
+            </div>
+            <div class="smallModuleOutputContainer">
+                <span class="smallModuleOutput" id="scalc6out"></span>
+                <button class="smallModuleButton smallModuleCopy" onclick="sCopy(6)" id="c6">Copy</button>
+            </div>
+        </div>
+        <div class="smallModuleOuterContainer">
+            <div class="smallModuleHeading">Modulo</div>
+            <div class="smallModuleInputContainer">
+                <input type="number" class="smallModuleInput" placeholder="Dividend" id="scalc7in1" oninput="scalc7()">
+                <span class="operationSymbol">%</span>
+                <input type="number" class="smallModuleInput" placeholder="Divisor" id="scalc7in2" oninput="scalc7()">
+            </div>
+            <div class="smallModuleOutputContainer">
+                <span class="smallModuleOutput" id="scalc7out"></span>
+                <button class="smallModuleButton smallModuleCopy" onclick="sCopy(7)" id="c7">Copy</button>
+            </div>
+        </div>
+        <div class="smallModuleOuterContainer">
+            <div class="smallModuleHeading">Percentage</div>
+            <div class="smallModuleInputContainer" id="smic8">
+                <input type="number" class="smallModuleInput" placeholder="Number 1" id="scalc8in1" oninput="scalc8()">
+                <span class="operationSymbol" id="op8">% of</span>
+                <input type="number" class="smallModuleInput" placeholder="Number 2" id="scalc8in2" oninput="scalc8()">
+            </div>
+            <div class="smallModuleOutputContainer">
+                <span class="smallModuleOutput" id="scalc8out"></span>
+                <button class="smallModuleButton smallModuleCopy" onclick="sCopy(8)" id="c8">Copy</button>
+            </div>
+        </div>
+
         <div class="moduleOuterContainer">
             <div class="moduleDescription">
                 <span class="moduleHeading">Factor Finder</span><br>

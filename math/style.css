@@ -15,16 +15,20 @@
         }
         .outerContainer{
             display: grid;
-            grid-template-columns: 1fr;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
             gap: 1vw;
             padding: 1vw 2vw 0 2vw;
         }
         .moduleOuterContainer{
             display: grid;
-            grid-template-columns: 1fr 1fr 2fr;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
             gap: 0.75vw;
             padding: 0.75vw;
             background: #222;
+            grid-column: span 4;
+        }
+        .groupOuterContainer > .moduleOuterContainer{
+            grid-column: span 1;
         }
         .moduleDescription{
             height: 16.25vw;
@@ -56,6 +60,7 @@
             padding: 0.75vw;
             scrollbar-width: none;
             text-wrap:wrap;
+            grid-column: span 2;
         }
         .groupOuterContainer{
             display: grid;
@@ -63,7 +68,8 @@
             grid-template-columns: 1fr;
             padding: 1vw;
             background: #111;
-            margin: 2vw 0 2vw 0
+            margin: 2vw 0 2vw 0;
+            grid-column: span 4;
         }
         .groupHeading{
             font-size: 2.25vw;
@@ -123,6 +129,72 @@
             grid-column-start: 1;
             grid-column-end: 3;
         }
+        .smallModuleOuterContainer{
+            display: grid;
+            gap: 0.75vw;
+            padding: 0.75vw;
+            background: #222;
+        }
+        .smallModuleHeading{
+            text-align: left;
+            font-size: 1.75vw;
+            font-weight: 500;
+        }
+        .smallModuleInput{
+            height: 2.5vw;
+            border-radius: 0.5vw;
+            width: 100%;
+            text-align: center;
+            font-size: 1.5vw;
+            font-family: inherit;
+            padding: 0;
+        }
+        .smallModuleButton{
+            height: 2.5vw;
+            border-radius: 0.5vw;
+            width: 100%;
+            text-align: center;
+            font-size: 1.5vw;
+            font-family: inherit;
+            padding: 0;
+        }
+        .smallModuleCopy{
+            background-color: #333;
+        }
+        .smallModuleCopy:hover{
+            background-color: #444;
+        }
+        .smallModuleCopy:active{
+            background-color: #555;
+            transition: none;
+        }
+        .smallModuleInputContainer{
+            display: grid;
+            gap: 0.75vw;
+            grid-template-columns: 1fr auto 1fr;
+        }
+        .operationSymbol{
+            font-size: 1.75vw;
+            text-align: center;
+            align-self: center;
+        }
+        .smallModuleOutputContainer{
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            gap: 0.75vw;
+        }
+        .smallModuleOutput{
+            background: #333;
+            font-size: 1.3vw;
+            overflow-y: scroll;
+            border-radius: 0.5vw;
+            padding: 0.4vw;
+            scrollbar-width: none;
+            text-align: center;
+            height: 1.75vw;
+            text-wrap: nowrap;
+            overflow: hidden;
+        }
         @media(max-width:700px){
             body{
                 line-height: 5.25vw;
@@ -130,22 +202,24 @@
             .outerContainer{
                 gap: 3vw;
                 padding: 1vw 1vw 0 1vw;
+                grid-template-columns: 1fr 1fr;
             }
             .moduleOuterContainer{
                 grid-template-columns: 1fr;
                 gap: 1.75vw;
                 padding: 2vw;
                 border-radius: 3vw;
+                grid-column: span 2;
             }
             .moduleDescription{
                 padding: 2vw;
                 border-radius: 1.5vw;
-                height: 30vw;
+                height: fit-content;
             }
             .moduleInput{
                 border-radius: 1.5vw;
                 padding: 1.5vw;
-                height: 48.75vw;
+                height: fit-content
             }
             .moduleInputInnerContainer{
                 display: grid;
@@ -157,6 +231,7 @@
                 border-radius: 1.5vw;
                 padding: 1.5vw;
                 height: 25vw;
+                grid-column: span 1;
             }
             .moduleHeading{
                 font-size: 5vw;
@@ -169,6 +244,7 @@
                 border-radius: 3vw;
                 padding: 2vw;
                 gap: 2.5vw;
+                grid-column: span 1;
             }
             .groupHeading{
                 font-size: 5vw;
@@ -189,6 +265,55 @@
                 font-family: inherit;
                 padding: 0;
                 transition: background 0.2s;
+            }
+            .smallModuleOuterContainer{
+                padding: 2vw;
+                border-radius: 3vw;
+                gap: 1.75vw;
+            }
+            .smallModuleHeading{
+                text-align: center;
+                font-size: 5vw;
+                font-weight: 500;
+            }
+            .smallModuleInput{
+                height: fit-content;
+                border-radius: 1.5vw;
+                width: 100%;
+                text-align: center;
+                font-size: 3.5vw;
+                font-family: inherit;
+                padding: 0;
+            }
+            .operationSymbol{
+                font-size: 3.5vw;
+            }
+            #op8{
+                font-size: 2.5vw;
+            }
+            #smic8{
+                gap: .9vw;
+            }
+            .smallModuleInputContainer{
+                gap: 1.5vw;
+            }
+            .smallModuleOutputContainer{
+                gap: 1.5vw;
+                grid-template-rows: 1fr 1fr;
+                grid-template-columns: 1fr;
+            }
+            .smallModuleButton{
+                border-radius: 1.5vw;
+                font-size: 3.5vw;
+                height: fit-content;
+            }
+            .smallModuleOutput{
+                font-size: 5vw;
+                height: calc(100% - 0.8vw);
+                padding: 0.4vw;
+                border-radius: 1.5vw;
+                text-align: center;
+                align-content: center;
             }
         }
         
