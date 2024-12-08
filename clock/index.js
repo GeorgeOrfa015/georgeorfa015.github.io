@@ -18,6 +18,7 @@ let colorSelection = localStorage.getItem("colorSelection");
 let clock = document.querySelector("#output");
 let date = document.querySelector("#outputDate");
 let randomOutput = document.querySelector("#randomStatus");
+let secOutput = document.querySelector("#secStatus");
 function solidSubmit() {
     let colorSolid = document.querySelector("#solidIn").value;
     localStorage.setItem("colorSolid", colorSolid);
@@ -74,14 +75,35 @@ function randomSubmit() {
     localStorage.setItem('colorSelection', 2);     
     randomOutput.innerHTML="Enabled"  
 }
+let showSeconds = false;
+secOutput.innerHTML = "Disabled";
+function secSubmit() {
+    if (showSeconds == true) {
+        showSeconds = false;
+        secOutput.innerHTML = "Disabled";
+    } else {
+        showSeconds = true;
+        secOutput.innerHTML = "Enabled";
+    }
+}
 function gettime() {
     let date = new Date();
+
+    if (showSeconds == true) {
+        currentSeconds = date.getSeconds();
+        currentSeconds = ("0" + currentSeconds).slice(-2);
+    }
+
     currentMinutes = date.getMinutes();
     currentMinutes = ("0" + currentMinutes).slice(-2);
     
     currentHours = date.getHours();
     currentHours = ("0" + currentHours).slice(-2);
-    document.getElementById("output").innerHTML=currentHours+":"+currentMinutes;
+    if (showSeconds == true) {
+        document.getElementById("output").innerHTML = currentHours + ":" + currentMinutes + ":" + currentSeconds;
+    } else {
+        document.getElementById("output").innerHTML = currentHours + ":" + currentMinutes;
+    }
 }
 var datemode = localStorage.getItem("dateMode");
 function dateFormat(mode) {
