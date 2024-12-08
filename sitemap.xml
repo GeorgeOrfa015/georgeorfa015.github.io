@@ -6,6 +6,16 @@
 		<lastmod>2024-06-21</lastmod>
 	</url>
 	<url>
+		<loc>https://www.georgeorfa015.github.io/timers</loc>
+		<priority>0.67</priority>
+		<lastmod>2024-12-08</lastmod>
+	</url>
+	<url>
+		<loc>https://www.georgeorfa015.github.io/legacy/timers</loc>
+		<priority>0.67</priority>
+		<lastmod>2024-12-08</lastmod>
+	</url>
+	<url>
 		<loc>https://www.georgeorfa015.github.io/voltage-drop</loc>
 		<priority>0.67</priority>
 		<lastmod>2024-11-15</lastmod>
@@ -66,11 +76,6 @@
 		<lastmod>2024-04-24</lastmod>
 	</url>
 	<url>
-		<loc>https://www.georgeorfa015.github.io/timers</loc>
-		<priority>0.67</priority>
-		<lastmod>2024-04-24</lastmod>
-	</url>
-	<url>
 		<loc>https://www.georgeorfa015.github.io/years-temp-abandoned</loc>
 		<priority>0.67</priority>
 		<lastmod>2024-02-29</lastmod>
@@ -89,6 +94,16 @@
 		<loc>https://www.georgeorfa015.github.io/ybt-cal.html</loc>
 		<priority>0.67</priority>
 		<lastmod>2024-11-17</lastmod>
+	</url>
+	<url>
+		<loc>https://www.georgeorfa015.github.io/indev/timers-style.html</loc>
+		<priority>0.33</priority>
+		<lastmod>2024-12-08</lastmod>
+	</url>
+	<url>
+		<loc>https://www.georgeorfa015.github.io/indev/dateinputtest.html</loc>
+		<priority>0.33</priority>
+		<lastmod>2024-11-21</lastmod>
 	</url>
 	<url>
 		<loc>https://www.georgeorfa015.github.io/chase-button</loc>
@@ -154,5 +169,10 @@
 		<loc>https://www.georgeorfa015.github.io/indev/electric-voltage-drop-style.html</loc>
 		<priority>0.33</priority>
 		<lastmod>2024-11-15</lastmod>
+	</url>
+	<url>
+		<loc>https://www.georgeorfa015.github.io/legacy/timers</loc>
+		<priority>0.33</priority>
+		<lastmod>2024-12-08</lastmod>
 	</url>
 </urlset>
