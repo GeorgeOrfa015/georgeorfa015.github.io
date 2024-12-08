@@ -144,18 +144,20 @@
             display: grid;
             grid-template-columns: 1fr;
             overflow: hidden;
+            height: fit-content;
         }
         .contributorTitle{
             font-size: 1.8vw;
             font-weight: 600;
             padding: 0.75vw;
-            background: #056c30
+            background: #056c30;
+            height: fit-content;
         }
         .contributorDescription{
             font-size: 1.4vw;
             padding: 0.75vw;
             font-weight: 300;
-            background:#045827
+            background:#045827;
         }
         a.contributor-url, a.email, a.news{
             color: #54df8e;
@@ -249,7 +251,7 @@
             <div id="topMessageText">Welcome to the website of <br><span id="topMessageTextName">George Orfanides</b></span></div>
         </div>
         <div id="latestNews">
-            <div id="latestNewsTitle">Latest news</div><div id="latestNewsText"><span><b>Sunday, December 8, 2024</b> - <a href="timers/" class="news">Custom Timers</a> has had a visual refresh! You can now customize each timer individually, and the date selection inputs have been replaced with a better date selector. Old codes will work for this one!</span></div>
+            <div id="latestNewsTitle">Latest news</div><div id="latestNewsText"><span><b>Sunday, December 8, 2024</b> - <a href="timers/" class="news">Custom Timers</a> has had a visual refresh! You can now customize each timer individually, and the date selection inputs have been replaced with a better date selector. Old codes will work for this one!<br><br><b>Sunday, December 8, 2024</b> - <a class="news" href="clock">Wall Clock</a> now has a toggle to display seconds, implemented by <a class="news" href="https://github.com/xdn3">xdn3</a>, which has also been added to the contributors section.</span></div>
         </div>
         <div id="projects">
             <div class="projectsTitle">Projects</div>
@@ -319,9 +321,17 @@
                 <div class="contributor">
                     <div class="contributorTitle">Jacey Li</div>
                     <div class="contributorDescription">
+                        Github Profile: <a class="contributor-url" href="https://github.com/gimpysploosh">gimpysploosh</a><br>
                         Website:<br>
                         <a class="contributor-url" href="https://gimpysploosh.github.io/thing">https://gimpysploosh.github.io/thing</a><br>
                         Helped with creating the Least Common Multiplier script in "Math Tools".
+                    </div>
+                </div>
+                <div class="contributor">
+                    <div class="contributorTitle">Giannis Ioannidis</div>
+                    <div class="contributorDescription">
+                        Github Profile: <a class="contributor-url" href="https://">xdn3</a><br>
+                        Added the "Show seconds" option in "Wall Clock" <br><br>&nbsp;
                     </div>
                 </div>
             </div>
