@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="datetime-local" oninput="output()">
+    <span></span>
+    <script>
+        function output() {
+            let output = document.querySelector("span")
+            let date = new Date(document.querySelector("input").value)
+            output.innerHTML = date.getTime()
+        }
+    </script>
+</body>
+</html>

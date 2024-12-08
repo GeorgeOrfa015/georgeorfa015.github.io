@@ -144,18 +144,20 @@
             display: grid;
             grid-template-columns: 1fr;
             overflow: hidden;
+            height: fit-content;
         }
         .contributorTitle{
             font-size: 1.8vw;
             font-weight: 600;
             padding: 0.75vw;
-            background: #056c30
+            background: #056c30;
+            height: fit-content;
         }
         .contributorDescription{
             font-size: 1.4vw;
             padding: 0.75vw;
             font-weight: 300;
-            background:#045827
+            background:#045827;
         }
         a.contributor-url, a.email, a.news{
             color: #54df8e;
@@ -184,7 +186,7 @@
                 padding: 1vw;
             }
             #aboutMeText, #latestNewsText, #contactMeText{
-                font-size: 5.5vw;
+                font-size: 3.5vw;
                 padding: 2vw;
             }
             #projects{
@@ -249,7 +251,7 @@
             <div id="topMessageText">Welcome to the website of <br><span id="topMessageTextName">George Orfanides</b></span></div>
         </div>
         <div id="latestNews">
-            <div id="latestNewsTitle">Latest news</div><div id="latestNewsText"><span>Sunday, December 8, 2024 - Added small modules for simple math equations in <a class="news">Math Tools</a>. Due to Point Precision Error, decimals are not allowed into any of these modules.</span></div>
+            <div id="latestNewsTitle">Latest news</div><div id="latestNewsText"><span><b>Sunday, December 8, 2024</b> - <a href="timers/" class="news">Custom Timers</a> has had a visual refresh! You can now customize each timer individually, and the date selection inputs have been replaced with a better date selector. Old codes will work for this one!<br><br><b>Sunday, December 8, 2024</b> - <a class="news" href="clock">Wall Clock</a> now has a toggle to display seconds, implemented by <a class="news" href="https://github.com/xdn3">xdn3</a>, which has also been added to the contributors section.<br><br><b>Sunday, December 8, 2024</b> - Added small modules for simple math equations in <a class="news">Math Tools</a>. Due to Point Precision Error, decimals are not allowed into any of these modules.</span></div>
         </div>
         <div id="projects">
             <div class="projectsTitle">Projects</div>
@@ -259,10 +261,6 @@
                     <span class="projectTitle">Progress Bars</span><br>
                     <span class="projectDescription">Create your own custom progress bars!</span>
                 </div></a>
-                <a href="math/"><div class="project">
-                    <span class="projectTitle">Math Tools</span><br>
-                    <span class="projectDescription">A variety of modules to help with Math.</span>
-                </div></a>
                 <a href="timers/"><div class="project">
                     <span class="projectTitle">Custom Timers</span><br>
                     <span class="projectDescription">See how long ago/in how much time a date is.</span>
@@ -271,13 +269,24 @@
                     <span class="projectTitle">Counters</span><br>
                     <span class="projectDescription">Create tally counters for anything.</span>
                 </div></a>
+            </div>
+            <div class="projectsSubtitle" id="ps2">Calculators and Generators</div>
+            <div class="projectsCont" id="pc2">
+                <a href="math/"><div class="project">
+                    <span class="projectTitle">Math Tools</span><br>
+                    <span class="projectDescription">A variety of modules to help with Math.</span>
+                </div></a>
                 <a href="random/"><div class="project">
                     <span class="projectTitle">Random Generators</span><br>
                     <span class="projectDescription">Generators for random numbers, letters and colors.</span>
                 </div></a>
+                <a href="voltage-drop/"><div class="project">
+                    <span class="projectTitle">Cable Voltage Drop</span><br>
+                    <span class="projectDescription">Calculator for finding out the voltage drop of a cable.</span>
+                </div></a>
             </div>
-            <div class="projectsSubtitle" id="ps2">Dates and Times</div>
-            <div class="projectsCont" id="pc2">
+            <div class="projectsSubtitle" id="ps3">Dates and Times</div>
+            <div class="projectsCont" id="pc3">
                 <a href="timer/"><div class="project">
                     <span class="projectTitle" id="yearTimerProject">Text filled by function.</span><br>
                     <span class="projectDescription">A countdown to the next year with customization options.</span>
@@ -287,8 +296,8 @@
                     <span class="projectDescription">A time display with multiple customization options.</span>
                 </div></a>
             </div>
-            <div class="projectsSubtitle" id="ps3">Fun and Games</div>
-            <div class="projectsCont" id="pc3">
+            <div class="projectsSubtitle" id="ps4">Fun and Games</div>
+            <div class="projectsCont" id="pc4">
                 <a href="chase-button/"><div class="project">
                     <span class="projectTitle">Chase the Button</span><br>
                     <span class="projectDescription">Chase a button with your cursor and get points!</span>
@@ -298,8 +307,8 @@
                     <span class="projectDescription">A simple platformer made from a YouTube tutorial.</span>
                 </div></a>
             </div>
-            <div class="projectsSubtitle" id="ps4">In development</div>
-            <div class="projectsCont" id="pc4">
+            <div class="projectsSubtitle" id="ps5">In development</div>
+            <div class="projectsCont" id="pc5">
                 <a href="indev/"><div class="project">
                     <span class="projectTitle">Indev</span><br>
                     <span class="projectDescription">Unsupported experimental scripts and pages.</span>
@@ -312,9 +321,17 @@
                 <div class="contributor">
                     <div class="contributorTitle">Jacey Li</div>
                     <div class="contributorDescription">
+                        Github Profile: <a class="contributor-url" href="https://github.com/gimpysploosh">gimpysploosh</a><br>
                         Website:<br>
                         <a class="contributor-url" href="https://gimpysploosh.github.io/thing">https://gimpysploosh.github.io/thing</a><br>
                         Helped with creating the Least Common Multiplier script in "Math Tools".
+                    </div>
+                </div>
+                <div class="contributor">
+                    <div class="contributorTitle">Giannis Ioannidis</div>
+                    <div class="contributorDescription">
+                        Github Profile: <a class="contributor-url" href="https://">xdn3</a><br>
+                        Added the "Show seconds" option in "Wall Clock" <br><br>&nbsp;
                     </div>
                 </div>
             </div>
@@ -396,20 +413,31 @@
             setTimeout(animation8, delay)
         }
         function animation8() {
-            let item = document.getElementById("contributors");
+            let item = document.getElementById("pc5");
             item.style.transition = `${duration}s cubic-bezier(.2,.79,.05,.99) transform, ${duration}s cubic-bezier(.2,.79,.05,.99) opacity`
             item.style.transform = "translateY(0%)";
             item.style.opacity = 1;
-            setTimeout(animation9, delay)
+            item = document.getElementById("ps5");
+            item.style.transition = `${duration}s cubic-bezier(.2,.79,.05,.99) transform, ${duration}s cubic-bezier(.2,.79,.05,.99) opacity`
+            item.style.transform = "translateY(0%)";
+            item.style.opacity = 1;
+            setTimeout(animation9, delay);
         }
         function animation9() {
-            let item = document.getElementById("aboutMe");
+            let item = document.getElementById("contributors");
             item.style.transition = `${duration}s cubic-bezier(.2,.79,.05,.99) transform, ${duration}s cubic-bezier(.2,.79,.05,.99) opacity`
             item.style.transform = "translateY(0%)";
             item.style.opacity = 1;
             setTimeout(animation10, delay)
         }
         function animation10() {
+            let item = document.getElementById("aboutMe");
+            item.style.transition = `${duration}s cubic-bezier(.2,.79,.05,.99) transform, ${duration}s cubic-bezier(.2,.79,.05,.99) opacity`
+            item.style.transform = "translateY(0%)";
+            item.style.opacity = 1;
+            setTimeout(animation11, delay)
+        }
+        function animation11() {
             let item = document.getElementById("contactMe");
             item.style.transition = `${duration}s cubic-bezier(.2,.79,.05,.99) transform, ${duration}s cubic-bezier(.2,.79,.05,.99) opacity`
             item.style.transform = "translateY(0%)";
