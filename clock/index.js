@@ -75,21 +75,28 @@ function randomSubmit() {
     localStorage.setItem('colorSelection', 2);     
     randomOutput.innerHTML="Enabled"  
 }
-let showSeconds = false;
-secOutput.innerHTML = "Disabled";
 function secSubmit() {
-    if (showSeconds == true) {
-        showSeconds = false;
+    if (showSeconds == "true") {
+        showSeconds = "false";
+        localStorage.setItem("secondDisplay", "false")
         secOutput.innerHTML = "Disabled";
     } else {
-        showSeconds = true;
+        showSeconds = "true";
         secOutput.innerHTML = "Enabled";
+        localStorage.setItem("secondDisplay", "true")
     }
+}
+let showSeconds = localStorage.getItem("secondDisplay");
+console.log(showSeconds)
+if (showSeconds == "true") {
+    secOutput.innerHTML = "Enabled";
+}else{
+    secOutput.innerHTML = "Disabled";
 }
 function gettime() {
     let date = new Date();
 
-    if (showSeconds == true) {
+    if (showSeconds == "true") {
         currentSeconds = date.getSeconds();
         currentSeconds = ("0" + currentSeconds).slice(-2);
     }
@@ -99,7 +106,7 @@ function gettime() {
     
     currentHours = date.getHours();
     currentHours = ("0" + currentHours).slice(-2);
-    if (showSeconds == true) {
+    if (showSeconds == "true") {
         document.getElementById("output").innerHTML = currentHours + ":" + currentMinutes + ":" + currentSeconds;
     } else {
         document.getElementById("output").innerHTML = currentHours + ":" + currentMinutes;
