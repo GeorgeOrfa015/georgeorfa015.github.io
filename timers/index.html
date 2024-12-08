@@ -13,30 +13,37 @@
     <title>Custom Timers</title>
 </head>
 <body>
-    <div id="button-container">
-        <div id="button-inner-container-1">
-            <button class="top-buttons" onclick="newTimer()">New Timer</button>
-            <button class="top-buttons" onclick="exportCode()" id="export-code-button">Export Save Code</button>&nbsp;&nbsp;&nbsp;
-        </div>
-        <div id="button-inner-container-2">
-            <input id="load-code-input" placeholder="Enter your code...">
-            <button class="top-buttons" onclick="loadCode()">Load Save Code</button>
-        </div>
+    <div class="top-buttons">
+        <button class="top-button" onclick="newTimer()">New Timer</button>
+        <button class="top-button" id="export-code-button" onclick="exportCode()">Export Save Code</button>
+        <input type="text" class="top-button" placeholder="Enter your Save Code..." id="load-code-input">
+        <button class="top-button" onclick="loadCode()">Load Save Code</button>
     </div>
     <div id="outer-container">
-        <!-- <div class="timer-outer-cont" id="TOC0">
-            <div class="time-inner-cont" id="TIC0">
-                <span class="time" id="out0"> 365 Days 23h 59m 59m</span>
+         <!-- <div class="timer-outer-container" id="TOC0">
+            <div class="time-cont" id="TC0">
+                <span class="time" id="out0">25 Days 5h 34m 24s<br>since</span>
+                <input class="description" placeholder="Description..." id="D0">
+            </div>
+            <div class="controls-inner-cont" id="CIC0">
+                <input type="datetime-local" id="ID0">
+                <button class="show-settings" id="SS0">Settings</button>
             </div>
             <div class="settings-inner-cont" id="SIC0">
-                <input id="year0" type="text" placeholder="Year" value="2024">
-                <input id="month0" type="text" placeholder="Month" value="3">
-                <input id="day0" type="text" placeholder="Day" value="16">
-                <input id="hour0" type="text" placeholder="Hour" value="0">
-                <input id="minute0" type="text" placeholder="Minute" value="10">
-                <button class="settings delete" onclick="delTimer(0)">&#x2715;</button>
+                <span class="settings-text">Border Color</span>
+                <input class="border-color" placeholder="Border Color…" id="BC0">
+                <span class="settings-text">Background</span>
+                <input type="text" placeholder="Background Color..." class="color" id="C0">
+                <span class="settings-text">Time Text Color</span>
+                <input class="time-text-color" placeholder="Time Text Color..." id="TTC0">
+                <span class="settings-text">Input Background</span>
+                <input class="input-color" placeholder="Input Background..." id="IC0">
+                <span class="settings-text">Input Text Color</span>
+                <input class="input-text-color" placeholder="Input Text Color..." id="ITC0">
+                <button class="back-button" id="BB0">Back</button>
+                <button class="delete-button" id="DB0">Delete</button>
             </div>
-        </div> -->
+        </div>          -->
     </div>
     <script src="index.js"></script>
 </body>
