@@ -1,176 +1,212 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@300;900&display=swap');
 body{
-    background: #000;
-    font-family: poppins;
+    background-color: #000;
+    color: #fff;
+    font-family: "poppins";;
+}
+div{
+    border: 0px #f00 solid;
 }
 #outer-container{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 1vw;
-    background: none;
-    margin-top: 1vw;
-}
-div{
-    overflow: hidden;
-}
-.timer-outer-cont{
+} 
+.timer-outer-container{
+    display: grid;
+    gap: 0.75vw;
     padding: 0.75vw;
-    height: 18vw;
-    background: #045527;
+    background-color: #222;
     border-radius: 0.75vw;
+    height: fit-content
 }
-.time-inner-cont{
-    height: 15vw;
-    margin-bottom: 0.75vw;
-    background: #000;
-    border-radius: 0.5vw;
+.time-cont{
     display: flex;
     flex-direction: column;
     text-align: center;
     justify-content: center;
-}
-.settings-inner-cont{
-    height: 2.25vw;
-    display: grid;
-    grid-template-columns: 5fr 5fr 5fr 5fr 5fr 1fr; 
-    gap: 1vw;
+    align-items: center;
+    background-color: #000;
+    border-radius: 0.5vw;
+    height: 15vw
 }
 .time{
-    color: #fff;
     font-size: 1.75vw;
     font-family: "Chivo Mono";
 }
-button{
-    margin: none;
-    padding: none;
-    font-family: inherit;
-    font-size: 1.3vw;
-    transition: 0.2s;
-    background: #10813f;
-    border: none;
+.controls-inner-cont{
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    gap: 0.75vw;
+}
+.settings-inner-cont{
+    display: none;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    gap: 0.75vw;
+}
+.description{
+    width: 100%;
+    text-align: center;
+    transition: 0.2s background;
+}
+input.description{
+    border: 0px;
     color: #fff;
-    border-radius: 0.5vw;
+    background: #0000;
 }
-button:hover{
-    background: #1b8b49;
+input.description::placeholder{
+    color: #aaa
 }
-.settings{
-    background: #10813f;
-    border: none;
-    color: #fff;
-    border-radius: 0.5vw;
-}
-.delete{
-    background: #ad3d3d;
-    font-size: 1.3vw;
-    height: 2.25vw;
-    margin: 0;
-    padding: 0;
-    width: 2.25vw;
-}
-.delete:hover{
-    background: #ba4848;
+input:focus{
+    outline: none;
 }
 input{
-    background:#0f7a3c;
-    color: #a5f8d1;
+    background-color: #0005;
+    color: #fff;
     border: none;
     border-radius: 0.5vw;
-    width: 4.4vw;
+    width: 100%;
     text-align: center;
     font-size: 1.2vw;
     font-family: inherit;
     margin: 0;
     padding: 0;
-    height: 2.25vw;
+    color-scheme: dark;
 }
 input::placeholder{
-    color: #49c694
+    mix-blend-mode:hard-light;
+    color: #ddd
 }
-input:focus{
-    outline:none;
+input[type=datetime-local]{
+    background:#0005;
+    -webkit-min-logical-width: calc(100% - 1vw);
 }
-.timer-desc{
-    background: none;
+input[type=datetime-local]::placeholder{
+    background: #2b8561;
+}
+button{
+    background-color: #0005;
     color: #fff;
-    text-align: center;
-    width: 100%;
+    border: none;
+    border-radius: 0.5vw;
+    font-size: 1.2vw;
+    font-family: inherit;
+    padding: 0vw;
+    transition: 0.2s background;
 }
-.timer-desc::placeholder{
-    color: #aaa;
+.show-settings{
+    background-color: #0005;
 }
-#load-code-input{
-    width: fit-content;
-    height: 2.25vw;
-    background:#065427;
-    font-size: 1.3vw;
+button:hover{
+    background: #fff3;
+    transition: 0.2s background;
 }
-#load-code-input::placeholder{
-    color: #61b08b;
-    
+.top-button{
+    padding: 0.15vw 0.4vw 0.15vw 0.4vw;
+    background-color: #0f7a3c;
+}
+button.top-button:hover{
+    background-color: #1b8b49;
 }
 .top-buttons{
-    height: 2.25vw;
+    margin-bottom: 0.75vw;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 0.75vw;
 }
-#button-container{
-    display: flex;
-    flex-direction: row;
+input.top-button{
+    width: calc(100% - 0.75vw);
+    background-color: #065427;
+}
+input.top-button::placeholder{
+    color: #61b08b;
+    mix-blend-mode: normal;
+}
+.color{
+    grid-column: span 5;
+}
+.border-color{
+    grid-column: span 5;
+}
+.back-button{
+    grid-column: span 5;
+}
+.time-text-color{
+    grid-column: span 5;
+}
+.text-color{
+    grid-column: span 5;
+}
+.delete-button:hover{
+    background: #ba4848;
+}
+.delete-button{
+    background: #ad3d3d;
+    grid-column: span 2;
+}
+.settings-text{
+    font-size: 0.9vw;
+    align-self: center;
+    grid-column: span 2;
 }
 @media(max-width:600px){
     #outer-container{
         grid-template-columns: 1fr;
+        gap: 2vw
     }
-    .timer-outer-cont{
+    .timer-outer-container{
         padding: 2vw;
-        height: 45vw;
         border-radius: 2vw;
+        gap: 2vw
     }
-    .time-inner-cont{
+    .time-cont{
         height: 38vw;
-        margin-bottom: 2vw;
+        margin-bottom: 0vw;
         border-radius: 1.75vw;
     }
     .time{
         font-size: 5vw;
     }
+    .description{
+        padding: 1.5vw;
+    }
     button{
-        font-size: 4vw;
-        transition: 0.2s;
+        font-size: 3vw;
+        transition: 0.2s background;
         border-radius: 2vw;
     }
-    .delete{
-        background: #ad3d3d;
-        font-size: 3vw;
-        height: 5vw;
-        margin: 0;
-        padding: 0;
-        width: 5vw;
-        border-radius: 1.75vw;
+    .controls-inner-cont{
+        grid-template-columns: 5fr 2fr;
+        gap: 2vw;
     }
     .settings-inner-cont{
-        height: 5vw;
+        gap: 2vw;
     }
     input{
         border-radius: 1.75vw;
-        width: 15.2vw;
         text-align: center;
         font-size: 3vw;
-        height: 5vw;
+    }
+    input[type=datetime-local]{
+        -webkit-min-logical-width: calc(100% - 2vw);
+        height: 100%;
     }
     .top-buttons{
-        height: 5vw;
-        font-size: 3vw;
-    }
-    #load-code-input{
-        width: fit-content;
-        height: 5vw;
-        background:#065427;
-        font-size: 3vw;
-    }
-    #button-container{
-        display: flex;
-        flex-direction: column;
         text-align: center;
+        grid-template-columns: 1fr 1fr;
+        gap: 2vw;
+        margin-bottom: 2vw;
+    }
+    .top-button{
+        padding: 0.3vw 1.2vw;
+    }
+    input.top-button{
+        width: 100%;
+        height: 100%;
+        padding: 0;
+    }
+    .settings-text{
+        font-size: 2.53vw;
     }
 }
