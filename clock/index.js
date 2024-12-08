@@ -85,6 +85,7 @@ function secSubmit() {
         secOutput.innerHTML = "Enabled";
         localStorage.setItem("secondDisplay", "true")
     }
+    gettime();
 }
 let showSeconds = localStorage.getItem("secondDisplay");
 console.log(showSeconds)
