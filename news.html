@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        body{
+            background: #000000;
+            font-family: poppins;
+            color: #fff;
+            margin: 0vw 2vw 2vw 2vw;
+        }
+        .topMessage{
+            display: grid;
+            grid-template-columns: 1fr;
+            margin-bottom: 1.75vw;
+        }
+        .title{
+            font-size: 5vw;
+            font-weight: 700;
+        }
+        .backButton{
+            font-size: 1.75vw;
+            width: fit-content;
+        }
+        a.backButton{
+            text-decoration: #222 underline;
+            color: #fff;
+            transition: 0.3s text-decoration;
+        }
+        a.backButton:hover{
+            font-size: 1.75vw;
+            text-decoration: #aaa underline;
+        }
+        .article-outer-container{
+            background: #222;
+            border-radius: 1vw;
+            overflow: hidden;
+        }
+        .article-date{
+            font-size: 2.4vw;
+            padding: 0.6vw 1vw;
+            font-weight: 600;
+        }
+        .article{
+            background: #111;
+            font-size: 1.4vw;
+            padding: 0.5vw 0.8vw;
+        }
+        .article-commit{
+            font-size: 0.9vw;
+            color: #aaa;
+            text-align: right;
+            text-decoration: #444 underline;
+        }
+        .article-commit:hover{
+            text-decoration: #777 underline;
+        }
+        a.news{
+            color: #54df8e;
+            transition: 0.1s color;
+            text-decoration:underline;
+            text-decoration-color: #065629;
+        }
+        a.news:hover{
+            color: #85f6b4;
+            text-decoration-color: #0b7338;
+        }
+    </style>
+</head>
+<body>
+    <div class="topMessage">
+        <span class="title">Latest News</span>
+        <span class="backButton">&lt; <a class="backButton" href="../">Back to Home Page</a></span>
+    </div>
+    <div id="outer-container">
+        <div class="article-outer-container" id="1">
+            <div class="article-date">
+                September 8th, 2024
+            </div>
+            <div class="article">
+                <div class="article-text">
+                    <a href="../timers/" class="news">Custom Timers</a> has had a visual refresh! You can now customize each timer individually, and the date selection inputs have been replaced with a better date selector. Old codes will work for this one!
+                </div>
+                <div class="article-commit"><a class="article-commit" href="">Commit 165 on main by GeorgeOrfa015</a></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
