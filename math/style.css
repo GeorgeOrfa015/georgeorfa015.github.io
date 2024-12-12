@@ -195,6 +195,9 @@
             text-wrap: nowrap;
             overflow: hidden;
         }
+        .active{
+            font-size: 1.1vw
+        }
         @media(max-width:700px){
             body{
                 line-height: 5.25vw;
@@ -244,7 +247,7 @@
                 border-radius: 3vw;
                 padding: 2vw;
                 gap: 2.5vw;
-                grid-column: span 1;
+                grid-column: span 2;
             }
             .groupHeading{
                 font-size: 5vw;
