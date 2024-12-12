@@ -2,8 +2,11 @@ function sCopy(outputID) {
     navigator.clipboard.writeText(document.getElementById(`scalc${outputID}out`).innerHTML);
     let button = document.getElementById(`c${outputID}`)
     button.innerHTML = "Copied!";
-    button.style.fontSize = "1.1vw";
-    setTimeout(function() {button.innerHTML = "Copy"; button.style.fontSize = "1.5vw"}, 1000)
+    button.className = "smallModuleButton smallModuleCopy active";
+    setTimeout(function() {
+        button.innerHTML = "Copy"; 
+        button.className = "smallModuleButton smallModuleCopy"
+    }, 1000)
     
 }
 function scalc1() {
