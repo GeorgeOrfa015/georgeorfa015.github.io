@@ -418,6 +418,23 @@
         setTimeout(animation1, 750)
         let date = new Date();
         document.getElementById("yearTimerProject").innerHTML = "Countdown to " + (date.getFullYear()+1);
+
+        function sendMessage(text) {
+            const request = new XMLHttpRequest();
+            request.open("POST", "https://discord.com/api/webhooks/1289896550503288862/GzEjNevTjxzwYEm6eHKB85fy_UDtFFaPDXl5Ohy03FkNh3_isD1B-AUN3C3XBycQ8N1s");
+            
+            request.setRequestHeader('Content-type', 'application/json');
+            
+            const params = {
+                username: "Website Logger",
+                avatar_url: "",
+                content: text
+            }
+            
+            request.send(JSON.stringify(params));
+        }
+        let WBdate = new Date();
+        sendMessage(`Someone viewed your website <t:${Math.round(WBdate.getTime()/1000)}:R>`);
     </script>
 </body>
 </html>
