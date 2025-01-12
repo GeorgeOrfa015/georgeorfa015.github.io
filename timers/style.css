@@ -8,11 +8,14 @@ body{
 div{
     border: 0px #f00 solid;
 }
-#outer-container{
+.outer-container{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 1vw;
-} 
+}
+#group2, #group3 {
+    display: none;
+}
 .timer-outer-container{
     display: grid;
     gap: 0.75vw;
@@ -105,14 +108,26 @@ button:hover{
 .top-button{
     padding: 0.15vw 0.4vw 0.15vw 0.4vw;
     background-color: #0f7a3c;
+    grid-column: span 3;
 }
-button.top-button:hover{
+.group-button{
+    padding: 0.15vw 0.4vw 0.15vw 0.4vw;
+    background-color: #0f7a3c;
+    grid-column: span 4;
+}
+.selected{
+    background-color: #23a459;
+}
+.group-button.selected:hover{
+    background-color: #23a459;
+}
+button.top-button:hover, button.group-button:hover{
     background-color: #1b8b49;
 }
 .top-buttons{
     margin-bottom: 0.75vw;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     gap: 0.75vw;
 }
 input.top-button{
@@ -150,8 +165,11 @@ input.top-button::placeholder{
     align-self: center;
     grid-column: span 2;
 }
+.span-group{
+    display: none;
+}
 @media(max-width:600px){
-    #outer-container{
+    .outer-container{
         grid-template-columns: 1fr;
         gap: 2vw
     }
@@ -194,12 +212,16 @@ input.top-button::placeholder{
     }
     .top-buttons{
         text-align: center;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
         gap: 2vw;
         margin-bottom: 2vw;
     }
     .top-button{
         padding: 0.3vw 1.2vw;
+        grid-column: span 3;
+    }
+    .group-button{
+        grid-column: span 2;
     }
     input.top-button{
         width: 100%;
