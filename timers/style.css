@@ -107,13 +107,13 @@ button:hover{
 }
 .top-button{
     padding: 0.15vw 0.4vw 0.15vw 0.4vw;
-    background-color: #0f7a3c;
-    grid-column: span 3;
+    background-color: #0c6531;
+    grid-column: span 2;
 }
 .group-button{
     padding: 0.15vw 0.4vw 0.15vw 0.4vw;
-    background-color: #0f7a3c;
-    grid-column: span 4;
+    background-color: #0c6531;
+    grid-column: span 1;
 }
 .selected{
     background-color: #23a459;
@@ -122,7 +122,7 @@ button:hover{
     background-color: #23a459;
 }
 button.top-button:hover, button.group-button:hover{
-    background-color: #1b8b49;
+    background-color: #178042;
 }
 .top-buttons{
     margin-bottom: 0.75vw;
@@ -132,7 +132,7 @@ button.top-button:hover, button.group-button:hover{
 }
 input.top-button{
     width: calc(100% - 0.75vw);
-    background-color: #065427;
+    background-color: #05421f;
 }
 input.top-button::placeholder{
     color: #61b08b;
@@ -169,6 +169,9 @@ input.top-button::placeholder{
     display: none;
 }
 @media(max-width:600px){
+    .divider{
+        display: none;
+    }
     .outer-container{
         grid-template-columns: 1fr;
         gap: 2vw

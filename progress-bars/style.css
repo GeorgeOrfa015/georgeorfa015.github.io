@@ -4,53 +4,52 @@ body{
     font-family: "Poppins";
     background: #000;
 }
-#outer-container{
+div{
+    border: 0px solid red;
+}
+.outer-container{
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1vw;
 }
 .bar-outer-cont{
     padding: 0.75vw;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.75vw;
     background: #222;
     border-radius: 0.75vw;
-    height: fit-content
+    height: fit-content;
 }
 .bar-inner-cont{
-    margin-bottom: 0.75vw;
+    background: #111;
     border-radius: 0.5vw;
     overflow: hidden;
-    background: #111;
 }
 .bar{
-    height: 2.5vw;
-    background: #10813f;
-    width: 0%; /* Percentage of completion */
-    color: #fff;
     text-align: center;
-    padding-top: 0.1vw;
-    font-size: 1.5vw;
-    transition: width 0.5s, color 0.2s;
+    color: #fff;
+    background-color: #0c6531;
+    transition: 0.2s width;
+    font-size: 1.2vw
 }
 .settings-inner-cont{
     display: grid;
     gap: 0.75vw;
-    grid-template-columns: 2fr 2.6fr 2fr 1fr 1fr 8fr 5.1fr;
-    background: none;
-    color: #fff;
+    grid-template-columns: 1.5fr 1.5fr 1.5fr 1fr 1fr 7fr 3fr;
 }
 input{
-    background: #045527;
-    color: #a5f8d1;
+    background-color: #05421f;
+    color: #fff;
     border: none;
-    border-radius: 0.5vw;
-    width: 4.4vw;
+    width: 100%;
     text-align: center;
-    font-size: 1.4vw;
+    font-size: 1.2vw;
     font-family: inherit;
     margin: 0;
     padding: 0;
-    height: 2.25vw;
-    transition: 0.2s;
+    color-scheme: dark;
+    border-radius: 0.5vw;
 }
 .number-input{
     width: 100%;
@@ -63,14 +62,15 @@ input::placeholder{
     color: #2b8561
 }
 .out-of-text{
-    font-size: 1.4vw;
+    font-size: 1.2vw;
     text-align: center;
+    align-self: center;
+    color: #fff;
 
 }
 .bar-name{
     background: none;
     outline: none;
-    border: none;
     width: 100%;
     text-align: left;
     color: #fff;
@@ -83,15 +83,14 @@ input::placeholder{
     color: #888;
 }
 button{
-    margin: none;
-    padding: none;
-    font-family: inherit;
-    font-size: 1.35vw;
-    transition: 0.2s;
-    background: #10813f;
-    border: none;
+    background-color: #0c6531;
     color: #fff;
-    border-radius: 0.5vw;
+    border: none;
+    font-size: 1.2vw;
+    font-family: inherit;
+    padding: 0vw;
+    transition: 0.2s background;
+    border-radius: 0.5vw
 }
 button:hover{
     background: #189b4f;
@@ -103,9 +102,7 @@ button:hover{
     width: 100%;
 }
 .add-remove-button{
-    height: 2.25vw;
     width: 100%;
-    margin-right: 0.5vw;
 }
 .delete-button{
     background: #ad3d3d;
@@ -114,16 +111,45 @@ button:hover{
     background: #d05555;
 }
 .settings-hidden-inner-cont{
-    display: none;
-    gap: 1vw;
+    display: grid;
+    gap: 0.75vw;
     grid-template-columns: 5fr 1fr 1fr;
-    margin-top: 1vw;
 }
 .settings-button{
     font-size: 1.35vw;
 }
+.top-button{
+    padding: 0.15vw 0.4vw 0.15vw 0.4vw;
+    background-color: #0c6531;
+    grid-column: span 2;
+}
+.group-button{
+    padding: 0.15vw 0.4vw 0.15vw 0.4vw;
+    background-color: #0c6531;
+    grid-column: span 1;
+}
+.selected{
+    background-color: #23a459;
+}
+.group-button.selected:hover{
+    background-color: #23a459;
+}
+button.top-button:hover, button.group-button:hover{
+    background-color: #178042;
+}
 .top-buttons{
-    height: 2.25vw;
+    margin-bottom: 0.75vw;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    gap: 0.75vw;
+}
+input.top-button{
+    width: calc(100% - 0.75vw);
+    background-color: #05421f;
+}
+input.top-button::placeholder{
+    color: #61b08b;
+    mix-blend-mode: normal;
 }
 #button-container{
     display: flex;
@@ -131,7 +157,10 @@ button:hover{
     margin-bottom: 0.5vw;
 }
 @media(max-width: 600px) {
-    #outer-container{
+    .divider{
+        display: none;
+    }
+    .outer-container{
         grid-template-columns: 1fr;
         gap: 2vw;
     }
@@ -154,7 +183,7 @@ button:hover{
     }
     input{
         border-radius: 1.75vw;
-        width: 15.2vw;
+        width: 100%;
         font-size: 4vw;
         height: 6vw;
     }
@@ -204,14 +233,22 @@ button:hover{
         font-size: 3vw;
     }
     .top-buttons{
-        height: 5vw;
-        font-size: 3vw;
+        text-align: center;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+        gap: 2vw;
+        margin-bottom: 2vw;
     }
-    #load-code-input{
-        width: fit-content;
-        height: 5vw;
-        background:#065427;
-        font-size: 3vw;
+    .top-button{
+        padding: 0.3vw 1.2vw;
+        grid-column: span 3;
+    }
+    .group-button{
+        grid-column: span 2;
+    }
+    input.top-button{
+        width: 100%;
+        height: 100%;
+        padding: 0;
     }
     #button-container{
         display: flex;
