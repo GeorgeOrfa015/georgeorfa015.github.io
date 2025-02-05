@@ -23,7 +23,7 @@
             height: calc(100% - 2vw) ;
             border: none;
             display: grid;
-            gap: 1vw;
+            gap: 0.5vw;
             padding: 1vw;
             grid-template-columns: 1fr;
         }
@@ -151,81 +151,6 @@
         </div>
     </div>
     <script>
-        function yearBar() {
-            let currentDate = new Date();
-            let currentYear = currentDate.getFullYear()
-            let currentYearDate = new Date(currentYear, 0, 1, 0, 0, 0)
-            let nextYear = currentDate.getFullYear()+1
-            let nextYearDate = new Date(nextYear, 0, 1, 0, 0, 0)
-            let timeDiff = currentDate.getTime() - currentYearDate.getTime();
-            let yearTimeDiff = nextYearDate.getTime() - currentYearDate.getTime();
-            updateBar(timeDiff, yearTimeDiff, 1)
-        }
-        function monthBar() {
-            let currentDate = new Date();
-            let currentYear = currentDate.getFullYear()
-            let currentMonth = currentDate.getMonth()
-            let currentMonthDate = new Date(currentYear, currentMonth, 1, 0, 0, 0)
-            let nextMonth = currentDate.getMonth()+1
-            let nextMonthDate = new Date(currentYear, nextMonth, 1, 0, 0, 0)
-            let timeDiff = currentDate.getTime() - currentMonthDate.getTime();
-            let monthTimeDiff = nextMonthDate.getTime() - currentMonthDate.getTime();
-            updateBar(timeDiff, monthTimeDiff, 2)
-        }
-        function dayBar() {
-            let currentDate = new Date();
-            let currentYear = currentDate.getFullYear()
-            let currentMonth = currentDate.getMonth()
-            let currentDay = currentDate.getDate();
-            let currentDayDate = new Date(currentYear, currentMonth, currentDay)
-            let nextDay = currentDate.getDate()+1
-            let nextDayDate = new Date(currentYear, currentMonth, nextDay)
-            let timeDiff = currentDate.getTime() - currentDayDate.getTime();
-            let dayTimeDiff = nextDayDate.getTime() - currentDayDate.getTime();
-            updateBar(timeDiff, dayTimeDiff, 3)
-        }
-        function hourBar() {
-            let currentDate = new Date();
-            let currentYear = currentDate.getFullYear()
-            let currentMonth = currentDate.getMonth()
-            let currentDay = currentDate.getDate();
-            let currentHour = currentDate.getHours();
-            let currentHourDate = new Date(currentYear, currentMonth, currentDay, currentHour)
-            let nextHour = currentDate.getHours()+1
-            let nextHourDate = new Date(currentYear, currentMonth, currentDay, nextHour)
-            let timeDiff = currentDate.getTime() - currentHourDate.getTime();
-            let hourTimeDiff = nextHourDate.getTime() - currentHourDate.getTime();
-            updateBar(timeDiff, hourTimeDiff, 4)
-        }
-        function minuteBar() {
-            let currentDate = new Date();
-            let currentYear = currentDate.getFullYear()
-            let currentMonth = currentDate.getMonth()
-            let currentDay = currentDate.getDate();
-            let currentHour = currentDate.getHours();
-            let currentMinute = currentDate.getMinutes();
-            let currentMinuteDate = new Date(currentYear, currentMonth, currentDay, currentHour, currentMinute)
-            let nextMinute = currentDate.getMinutes()+1
-            let nextMinuteDate = new Date(currentYear, currentMonth, currentDay, currentHour, nextMinute)
-            let timeDiff = currentDate.getTime() - currentMinuteDate.getTime();
-            let minuteTimeDiff = nextMinuteDate.getTime() - currentMinuteDate.getTime();
-            updateBar(timeDiff, minuteTimeDiff, 5)
-        }
-        function secondBar() {
-            let currentDate = new Date();
-            let currentYear = currentDate.getFullYear()
-            let currentMonth = currentDate.getMonth()
-            let currentDay = currentDate.getDate();
-            let currentHour = currentDate.getHours();
-            let currentMinute = currentDate.getMinutes();
-            let currentSecond = currentDate.getSeconds();
-            let currentSecondDate = new Date(currentYear, currentMonth, currentDay, currentHour, currentMinute, currentSecond)
-            let nextSecond = currentDate.getSeconds()+1
-            let nextSecondDate = new Date(currentYear, currentMonth, currentDay, currentHour, currentMinute, nextSecond)
-            let timeDiff = currentDate.getTime() - currentSecondDate.getTime();
-            let secondTimeDiff = nextSecondDate.getTime() - currentSecondDate.getTime();
-            updateBar(timeDiff, secondTimeDiff, 6)
-        }
         function updateBar(value, total, id) {
             let width = (value * 100)/total
             let percentage = width + "%"
@@ -249,12 +174,100 @@
             document.getElementById("dateOutput1").innerHTML = date.getFullYear()
             document.getElementById("dateOutput2").innerHTML = months[date.getMonth()]
         }
-        setInterval(yearBar, 100)
-        setInterval(monthBar, 50)
-        setInterval(dayBar, 10);
-        setInterval(hourBar, 10);
-        setInterval(minuteBar, 10);
-        setInterval(secondBar, 10);
+        function updateBars() {
+            let date = new Date();
+            let currentYear = new Date(
+                                            date.getFullYear(), 0, 1, 0, 0, 0
+                                        )
+            let nextYear = new Date(
+                                            date.getFullYear() + 1, 0, 1, 0, 0, 0
+                                    )
+            let timeDiffYear = date.getTime() - currentYear.getTime();
+            let yearTimeDiff = nextYear.getTime() - currentYear.getTime();
+            updateBar(timeDiffYear, yearTimeDiff, 1)
+
+            let currentMonth = new Date(
+                                            date.getFullYear(),
+                                            date.getMonth()
+                                        )
+            let nextMonth = new Date(
+                                            date.getFullYear(),
+                                            date.getMonth() +1
+                                    )
+            let timeDiffMon = date.getTime() - currentMonth.getTime();
+            let monTimeDiff = nextMonth.getTime() - currentMonth.getTime();
+            updateBar(timeDiffMon, monTimeDiff, 2)
+
+            let currentDay = new Date(
+                                            date.getFullYear(),
+                                            date.getMonth(),
+                                            date.getDate()
+                                        )
+            let nextDay = new Date(
+                                            date.getFullYear(),
+                                            date.getMonth(),
+                                            date.getDate() + 1
+                                    )
+            let timeDiffDay = date.getTime() - currentDay.getTime();
+            let dayTimeDiff = nextDay.getTime() - currentDay.getTime();
+            updateBar(timeDiffDay, dayTimeDiff, 3)
+
+            let currentHour = new Date(
+                                            date.getFullYear(),
+                                            date.getMonth(),
+                                            date.getDate(), 
+                                            date.getHours() 
+                                        )
+            let nextHour = new Date(
+                                            date.getFullYear(),
+                                            date.getMonth(),
+                                            date.getDate(), 
+                                            date.getHours() + 1
+                                    )
+            let timeDiffHour = date.getTime() - currentHour.getTime();
+            let hourTimeDiff = nextHour.getTime() - currentHour.getTime();
+            updateBar(timeDiffHour, hourTimeDiff, 4)
+
+            let currentMinute = new Date(
+                                            date.getFullYear(),
+                                            date.getMonth(),
+                                            date.getDate(), 
+                                            date.getHours(), 
+                                            date.getMinutes()
+                                        )
+            let nextMinute = new Date(
+                                            date.getFullYear(),
+                                            date.getMonth(),
+                                            date.getDate(), 
+                                            date.getHours(), 
+                                            date.getMinutes() + 1
+                                    )
+            let timeDiffMin = date.getTime() - currentMinute.getTime();
+            let minuteTimeDiff = nextMinute.getTime() - currentMinute.getTime();
+            updateBar(timeDiffMin, minuteTimeDiff, 5)
+
+            let currentSecond = new Date(
+                                            date.getFullYear(),
+                                            date.getMonth(),
+                                            date.getDate(), 
+                                            date.getHours(), 
+                                            date.getMinutes(), 
+                                            date.getSeconds()
+                                        )
+            let nextSecond = new Date(
+                                            date.getFullYear(),
+                                            date.getMonth(),
+                                            date.getDate(), 
+                                            date.getHours(), 
+                                            date.getMinutes(), 
+                                            date.getSeconds()+1
+                                        )
+            let timeDiffSec = date.getTime() - currentSecond.getTime();
+            let secondTimeDiff = nextSecond.getTime() - currentSecond.getTime();
+            updateBar(timeDiffSec, secondTimeDiff, 6)
+        }
+        updateBars()
+        setInterval(updateBars, 10)
     </script>
 </body>
 </html>
