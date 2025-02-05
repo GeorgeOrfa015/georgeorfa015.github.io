@@ -2,101 +2,152 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Document</title>
     <meta content="#000000" data-react-helmet="true" name="theme-color" id="theme-color"/>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@300;900&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-        body{
-            background: #000;
-            color: #fff;
-            font-family: "Poppins";
-        }
         div{
-            background: #fff0;
+            border: 0px solid red;
+        }
+        body{
+            color: #fff;
+            background: #000;
         }
         #outerContainer{
             position: absolute;
             top: 0;
             left: 0;
-            height: calc(100% - 2vw);
             width: calc(100% - 2vw);
+            height: calc(100% - 2vw) ;
+            border: none;
             display: grid;
-            padding: 1vw;
             gap: 1vw;
-            grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+            padding: 1vw;
+            grid-template-columns: 1fr;
         }
         .module{
+            background: #222;
+            padding: 0.3vw 1vw 1vw 1vw;
+            border-radius: 1vw;
             display: grid;
-            gap: 0vw;
-            padding: 0.5vw;
-            grid-template-rows: 2fr 1fr;
-        }
-        .textCont{
-            color: #fff;
-            font-size: 2vw;
-            padding: 0;
-            text-align:center;
+            grid-template-rows: auto auto;
             height: fit-content;
+            text-align: center;
+            height: calc(100% - 1.65vw)
         }
-        .progressCont{
-            border-radius:0.5vw;
+        .moduleTextContainer{
+            align-self: center;
+        }
+        .moduleText{
+            font-size: 1.8vw;
+            font-family: poppins;
+        }
+        .output{
+            font-family: "Chivo Mono";
+        }
+        .moduleProgressBarContainer{
+            border-radius: 0.5vw;
             overflow: hidden;
             background: #111
         }
-        .progress{
+        .moduleProgress{
             height: 100%;
-            width: 50%;
-        }
-        .percentage{
-            font-family: "Chivo Mono"
         }
         #progress1{
-            background: #272f;
+            background: #0ca73d;
         }
         #progress2{
-            background: #272d;
+            background: #0B973C;
         }
         #progress3{
-            background: #272b;
+            background: #09853B;
         }
         #progress4{
-            background: #2729;
+            background: #07733A;
         }
         #progress5{
-            background: #2727;
+            background: #066039;
         }
         #progress6{
-            background: #2725;
+            background: #044D38;
+        }
+        .bold{
+            font-weight: 700;
+        }
+        @media(max-width: 600px){
+            #outerContainer{
+                gap: 1vw;
+            }
+            .module{
+                padding: 1.65vw 2vw 2vw 2vw;
+                border-radius: 3vw;
+                grid-template-rows: auto auto;
+                gap: 2vw;
+                height: calc(100% - 4.65vw);
+            }
+            .moduleText{
+                font-size: 5vw;
+            }
+            .moduleProgressBarContainer{
+                border-radius: 2vw;
+            }
+            .moduleTextContainer{
+                height: fit-content;
+            }
         }
     </style>
 </head>
 <body>
     <div id="outerContainer">
         <div class="module">
-            <div class="textCont">2024 is <span class="percentage" id="output1"></span> complete</div>
-            <div class="progressCont"><div class="progress" id="progress1"></div></div>
+            <div class="moduleTextContainer">
+                <span class="moduleText"><span class="bold" id="dateOutput1"></span> is <span class="output" id="output1"></span>% complete</span>
+            </div>
+            <div class="moduleProgressBarContainer">
+                <div class="moduleProgress" id="progress1"></div>
+            </div>
         </div>
         <div class="module">
-            <div class="textCont">September is <span class="percentage" id="output2"></span> complete</div>
-            <div class="progressCont"><div class="progress" id="progress2"></div></div>
+            <div class="moduleTextContainer">
+                <span class="moduleText"><span class="bold" id="dateOutput2"></span> is <span class="output" id="output2"></span>% complete</span>
+            </div>
+            <div class="moduleProgressBarContainer">
+                <div class="moduleProgress" id="progress2"></div>
+            </div>
         </div>
         <div class="module">
-            <div class="textCont">Today is <span class="percentage" id="output3"></span> complete</div>
-            <div class="progressCont"><div class="progress" id="progress3"></div></div>
+            <div class="moduleTextContainer">
+                <span class="moduleText"><span class="bold">This day</span> is <span class="output" id="output3"></span>% complete</span>
+            </div>
+            <div class="moduleProgressBarContainer">
+                <div class="moduleProgress" id="progress3"></div>
+            </div>
         </div>
         <div class="module">
-            <div class="textCont">This hour is <span class="percentage" id="output4"></span> complete</div>
-            <div class="progressCont"><div class="progress" id="progress4"></div></div>
+            <div class="moduleTextContainer">
+                <span class="moduleText"><span class="bold">This hour</span> is <span class="output" id="output4"></span>% complete</span>
+            </div>
+            <div class="moduleProgressBarContainer">
+                <div class="moduleProgress" id="progress4"></div>
+            </div>
         </div>
         <div class="module">
-            <div class="textCont">This minute is <span class="percentage" id="output5"></span> complete</div>
-            <div class="progressCont"><div class="progress" id="progress5"></div></div>
+            <div class="moduleTextContainer">
+                <span class="moduleText"><span class="bold">This minute</span> is <span class="output" id="output5"></span>% complete</span>
+            </div>
+            <div class="moduleProgressBarContainer">
+                <div class="moduleProgress" id="progress5"></div>
+            </div>
         </div>
         <div class="module">
-            <div class="textCont">This second is <span class="percentage" id="output6"></span> complete</div>
-            <div class="progressCont"><div class="progress" id="progress6"></div></div>
+            <div class="moduleTextContainer">
+                <span class="moduleText"><span class="bold">This second</span> is <span class="output" id="output6"></span>% complete</span>
+            </div>
+            <div class="moduleProgressBarContainer">
+                <div class="moduleProgress" id="progress6"></div>
+            </div>
         </div>
     </div>
     <script>
@@ -179,14 +230,31 @@
             let width = (value * 100)/total
             let percentage = width + "%"
             document.getElementById(`progress${id}`).style.width = percentage
-            document.getElementById("output"+id).innerHTML = (Math.floor(width * 1000) / 1000).toFixed(3) + "%"
+            document.getElementById("output"+id).innerHTML = (Math.floor(width * 1000) / 1000).toFixed(3)
+            let date = new Date()
+            let months = [
+                "January",
+                "February",
+                "March",
+                "April",
+                "May",
+                "June",
+                "July",
+                "August",
+                "September",
+                "October",
+                "November",
+                "December"
+            ]
+            document.getElementById("dateOutput1").innerHTML = date.getFullYear()
+            document.getElementById("dateOutput2").innerHTML = months[date.getMonth()]
         }
         setInterval(yearBar, 100)
         setInterval(monthBar, 50)
         setInterval(dayBar, 10);
         setInterval(hourBar, 10);
         setInterval(minuteBar, 10);
-        setInterval(secondBar, 1);
+        setInterval(secondBar, 10);
     </script>
 </body>
 </html>
