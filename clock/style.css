@@ -10,7 +10,7 @@ body{
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
-    font-size: 24vw;
+    font-size: 20vw;
     font-family: "Chivo Mono";
     font-weight: 900;
     
@@ -104,6 +104,9 @@ input:focus::placeholder{
     margin-left: 3.6vw;
 }
 #randomStatus{
+    margin-left: 6.5vw;
+}
+#secStatus{
     margin-left: 6.5vw;
 }
 .section{
