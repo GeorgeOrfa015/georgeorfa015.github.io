@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .outer-cont{
+            height: 3vw;
+            width: 100%;
+        }
+        #progress{
+            height: 100%;
+            background-color: #023;
+        }
+    </style>
+</head>
+<body>
+    <div class="outer-cont">
+        <div id="progress"></div>
+    </div>
+    <input type="datetime-local" id="input1">
+    <input type="datetime-local" id="input2">
+    <script>
+        function updateBar() {
+            let ct = new Date()
+            let bt = new Date(document.getElementById("input1").value)
+            let tt = new Date(document.getElementById("input2").value)
+            let v1 = ct - bt
+            let v2 = tt - bt
+            let percentage = v1 * 100 / v2
+            console.log(percentage)
+            document.getElementById("progress").style.width = percentage +"%"
+            if (percentage < 0) {
+                document.getElementById("progress").style.width = 0
+            }
+            if (percentage > 100) {
+                document.getElementById("progress").style.width = 100+"%"
+            }
+        }
+        setInterval(updateBar, 0)
+    </script>
+</body>
+</html>
