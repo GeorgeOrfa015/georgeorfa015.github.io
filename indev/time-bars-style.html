@@ -4,8 +4,220 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=1.0, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@300;900&display=swap');
+        body{
+            background-color: #000;
+            font-family: Poppins;
+        }
+        div{
+            border: 0px solid red;
+        }
+        .top-button{
+            padding: 0.15vw 0.4vw 0.15vw 0.4vw;
+            background-color: #0f7a3c;
+        }
+        button.top-button:hover{
+            background-color: #1b8b49;
+        }
+        .top-buttons{
+            margin-bottom: 0.75vw;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 0.75vw;
+        }
+        input.top-button{
+            width: calc(100% - 0.75vw);
+            background-color: #065427;
+        }
+        input.top-button::placeholder{
+            color: #61b08b;
+            mix-blend-mode: normal;
+        }
+        button{
+            background-color: #10813faa;
+            color: #fff;
+            border: none;
+            border-radius: 0.5vw;
+            font-size: 1.2vw;
+            font-family: inherit;
+            padding: 0vw;
+            transition: 0.2s background;
+            cursor: pointer;
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+        button:hover{
+            background: #189b4fdd;
+        }
+        input{
+            background-color: #04552755;
+            color: #a5f8d1;
+            border: none;
+            border-radius: 0.5vw;
+            width: 100%;
+            text-align: center;
+            font-size: 1.2vw;
+            font-family: inherit;
+            margin: 0;
+            padding: 0;
+            color-scheme: dark;
+            transition: 0.2s background;
+        }
+        input::placeholder{
+            mix-blend-mode:hard-light;
+            color: #ddd
+        }
+        input:focus{
+            outline: none;
+            background-color: #096d3488;
+        }
+        input[type=datetime-local]{
+            -webkit-min-logical-width: calc(100% - 1vw);
+        }
+        input[type=datetime-local]::placeholder{
+            background: #2b8561;
+        }
+        .outer-container{
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1.25vw;
+        }
+        .time-bar-outer-container{
+            padding: 0.75vw;
+            background: #222;
+            border-radius: 0.75vw;
+            height: fit-content;
+        }
+        .time-bar-inner-container{
+            margin-bottom: 0.75vw;
+            border-radius: 0.5vw;
+            overflow: hidden;
+            background: #111;
+        }
+        .progress{
+            height: 2.5vw;
+            background: #357EC7;
+            width: 60%; /* Percentage of completion */
+            color: #fff;
+            text-align: center;
+            padding-top: 0.1vw;
+            font-size: 1.5vw;
+            transition: width 0.5s, color 0.2s;
+        }
+        .controls-inner-container{
+            display: grid;
+            gap: 0.75vw;
+        }
+        .time-bar-outer-container.large{
+            grid-column: span 3;
+        }
+        .time-bar-outer-container.medium{
+            grid-column: span 2;
+        }
+        .time-bar-outer-container.small{
+            grid-column: span 1;
+        } 
+        .small>.controls-inner-container{
+            grid-template-columns: 0.5fr 3fr 1fr;
+        }
+        .medium>.controls-inner-container{
+            grid-template-columns: auto 3fr auto 3fr;
+            grid-template-rows: 1fr 1fr;
+        }
+        .large>.controls-inner-container{
+            grid-template-columns: auto 3fr auto 3fr 1fr;
+        }
+        .small> * >.show-settings{
+            grid-row: span 2;
+            order: 2;
+        }
+        .medium> * >.show-settings{
+            grid-column: span 4
+        }
+        .label-1{
+            order: 1;
+        }
+        .date-input-1{
+            order: 2;
+        }
+        .label-2{
+            order: 4;
+        }
+        .date-input-2{
+            order: 5;
+        }
+        .show-settings{
+            order: 6;
+        }
+        .label-1, .label-2{
+            color: #fff;
+            align-self: center;
+            font-size: 1.2vw
+        }
+        .medium > * > .label-2, .large > * > .label-2{
+            text-transform: lowercase;
+        }
+    </style>
 </head>
 <body>
-    
+    <div class="top-buttons">
+        <button class="top-button" onclick="newTimeBar()">New Timed Progress Bar</button>
+        <button class="top-button" id="export-code-button" onclick="exportCode()">Export Save Code</button>
+        <input type="text" class="top-button" placeholder="Enter your Save Code..." id="load-code-input">
+        <button class="top-button" onclick="loadCode()">Load Save Code</button>
+    </div>
+    <div class="outer-container">
+        <div class="time-bar-outer-container large">
+            <div class="time-bar-inner-container">
+                <div class="progress">60%</div>
+            </div>
+            <div class="controls-inner-container">
+                <span class="label-1">From</span>
+                <input class="date-input-1" type="datetime-local">
+                <span class="label-2">To</span>
+                <input class="date-input-2" type="datetime-local">
+                <button class="show-settings">Show Settings</button>
+            </div>
+        </div>
+        <div class="time-bar-outer-container medium">
+            <div class="time-bar-inner-container">
+                <div class="progress">60%</div>
+            </div>
+            <div class="controls-inner-container">
+                <span class="label-1">From</span>
+                <input class="date-input-1" type="datetime-local">
+                <span class="label-2">To</span>
+                <input class="date-input-2" type="datetime-local">
+                <button class="show-settings">Show Settings</button>
+            </div>
+        </div>
+        <div class="time-bar-outer-container small">
+            <div class="time-bar-inner-container">
+                <div class="progress">60%</div>
+            </div>
+            <div class="controls-inner-container">
+                <span class="label-1">From</span>
+                <input class="date-input-1" type="datetime-local">
+                <span class="label-2">To</span>
+                <input class="date-input-2" type="datetime-local">
+                <button class="show-settings">Show Settings</button>
+            </div>
+        </div>
+        <div class="time-bar-outer-container large">
+            <div class="time-bar-inner-container">
+                <div class="progress">60%</div>
+            </div>
+            <div class="controls-inner-container">
+                <span class="label-1">From</span>
+                <input class="date-input-1" type="datetime-local">
+                <span class="label-2">To</span>
+                <input class="date-input-2" type="datetime-local">
+                <button class="show-settings">Show Settings</button>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
