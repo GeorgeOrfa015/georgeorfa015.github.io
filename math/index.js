@@ -345,3 +345,33 @@ function calc5() {
         }
     }
 }
+function calc6() {
+    let input = document.getElementById("calc6in").value;
+    console.log(input)
+    let output = document.getElementById("calc6out");
+    factor = 2
+    let outputV = ""
+    if (input == "-") {
+        return 0
+    }
+    if (input!=0) {
+        while (input != 1) {
+            power = 0
+            while (input % factor == 0) {
+                input /= factor
+                power += 1
+            }
+            if (power > 0) {
+                if (power == 1) {
+                    outputV += factor + " × "
+                }else{
+                    outputV += factor + "<sup>" + power + "</sup> × "
+                }    
+            }
+            factor += 1
+        }
+        output.innerHTML = outputV.slice(0, -3)
+    }else{
+        output.innerHTML = ""
+    }
+}
