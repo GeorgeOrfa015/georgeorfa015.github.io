@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta content="G. Orfanides | Custom Timers" property="og:title" />
+    <meta content="Create your own countdowns or timers!" property="og:description" />
+    <meta content="https://georgeorfa015.github.io/timers/" property="og:url" />
+    <meta content="https://i.imgur.com/fv55MPW.png" property="og:image" />
+    <meta content="#000000" data-react-helmet="true" name="theme-color" id="theme-color"/>
+    <link rel="icon" href="../WebsiteLogo2.ico">
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Timers</title>
+</head>
+<body>
+    <div id="button-container">
+        <div id="button-inner-container-1">
+            <button class="top-buttons" onclick="newTimer()">New Timer</button>
+            <button class="top-buttons" onclick="exportCode()" id="export-code-button">Export Save Code</button>&nbsp;&nbsp;&nbsp;
+        </div>
+        <div id="button-inner-container-2">
+            <input id="load-code-input" placeholder="Enter your code...">
+            <button class="top-buttons" onclick="loadCode()">Load Save Code</button>
+        </div>
+    </div>
+    <div id="outer-container">
+        <!-- <div class="timer-outer-cont" id="TOC0">
+            <div class="time-inner-cont" id="TIC0">
+                <span class="time" id="out0"> 365 Days 23h 59m 59m</span>
+            </div>
+            <div class="settings-inner-cont" id="SIC0">
+                <input id="year0" type="text" placeholder="Year" value="2024">
+                <input id="month0" type="text" placeholder="Month" value="3">
+                <input id="day0" type="text" placeholder="Day" value="16">
+                <input id="hour0" type="text" placeholder="Hour" value="0">
+                <input id="minute0" type="text" placeholder="Minute" value="10">
+                <button class="settings delete" onclick="delTimer(0)">&#x2715;</button>
+            </div>
+        </div> -->
+    </div>
+    <script src="index.js"></script>
+</body>
+</html>

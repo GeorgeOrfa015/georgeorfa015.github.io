@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="G. Orfanides | News Page" property="og:title" />
+    <meta content="News about the webpage." property="og:description" />
+    <meta content="http://georgeorfa015.github.io/news.html" property="og:url" />
+    <meta content="https://i.imgur.com/fv55MPW.png" property="og:image" />
+    <meta content="#090f0c" data-react-helmet="true" name="theme-color" id="theme-color"/>
+    <link rel="icon" href="WebsiteLogo2.ico">
+    <title>News</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        body{
+            background: #000000;
+            font-family: poppins;
+            color: #fff;
+            margin: 0vw 2vw 2vw 2vw;
+        }
+        #outer-container{
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5vw;
+        }
+        .topMessage{
+            display: grid;
+            grid-template-columns: 1fr;
+            margin-bottom: 1.75vw;
+        }
+        .title{
+            font-size: 5vw;
+            font-weight: 700;
+        }
+        .backButton{
+            font-size: 1.75vw;
+            width: 100%;
+        }
+        a.backButton{
+            font-size: 1.75vw;
+            text-decoration: #222 underline;
+            color: #fff;
+            transition: 0.3s text-decoration;
+        }
+        a.backButton:hover{
+            text-decoration: #aaa underline;
+        }
+        .article-outer-container{
+            background: #222;
+            border-radius: 1vw;
+            overflow: hidden;
+        }
+        .article-date{
+            font-size: 2vw;
+            padding: 0.6vw 1vw;
+            font-weight: 600;
+        }
+        .article{
+            background: #111;
+            font-size: 1.4vw;
+            padding: 0.5vw 0.8vw;
+        }
+        .article-commit-cont{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            width: 100%
+        }
+        .article-commit{
+            font-size: 0.9vw;
+            color: #aaa;
+            text-align: left;
+            align-self: center;
+            width: fit-content
+        }
+        a.article-commit{
+            text-decoration: #444 underline;
+        }
+        a.article-commit:hover{
+            text-decoration: #777 underline;
+        }
+        a.news{
+            color: #54df8e;
+            transition: 0.1s color;
+            text-decoration:underline;
+            text-decoration-color: #065629;
+        }
+        a.news:hover{
+            color: #85f6b4;
+            text-decoration-color: #0b7338;
+        }
+        .item-right{
+            text-align: right;
+            width: 100%;
+        }
+        .commit-sha{
+            font-family: 'Courier New'
+        }
+        @media(max-width:600px){
+            body{
+                margin: 4vw;
+            }
+            #outer-container{
+                gap: 4vw;
+            }
+            .title{
+                font-size: 6.9vw;
+                text-align: center;
+            }
+            .backButton{
+                font-size: 5vw;
+                text-align: center;
+            }
+            a.backButton{
+                font-size: 5vw;
+            }
+            .article-date{
+                font-size: 6vw;
+                text-align: center;
+                padding: 2.5vw 4vw;
+            }
+            .article{
+                font-size: 3.75vw;
+                padding: 2vw 3vw;
+                line-height: 5vw;
+                text-align: justify;
+                text-justify: distribute;
+            }
+            .article-outer-container{
+                border-radius: 3vw;
+            }
+            .article-commit{
+                font-size: 2.75vw;
+                width: 100%;
+                line-height: 4vw;
+                text-align: left;
+            }
+            .article-commit-cont{
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="topMessage">
+        <span class="title">Latest News</span>
+        <span class="backButton">&lt; <a class="backButton" href="../">Back to Home Page</a></span>
+    </div>
+    <div id="outer-container">
+        <!-- <div class="article-outer-container" id="">
+            <div class="article-date">
+
+            </div>
+            <div class="article">
+                <div class="article-text">
+
+                </div>
+                <div class="article-commit-cont">
+                    <span class="article-commit">
+                        <a class="article-commit" href=""></a> on 
+                        <a class="article-commit" href=""></a>
+                    </span>
+                    <span class="article-commit item-right commit-sha">, </span>
+                </div>
+            </div>
+        </div> -->
+        <div class="article-outer-container" id="12">
+            <div class="article-date">
+                Wednesday, February 5, 2025
+            </div>
+            <div class="article">
+                <div class="article-text">
+                    Added a new project, <a class="news">Year Progress</a>, which shows what percentage of the current Year, Month, Day, Hour, Minute and Second has passed.
+                </div>
+                <div class="article-commit-cont">
+                    <span class="article-commit">
+                        <a class="article-commit" href="https://github.com/GeorgeOrfa015/georgeorfa015.github.io/commit/47b607398dcfbb2fb225503760098a23d9b6611f">Commit 5 on year-progress</a> on
+                        <a class="article-commit" href="https://github.com/GeorgeOrfa015/georgeorfa015.github.io/commit/93e5a0a25be781e69ae7d991410191d69e104b00">Pull Request #13 by GeorgeOrfa015</a>
+                    </span>
+                    <span class="article-commit item-right commit-sha">47b6073, 93e5a0a</span>
+                </div>
+            </div>
+        </div>
+        <div class="article-outer-container" id="11">
+            <div class="article-date">
+                Tuesday, February 4, 2025
+            </div>
+            <div class="article">
+                <div class="article-text">
+                    Created a custom <a href="404.html" class="news">404 Page</a> for the website, which appears whenever an incorrect link is entered into the URL bar.
+                </div>
+                <div class="article-commit-cont">
+                    <span class="article-commit">
+                        <a class="article-commit" href="https://github.com/GeorgeOrfa015/georgeorfa015.github.io/commit/d39b9b6619298ec1559c4ff06a71589f38710285">Commit 1 on 404-page</a> on
+                        <a class="article-commit" href="https://github.com/GeorgeOrfa015/georgeorfa015.github.io/commit/0784fa3bb3c45eb104434d268783cfa95990dd12">Pull Request #12 by GeorgeOrfa015</a>
+                    </span>
+                    <span class="article-commit item-right commit-sha">d39b9b6, 0784fa3</span>
+                </div>
+            </div>
+        </div>
+        <div class="article-outer-container" id="10">
+            <div class="article-date">
+                Friday, December 13, 2024
+            </div>
+            <div class="article">
+                <div class="article-text">
+                    Added a <a href="news.html" class="news">News Page</a>, which contains all news articles from the past with some additional information for each update. You can go there by clicking "See More..." on this also updated news section!
+                </div>
+                <div class="article-commit-cont">
+                    <span class="article-commit">
+                        <a class="article-commit" href="https://github.com/GeorgeOrfa015/georgeorfa015.github.io/commit/2d6bd09d3cc72a51f737f92874afe0052f61b4ea">Commit 4 on news</a> on 
+                        <a class="article-commit" href="https://github.com/GeorgeOrfa015/georgeorfa015.github.io/commit/e2b67829b11f19f9cc4f280f42baaa6409c32126">Pull Request #11 by GeorgeOrfa015</a>
+                    </span>
+                    <span class="article-commit item-right commit-sha">2d6bd09, e2b6782</span>
+                </div>
+            </div>
+        </div>
+        <div class="article-outer-container" id="9">
+            <div class="article-date">
+                Sunday, December 8, 2024
+            </div>
+            <div class="article">
+                <div class="article-text">
+                    Added small modules for simple math equations in <a class="news">Math Tools</a>. Due to Point Precision Error, decimals are not allowed into any of these modules.
+                </div>
+                <div class="article-commit-cont">
+                    <span class="article-commit">
+                        <a class="article-commit" href="https://github.com/GeorgeOrfa015/georgeorfa015.github.io/commit/abb32ac2fc2d0c34670bd36fd4cd7ca985be2cb7">Commit 5 on simple-math-implementation</a> on 
+                        <a class="article-commit" href="https://github.com/GeorgeOrfa015/georgeorfa015.github.io/commit/82bfeb365f7a52751103f932ffde40664164d7db">Pull Request #10 by GeorgeOrfa015</a>
+                    </span>
+                    <span class="article-commit item-right commit-sha">abb32ac, 82bfeb3</span>
+                </div>
+            </div>
+        </div>
+        <div class="article-outer-container" id="8">
+            <div class="article-date">
+                Sunday, December 8, 2024
+            </div>
+            <div class="article">
+                <div class="article-text">
+                    <a class="news" href="clock">Wall Clock</a> now has a toggle to display seconds, implemented by <a class="news" href="https://github.com/xdn3">xdn3</a>, which has also been added to the contributors section.
+                </div>
+                <div class="article-commit-cont">
+                    <span class="article-commit">
+                        <a class="article-commit" href="https://github.com/GeorgeOrfa015/georgeorfa015.github.io/commit/8a30b1713674230fefa63d9d303fc0d149b95348">Commit 5 on clock_seconds</a> on 
+                        <a class="article-commit" href="https://github.com/GeorgeOrfa015/georgeorfa015.github.io/commit/8db6e173d92d68245970b2f87ff646c717c8394c">Pull Request #9 by xdn3</a>
+                    </span>
+                    <span class="article-commit item-right commit-sha">8a30b17, 8db6e17</span>
+                </div>
+            </div>
+        </div>
+        <div class="article-outer-container" id="7">
+            <div class="article-date">
+                Sunday, December 8, 2024
+            </div>
+            <div class="article">
+                <div class="article-text">
+                    <a href="timers/" class="news">Custom Timers</a> has had a visual refresh! You can now customize each timer individually, and the date selection inputs have been replaced with a better date selector. Old codes will work for this one!
+                </div>
+                <div class="article-commit-cont">
+                    <span class="article-commit">
+                        <a class="article-commit" href="https://github.com/GeorgeOrfa015/georgeorfa015.github.io/commit/9e6fcad743f78fa889b3009fc262065f0be3b2cb">Commit 4 on timers-visual-refresh</a> on 
+                        <a class="article-commit" href="https://github.com/GeorgeOrfa015/georgeorfa015.github.io/commit/06e9cadbeec7dc332f04553451834473a9679e36">Pull Request #8 by GeorgeOrfa015</a>
+                    </span>
+                    <span class="article-commit item-right commit-sha">9e6fcad, 06e9cad</span>
+                </div>
+            </div>
+        </div>
+        <div class="article-outer-container" id="6">
+            <div class="article-date">
+                Friday, November 15, 2024
+            </div>
+            <div class="article">
+                <div class="article-text">
+                    Added a new project: <a href="voltage-drop/" class="news">Cable Voltage Drop</a>! It's a calculator designed for finding out what is the voltage drop of a cable of set length and cross-sectional area when Current is flowing through. It also calculates other useful metrics for that cable, like the efficiency and resistance of the wire.
+                </div>
+                <div class="article-commit-cont">
+                    <span class="article-commit">
+                        <a class="article-commit" href="https://github.com/GeorgeOrfa015/georgeorfa015.github.io/commit/2a5e042bdd00955091e120bc6335010f90751624">Commit 3 on electric-cable-voltage-drop</a> on 
+                        <a class="article-commit" href="https://github.com/GeorgeOrfa015/georgeorfa015.github.io/commit/0684f164076ce7781666175b94f799566ff52bb1">Pull Request #7 by GeorgeOrfa015</a>
+                    </span>
+                    <span class="article-commit item-right commit-sha">2a5e042, 0684f16</span>
+                </div>
+            </div>
+        </div>
+        <div class="article-outer-container" id="5">
+            <div class="article-date">
+                Tuesday, October 8, 2024
+            </div>
+            <div class="article">
+                <div class="article-text">
+                    Replaced the random letter module in <a class="news">Random Generators</a> with a random string generator.
+                </div>
+                <div class="article-commit-cont">
+                    <a class="article-commit" href="https://github.com/GeorgeOrfa015/georgeorfa015.github.io/commit/2492a0fb43dcb2dac89095239214f7d3d799c969">Commit 160</a>
+                    <span class="commit-sha item-right article-commit">2492a0f</span>
+                </div>
+            </div>
+        </div>
+        <div class="article-outer-container" id="4">
+            <div class="article-date">
+                Friday, July 19, 2024
+            </div>
+            <div class="article">
+                <div class="article-text">
+                    Overhauled the button game by rewriting all of the code for it. Introduced a new upgrade, a new and imporved UI, and patched an exploit.
+                </div>
+                <div class="article-commit-cont">
+                    <a class="article-commit" href="https://github.com/GeorgeOrfa015/georgeorfa015.github.io/commit/405cd7afc4b4a4c6e47cfffd28f42942dbb224ca">Commit 146</a>
+                    <span class="commit-sha item-right article-commit">405cd7a</span>
+                </div>
+            </div>
+        </div>
+        <div class="article-outer-container" id="3">
+            <div class="article-date">
+                Saturday, July 12, 2024
+            </div>
+            <div class="article">
+                <div class="article-text">
+                    Added a "Max upgrade" button in "Chase the button" for easier upgrading in later stages.
+                </div>
+                <div class="article-commit-cont">
+                    <a class="article-commit" href="https://github.com/GeorgeOrfa015/georgeorfa015.github.io/commit/bb9a373e0043ff8f5aaeb5fb2429298461a13cfe">Commit 142</a>
+                    <span class="commit-sha item-right article-commit">bb9a373</span>
+                </div>
+            </div>
+        </div>
+        <div class="article-outer-container" id="2">
+            <div class="article-date">
+                Thursday, July 4, 2024
+            </div>
+            <div class="article">
+                <div class="article-text">
+                    Added a new "in development" link in the home page for all the hidden pages under /indev/, and added a calculator for the sum of a progression on Math tools.
+                </div>
+                <div class="article-commit-cont">
+                    <a class="article-commit" href="https://github.com/GeorgeOrfa015/georgeorfa015.github.io/commit/18540e388642d2bf675648d478dea82ca74f3497">Commit 141</a>
+                    <span class="commit-sha item-right article-commit">18540e3</span>
+                </div>
+            </div>
+        </div>
+        <div class="article-outer-container" id="1">
+            <div class="article-date">
+                Friday, June 21, 2024
+            </div>
+            <div class="article">
+                <div class="article-text">
+                    Overhauled the home page! It now includes the latest news and an "About me" section, project descriptions, and a loading animation.
+                </div>
+                <div class="article-commit-cont">
+                    <a class="article-commit" href="https://github.com/GeorgeOrfa015/georgeorfa015.github.io/commit/652c05df87b6a672d05ed88fc6edb186ff1795a6">Commit 134</a>
+                    <span class="commit-sha item-right article-commit">652c05d</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -53,27 +53,27 @@
             font-size: 8.4vw;
             font-weight: 600;
         }
-        #aboutMe, #latestNews, #contactMe{
+        #aboutMe, #contactMe{
             display: grid;
             grid-template-columns: 1fr 4fr;
             margin: 0 2vw 0 2vw;
-            background-color: #0d0d0d;
+            background-color: #111;
             border-radius: 1vw;
             overflow: hidden;
             transform: translateY(1vh);
             opacity: 0;
         }
-        #aboutMeTitle, #latestNewsTitle, #contactMeTitle{
+        #aboutMeTitle, #contactMeTitle{
             font-size: 2.4vw;
             text-align: center;
             font-weight: 600;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            background: #151515;
+            background: #222;
             padding: 0.75vw;
         }
-        #aboutMeText, #latestNewsText, #contactMeText{
+        #aboutMeText, #contactMeText{
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -144,18 +144,20 @@
             display: grid;
             grid-template-columns: 1fr;
             overflow: hidden;
+            height: fit-content;
         }
         .contributorTitle{
             font-size: 1.8vw;
             font-weight: 600;
             padding: 0.75vw;
-            background: #056c30
+            background: #056c30;
+            height: fit-content;
         }
         .contributorDescription{
             font-size: 1.4vw;
             padding: 0.75vw;
             font-weight: 300;
-            background:#045827
+            background:#045827;
         }
         a.contributor-url, a.email, a.news{
             color: #54df8e;
@@ -167,6 +169,79 @@
             color: #85f6b4;
             text-decoration-color: #0b7338;
         }
+        #latestNews{
+            background: #111;
+            opacity: 0;
+            transform: translateY(1vh);
+            margin: 0 2vw;
+            border-radius: 1vw;
+            overflow: hidden
+        }
+        #latestNewsHeader{
+            font-size: 2.4vw;
+            font-weight: 600;
+            background: #222;
+            padding: 0.75vw 1.5vw;
+        }
+        #article{
+            padding: 0.75vw 1.5vw;
+            display: grid;
+            grid-template-columns: 1fr;
+            padding-bottom: 0;
+        }
+        .title{
+            font-size: 1.8vw;
+            font-weight: 500;
+        }
+        .articleText{
+            font-size: 1.5vw;
+            font-weight: 300;
+        }
+        #additionalInfo{
+            border-radius: 1.5vw;
+            display: grid;
+            grid-template-columns: 4fr 1fr;
+            padding: 1vw;
+            padding-left: 1.5vw;
+        }
+        #seeMoreText{
+            text-align: center;
+            padding: 0.75vw 2vw;
+            background: #333;
+            border-radius: 0.75vw;
+            font-size: 1.25vw;
+            transition: 0.2s background;
+            cursor: pointer;
+        }
+        #seeMoreText:hover{
+            background: #444
+        }
+        #commitInfo{
+            display: grid;
+            grid-template-columns: 1fr;
+            color: #aaa;
+            font-size: 1vw;
+            align-content: center;
+            width: fit-content;
+        }
+        #commit{
+            color: #aaa;
+        }
+        a#commit{
+            text-decoration: #444 underline;
+        }
+        a#commit:hover{
+            text-decoration: #777 underline;
+        }
+        #pullRequest{
+            color: #aaa;
+        }
+        a#pullRequest{
+            text-decoration: #444 underline;
+        }
+        a#pullRequest:hover{
+            text-decoration: #777 underline;
+        }
         @media(max-width:700px) {
             #outer-container{
                 gap: 6vw;
@@ -174,17 +249,17 @@
             #topMessage{
                 text-align: center;
             }
-            #aboutMe, #latestNews, #contactMe{
+            #aboutMe, #contactMe{
                 grid-template-columns: 1fr;
                 margin: 0 4vw 0 4vw;
                 border-radius: 2vw;
             }
-            #aboutMeTitle, #latestNewsTitle, #contactMeTitle{
+            #aboutMeTitle, #contactMeTitle{
                 font-size: 8vw;
                 padding: 1vw;
             }
-            #aboutMeText, #latestNewsText, #contactMeText{
-                font-size: 5.5vw;
+            #aboutMeText, #contactMeText{
+                font-size: 3.5vw;
                 padding: 2vw;
             }
             #projects{
@@ -240,6 +315,66 @@
                 padding: 3vw;
                 line-height: 5.5vw;
             }
+            #latestNews{
+                margin: 0vw 4vw;
+                border-radius: 2vw;
+            }
+            #latestNewsHeader{
+                font-size: 7vw;
+                text-align: center;
+                padding: 1.25vw;
+            }
+            .title{
+                font-size: 6vw;
+                text-align: center;
+            }
+            .articleText{
+                font-size: 3.5vw;
+                line-height: 5.5vw;
+                padding: 2vw;
+                padding-bottom: 0;
+                padding-top: 0;
+                text-align: justify;
+                text-justify: distribute;
+                word-spacing: -0.4vw;
+            }
+            #additionalInfo{
+                grid-template-columns: 1fr;
+                padding-top: 0;
+            }
+            #commitInfo{
+                text-align: center;
+                width: calc(100% - 4vw);
+                font-size: 2.75vw;
+                padding: 2vw;
+                padding-top: 0;
+                padding-bottom: 0;
+                text-decoration: underline;
+            }
+            #commit{
+            color: #aaa;
+            }
+            a#commit{
+                text-decoration: #444 underline;
+            }
+            a#commit:hover{
+                text-decoration: #777 underline;
+            }
+            #pullRequest{
+                color: #aaa;
+            }
+            a#pullRequest{
+                text-decoration: #444 underline;
+            }
+            a#pullRequest:hover{
+                text-decoration: #777 underline;
+            }
+            #seeMoreText{
+                padding: 1.75vw;
+                border-radius: 1.75vw;
+                font-size: 3.75vw;
+                margin: 2vw;
+            }
         }
     </style>
 </head>
@@ -249,7 +384,21 @@
             <div id="topMessageText">Welcome to the website of <br><span id="topMessageTextName">George Orfanides</b></span></div>
         </div>
         <div id="latestNews">
-            <div id="latestNewsTitle">Latest news</div><div id="latestNewsText"><span><b>Friday, November 15, 2024</b> - Added a new project: <a href="voltage-drop/" class="news">Cable Voltage Drop</a>! It's a calculator designed for finding out what is the voltage drop of a cable of set length and cross-sectional area when Current is flowing through. It also calculates other useful metrics for that cable, like the efficiency and resistance of the wire.</span></div>
+            <div id="latestNewsHeader">Latest News</div>
+            <div id="article">
+                <span class="title">
+                    Wednesday, February 5, 2025
+                </span>
+                <span class="articleText">
+                    Added a new project, <a class="news">Year Progress</a>, which shows what percentage of the current Year, Month, Day, Hour, Minute and Second has passed.
+                </span>
+            </div>
+            <div id="additionalInfo">
+                <div id="commitInfo">
+                    <a id="commit" href="https://github.com/GeorgeOrfa015/georgeorfa015.github.io/commit/47b607398dcfbb2fb225503760098a23d9b6611f">Commit 5 on year-progress</a>
+                    <a id="pullRequest" href="https://github.com/GeorgeOrfa015/georgeorfa015.github.io/commit/93e5a0a25be781e69ae7d991410191d69e104b00">Pull Request #13 by GeorgeOrfa015</a>
+                </div>
+            <a id="seeMoreText" href="news.html">See More...</a></div>
         </div>
         <div id="projects">
             <div class="projectsTitle">Projects</div>
@@ -293,6 +442,10 @@
                     <span class="projectTitle">Custom Digital Clock</span><br>
                     <span class="projectDescription">A time display with multiple customization options.</span>
                 </div></a>
+                <a href="year-progress/"><div class="project">
+                    <span class="projectTitle">Year Progress</span><br>
+                    <span class="projectDescription">See what percentage of the year has passed.</span>
+                </div></a>
             </div>
             <div class="projectsSubtitle" id="ps4">Fun and Games</div>
             <div class="projectsCont" id="pc4">
@@ -319,9 +472,17 @@
                 <div class="contributor">
                     <div class="contributorTitle">Jacey Li</div>
                     <div class="contributorDescription">
+                        Github Profile: <a class="contributor-url" href="https://github.com/gimpysploosh">gimpysploosh</a><br>
                         Website:<br>
                         <a class="contributor-url" href="https://gimpysploosh.github.io/thing">https://gimpysploosh.github.io/thing</a><br>
                         Helped with creating the Least Common Multiplier script in "Math Tools".
+                    </div>
+                </div>
+                <div class="contributor">
+                    <div class="contributorTitle">Giannis Ioannidis</div>
+                    <div class="contributorDescription">
+                        Github Profile: <a class="contributor-url" href="https://">xdn3</a><br>
+                        Added the "Show seconds" option in "Wall Clock" <br><br>&nbsp;
                     </div>
                 </div>
             </div>
@@ -335,7 +496,7 @@
         <div></div>
     </div>
     <script>
-        let delay = 200
+        let delay = 100
         let duration = 1;
         function animation1() {
             let item = document.getElementById("topMessageText");
