@@ -6,6 +6,7 @@
     <title>Document</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
         body{
             font-family: "Manrope";
         }
@@ -13,6 +14,7 @@
             background-color: #fff0;
             display: grid;
             grid-template-columns: 1fr 1fr 1fr 1fr;
+            grid-template-rows: auto auto 1fr;
             gap: 1em;
             padding: 0.5em;
         }
@@ -32,6 +34,7 @@
             padding: 0.5em;
             width: calc(100% - 1em);
             height: 1em;
+            transition: 0.2s background;
         }
         select{
             border-radius: 0.5em;
@@ -40,13 +43,28 @@
             padding: 0.5em;
             width: 100%;
             height: 2em;
+            transition: 0.2s background;
         }
-        input, select{
+        button{
+            border-radius: 0.5em;
+            border: 0px;
+            font-size: 1.5em;
+            padding: 0.5em;
+            width: 100%;
+            height: 100%;
+            transition: 0.2s background;
+        }
+        button:hover{
+            cursor: pointer;
+            background: #638def
+        }
+        input, select, button{
             background: #4d7be7;
             color: #fff;
         }
         input:focus, select:focus{
             outline: none;
+            background: #638def
         }
         input::placeholder{
             color: #96b2f1
@@ -79,10 +97,22 @@
             background-color: #ddd;
             border-radius: 1em;
             grid-column: span 3;
+            grid-row: span 2;
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
             gap: 0.75em;
             height: fit-content;
+        }
+        .infoBack{
+            padding: 1em;
+            background-color: #ddd;
+            border-radius: 1em;
+            grid-column: span 1;
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: 4fr 1fr;
+            gap: 0.75em;
+            height: calc(100% - 2em);
         }
         .section-title{
             font-size: 2em;
@@ -118,6 +148,14 @@
         }
         #outputsHeader{
             grid-column: span 3;
+        }
+        #credits{
+            text-align: center;
+            font-size: 0.8em;
+            color: #888;
+        }
+        a{
+            color: #888;
         }
         @media(max-width:700px){
             #outer-container{
@@ -178,11 +216,11 @@
             </div>
             <div class="input">
                 <span class="label">Voltage - V (V)</span>
-                <input type="number" id="V" oninput="calculate()" value="12">
+                <input type="number" id="V" oninput="calculate()">
             </div>
             <div class="input">
                 <span class="label">Distance - S (m)</span>
-                <input type="number" id="S" oninput="calculate()" value="50">
+                <input type="number" id="S" oninput="calculate()">
             </div>
             <div class="input">
                 <span class="label">Number of Parallels - N</span>
@@ -197,7 +235,7 @@
             <span id="OR"><s>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</s> OR <s>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</s></span>
             <div class="input">
                 <span class="label">Voltage Drop - Dv (V)</span>
-                <input type="number" id="Dv" oninput="inputDv()" value="0.3357">
+                <input type="number" id="Dv" oninput="inputDv()">
             </div>
         </div>
         <div class="outputs">
@@ -232,6 +270,10 @@
                 <span class="output-value"><span id="ROut"></span> Ω</span>
                 <span class="output-comment">from the cable</span>
             </div>
+        </div>
+        <div class="infoBack">
+            <a href="https://curie-osity.my.canva.site/blue-eel-ectrics"><button>Back to homepage</button></a>
+            <span id="credits">Made by <a href="https://georgeorfa015.github.io/">George Orfanides</a></span>
         </div>
     </div>
     <script>
