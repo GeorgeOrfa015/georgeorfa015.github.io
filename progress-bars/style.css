@@ -30,13 +30,14 @@ div{
     text-align: center;
     color: #fff;
     background-color: #0c6531;
-    transition: 0.2s width;
-    font-size: 1.2vw
+    transition: 0.5s width ease;
+    font-size: 1.2vw;
+    width: 0%;
 }
 .settings-inner-cont{
     display: grid;
     gap: 0.75vw;
-    grid-template-columns: 1.5fr 1.5fr 1.5fr 1fr 1fr 7fr 3fr;
+    grid-template-columns: 1.5fr 1.5fr 1.5fr 7fr 1fr 1fr 3fr;
 }
 input{
     background-color: #05421f;
@@ -66,7 +67,7 @@ input::placeholder{
     text-align: center;
     align-self: center;
     color: #fff;
-
+    order: 2;
 }
 .bar-name{
     background: none;
@@ -75,6 +76,7 @@ input::placeholder{
     text-align: left;
     color: #fff;
     font-size: 1.1vw;
+    order: 4;
 }
 .bar-name:focus{
     background: #333;
@@ -101,8 +103,14 @@ button:hover{
 .step-input{
     width: 100%;
 }
-.add-remove-button{
+.add-button, .remove-button{
     width: 100%;
+}
+.remove-button{
+    order: 5;
+}
+.add-button{
+    order: 6;
 }
 .delete-button{
     background: #ad3d3d;
@@ -111,12 +119,13 @@ button:hover{
     background: #d05555;
 }
 .settings-hidden-inner-cont{
-    display: grid;
+    display: none;
     gap: 0.75vw;
     grid-template-columns: 5fr 1fr 1fr;
 }
 .settings-button{
     font-size: 1.35vw;
+    order: 8;
 }
 .top-button{
     padding: 0.15vw 0.4vw 0.15vw 0.4vw;
@@ -155,6 +164,18 @@ input.top-button::placeholder{
     display: flex;
     flex-direction: row;
     margin-bottom: 0.5vw;
+}
+#group2{
+    display: none;
+}
+#group3{
+    display: none;
+}
+.input1{
+    order: 1;
+}
+.input2{
+    order: 3;
 }
 @media(max-width: 600px) {
     .divider{
@@ -201,6 +222,7 @@ input.top-button::placeholder{
         grid-column-end: 4;
         font-size: 4vw;
         text-align: left;
+        order: 7;
     }
     .bar-name::placeholder{
         color: #888;
@@ -216,7 +238,7 @@ input.top-button::placeholder{
     .step-input{
         width: 100%;
     }
-    .add-remove-button{
+    .add-button, .remove-button{
         height: 6vw;
         width: 100%;
         font-size: 4vw;

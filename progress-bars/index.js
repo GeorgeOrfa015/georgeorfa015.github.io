@@ -10,7 +10,7 @@ function save() {
         savePart+=bars[i].childNodes[3].innerHTML+"/:/" // group
         savePart+=bars[i].childNodes[1].childNodes[0].value+"/:/" // value
         savePart+=bars[i].childNodes[1].childNodes[2].value+"/:/" // out of
-        savePart+=bars[i].childNodes[1].childNodes[5].value+"/:/" // description
+        savePart+=bars[i].childNodes[1].childNodes[3].value+"/:/" // description
         savePart+=bars[i].childNodes[2].childNodes[0].value+"/:/" // color
         savePart+=bars[i].childNodes[2].childNodes[1].value+"/:/" // step
         saveCode+=savePart+"/;/";
@@ -181,7 +181,7 @@ function newBar(groupID) {
 
     // bar-outer-cont > settings-inner-cont > input#in1_id
     let inputIn1 = document.createElement("input");
-    inputIn1.className="number-input";
+    inputIn1.className="number-input input1";
     inputIn1.id="in1_"+barID;
     inputIn1.placeholder="0";
     inputIn1.setAttribute("oninput", `updateBar(${barID})`);
@@ -194,21 +194,21 @@ function newBar(groupID) {
 
     // bar-outer-cont > settings-inner-cont > input#in2_id
     let inputIn2 = document.createElement("input");
-    inputIn2.className="number-input";
+    inputIn2.className="number-input input2";
     inputIn2.id="in2_"+barID;
     inputIn2.placeholder="100";
     inputIn2.setAttribute("oninput", `updateBar(${barID})`);
 
     // bar-outer-cont > settings-inner-cont > button.f(remProg(id))
     let remButton = document.createElement("button");
-    remButton.className="add-remove-button";
+    remButton.className="remove-button";
     remButton.id="RB"+barID;
     remButton.setAttribute("onclick", `remProg(${barID})`);
     remButton.innerHTML="-"
 
     // bar-outer-cont > settings-inner-cont > button.f(addProg(id))
     let addButton = document.createElement("button");
-    addButton.className="add-remove-button";
+    addButton.className="add-button";
     addButton.id="AB"+barID;
     addButton.setAttribute("onclick", `addProg(${barID})`);
     addButton.innerHTML="+"
@@ -267,9 +267,9 @@ function newBar(groupID) {
     settingsInnerCont.appendChild(inputIn1);
     settingsInnerCont.appendChild(outOfText);
     settingsInnerCont.appendChild(inputIn2);
+    settingsInnerCont.appendChild(barName);
     settingsInnerCont.appendChild(remButton);
     settingsInnerCont.appendChild(addButton);
-    settingsInnerCont.appendChild(barName);
     settingsInnerCont.appendChild(settingsButton);
     barOuterCont.appendChild(settingsHiddenInnerCont);
     settingsHiddenInnerCont.appendChild(colorInput);
