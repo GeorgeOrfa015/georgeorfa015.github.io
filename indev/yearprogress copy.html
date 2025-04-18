@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <meta content="#000000" data-react-helmet="true" name="theme-color" id="theme-color"/>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@300;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        body{
+            background: #000;
+            color: #fff;
+            font-family: "Poppins";
+        }
+        div{
+            background: #fff0;
+        }
+        #outerContainer{
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: calc(100% - 2vw);
+            width: calc(100% - 2vw);
+            display: grid;
+            padding: 1vw;
+            gap: 1vw;
+            grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+        }
+        .module{
+            display: grid;
+            gap: 0vw;
+            padding: 0.5vw;
+            grid-template-rows: 2fr 1fr;
+        }
+        .textCont{
+            color: #fff;
+            font-size: 2vw;
+            padding: 0;
+            text-align:center;
+            height: fit-content;
+        }
+        .progressCont{
+            border-radius:0.5vw;
+            overflow: hidden;
+            background: #111
+        }
+        .progress{
+            height: 100%;
+            width: 50%;
+        }
+        .percentage{
+            font-family: "Chivo Mono"
+        }
+        #progress1{
+            background: #272f;
+        }
+        #progress2{
+            background: #272d;
+        }
+        #progress3{
+            background: #272b;
+        }
+        #progress4{
+            background: #2729;
+        }
+        #progress5{
+            background: #2727;
+        }
+        #progress6{
+            background: #2725;
+        }
+    </style>
+</head>
+<body>
+    <div id="outerContainer">
+        <div class="module">
+            <div class="textCont">2024 is <span class="percentage" id="output1"></span> complete</div>
+            <div class="progressCont"><div class="progress" id="progress1"></div></div>
+        </div>
+        <div class="module">
+            <div class="textCont">September is <span class="percentage" id="output2"></span> complete</div>
+            <div class="progressCont"><div class="progress" id="progress2"></div></div>
+        </div>
+        <div class="module">
+            <div class="textCont">Today is <span class="percentage" id="output3"></span> complete</div>
+            <div class="progressCont"><div class="progress" id="progress3"></div></div>
+        </div>
+        <div class="module">
+            <div class="textCont">This hour is <span class="percentage" id="output4"></span> complete</div>
+            <div class="progressCont"><div class="progress" id="progress4"></div></div>
+        </div>
+        <div class="module">
+            <div class="textCont">This minute is <span class="percentage" id="output5"></span> complete</div>
+            <div class="progressCont"><div class="progress" id="progress5"></div></div>
+        </div>
+        <div class="module">
+            <div class="textCont">This second is <span class="percentage" id="output6"></span> complete</div>
+            <div class="progressCont"><div class="progress" id="progress6"></div></div>
+        </div>
+    </div>
+    <script>
+        function yearBar() {
+            let currentDate = new Date();
+            let currentYear = currentDate.getFullYear()
+            let currentYearDate = new Date(currentYear, 0, 1, 0, 0, 0)
+            let nextYear = currentDate.getFullYear()+1
+            let nextYearDate = new Date(nextYear, 0, 1, 0, 0, 0)
+            let timeDiff = currentDate.getTime() - currentYearDate.getTime();
+            let yearTimeDiff = nextYearDate.getTime() - currentYearDate.getTime();
+            updateBar(timeDiff, yearTimeDiff, 1)
+        }
+        function monthBar() {
+            let currentDate = new Date();
+            let currentYear = currentDate.getFullYear()
+            let currentMonth = currentDate.getMonth()
+            let currentMonthDate = new Date(currentYear, currentMonth, 1, 0, 0, 0)
+            let nextMonth = currentDate.getMonth()+1
+            let nextMonthDate = new Date(currentYear, nextMonth, 1, 0, 0, 0)
+            let timeDiff = currentDate.getTime() - currentMonthDate.getTime();
+            let monthTimeDiff = nextMonthDate.getTime() - currentMonthDate.getTime();
+            updateBar(timeDiff, monthTimeDiff, 2)
+        }
+        function dayBar() {
+            let currentDate = new Date();
+            let currentYear = currentDate.getFullYear()
+            let currentMonth = currentDate.getMonth()
+            let currentDay = currentDate.getDate();
+            let currentDayDate = new Date(currentYear, currentMonth, currentDay)
+            let nextDay = currentDate.getDate()+1
+            let nextDayDate = new Date(currentYear, currentMonth, nextDay)
+            let timeDiff = currentDate.getTime() - currentDayDate.getTime();
+            let dayTimeDiff = nextDayDate.getTime() - currentDayDate.getTime();
+            updateBar(timeDiff, dayTimeDiff, 3)
+        }
+        function hourBar() {
+            let currentDate = new Date();
+            let currentYear = currentDate.getFullYear()
+            let currentMonth = currentDate.getMonth()
+            let currentDay = currentDate.getDate();
+            let currentHour = currentDate.getHours();
+            let currentHourDate = new Date(currentYear, currentMonth, currentDay, currentHour)
+            let nextHour = currentDate.getHours()+1
+            let nextHourDate = new Date(currentYear, currentMonth, currentDay, nextHour)
+            let timeDiff = currentDate.getTime() - currentHourDate.getTime();
+            let hourTimeDiff = nextHourDate.getTime() - currentHourDate.getTime();
+            updateBar(timeDiff, hourTimeDiff, 4)
+        }
+        function minuteBar() {
+            let currentDate = new Date();
+            let currentYear = currentDate.getFullYear()
+            let currentMonth = currentDate.getMonth()
+            let currentDay = currentDate.getDate();
+            let currentHour = currentDate.getHours();
+            let currentMinute = currentDate.getMinutes();
+            let currentMinuteDate = new Date(currentYear, currentMonth, currentDay, currentHour, currentMinute)
+            let nextMinute = currentDate.getMinutes()+1
+            let nextMinuteDate = new Date(currentYear, currentMonth, currentDay, currentHour, nextMinute)
+            let timeDiff = currentDate.getTime() - currentMinuteDate.getTime();
+            let minuteTimeDiff = nextMinuteDate.getTime() - currentMinuteDate.getTime();
+            updateBar(timeDiff, minuteTimeDiff, 5)
+        }
+        function secondBar() {
+            let currentDate = new Date();
+            let currentYear = currentDate.getFullYear()
+            let currentMonth = currentDate.getMonth()
+            let currentDay = currentDate.getDate();
+            let currentHour = currentDate.getHours();
+            let currentMinute = currentDate.getMinutes();
+            let currentSecond = currentDate.getSeconds();
+            let currentSecondDate = new Date(currentYear, currentMonth, currentDay, currentHour, currentMinute, currentSecond)
+            let nextSecond = currentDate.getSeconds()+1
+            let nextSecondDate = new Date(currentYear, currentMonth, currentDay, currentHour, currentMinute, nextSecond)
+            let timeDiff = currentDate.getTime() - currentSecondDate.getTime();
+            let secondTimeDiff = nextSecondDate.getTime() - currentSecondDate.getTime();
+            updateBar(timeDiff, secondTimeDiff, 6)
+        }
+        function updateBar(value, total, id) {
+            let width = (value * 100)/total
+            let percentage = width + "%"
+            document.getElementById(`progress${id}`).style.width = percentage
+            document.getElementById("output"+id).innerHTML = (Math.floor(width * 1000) / 1000).toFixed(3) + "%"
+        }
+        setInterval(yearBar, 100)
+        setInterval(monthBar, 50)
+        setInterval(dayBar, 10);
+        setInterval(hourBar, 10);
+        setInterval(minuteBar, 10);
+        setInterval(secondBar, 1);
+    </script>
+</body>
+</html>
