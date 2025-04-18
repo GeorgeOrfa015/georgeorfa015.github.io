@@ -5,10 +5,12 @@ function save() {
     let saveCode = "";
 
     for (i=0;i<items;i++) {
-        let savePart=bars[i].id.replace("BOC","")+"/:/";
+        let savePart= "v2/:/"
+        savePart+=bars[i].id.replace("BOC","")+"/:/";
+        savePart+=bars[i].childNodes[3].innerHTML+"/:/" // group
         savePart+=bars[i].childNodes[1].childNodes[0].value+"/:/" // value
         savePart+=bars[i].childNodes[1].childNodes[2].value+"/:/" // out of
-        savePart+=bars[i].childNodes[1].childNodes[5].value+"/:/" // description
+        savePart+=bars[i].childNodes[1].childNodes[3].value+"/:/" // description
         savePart+=bars[i].childNodes[2].childNodes[0].value+"/:/" // color
         savePart+=bars[i].childNodes[2].childNodes[1].value+"/:/" // step
         saveCode+=savePart+"/;/";
@@ -18,6 +20,8 @@ function save() {
     console.log(saveCode.split("/;/"))
     return saveCode;
 }
+
+// 1/:/16/:/34/:/Description/:/linear-gradient(45deg, #450, #864)/://://;/
 function load() {
     let saveCode=localStorage.getItem("SavedBars");
 
@@ -29,21 +33,41 @@ function load() {
     for (i=0;i<itemsToLoad;i++) {
 
         let splitBarData = splitBars[i].split("/:/");
-        let barID_load = splitBarData[0];
-        let value_load = splitBarData[1];
-        let outOf_load = splitBarData[2];
-        let barDesc_load = splitBarData[3];
-        let color_load = splitBarData[4];
-        let step_load = splitBarData[5];
-        barID = barID_load;
-        newBar();
-        document.getElementById("in1_"+barID_load).value=value_load;
-        document.getElementById("in2_"+barID_load).value=outOf_load;
-        document.getElementById("BN"+barID_load).value=barDesc_load;
-        document.getElementById("CI"+barID_load).value=color_load;
-        document.getElementById("SI"+barID_load).value=step_load;
-        setTimeout(function() {updateBar(barID_load)}, 500);
-        setTimeout(function() {barColor(barID_load)}, 500);
+        if (splitBarData[0]=="v2") {
+            let barID_load = splitBarData[1];
+            let groupID_load = splitBarData[2];
+            let value_load = splitBarData[3];
+            let outOf_load = splitBarData[4];
+            let barDesc_load = splitBarData[5];
+            let color_load = splitBarData[6];
+            let step_load = splitBarData[7];
+            barID = barID_load;
+            newBar(groupID_load);
+            document.getElementById("in1_"+barID_load).value=value_load;
+            document.getElementById("in2_"+barID_load).value=outOf_load;
+            document.getElementById("BN"+barID_load).value=barDesc_load;
+            document.getElementById("CI"+barID_load).value=color_load;
+            document.getElementById("SI"+barID_load).value=step_load;
+            setTimeout(function() {updateBar(barID_load)}, 500);
+            setTimeout(function() {barColor(barID_load)}, 500);
+        }else{
+            // v1 code
+            let barID_load = splitBarData[0];
+            let value_load = splitBarData[1];
+            let outOf_load = splitBarData[2];
+            let barDesc_load = splitBarData[3];
+            let color_load = splitBarData[4];
+            let step_load = splitBarData[5];
+            barID = barID_load;
+            newBar(1);
+            document.getElementById("in1_"+barID_load).value=value_load;
+            document.getElementById("in2_"+barID_load).value=outOf_load;
+            document.getElementById("BN"+barID_load).value=barDesc_load;
+            document.getElementById("CI"+barID_load).value=color_load;
+            document.getElementById("SI"+barID_load).value=step_load;
+            setTimeout(function() {updateBar(barID_load)}, 500);
+            setTimeout(function() {barColor(barID_load)}, 500);
+        }
     }
 }
 function exportCode() {
@@ -116,8 +140,24 @@ function remProg(id) {
     updateBar(id);
     setTimeout(save, 100);
 }
+function changeGroup(groupID) {
+    let containers = document.getElementsByClassName("outer-container");
+    let groupButtons = document.getElementsByClassName("group-button");
+    let contCount = containers.length
+    let buttonCount = groupButtons.length
+    for (i=0; i<contCount; i++) {
+        containers[i].style.display = "none"
+    }
+    for (i=0; i<buttonCount; i++) {
+        groupButtons[i].className = "group-button"
+    }
+    containers[groupID-1].style.display = "grid"
+    document.getElementById("group-button-"+groupID).className = "group-button selected"
+    let newBarButton = document.getElementById("new-bar-button");
+    newBarButton.setAttribute("onclick", `newBar(${groupID})`)
+}
 let barID = 1;
-function newBar() {
+function newBar(groupID) {
     // bar-outer-cont
     let barOuterCont = document.createElement("div");
     barOuterCont.className="bar-outer-cont";
@@ -141,7 +181,7 @@ function newBar() {
 
     // bar-outer-cont > settings-inner-cont > input#in1_id
     let inputIn1 = document.createElement("input");
-    inputIn1.className="number-input";
+    inputIn1.className="number-input input1";
     inputIn1.id="in1_"+barID;
     inputIn1.placeholder="0";
     inputIn1.setAttribute("oninput", `updateBar(${barID})`);
@@ -154,21 +194,21 @@ function newBar() {
 
     // bar-outer-cont > settings-inner-cont > input#in2_id
     let inputIn2 = document.createElement("input");
-    inputIn2.className="number-input";
+    inputIn2.className="number-input input2";
     inputIn2.id="in2_"+barID;
     inputIn2.placeholder="100";
     inputIn2.setAttribute("oninput", `updateBar(${barID})`);
 
     // bar-outer-cont > settings-inner-cont > button.f(remProg(id))
     let remButton = document.createElement("button");
-    remButton.className="add-remove-button";
+    remButton.className="remove-button";
     remButton.id="RB"+barID;
     remButton.setAttribute("onclick", `remProg(${barID})`);
     remButton.innerHTML="-"
 
     // bar-outer-cont > settings-inner-cont > button.f(addProg(id))
     let addButton = document.createElement("button");
-    addButton.className="add-remove-button";
+    addButton.className="add-button";
     addButton.id="AB"+barID;
     addButton.setAttribute("onclick", `addProg(${barID})`);
     addButton.innerHTML="+"
@@ -213,6 +253,13 @@ function newBar() {
     deleteButton.setAttribute("onclick", `deleteBar(${barID})`);
     deleteButton.innerHTML="Delete";
 
+    // bar-outer-cont > span-group-id
+    let spanGroup = document.createElement("span");
+    spanGroup.className="span-group";
+    spanGroup.id="G"+barID;
+    spanGroup.innerHTML = groupID;
+    spanGroup.style.display = "none"
+
     // Appending Children
     barOuterCont.appendChild(barInnerCont);
     barInnerCont.appendChild(bar);
@@ -220,15 +267,16 @@ function newBar() {
     settingsInnerCont.appendChild(inputIn1);
     settingsInnerCont.appendChild(outOfText);
     settingsInnerCont.appendChild(inputIn2);
+    settingsInnerCont.appendChild(barName);
     settingsInnerCont.appendChild(remButton);
     settingsInnerCont.appendChild(addButton);
-    settingsInnerCont.appendChild(barName);
     settingsInnerCont.appendChild(settingsButton);
     barOuterCont.appendChild(settingsHiddenInnerCont);
     settingsHiddenInnerCont.appendChild(colorInput);
     settingsHiddenInnerCont.appendChild(stepInput);
     settingsHiddenInnerCont.appendChild(deleteButton);
-    document.getElementById("outer-container").appendChild(barOuterCont);
+    barOuterCont.appendChild(spanGroup);
+    document.getElementById("group"+groupID).appendChild(barOuterCont);
     barID = Number(barID) + 1;
     setTimeout(save, 100);
 }

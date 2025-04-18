@@ -6,8 +6,9 @@ function save() {
     let saveCode = "";
 
     for (i=0;i<items;i++) {
-        let savePart= "v2/:/"
+        let savePart= "v3/:/"
         savePart+=timers[i].id.replace("TOC","")+"/:/";
+        savePart+=timers[i].childNodes[3].innerHTML + "/:/"         // groupID
         savePart+=timers[i].childNodes[1].childNodes[0].value+"/:/" // date
         savePart+=timers[i].childNodes[2].childNodes[1].value+"/:/" // color
         savePart+=timers[i].childNodes[2].childNodes[3].value+"/:/" // border color
@@ -39,7 +40,7 @@ function load() {
             let textColor_load = splitTD[5];
             let description_load = splitTD[6];
             timerID = timerID_load;
-            newTimer()
+            newTimer(1)
             document.getElementById("ID"+timerID_load).value=date_load;
             document.getElementById("C"+timerID_load).value=color_load;
             document.getElementById("BC"+timerID_load).value=borderColor_load;
@@ -47,17 +48,37 @@ function load() {
             document.getElementById("D"+timerID_load).value=description_load;
             setTimeout(function() {timerColor(timerID_load)}, 0);
         }else{
-            let timerID_load = splitTD[0];
-            let date_load = `${splitTD[1]}-${("0" + splitTD[2]).slice(-2)}-${("0" + splitTD[3]).slice(-2)}T${("0" + splitTD[4]).slice(-2)}:${("0" + splitTD[5]).slice(-2)}`
-            let color_load = ""
-            let borderColor_load = ""
-            let description_load = splitTD[6]
-            timerID = timerID_load
-            newTimer();
-            document.getElementById("ID"+timerID_load).value=date_load;
-            document.getElementById("C"+timerID_load).value=color_load;
-            document.getElementById("D"+timerID_load).value=description_load;
-            setTimeout(function() {timerColor(timerID_load)}, 500);
+            //  v3/:/3/:/1/:/2058-01-08T00:45/:/blue/:/red/:/green/:/Description/;/
+            if (splitTD[0]=="v3") {
+                let timerID_load =      splitTD[1];
+                let groupID_load =      splitTD[2];  
+                let date_load =         splitTD[3]; 
+                let borderColor_load =  splitTD[4];
+                let color_load =        splitTD[5];    
+                let textColor_load =    splitTD[6];    
+                let description_load =  splitTD[7];
+                timerID = timerID_load;
+                newTimer(groupID_load)
+                document.getElementById("ID"+timerID_load).value=date_load;
+                document.getElementById("C"+timerID_load).value=color_load;
+                document.getElementById("BC"+timerID_load).value=borderColor_load;
+                document.getElementById("TXTC"+timerID_load).value=textColor_load;
+                document.getElementById("D"+timerID_load).value=description_load;
+                setTimeout(function() {timerColor(timerID_load)}, 0);
+            }else{
+                // original v1 code //
+                let timerID_load = splitTD[0];
+                let date_load = `${splitTD[1]}-${("0" + splitTD[2]).slice(-2)}-${("0" + splitTD[3]).slice(-2)}T${("0" + splitTD[4]).slice(-2)}:${("0" + splitTD[5]).slice(-2)}`
+                let color_load = ""
+                let borderColor_load = ""
+                let description_load = splitTD[6]
+                timerID = timerID_load
+                newTimer(1);
+                document.getElementById("ID"+timerID_load).value=date_load;
+                document.getElementById("C"+timerID_load).value=color_load;
+                document.getElementById("D"+timerID_load).value=description_load;
+                setTimeout(function() {timerColor(timerID_load)}, 500);
+            }
         }
     }
 }
@@ -69,8 +90,9 @@ function exportCode() {
     setTimeout(function() {document.getElementById("export-code-button").innerHTML="Export Save Code"}, 2000)
 }
 
-// 6/:/2025             /:/1        /:/1    /:/00       /:/00   /:/2025/;/
-// v2/3/:/2058-01-08T00:45 /:/#38240c  /:/#0005/:/#c29325  /:/Shit./;/
+//      1/:/2025              /:/1                 /:/1        /:/00       /:/00               /:/2025         /;/
+// v2/:/2/:/2058-01-08T00:45  /:/#38240c           /:/#0005    /:/#c29325  /:/Shit.            /;/
+// v3/:/3/:/1                 /:/2058-01-08T00:45 /:/blue      /:/red      /:/green            /:/Description  /;/
 
 function loadCode() {
     let code = document.getElementById("load-code-input").value;
@@ -148,8 +170,23 @@ function timerColor(id) {
     showSettings.style.color = textColor
     setTimeout(save, 100);
 }
-
-function newTimer() {
+function changeGroup(groupID) {
+    let containers = document.getElementsByClassName("outer-container");
+    let groupButtons = document.getElementsByClassName("group-button");
+    let contCount = containers.length
+    let buttonCount = groupButtons.length
+    for (i=0; i<contCount; i++) {
+        containers[i].style.display = "none"
+    }
+    for (i=0; i<buttonCount; i++) {
+        groupButtons[i].className = "group-button"
+    }
+    containers[groupID-1].style.display = "grid"
+    document.getElementById("group-button-"+groupID).className = "group-button selected"
+    let newTimerButton = document.getElementById("new-timer-button");
+    newTimerButton.setAttribute("onclick", `newTimer(${groupID})`)
+}
+function newTimer(groupID) {
     // timer-outer-container
     let timerOuterContainer = document.createElement("div");
     timerOuterContainer.className="timer-outer-container";
@@ -251,6 +288,12 @@ function newTimer() {
     timeUpdateScript.id="TUS"+timerID;
     timeUpdateScript.innerHTML=`var updateTimeInterval${timerID} = setInterval(function(){updateTime(${timerID})}, 0)`;
 
+    // timer-outer-cont > span-group-id
+    let spanGroup = document.createElement("span");
+    spanGroup.className="span-group";
+    spanGroup.id="G"+timerID;
+    spanGroup.innerHTML = groupID
+
     // Appending Children
     timerOuterContainer.appendChild(timeCont);
     timeCont.appendChild(time);
@@ -267,8 +310,9 @@ function newTimer() {
     settingsInnerCont.appendChild(textColor);
     settingsInnerCont.appendChild(backButton);
     settingsInnerCont.appendChild(deleteButton);
+    timerOuterContainer.appendChild(spanGroup);
     timerOuterContainer.appendChild(timeUpdateScript);
-    document.getElementById("outer-container").appendChild(timerOuterContainer);
+    document.getElementById("group"+groupID).appendChild(timerOuterContainer);
 
     timerID = Number(timerID) + 1;
     setTimeout(save, 100);

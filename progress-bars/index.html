@@ -12,17 +12,16 @@
     <link rel="stylesheet" href="style.css">
     <title>Progress Bars</title>
 <body>
-    <div id="button-container">
-        <div id="button-inner-container-1">
-            <button class="top-buttons" onclick="newBar()">New Bar</button>
-            <button class="top-buttons" onclick="exportCode()" id="export-code-button">Export Save Code</button>&nbsp;&nbsp;&nbsp;
-        </div>
-        <div id="button-inner-container-2">
-            <input id="load-code-input" placeholder="Enter your code...">
-            <button class="top-buttons" onclick="loadCode()">Load Save Code</button>
-        </div>
+    <div class="top-buttons">
+        <button class="top-button" onclick="newBar(1)" id="new-bar-button">New Bar</button>
+        <button class="top-button" id="export-code-button" onclick="exportCode()">Export Save Code</button>
+        <input type="text" class="top-button" placeholder="Enter your Save Code..." id="load-code-input">
+        <button class="top-button" onclick="loadCode()">Load Save Code</button><span class="divider"></span>
+        <button onclick="changeGroup(1)" id="group-button-1" class="group-button selected">Group 1</button>
+        <button onclick="changeGroup(2)" id="group-button-2" class="group-button">Group 2</button>
+        <button onclick="changeGroup(3)" id="group-button-3" class="group-button">Group 3</button>
     </div>
-    <div id="outer-container">
+    <div class="outer-container" id="group1">
         <!-- <div class="bar-outer-cont" id="BOC0">
             <div class="bar-inner-cont" id="BIC0">
                 <div id="bar0" class="bar">0%</div>
@@ -42,6 +41,8 @@
             </div>
         </div> -->
     </div>
+    <div class="outer-container" id="group2"></div>
+    <div class="outer-container" id="group3"></div>
     <script src="index.js"></script>
 </body>
 </html>

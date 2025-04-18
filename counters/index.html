@@ -25,13 +25,16 @@
             -webkit-appearance: none; 
             margin: 0; 
         }
-        #outer-container{
+        #group2, #group3{
+            display: none;
+        }
+        .outer-container{
             display: grid;
             grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
             gap: 1vw;
         }
         .counter-outer-cont{
-            padding: 1vw;
+            padding: 0.75vw;
             display: grid;
             gap: 0.75vw;
             grid-template-columns: 1fr;
@@ -107,9 +110,9 @@
             margin: 0;
             padding: 0;
             font-family: inherit;
-            font-size: 1.35vw;
+            font-size: 1.2vw;
             transition: 0.2s background;
-            background: #10813f;
+            background: #0c6531;
             border: none;
             color: #fff;
             border-radius: 0.5vw;
@@ -137,7 +140,7 @@
             border: none;
             border-radius: 0.5vw;
             text-align: center;
-            font-size: 1.4vw;
+            font-size: 1.2vw;
             font-family: inherit;
             margin: 0;
             padding: 0;
@@ -151,24 +154,49 @@
         input::placeholder{
             color: #2b8561
         }
-        .top-buttons, #load-code-input{
-            width: fit-content;
-            height: 2.1vw;
-            padding: 0 1vw 0 1vw;
+        .top-button{
+            padding: 0.15vw 0.4vw 0.15vw 0.4vw;
+            background-color: #0c6531;
+            grid-column: span 2;
         }
-        #load-code-input{
-            width: 15vw;
+        .group-button{
+            padding: 0.15vw 0.4vw 0.15vw 0.4vw;
+            background-color: #0c6531;
+            grid-column: span 1;
+        }
+        .selected{
+            background-color: #23a459;
+        }
+        .group-button.selected:hover{
+            background-color: #23a459;
+        }
+        button.top-button:hover, button.group-button:hover{
+            background-color: #178042;
+        }
+        .top-buttons{
+            margin-bottom: 0.75vw;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+            gap: 0.75vw;
+        }
+        input.top-button{
+            width: calc(100% - 0.75vw);
+            background-color: #05421f;
+        }
+        input.top-button::placeholder{
+            color: #61b08b;
+            mix-blend-mode: normal;
         }
         #button-container{
-            margin-bottom: 1vw;
-            flex-direction: row;
             display: flex;
-        }
-        #button-container-1{
-            margin-right: 1vw;
+            flex-direction: row;
+            margin-bottom: 0.5vw;
         }
         @media(max-width:600px) {
-            #outer-container{
+            .divider{
+                display: none;
+            }
+            .outer-container{
                 grid-template-columns: 1fr 1fr;
                 gap: 2vw;
             }
@@ -201,42 +229,47 @@
             .counter-name{
                 font-size: 4vw;
             }
-            .top-buttons, #load-code-input{
-                width: fit-content;
-                height: 6vw;
-                padding: 0 1vw 0 1vw;
+            .top-buttons{
+                text-align: center;
+                grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+                gap: 2vw;
+                margin-bottom: 2vw;
             }
-            #load-code-input{
-                width: 40vw;
+            .top-button{
+                padding: 0.3vw 1.2vw;
+                grid-column: span 3;
+            }
+            .group-button{
+                grid-column: span 2;
+            }
+            input.top-button{
+                width: 100%;
+                height: 100%;
+                padding: 0;
             }
             #button-container{
-                margin-bottom: 1vw;
-                flex-direction: column;
                 display: flex;
-                justify-content: center;
-            }
-            #button-container-1{
+                flex-direction: column;
+                text-align: center;
+                gap: 1vw;
                 margin-bottom: 1vw;
-                text-align: center;
-            }
-            #button-container-2{
-                text-align: center;
             }
         }
     </style>
 </head>
 <body>
-    <div id="button-container">
-        <div id="button-container-1">
-            <button class="top-buttons" onclick="newCounter()">New Counter</button>
-            <button class="top-buttons" onclick="exportCode()" id="export-code-button">Export Save Code</button>
-        </div>
-        <div id="button-container-2">
-            <input id="load-code-input" placeholder="Enter your code...">
-            <button class="top-buttons" onclick="loadCode()">Load Save Code</button>
-        </div>
-        </div>
-    <div id="outer-container">
+    <div class="top-buttons">
+        <button class="top-button" onclick="newCounter(1)" id="new-counter-button">New Counter</button>
+        <button class="top-button" id="export-code-button" onclick="exportCode()">Export Save Code</button>
+        <input type="text" class="top-button" placeholder="Enter your Save Code..." id="load-code-input">
+        <button class="top-button" onclick="loadCode()">Load Save Code</button><span class="divider"></span>
+        <button onclick="changeGroup(1)" id="group-button-1" class="group-button selected">Group 1</button>
+        <button onclick="changeGroup(2)" id="group-button-2" class="group-button">Group 2</button>
+        <button onclick="changeGroup(3)" id="group-button-3" class="group-button">Group 3</button>
+    </div>
+    <div class="outer-container" id="group1"></div>
+    <div class="outer-container" id="group2"></div>
+    <div class="outer-container" id="group3"></div>
     </div>
     <script>
         function save() {
@@ -245,12 +278,14 @@
             let saveCode = "";
 
             for (i=0;i<items;i++) {
-                let savePart=counters[i].id.replace("COC","")+"/:/";
+                let savePart="v2/:/";
+                savePart+=counters[i].id.replace("COC","")+"/:/";
+                savePart+=counters[i].childNodes[5].innerHTML+"/:/" // name
                 savePart+=counters[i].childNodes[0].childNodes[0].value+"/:/" // name
                 savePart+=counters[i].childNodes[0].childNodes[1].value+"/:/" // value
                 savePart+=counters[i].childNodes[2].childNodes[0].value+"/:/" // step
                 savePart+=counters[i].childNodes[2].childNodes[1].value+"/:/" // size
-                savePart+=counters[i].childNodes[2].childNodes[2].value+"/:/" // color
+                savePart+=counters[i].childNodes[2].childNodes[2].value // color
                 saveCode+=savePart+"/;/";
             }
 
@@ -258,6 +293,8 @@
             console.log(saveCode.split("/;/"))
             return saveCode;
         }
+        // 1/:/Name/:/2/:/3/:/4/:/red/;/
+        // v2/:/1/:/1/:/Name/:/2/:/3/:/4/:/red/;/
         function load() {
             let saveCode=localStorage.getItem("SavedCounters");
 
@@ -267,23 +304,41 @@
             let itemsToLoad = Object.keys(splitCounters).length-1;
 
             for (i=0;i<itemsToLoad;i++) {
-
                 let splitCounterData = splitCounters[i].split("/:/");
-                let counterID_load = splitCounterData[0];
-                let name_load = splitCounterData[1];
-                let value_load = splitCounterData[2];
-                let step_load = splitCounterData[3];
-                let size_load = splitCounterData[4];
-                let color_load = splitCounterData[5];
-                counterID = counterID_load;
-                newCounter();
-                document.getElementById("CN"+counterID_load).value=name_load;
-                document.getElementById("CO"+counterID_load).value=value_load;
-                document.getElementById("IS"+counterID_load).value=step_load;
-                document.getElementById("IW"+counterID_load).value=size_load;
-                document.getElementById("IC"+counterID_load).value=color_load;
-                setTimeout(function() {colorCounter(counterID_load)}, 10);
-                setTimeout(function() {sizeCounter(counterID_load)}, 10);
+                if (splitCounterData[0]=="v2") {
+                    let counterID_load = splitCounterData[1];
+                    let groupID_load = splitCounterData[2]
+                    let name_load = splitCounterData[3];
+                    let value_load = splitCounterData[4];
+                    let step_load = splitCounterData[5];
+                    let size_load = splitCounterData[6];
+                    let color_load = splitCounterData[7];
+                    counterID = counterID_load;
+                    newCounter(groupID_load);
+                    document.getElementById("CN"+counterID_load).value=name_load;
+                    document.getElementById("CO"+counterID_load).value=value_load;
+                    document.getElementById("IS"+counterID_load).value=step_load;
+                    document.getElementById("IW"+counterID_load).value=size_load;
+                    document.getElementById("IC"+counterID_load).value=color_load;
+                    setTimeout(function() {colorCounter(counterID_load)}, 10);
+                    setTimeout(function() {sizeCounter(counterID_load)}, 10);
+                }else{
+                    let counterID_load = splitCounterData[0];
+                    let name_load = splitCounterData[1];
+                    let value_load = splitCounterData[2];
+                    let step_load = splitCounterData[3];
+                    let size_load = splitCounterData[4];
+                    let color_load = splitCounterData[5];
+                    counterID = counterID_load;
+                    newCounter(1);
+                    document.getElementById("CN"+counterID_load).value=name_load;
+                    document.getElementById("CO"+counterID_load).value=value_load;
+                    document.getElementById("IS"+counterID_load).value=step_load;
+                    document.getElementById("IW"+counterID_load).value=size_load;
+                    document.getElementById("IC"+counterID_load).value=color_load;
+                    setTimeout(function() {colorCounter(counterID_load)}, 10);
+                    setTimeout(function() {sizeCounter(counterID_load)}, 10);
+                }
             }
         }
         function exportCode() {
@@ -296,6 +351,22 @@
             let code = document.getElementById("load-code-input").value;
             localStorage.setItem("SavedCounters", code);
             window.location.reload();
+        }
+        function changeGroup(groupID) {
+            let containers = document.getElementsByClassName("outer-container");
+            let groupButtons = document.getElementsByClassName("group-button");
+            let contCount = containers.length
+            let buttonCount = groupButtons.length
+            for (i=0; i<contCount; i++) {
+                containers[i].style.display = "none"
+            }
+            for (i=0; i<buttonCount; i++) {
+                groupButtons[i].className = "group-button"
+            }
+            containers[groupID-1].style.display = "grid"
+            document.getElementById("group-button-"+groupID).className = "group-button selected"
+            let newCounterButton = document.getElementById("new-counter-button");
+            newCounterButton.setAttribute("onclick", `newCounter(${groupID})`)
         }
         function settingsShow(id) {
             let panelCont = document.getElementById(`PIC${id}`)
@@ -383,7 +454,7 @@
             setTimeout(save, 100);
         }
         let counterID = 1
-        function newCounter() {
+        function newCounter(groupID) {
             // counter-outer-cont
             let counterOuterCont = document.createElement("div");
             counterOuterCont.className = "counter-outer-cont";
@@ -534,6 +605,16 @@
             resetBackButton.setAttribute("onclick", `settingsShow(${counterID})`);
             resetBackButton.innerHTML = "Back";
 
+            // bar-outer-cont > span-group-id
+            let spanGroup = document.createElement("span");
+            spanGroup.className="span-group";
+            spanGroup.id="G"+counterID;
+            spanGroup.innerHTML = groupID;
+            spanGroup.style.display = "none"
+            spanGroup.style.fontFamily = "Courier New"
+            spanGroup.style.textAlign = "center"
+            spanGroup.style.fontSize = "2vw"
+
             counterOuterCont.appendChild(counterInnerCont)
             counterOuterCont.appendChild(panelInnerCont)
             counterOuterCont.appendChild(settingsInnerCont)
@@ -556,7 +637,8 @@
             resetConfirmationInnerCont.appendChild(confirmationTextReset)
             resetConfirmationInnerCont.appendChild(finalResetButton)
             resetConfirmationInnerCont.appendChild(resetBackButton)
-            document.getElementById("outer-container").appendChild(counterOuterCont);
+            counterOuterCont.appendChild(spanGroup);
+            document.getElementById("group"+groupID).appendChild(counterOuterCont);
             counterID = Number(counterID) + 1;
             setTimeout(save, 100);
         }

@@ -14,12 +14,15 @@
 </head>
 <body>
     <div class="top-buttons">
-        <button class="top-button" onclick="newTimer()">New Timer</button>
+        <button class="top-button" onclick="newTimer(1)" id="new-timer-button">New Timer</button>
         <button class="top-button" id="export-code-button" onclick="exportCode()">Export Save Code</button>
         <input type="text" class="top-button" placeholder="Enter your Save Code..." id="load-code-input">
-        <button class="top-button" onclick="loadCode()">Load Save Code</button>
+        <button class="top-button" onclick="loadCode()">Load Save Code</button><span class="divider"></span>
+        <button onclick="changeGroup(1)" id="group-button-1" class="group-button selected">Group 1</button>
+        <button onclick="changeGroup(2)" id="group-button-2" class="group-button">Group 2</button>
+        <button onclick="changeGroup(3)" id="group-button-3" class="group-button">Group 3</button>
     </div>
-    <div id="outer-container">
+    <div class="outer-container" id="group1">
          <!-- <div class="timer-outer-container" id="TOC0">
             <div class="time-cont" id="TC0">
                 <span class="time" id="out0">25 Days 5h 34m 24s<br>since</span>
@@ -43,8 +46,11 @@
                 <button class="back-button" id="BB0">Back</button>
                 <button class="delete-button" id="DB0">Delete</button>
             </div>
+            <span class="span-group" id="G0">1</span>
         </div>          -->
     </div>
+    <div class="outer-container" id="group2"></div>
+    <div class="outer-container" id="group3"></div>
     <script src="index.js"></script>
 </body>
 </html>
