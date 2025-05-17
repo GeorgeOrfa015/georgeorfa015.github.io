@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stopwatch</title>
+</head>
+<body>
+    <span id="output">00:00.000</span><br>
+    <button onclick="start()">Start</button> 
+    <button onclick="pause()" id="pauseButton">Pause</button> 
+    <button onclick="reset()" id="resetButton">Reset</button> 
+    <script>
+        let date = new Date(Number(localStorage.getItem("stopwatchDate")))
+        if (date == null) date = new Date()
+        console.log(date)
+        let stopped = localStorage.getItem("stopwatchStopped");
+        if (stopped == null) stopped = true;
+        if (stopped == "true") stopped = true;
+        if (stopped == "false") stopped = false;
+        console.log(stopped)
+        let pauseTime = new Date(Number(localStorage.getItem("stopwatchPauseDate")))
+        if (pauseTime == null) pauseTime = null;
+        console.log(pauseTime)
+        let isReset = localStorage.getItem("stopwatchIsReset");
+        if (isReset == null) isReset = true;
+        if (isReset == "true") isReset = true;
+        if (isReset == "false") isReset = false;
+        console.log(isReset)
+        console.log()
+        
+        if (stopped&&!isReset) {
+            let timeDiff = pauseTime.getTime() - date.getTime()
+            min = Math.floor(timeDiff%(60*60*1000)/(60*1000))
+            sec = Math.floor(timeDiff%(60*1000)/1000)
+            ms = Math.floor(timeDiff%1000)
+            document.getElementById("output").innerHTML = `${("0"+min).slice(-2)}:${("0"+sec).slice(-2)}.${("000"+ms).slice(-3)}`
+            document.getElementById("pauseButton").innerHTML = "Resume"
+        }
+        
+        
+        function start() {
+            date = new Date()
+            localStorage.setItem("stopwatchDate", Number(date.getTime()))
+            stopped = false;
+            isReset = false;
+            localStorage.setItem("stopwatchStopped", false)
+            localStorage.setItem("stopwatchIsReset", false)
+            document.getElementById("pauseButton").innerHTML = "Pause"
+        }
+        function reset() {
+            stopped = true;
+            isReset = true;
+            localStorage.setItem("stopwatchStopped", true)
+            localStorage.setItem("stopwatchIsReset", true)
+            document.getElementById("output").innerHTML = "00:00.000";
+            document.getElementById("pauseButton").innerHTML = "Pause"
+        }
+        function pause() {
+            stopped = !stopped
+            if (stopped) {
+                pauseTime = new Date();
+                localStorage.setItem("stopwatchPauseDate", Number(pauseTime.getTime()))
+                localStorage.setItem("stopwatchStopped", true)
+                document.getElementById("pauseButton").innerHTML = "Resume";
+            }else{
+                date = new Date(date.getTime() + (new Date().getTime() - pauseTime.getTime()));
+                localStorage.setItem("stopwatchDate", Number(date.getTime()))
+                localStorage.setItem("stopwatchStopped", false)
+                document.getElementById("pauseButton").innerHTML = "Pause";
+            }
+        }
+        function update() {
+            if (!stopped) {
+                let timeDiff = new Date().getTime() - date.getTime()
+                min = Math.floor(timeDiff%(60*60*1000)/(60*1000))
+                sec = Math.floor(timeDiff%(60*1000)/1000)
+                ms = Math.floor(timeDiff%1000)
+                document.getElementById("output").innerHTML = `${("0"+min).slice(-2)}:${("0"+sec).slice(-2)}.${("000"+ms).slice(-3)}`
+            }
+            document.getElementById("pauseButton").disabled = isReset
+        }
+        update()
+        setInterval(update, 1)
+    </script>
+</body>
+</html>
