@@ -4,16 +4,129 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stopwatch</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Chivo+Mono:ital,wght@0,100..900;1,100..900&display=swap');
+        body{
+            background: #000;
+            color: #fff;
+            font-family: "Poppins";
+        }
+        #innerContainer{
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            display: grid;
+            grid-template-rows: 5fr auto;
+        }
+        #buttonContainer{
+            padding: 2vw 24vw;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 1vw;
+        }
+        #timeContainer{
+            text-align: center;
+            align-content: center;
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: 7fr 4fr;
+        }
+        #output{
+            font-size: 6vw;
+            font-weight: 600;
+            font-family: "Chivo Mono";
+            align-self:self-end;
+        }
+        #lap{
+            font-size: 2vw;
+            font-weight: 400;
+            font-family: "Chivo Mono";
+            opacity: 0;
+            transform: translateY(-5vh);
+            transition: 0.3s transform, 0.3s opacity;
+        }
+        button{
+            font-family: "poppins";
+            border: none;
+            padding: 1.5vw;
+            font-size: 1.5vw;
+            width: 100%;
+            border-radius: 1vw;
+            color: #fff;
+            transition: 0.2s background;
+            cursor: pointer;
+        }
+        button:focus{
+            outline:none;
+        }
+        #startButton{
+            background-color: #0a9946;
+        }
+        #startButton:hover{
+            background-color: #1ab159;
+        }
+        #pauseButton{
+            background-color: #d06c1b;
+        }
+        #pauseButton:hover{
+            background-color: #ed8028;
+        }
+        #pauseButton:disabled{
+            background-color: #5b3a1f;
+            color: #aaa;
+            cursor:unset;
+        }
+        #resetButton{
+            background-color: #d42626;
+        }
+        #resetButton:hover{
+            background-color: #ef4040;
+        }
+        #resetButton:disabled{
+            background-color: #8f2e2e;
+            color: #aaa;
+            cursor:unset;
+        }
+        #lapButton{
+            background-color: #0e549e;
+        }
+        #lapButton:hover{
+            background-color: #1e6cc0;
+        }
+        #lapButton:disabled{
+            background-color: #16314d;
+            color: #aaa;
+            cursor:unset;
+        }
+    </style>
 </head>
 <body>
-    <span id="output">00:00.000</span><br>
-    <button onclick="start()">Start</button> 
-    <button onclick="pause()" id="pauseButton">Pause</button> 
-    <button onclick="reset()" id="resetButton">Reset</button> 
+    
+    
+    
+    
+    <div id="innerContainer">
+        <div id="timeContainer">
+            <span id="output">00:00.000</span>
+            <span id="lap">&nbsp;</span>
+        </div>
+        <div id="buttonContainer">
+            <button onclick="start()" id="startButton">Start</button> 
+            <button onclick="pause()" id="pauseButton">Pause</button> 
+            <button onclick="reset()" id="resetButton">Reset</button> 
+            <button onclick="lap()" id="lapButton">Lap</button> 
+        </div>
+    </div>
+    
+    
+    
+    
     <script>
-        let date = new Date(Number(localStorage.getItem("stopwatchDate")))
-        if (date == null) date = new Date()
-        console.log(date)
+        let startDate = new Date(Number(localStorage.getItem("stopwatchStartDate")))
+        if (startDate == null) startDate = new Date()
+        console.log(startDate)
         let stopped = localStorage.getItem("stopwatchStopped");
         if (stopped == null) stopped = true;
         if (stopped == "true") stopped = true;
@@ -29,23 +142,32 @@
         console.log(isReset)
         console.log()
         
+        if (localStorage.getItem("stopwatchLapNumber") == "null") localStorage.setItem("stopwatchLapNumber", 0)
+
         if (stopped&&!isReset) {
-            let timeDiff = pauseTime.getTime() - date.getTime()
-            min = Math.floor(timeDiff%(60*60*1000)/(60*1000))
-            sec = Math.floor(timeDiff%(60*1000)/1000)
-            ms = Math.floor(timeDiff%1000)
-            document.getElementById("output").innerHTML = `${("0"+min).slice(-2)}:${("0"+sec).slice(-2)}.${("000"+ms).slice(-3)}`
+            update(pauseTime)
+            updateLap(pauseTime)
             document.getElementById("pauseButton").innerHTML = "Resume"
         }
         
-        
+        function lap() {
+            localStorage.setItem("stopwatchLapNumber", Number(localStorage.getItem("stopwatchLapNumber"))+1)
+            localStorage.setItem("stopwatchLastLapDate", Number(new Date().getTime()))
+        }
+
+
         function start() {
-            date = new Date()
-            localStorage.setItem("stopwatchDate", Number(date.getTime()))
+            startDate = new Date()
+            localStorage.setItem("stopwatchStartDate", Number(startDate.getTime()))
             stopped = false;
             isReset = false;
             localStorage.setItem("stopwatchStopped", false)
             localStorage.setItem("stopwatchIsReset", false)
+            localStorage.setItem("stopwatchLastLapDate", null);
+            localStorage.setItem("stopwatchLapNumber", 1)
+            document.getElementById("lap").innerHTML = "&nbsp;";
+            document.getElementById("lap").style.opacity = 0;
+            document.getElementById("lap").style.transform = "translateY(-5vh)";
             document.getElementById("pauseButton").innerHTML = "Pause"
         }
         function reset() {
@@ -53,7 +175,12 @@
             isReset = true;
             localStorage.setItem("stopwatchStopped", true)
             localStorage.setItem("stopwatchIsReset", true)
+            localStorage.setItem("stopwatchLastLapDate", null);
+            localStorage.setItem("stopwatchLapNumber", 1)
             document.getElementById("output").innerHTML = "00:00.000";
+            document.getElementById("lap").innerHTML = "&nbsp;";
+            document.getElementById("lap").style.opacity = 0;
+            document.getElementById("lap").style.transform = "translateY(-5vh)";
             document.getElementById("pauseButton").innerHTML = "Pause"
         }
         function pause() {
@@ -62,26 +189,78 @@
                 pauseTime = new Date();
                 localStorage.setItem("stopwatchPauseDate", Number(pauseTime.getTime()))
                 localStorage.setItem("stopwatchStopped", true)
+                update(pauseTime)
                 document.getElementById("pauseButton").innerHTML = "Resume";
+                document.getElementById("lapButton").disabled = true;
             }else{
-                date = new Date(date.getTime() + (new Date().getTime() - pauseTime.getTime()));
-                localStorage.setItem("stopwatchDate", Number(date.getTime()))
+                startDate = new Date(startDate.getTime() + (new Date().getTime() - pauseTime.getTime()));
+                if (localStorage.getItem("stopwatchLastLapDate") != "null") {
+                    lapStartDate = new Date(Number(localStorage.getItem("stopwatchLastLapDate")) + (new Date().getTime() - pauseTime.getTime()))
+                    localStorage.setItem("stopwatchLastLapDate", Number(lapStartDate.getTime()))
+                }
+                localStorage.setItem("stopwatchStartDate", Number(startDate.getTime()))
                 localStorage.setItem("stopwatchStopped", false)
                 document.getElementById("pauseButton").innerHTML = "Pause";
+                document.getElementById("lapButton").disabled = false;
             }
         }
-        function update() {
-            if (!stopped) {
-                let timeDiff = new Date().getTime() - date.getTime()
+        function update(date) {
+            let timeDiff = date.getTime() - new Date(Number(localStorage.getItem("stopwatchStartDate"))).getTime()
+            if (timeDiff > (1000*60*60*24)) {
+                day = Math.floor(timeDiff/(24*60*60*1000))
+                hour = Math.floor(timeDiff%(24*60*60*1000)/(60*60*1000))
+                min = Math.floor(timeDiff%(60*60*1000)/(60*1000))
+                sec = Math.floor(timeDiff%(60*1000)/1000)
+                ms = Math.floor(timeDiff%1000)
+                document.getElementById("output").innerHTML = `${day}d, ${("0"+hour).slice(-2)}:${("0"+min).slice(-2)}:${("0"+sec).slice(-2)}.${("000"+ms).slice(-3)}`
+            }else if (timeDiff > (1000*60*60)) {
+                hour = Math.floor(timeDiff%(24*60*60*1000)/(60*60*1000))
+                min = Math.floor(timeDiff%(60*60*1000)/(60*1000))
+                sec = Math.floor(timeDiff%(60*1000)/1000)
+                ms = Math.floor(timeDiff%1000)
+                document.getElementById("output").innerHTML = `${("0"+hour).slice(-2)}:${("0"+min).slice(-2)}:${("0"+sec).slice(-2)}.${("000"+ms).slice(-3)}`
+            }else{    
                 min = Math.floor(timeDiff%(60*60*1000)/(60*1000))
                 sec = Math.floor(timeDiff%(60*1000)/1000)
                 ms = Math.floor(timeDiff%1000)
                 document.getElementById("output").innerHTML = `${("0"+min).slice(-2)}:${("0"+sec).slice(-2)}.${("000"+ms).slice(-3)}`
             }
-            document.getElementById("pauseButton").disabled = isReset
         }
-        update()
-        setInterval(update, 1)
+        function updateLap(date) {
+            let lapNumber = localStorage.getItem("stopwatchLapNumber");
+            let timeDiff = date.getTime() - new Date(Number(localStorage.getItem("stopwatchLastLapDate"))).getTime()
+            if (timeDiff > (1000*60*60*24)) {
+                day = Math.floor(timeDiff/(24*60*60*1000))
+                hour = Math.floor(timeDiff%(24*60*60*1000)/(60*60*1000))
+                min = Math.floor(timeDiff%(60*60*1000)/(60*1000))
+                sec = Math.floor(timeDiff%(60*1000)/1000)
+                document.getElementById("lap").innerHTML = `Lap ${lapNumber} - ${day}d, ${("0"+hour).slice(-2)}:${("0"+min).slice(-2)}:${("0"+sec).slice(-2)}`
+            }else if (timeDiff > (1000*60*60)) {
+                hour = Math.floor(timeDiff%(24*60*60*1000)/(60*60*1000))
+                min = Math.floor(timeDiff%(60*60*1000)/(60*1000))
+                sec = Math.floor(timeDiff%(60*1000)/1000)
+                document.getElementById("lap").innerHTML = `Lap ${lapNumber} - ${("0"+hour).slice(-2)}:${("0"+min).slice(-2)}:${("0"+sec).slice(-2)}`
+            }else{    
+                min = Math.floor(timeDiff%(60*60*1000)/(60*1000))
+                sec = Math.floor(timeDiff%(60*1000)/1000)
+                document.getElementById("lap").innerHTML = `Lap ${lapNumber} - ${("0"+min).slice(-2)}:${("0"+sec).slice(-2)}`
+            }
+            document.getElementById("lap").style.opacity = 1;
+            document.getElementById("lap").style.transform = "translateY(0)";
+        }
+        function clock() {
+            if (!stopped) {
+                update(new Date())
+                if (localStorage.getItem("stopwatchLastLapDate")!="null") {
+                    updateLap(new Date())
+                }
+            }
+            document.getElementById("pauseButton").disabled = isReset
+            document.getElementById("resetButton").disabled = isReset
+            document.getElementById("lapButton").disabled = stopped
+        }
+        clock()
+        setInterval(clock, 1)
     </script>
 </body>
 </html>
