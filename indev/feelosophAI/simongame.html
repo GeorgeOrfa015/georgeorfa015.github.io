@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<!-- saved from url=(0063)https://palouvouz14.web.app/games_for_feelosophai/Simon%20Game/ -->
+<html lang="el"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Follow the Pattern</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+
+  body {
+    margin: 0; padding: 0;
+    height: 100vh;
+    background: #1a237e;
+    background-size: 600% 600%;
+    animation: gradientShift 15s ease infinite;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Fredoka One', cursive;
+    user-select: none;
+  }
+  @keyframes gradientShift {
+    0% {background-position:0% 50%;}
+    50% {background-position:100% 50%;}
+    100% {background-position:0% 50%;}
+  }
+  h1 {
+    color: #fff;
+    font-size: 3rem;
+    margin-bottom: 10px;
+    text-shadow: 0 0 15px #fff;
+  }
+  #game {
+    display: grid;
+    grid-template-columns: repeat(2, 140px);
+    grid-gap: 25px;
+  }
+  .btn {
+    width: 140px;
+    height: 140px;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 0 15px #0008;
+    transition: box-shadow 0.3s ease, transform 0.15s ease;
+  }
+  .btn:active {
+    transform: scale(0.9);
+  }
+  .red {
+    background: #e53935;
+    box-shadow: 0 0 25px #f44336;
+  }
+  .red.active {
+    box-shadow:
+      0 0 40px #ff1744,
+      0 0 80px #ff1744,
+      0 0 120px #ff1744;
+  }
+  .green {
+    background: #43a047;
+    box-shadow: 0 0 25px #66bb6a;
+  }
+  .green.active {
+    box-shadow:
+      0 0 40px #00e676,
+      0 0 80px #00e676,
+      0 0 120px #00e676;
+  }
+  .blue {
+    background: #1e88e5;
+    box-shadow: 0 0 25px #64b5f6;
+  }
+  .blue.active {
+    box-shadow:
+      0 0 40px #2979ff,
+      0 0 80px #2979ff,
+      0 0 120px #2979ff;
+  }
+  .yellow {
+    background: #fdd835;
+    box-shadow: 0 0 25px #fff176;
+  }
+  .yellow.active {
+    box-shadow:
+      0 0 40px #ffea00,
+      0 0 80px #ffea00,
+      0 0 120px #ffea00;
+  }
+
+  #message {
+    margin-top: 30px;
+    color: #fff;
+    font-size: 2rem;
+    min-height: 60px;
+    text-shadow: 0 0 10px #0008;
+  }
+</style>
+</head>
+<body>
+
+<h1 id="levelTitle">Level 1</h1>
+<div id="game">
+  <div class="btn red" data-color="red" aria-label="Κόκκινο κουμπί"></div>
+  <div class="btn green" data-color="green" aria-label="Πράσινο κουμπί"></div>
+  <div class="btn blue" data-color="blue" aria-label="Μπλε κουμπί"></div>
+  <div class="btn yellow" data-color="yellow" aria-label="Κίτρινο κουμπί"></div>
+</div>
+<div id="message"></div>
+
+<script>
+  const buttons = document.querySelectorAll('.btn');
+  const levelTitle = document.getElementById('levelTitle');
+  const message = document.getElementById('message');
+
+
+  const sounds = {
+    red: new Audio('https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg'),
+    green: new Audio('https://actions.google.com/sounds/v1/cartoon/pop.ogg'),
+    blue: new Audio('https://actions.google.com/sounds/v1/cartoon/boing.ogg'),
+    yellow: new Audio('https://actions.google.com/sounds/v1/cartoon/slide_whistle_to_drum_hit.ogg'),
+    success: new Audio('../color_match/clapping.mp3'),
+    fail: new Audio('https://actions.google.com/sounds/v1/cartoon/wood_plank_flicks.ogg')
+  };
+
+  let sequence = [];
+  let playerSequence = [];
+  let level = 1;
+  let acceptingInput = false;
+
+  function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  function playSound(color) {
+    const sound = sounds[color];
+    if (sound) {
+      sound.currentTime = 0;
+      sound.play();
+    }
+  }
+
+  async function flashButton(color) {
+    const btn = document.querySelector(`.btn.${color}`);
+    btn.classList.add('active');
+    playSound(color);
+    await sleep(700);
+    btn.classList.remove('active');
+    await sleep(200);
+  }
+
+  async function playSequence() {
+    acceptingInput = false;
+    for (const color of sequence) {
+      await flashButton(color);
+    }
+    acceptingInput = true;
+    playerSequence = [];
+  }
+
+  function nextLevel() {
+    level++;
+    levelTitle.textContent = `Level ${level}`;
+    message.textContent = '';
+    sequence.push(randomColor());
+    playSequence();
+  }
+
+  function randomColor() {
+    const colors = ['red', 'green', 'blue', 'yellow'];
+    return colors[Math.floor(Math.random() * colors.length)];
+  }
+
+  async function startGame() {
+    level = 1;
+    sequence = [randomColor()];
+    levelTitle.textContent = `Level ${level}`;
+    message.textContent = '';
+    await playSequence();
+  }
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', async () => {
+      if (!acceptingInput) return;
+      const color = btn.dataset.color;
+      playerSequence.push(color);
+      await flashButton(color);
+
+      const currentIndex = playerSequence.length - 1;
+      if (playerSequence[currentIndex] !== sequence[currentIndex]) {
+        sounds.fail.play();
+        message.textContent = 'Wrong! Try again.';
+        acceptingInput = false;
+        await sleep(1500);
+        startGame();
+        return;
+      }
+
+      if (playerSequence.length === sequence.length) {
+        sounds.success.play();
+        message.textContent = 'Good Job!';
+        acceptingInput = false;
+        if (level === 10) {
+          message.textContent = 'Congratulations! You completed all levels!';
+          return;
+        }
+        await sleep(1500);
+        nextLevel();
+      }
+    });
+  });
+
+  startGame();
+</script>
+
+
+
+</body></html>

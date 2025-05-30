@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<!-- saved from url=(0062)https://palouvouz14.web.app/games_for_feelosophai/color_match/ -->
+<html lang="el"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <title>Match The Color</title>
+  <style>
+    body {
+      margin: 0; padding: 0;
+      background-color: #111;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      user-select: none;
+    }
+    #target-color {
+      width: 160px; height: 160px;
+      border-radius: 24px;
+      margin-bottom: 20px;
+      border: 5px solid white;
+      box-shadow: 0 0 30px 8px rgba(255,255,255,0.2);
+      transition: background-color 0.5s ease;
+    }
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      justify-content: center;
+      max-width: 400px;
+      margin-bottom: 20px;
+    }
+    .color-button {
+      width: 85px; height: 85px;
+      border-radius: 50%;
+      border: 4px solid white;
+      cursor: pointer;
+      box-shadow: 0 0 10px 3px rgba(255,255,255,0.3);
+      transition: transform 0.2s ease, box-shadow 0.3s ease;
+    }
+    .color-button:hover {
+      transform: scale(1.12);
+      box-shadow: 0 0 25px 6px rgba(255,255,255,0.7);
+    }
+    #score {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
+    #message {
+      font-size: 1.1rem;
+      height: 28px;
+      margin-bottom: 15px;
+      font-weight: 600;
+      text-align: center;
+      min-width: 220px;
+    }
+    #timer {
+      font-size: 1rem;
+      margin-bottom: 30px;
+      font-family: monospace;
+    }
+    .flash {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 100;
+      pointer-events: none;
+      animation: flashAnim 0.8s ease-out forwards;
+    }
+    @keyframes flashAnim {
+      0% { opacity: 0.7; }
+      100% { opacity: 0; }
+    }
+        @media (max-width: 480px) {
+      #target-color {
+        width: 120px;
+        height: 120px;
+        border-radius: 18px;
+        margin-bottom: 15px;
+      }
+      .color-button {
+        width: 70px;
+        height: 70px;
+        border-width: 3px;
+      }
+      .buttons {
+        gap: 12px;
+        max-width: 320px;
+      }
+      #score {
+        font-size: 1rem;
+      }
+      #message {
+        font-size: 1rem;
+        min-width: 180px;
+      }
+      #timer {
+        font-size: 0.9rem;
+        margin-bottom: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="score">Score: 0</div>
+  <div id="target-color" aria-label="Χρώμα στόχος" role="img" style="background-color: pink;"></div>
+  <div id="message" aria-live="polite"></div>
+  <div id="timer">Time: 1</div>
+
+  <div class="buttons" role="group" aria-label="Επιλογή χρώματος">
+    <button class="color-button" style="background-color: red;" onclick="checkAnswer(&#39;red&#39;)" aria-label="Κόκκινο"></button>
+    <button class="color-button" style="background-color: blue;" onclick="checkAnswer(&#39;blue&#39;)" aria-label="Μπλε"></button>
+    <button class="color-button" style="background-color: green;" onclick="checkAnswer(&#39;green&#39;)" aria-label="Πράσινο"></button>
+    <button class="color-button" style="background-color: yellow;" onclick="checkAnswer(&#39;yellow&#39;)" aria-label="Κίτρινο"></button>
+    <button class="color-button" style="background-color: orange;" onclick="checkAnswer(&#39;orange&#39;)" aria-label="Πορτοκαλί"></button>
+    <button class="color-button" style="background-color: pink;" onclick="checkAnswer(&#39;pink&#39;)" aria-label="Ροζ"></button>
+    <button class="color-button" style="background-color: purple;" onclick="checkAnswer(&#39;purple&#39;)" aria-label="Μωβ"></button>
+  </div>
+
+  <audio id="cheer-sound" src="./clapping.mp3" preload="auto"></audio>
+  <audio id="wrong-sound" src="https://actions.google.com/sounds/v1/cartoon/cartoon_boing.ogg" preload="auto"></audio>
+
+<script>
+  const colors = [
+    {name:'red', code:'red', greek:'red'},
+    {name:'blue', code:'blue', greek:'blue'},
+    {name:'green', code:'green', greek:'green'},
+    {name:'yellow', code:'yellow', greek:'yellow'},
+    {name:'orange', code:'orange', greek:'orange'},
+    {name:'pink', code:'pink', greek:'pink'},
+    {name:'purple', code:'purple', greek:'purple'}
+  ];
+  let currentColor = null;
+  let isWaiting = false;
+  let score = 0;
+  let timer = null;
+  let timeLeft = 5;
+
+  const scoreElem = document.getElementById('score');
+  const messageElem = document.getElementById('message');
+  const timerElem = document.getElementById('timer');
+  const targetElem = document.getElementById('target-color');
+  const cheerSound = document.getElementById('cheer-sound');
+  const wrongSound = document.getElementById('wrong-sound');
+
+  // Προσπάθεια να ξεκλειδώσουμε ήχους με πρώτο κλικ
+  document.body.addEventListener('click', () => {
+    cheerSound.play().then(() => {
+      cheerSound.pause();
+      cheerSound.currentTime = 0;
+    }).catch(() => {});
+    wrongSound.play().then(() => {
+      wrongSound.pause();
+      wrongSound.currentTime = 0;
+    }).catch(() => {});
+  }, {once:true});
+
+  function setRandomColor() {
+    const randIndex = Math.floor(Math.random() * colors.length);
+    currentColor = colors[randIndex];
+    targetElem.style.backgroundColor = currentColor.code;
+    speak(currentColor.greek);
+    console.log('New Color:', currentColor.name);
+  }
+
+  function checkAnswer(colorName) {
+    if (isWaiting) return;
+    clearInterval(timer);
+    if (colorName === currentColor.name) {
+      score++;
+      scoreElem.textContent = `Score: ${score}`;
+      messageElem.textContent = '✅ Correct!';
+      cheerSound.play();
+      flashScreen(currentColor.code);
+      isWaiting = true;
+      setTimeout(() => {
+        messageElem.textContent = '';
+        setRandomColor();
+        resetTimer();
+        isWaiting = false;
+      }, 2500);
+    } else {
+      messageElem.textContent = '❌ Wrong! Try again.';
+      wrongSound.play();
+      flashScreen('white');
+      resetTimer();
+    }
+  }
+
+  function flashScreen(color) {
+    const flash = document.createElement('div');
+    flash.className = 'flash';
+    flash.style.backgroundColor = color;
+    document.body.appendChild(flash);
+    setTimeout(() => flash.remove(), 800);
+  }
+
+  function resetTimer() {
+    timeLeft = 5;
+    timerElem.textContent = `Time: ${timeLeft}`;
+    clearInterval(timer);
+    timer = setInterval(() => {
+      timeLeft--;
+      timerElem.textContent = `Time: ${timeLeft}`;
+      if (timeLeft <= 0) {
+        clearInterval(timer);
+        messageElem.textContent = '⌛ Out of time! Try again.';
+        wrongSound.play();
+        flashScreen('white');
+        resetTimer();
+        setRandomColor();
+      }
+    }, 1000);
+  }
+
+  function speak(text) {
+    if ('speechSynthesis' in window) {
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'en-GB';
+      utterance.rate = 1;
+      speechSynthesis.cancel();
+      speechSynthesis.speak(utterance);
+    }
+  }
+
+
+  setRandomColor();
+  resetTimer();
+
+</script>
+
+
+
+
+</body></html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<!-- saved from url=(0062)https://palouvouz14.web.app/games_for_feelosophai/BUBBLE_GAME/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <title>Bubble Game</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(to top, #001f3f, #0074D9);
+      overflow: hidden;
+      font-family: sans-serif;
+      height: 100vh;
+    }
+
+    .hud {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      color: white;
+      font-size: 18px;
+      z-index: 1000;
+      user-select: none;
+      display:none;
+    }
+
+    .bubble {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, #fff, #00d2ff);
+      box-shadow: 0 0 15px #00d2ff;
+      animation: rise linear forwards;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .jackpot {
+      background: radial-gradient(circle, gold, red);
+      box-shadow: 0 0 20px gold;
+    }
+
+    button {
+      margin-top: 8px;
+      padding: 4px 8px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .message{
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #fff;
+      font-family: "Times New Roman";
+      font-size: 1.5em;
+      top: 1em;
+    }
+
+    @keyframes rise {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-100vh); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="message">
+    Let's relax!
+  </div>
+  <div class="hud">
+    <div>Name: <span id="playerName">George</span></div>
+    <div>Score: <span id="score">960</span></div>
+    <div>Time: <span id="time">34</span>s</div>
+    <button onclick="resetGame()">Reset Score</button>
+  </div>
+
+  <script>
+    let score = 0;
+    let timeLeft = 9989999999999;
+    const scoreDisplay = document.getElementById("score");
+    const timeDisplay = document.getElementById("time");
+    const nameDisplay = document.getElementById("playerName");
+
+    // -- Cookie helpers --
+    function setCookie(name, value, days) {
+      const d = new Date();
+      d.setTime(d.getTime() + (days*24*60*60*1000));
+      document.cookie = name + "=" + value + ";expires=" + d.toUTCString() + ";path=/";
+    }
+
+    function getCookie(name) {
+      const cname = name + "=";
+      const decodedCookie = decodeURIComponent(document.cookie);
+      const ca = decodedCookie.split(';');
+      for(let i = 0; i < ca.length; i++) {
+        let c = ca[i].trim();
+        if (c.indexOf(cname) === 0) return c.substring(cname.length);
+      }
+      return "";
+    }
+
+    // -- Load name --
+    let playerName = getCookie("bubblePlayerName");
+    if (!playerName) {
+      playerName = "player"
+      if (!playerName) playerName = "Player";
+      setCookie("bubblePlayerName", playerName, 30);
+    }
+    nameDisplay.textContent = playerName;
+
+    // -- Load score --
+    let savedScore = parseInt(getCookie("bubbleGameScore"));
+    if (!isNaN(savedScore)) {
+      score = savedScore;
+      scoreDisplay.textContent = score;
+    }
+
+    // -- Audio --
+    const popAudio = new Audio("./bubble-pop.mp3");
+    popAudio.volume = 0.1;
+
+    function createBubble() {
+      if (timeLeft <= 0) return;
+
+      const bubble = document.createElement("div");
+      bubble.classList.add("bubble");
+
+      const size = Math.random() * 60 + 20;
+      const isJackpot = Math.random() < 1 / 20;
+      if (isJackpot) bubble.classList.add("jackpot");
+
+      bubble.style.width = `${size}px`;
+      bubble.style.height = `${size}px`;
+      bubble.style.left = `${Math.random() * 90}vw`;
+      bubble.style.bottom = '-100px';
+      bubble.style.animationDuration = `${4 + Math.random() * 3}s`;
+
+      function popBubble(e) {
+        e.preventDefault();
+        let points = isJackpot ? 50 : Math.floor(size / 10);
+        score += points;
+        scoreDisplay.textContent = score;
+        setCookie("bubbleGameScore", score, 7);
+        bubble.remove();
+
+        popAudio.currentTime = 0;
+        popAudio.play().catch(() => {});
+      }
+
+      bubble.addEventListener("click", popBubble);
+      bubble.addEventListener("touchstart", popBubble);
+
+      document.body.appendChild(bubble);
+
+      setTimeout(() => {
+        if (document.body.contains(bubble)) bubble.remove();
+      }, 7000);
+    }
+
+    // -- Game timer --
+    const timer = setInterval(() => {
+      if (timeLeft > 0) {
+        timeLeft--;
+        timeDisplay.textContent = timeLeft;
+      }
+    }, 1000);
+
+    // -- Bubble spawner --
+    const bubbleSpawner = setInterval(() => {
+      if (timeLeft > 0) {
+        createBubble();
+      } else {
+        clearInterval(bubbleSpawner);
+      }
+    }, 500);
+
+    // -- Reset --
+    function resetGame() {
+      score = 0;
+      scoreDisplay.textContent = score;
+      setCookie("bubbleGameScore", score, 7);
+    }
+  </script>
+
+
+
+<div class="bubble" style="width: 71.7202px; height: 71.7202px; left: 72.3855vw; bottom: -100px; animation-duration: 4.22652s;"></div><div class="bubble" style="width: 37.9843px; height: 37.9843px; left: 88.5308vw; bottom: -100px; animation-duration: 5.00005s;"></div><div class="bubble jackpot" style="width: 40.958px; height: 40.958px; left: 3.54454vw; bottom: -100px; animation-duration: 6.83424s;"></div><div class="bubble" style="width: 50.7434px; height: 50.7434px; left: 77.9481vw; bottom: -100px; animation-duration: 5.70828s;"></div><div class="bubble" style="width: 32.8008px; height: 32.8008px; left: 9.23143vw; bottom: -100px; animation-duration: 4.90034s;"></div><div class="bubble" style="width: 77.2533px; height: 77.2533px; left: 42.142vw; bottom: -100px; animation-duration: 4.24104s;"></div><div class="bubble" style="width: 43.5376px; height: 43.5376px; left: 43.9396vw; bottom: -100px; animation-duration: 6.12371s;"></div><div class="bubble" style="width: 76.8263px; height: 76.8263px; left: 40.7568vw; bottom: -100px; animation-duration: 5.2777s;"></div><div class="bubble" style="width: 70.9502px; height: 70.9502px; left: 4.45413vw; bottom: -100px; animation-duration: 6.97891s;"></div><div class="bubble" style="width: 63.2325px; height: 63.2325px; left: 6.22964vw; bottom: -100px; animation-duration: 5.69263s;"></div><div class="bubble" style="width: 70.4896px; height: 70.4896px; left: 11.4319vw; bottom: -100px; animation-duration: 5.61462s;"></div><div class="bubble" style="width: 29.3903px; height: 29.3903px; left: 10.7532vw; bottom: -100px; animation-duration: 5.72911s;"></div><div class="bubble" style="width: 56.4882px; height: 56.4882px; left: 5.60793vw; bottom: -100px; animation-duration: 5.29692s;"></div><div class="bubble" style="width: 53.3132px; height: 53.3132px; left: 31.4614vw; bottom: -100px; animation-duration: 5.08935s;"></div></body></html>
