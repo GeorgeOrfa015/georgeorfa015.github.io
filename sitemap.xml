@@ -11,84 +11,14 @@
 		<lastmod>2025-06-03</lastmod>
 	</url>
 	<url>
-		<loc>https://www.georgeorfa015.github.io/news.html</loc>
-		<priority>0.67</priority>
-		<lastmod>2025-04-18</lastmod>
-	</url>
-	<url>
-		<loc>https://www.georgeorfa015.github.io/ybt-cal.html</loc>
-		<priority>0.67</priority>
-		<lastmod>2024-11-17</lastmod>
-	</url>
-	<url>
-		<loc>https://www.georgeorfa015.github.io/chase-button/legacy</loc>
-		<priority>0.67</priority>
-		<lastmod>2024-07-19</lastmod>
-	</url>
-	<url>
-		<loc>https://www.georgeorfa015.github.io/indev</loc>
-		<priority>0.67</priority>
-		<lastmod>2025-04-18</lastmod>
-	</url>
-	<url>
-		<loc>https://www.georgeorfa015.github.io/indev/test.html</loc>
-		<priority>0.67</priority>
-		<lastmod>2024-07-04</lastmod>
-	</url>
-	<url>
-		<loc>https://www.georgeorfa015.github.io/counters</loc>
-		<priority>0.67</priority>
-		<lastmod>2024-04-29</lastmod>
-	</url>
-	<url>
-		<loc>https://www.georgeorfa015.github.io/math</loc>
-		<priority>0.67</priority>
-		<lastmod>2025-03-27</lastmod>
-	</url>
-	<url>
-		<loc>https://www.georgeorfa015.github.io/projects.html</loc>
-		<priority>0.67</priority>
-		<lastmod>2025-01-27</lastmod>
-	</url>
-	<url>
-		<loc>https://www.georgeorfa015.github.io/progress-bars</loc>
-		<priority>0.67</priority>
-		<lastmod>2025-02-01</lastmod>
-	</url>
-	<url>
-		<loc>https://www.georgeorfa015.github.io/math</loc>
-		<priority>0.67</priority>
-		<lastmod>2025-03-27</lastmod>
-	</url>
-	<url>
-		<loc>https://www.georgeorfa015.github.io/random</loc>
-		<priority>0.67</priority>
-		<lastmod>2024-07-13</lastmod>
-	</url>
-	<url>
-		<loc>https://www.georgeorfa015.github.io/timer</loc>
-		<priority>0.67</priority>
-		<lastmod>2024-04-24</lastmod>
-	</url>
-	<url>
 		<loc>https://www.georgeorfa015.github.io/timers</loc>
 		<priority>0.67</priority>
-		<lastmod>2025-04-18</lastmod>
+		<lastmod>2025-01-12</lastmod>
 	</url>
 	<url>
-		<loc>https://www.georgeorfa015.github.io/years-temp-abandoned</loc>
+		<loc>https://www.georgeorfa015.github.io/legacy/timers</loc>
 		<priority>0.67</priority>
 		<lastmod>2024-12-08</lastmod>
-	</url>
-	<url>
-		<loc>https://www.georgeorfa015.github.io</loc>
-		<priority>0.67</priority>
-		<lastmod>2025-05-07</lastmod>
-	</url>
-	<url>
-		<loc>https://www.georgeorfa015.github.io/indev</loc>
-		<priority>0.67</priority>
-		<lastmod>2025-02-01</lastmod>
 	</url>
 	<url>
 		<loc>https://www.georgeorfa015.github.io/voltage-drop</loc>
@@ -96,49 +26,114 @@
 		<lastmod>2024-11-15</lastmod>
 	</url>
 	<url>
-		<loc>https://www.georgeorfa015.github.io/legacy/timers</loc>
+		<loc>https://www.georgeorfa015.github.io/indev</loc>
+		<priority>0.67</priority>
+		<lastmod>2025-02-01</lastmod>
+	</url>
+	<url>
+		<loc>https://www.georgeorfa015.github.io</loc>
+		<priority>0.67</priority>
+		<lastmod>2025-06-12</lastmod>
+	</url>
+	<url>
+		<loc>https://www.georgeorfa015.github.io/years-temp-abandoned</loc>
 		<priority>0.67</priority>
 		<lastmod>2024-12-08</lastmod>
 	</url>
 	<url>
 		<loc>https://www.georgeorfa015.github.io/timers</loc>
 		<priority>0.67</priority>
-		<lastmod>2025-01-12</lastmod>
+		<lastmod>2025-04-18</lastmod>
 	</url>
 	<url>
-		<loc>https://www.georgeorfa015.github.io/indev/feelosophAI</loc>
-		<priority>0.33</priority>
-		<lastmod>2025-06-01</lastmod>
+		<loc>https://www.georgeorfa015.github.io/timer</loc>
+		<priority>0.67</priority>
+		<lastmod>2024-04-24</lastmod>
 	</url>
 	<url>
-		<loc>https://www.georgeorfa015.github.io/legacy/timers</loc>
+		<loc>https://www.georgeorfa015.github.io/random</loc>
+		<priority>0.67</priority>
+		<lastmod>2024-07-13</lastmod>
+	</url>
+	<url>
+		<loc>https://www.georgeorfa015.github.io/math</loc>
+		<priority>0.67</priority>
+		<lastmod>2025-03-27</lastmod>
+	</url>
+	<url>
+		<loc>https://www.georgeorfa015.github.io/progress-bars</loc>
+		<priority>0.67</priority>
+		<lastmod>2025-02-01</lastmod>
+	</url>
+	<url>
+		<loc>https://www.georgeorfa015.github.io/projects.html</loc>
+		<priority>0.67</priority>
+		<lastmod>2025-01-27</lastmod>
+	</url>
+	<url>
+		<loc>https://www.georgeorfa015.github.io/math</loc>
+		<priority>0.67</priority>
+		<lastmod>2025-03-27</lastmod>
+	</url>
+	<url>
+		<loc>https://www.georgeorfa015.github.io/counters</loc>
+		<priority>0.67</priority>
+		<lastmod>2024-04-29</lastmod>
+	</url>
+	<url>
+		<loc>https://www.georgeorfa015.github.io/indev/test.html</loc>
+		<priority>0.67</priority>
+		<lastmod>2024-07-04</lastmod>
+	</url>
+	<url>
+		<loc>https://www.georgeorfa015.github.io/indev</loc>
+		<priority>0.67</priority>
+		<lastmod>2025-04-18</lastmod>
+	</url>
+	<url>
+		<loc>https://www.georgeorfa015.github.io/chase-button/legacy</loc>
+		<priority>0.67</priority>
+		<lastmod>2024-07-19</lastmod>
+	</url>
+	<url>
+		<loc>https://www.georgeorfa015.github.io/ybt-cal.html</loc>
+		<priority>0.67</priority>
+		<lastmod>2024-11-17</lastmod>
+	</url>
+	<url>
+		<loc>https://www.georgeorfa015.github.io/news.html</loc>
+		<priority>0.67</priority>
+		<lastmod>2025-04-18</lastmod>
+	</url>
+	<url>
+		<loc>https://www.georgeorfa015.github.io/indev/timers-style.html</loc>
 		<priority>0.33</priority>
 		<lastmod>2024-12-08</lastmod>
 	</url>
 	<url>
-		<loc>https://www.georgeorfa015.github.io/indev/electric-voltage-drop-style.html</loc>
+		<loc>https://www.georgeorfa015.github.io/chase-button</loc>
 		<priority>0.33</priority>
-		<lastmod>2025-03-26</lastmod>
+		<lastmod>2024-07-19</lastmod>
 	</url>
 	<url>
-		<loc>https://www.georgeorfa015.github.io/indev/electric-voltage-drop.html</loc>
+		<loc>https://www.georgeorfa015.github.io/indev/test3.html</loc>
 		<priority>0.33</priority>
-		<lastmod>2024-11-05</lastmod>
+		<lastmod>2024-07-09</lastmod>
 	</url>
 	<url>
-		<loc>https://www.georgeorfa015.github.io/indev/canvastest.html</loc>
+		<loc>https://www.georgeorfa015.github.io/indev/test2.html</loc>
 		<priority>0.33</priority>
 		<lastmod>2024-07-02</lastmod>
 	</url>
 	<url>
-		<loc>https://www.georgeorfa015.github.io/indev/devicedimensions.html</loc>
+		<loc>https://www.georgeorfa015.github.io/.indev/yearprogress.html</loc>
 		<priority>0.33</priority>
-		<lastmod>2024-06-16</lastmod>
+		<lastmod>2024-05-23</lastmod>
 	</url>
 	<url>
-		<loc>https://www.georgeorfa015.github.io/notes-temp-abandoned/test.html</loc>
+		<loc>https://www.georgeorfa015.github.io/.indev/helpscreentest.html</loc>
 		<priority>0.33</priority>
-		<lastmod>2024-06-15</lastmod>
+		<lastmod>2024-05-05</lastmod>
 	</url>
 	<url>
 		<loc>https://www.georgeorfa015.github.io/math/index_old.html</loc>
@@ -156,34 +151,39 @@
 		<lastmod>2024-04-24</lastmod>
 	</url>
 	<url>
-		<loc>https://www.georgeorfa015.github.io/.indev/helpscreentest.html</loc>
+		<loc>https://www.georgeorfa015.github.io/notes-temp-abandoned/test.html</loc>
 		<priority>0.33</priority>
-		<lastmod>2024-05-05</lastmod>
+		<lastmod>2024-06-15</lastmod>
 	</url>
 	<url>
-		<loc>https://www.georgeorfa015.github.io/.indev/yearprogress.html</loc>
+		<loc>https://www.georgeorfa015.github.io/indev/devicedimensions.html</loc>
 		<priority>0.33</priority>
-		<lastmod>2024-05-23</lastmod>
+		<lastmod>2024-06-16</lastmod>
 	</url>
 	<url>
-		<loc>https://www.georgeorfa015.github.io/indev/test2.html</loc>
+		<loc>https://www.georgeorfa015.github.io/indev/canvastest.html</loc>
 		<priority>0.33</priority>
 		<lastmod>2024-07-02</lastmod>
 	</url>
 	<url>
-		<loc>https://www.georgeorfa015.github.io/indev/test3.html</loc>
+		<loc>https://www.georgeorfa015.github.io/indev/electric-voltage-drop.html</loc>
 		<priority>0.33</priority>
-		<lastmod>2024-07-09</lastmod>
+		<lastmod>2024-11-05</lastmod>
 	</url>
 	<url>
-		<loc>https://www.georgeorfa015.github.io/chase-button</loc>
+		<loc>https://www.georgeorfa015.github.io/indev/electric-voltage-drop-style.html</loc>
 		<priority>0.33</priority>
-		<lastmod>2024-07-19</lastmod>
+		<lastmod>2025-03-26</lastmod>
 	</url>
 	<url>
-		<loc>https://www.georgeorfa015.github.io/indev/timers-style.html</loc>
+		<loc>https://www.georgeorfa015.github.io/legacy/timers</loc>
 		<priority>0.33</priority>
 		<lastmod>2024-12-08</lastmod>
+	</url>
+	<url>
+		<loc>https://www.georgeorfa015.github.io/indev/feelosophAI</loc>
+		<priority>0.33</priority>
+		<lastmod>2025-06-01</lastmod>
 	</url>
 	<url>
 		<loc>https://www.georgeorfa015.github.io/indev/feelosophAI/guide.html</loc>

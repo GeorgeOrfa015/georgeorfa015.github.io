@@ -1,11 +1,12 @@
 # Website
 ## Projects
 - Progress Bars
+- Custom Timers
 - Counters
-- Countdown Timers
+- Math Tools
+- Random Generators
+- Cable Voltage Drop
 - New Year Countdown
 - Wall Clock
-- Chase the button game
+- Chase the button Game
 - 2D Platformer
-- Mathematical Equations
-- Random Generators
