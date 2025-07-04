@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div></div>
+    <script>
+        class Item{
+            constructor({color, id, x, y}) {
+                this.color = color
+                this.x = x
+                this.y = y
+                this.id = id
+                
+                
+                this.element = document.createElement("div")
+                this.element.id = id
+                this.element.onmousemove = () => {setInterval(() => this.update(), 10)}
+                this.element.style.background = this.color
+                this.element.style.position = "absolute"
+                this.element.style.left = this.x+"px"
+                this.element.style.top = this.y+"px"
+                this.element.style.width = "5px"
+                this.element.style.height = "5px"
+                document.querySelector("div").appendChild(this.element)
+            }
+            kill() {
+                this.element.remove()
+            }
+            update() {
+                let date = new Date().getTime()
+                this.element.style.background = `hsl(${date/50+this.id}, 50%, 50%)`
+            }
+        }
+        let k = 0
+        for (i=0;i<26;i++) {
+            for (j=0;j<10;j++) {
+                k+=1
+                new Item({id: k, color: `hsl(${k}, 50%, 50%)`, x: j*5, y: i*5})
+            }
+        }
+    </script>
+</body>
+</html>

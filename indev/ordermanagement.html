@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div{
+            display: flex;
+        }
+        #a1{
+            color: #f00;
+        }
+        #a2{
+            color: #0f0;
+        }
+        #a3{
+            color: #00f;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <input type="datetime-local" id="a1">
+        <input type="datetime-local" id="a2">
+        <input type="datetime-local" id="a3">
+    </div>
+    <script>
+        function update(id) {
+            document.getElementById("a"+id).style.order = Math.round(new Date(document.getElementById("a"+id).value).getTime()/1000)
+        }
+        setInterval(() => {
+            update(1)
+            update(2)
+            update(3)
+        }, 100);
+    </script>
+</body>
+</html>
