@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@300;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
+        body{
+            font-family: "Poppins", "Manrope";
+            background-color: #000;
+            color: #fff
+        }
+        .outerCont{
+            display: grid;
+            gap: 1vw;
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: fit-content;
+            width: calc(100% - 2vw);
+            padding: 1vw;
+        }
+        .itemOuterCont{
+            background: #111;
+            border-radius: 0.75vw;
+            padding: 0.75vw;
+            display: grid;
+            grid-template-columns: 0.5vw calc(100% - 1vw);
+            gap: 0.5vw
+        }
+        .itemColor{
+            width: 0.5vw;
+            height: 100%;
+            background: #27d;
+            border-radius: 0.25vw;
+        }
+        .itemInnerCont{
+            display: grid;
+            grid-template-columns: 15fr auto 5fr;
+            gap: 0.75vw
+        }
+        button{
+            margin: 0;
+            padding: 0;
+            font-family: inherit;
+            font-size: 1.4vw;
+            transition: 0.2s background;
+            background: #333;
+            border: none;
+            color: #fff;
+            border-radius: 0.5vw;
+            width: 100%;
+            height: 100%;
+        }
+        button:hover{
+            background: #555;
+        } 
+        button:active{
+            background: #1fb15c;
+            transition: 0s;
+        }
+        input{
+            background: #222;
+            color: #fff;
+            border: none;
+            border-radius: 0.5vw;
+            text-align: center;
+            font-size: 1.35vw;
+            font-family: inherit;
+            margin: 0;
+            padding-left: 0.5vw;
+            transition: 0.2s background;
+            width:calc(100% - 0.6vw);
+        }
+        input:focus{
+            outline: none;
+            background: #444;
+        }
+        input::placeholder{
+            color: #888
+        }
+        .itemSubject{
+            background: #111;
+            color: #fff;
+            text-align: left;
+            padding: 0;
+            font-weight: 600;
+        }
+        .itemSubject::placeholder{
+            color: #888;
+        }
+        .itemSubject:focus{
+            background-color: #111;
+        }
+        .timeRemaining{
+            text-align: right;
+            font-size: 1.4vw;
+        }
+        .newSubitemButton{
+            grid-column: span 3;
+        }
+        .subitemOuterCont{
+            grid-column: span 3;
+            display: grid;
+            gap: 0.75vw;
+        }
+        .subitemOuterCont:empty{
+            display: none;
+        }
+        .subitemInnerCont{
+            display: grid;
+            grid-template-columns: 5fr auto;
+            gap: 0.75vw;
+        }
+        .subitemDelete{
+            padding: 0 0.5vw;
+            background: #732
+        }
+        .subitemInput{
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="outerCont">
+        <div class="itemOuterCont" id="ioc1">
+            <div class="itemColor"></div>
+            <div class="itemInnerCont">
+                <input class="itemSubject" placeholder="Subject">
+                <span class="timeRemaining">9999 days, 23h, 59m, 45s</span>
+                <input type="datetime-local" class="timeInput">
+                <div class="subitemOuterCont" id="sioc1"></div>
+                <button onclick="newSubitem(1)" class="newSubitemButton">New Sub-item</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        id = 1
+        function newSubitem(itemID){
+            // subitemInnerCont
+            let subitemInnerCont = document.createElement("div")
+            subitemInnerCont.id = "siic"+id
+            subitemInnerCont.className = "subitemInnerCont"
+            
+            // subitemInnerCont > subitemInput
+            let subitemInput = document.createElement("input")
+            subitemInput.type = "text"
+            subitemInput.placeholder = id
+            subitemInput.className = "subitemInput"
+
+            // subitemInnerCont > subitemDelete
+            let subitemDelete = document.createElement("button")
+            subitemDelete.setAttribute("onclick", `deleteSubitem(${id})`)
+            subitemDelete.innerHTML = "Delete"
+            subitemDelete.className = "subitemDelete"
+
+            // Children appending
+            subitemInnerCont.appendChild(subitemInput)
+            subitemInnerCont.appendChild(subitemDelete)
+            document.getElementById("sioc"+itemID).appendChild(subitemInnerCont)
+            
+            id++
+        }
+        function deleteSubitem(id){
+            document.getElementById("siic"+id).innerHTML = ""
+            document.getElementById("siic"+id).remove()
+        }
+    </script>
+</body>
+</html>
