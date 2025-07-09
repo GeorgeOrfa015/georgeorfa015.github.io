@@ -29,7 +29,7 @@
             padding: 0.75vw;
             display: grid;
             grid-template-columns: 0.5vw calc(100% - 1vw);
-            gap: 0.5vw
+            gap: 0.75vw
         }
         .itemColor{
             width: 0.5vw;
@@ -39,12 +39,11 @@
         }
         .itemInnerCont{
             display: grid;
-            grid-template-columns: 15fr auto 5fr;
+            grid-template-columns: 15fr auto auto 2.5fr 2.5fr;
             gap: 0.75vw
         }
         button{
             margin: 0;
-            padding: 0;
             font-family: inherit;
             font-size: 1.4vw;
             transition: 0.2s background;
@@ -54,12 +53,13 @@
             border-radius: 0.5vw;
             width: 100%;
             height: 100%;
+            padding: 0 0.5vw;
         }
         button:hover{
             background: #555;
         } 
         button:active{
-            background: #1fb15c;
+            background: #666;
             transition: 0s;
         }
         input{
@@ -82,12 +82,19 @@
         input::placeholder{
             color: #888
         }
+        input[type=datetime-local]{
+            color-scheme: dark;
+            padding-right: 0.3vw;
+            width: calc(100% - 0.8vw);
+            grid-column: span 2;
+        }
         .itemSubject{
             background: #111;
             color: #fff;
             text-align: left;
             padding: 0;
-            font-weight: 600;
+            font-weight: 800;
+            font-size: 1.5vw;
         }
         .itemSubject::placeholder{
             color: #888;
@@ -98,12 +105,13 @@
         .timeRemaining{
             text-align: right;
             font-size: 1.4vw;
+            grid-column: span 2;
         }
         .newSubitemButton{
-            grid-column: span 3;
+            grid-column: span 2;
         }
         .subitemOuterCont{
-            grid-column: span 3;
+            grid-column: span 5;
             display: grid;
             gap: 0.75vw;
         }
@@ -112,15 +120,44 @@
         }
         .subitemInnerCont{
             display: grid;
-            grid-template-columns: 5fr auto;
+            grid-template-columns: 6fr 1fr auto;
             gap: 0.75vw;
         }
-        .subitemDelete{
+        .delete{
             padding: 0 0.5vw;
-            background: #732
+            background: rgb(141, 45, 21)
+        }
+        .delete:hover{
+            background: #aa3215
+        }
+        .delete:active{
+            background: #e04721
         }
         .subitemInput{
             text-align: left;
+            font-weight: 300;
+        }
+        .itemCompleteButton{
+            grid-column: span 2;
+        }
+        .settingsCont{
+            display: none;
+            grid-column: span 2;
+            grid-template-columns: auto 10fr 2fr;
+            gap: 0.75vw;
+        }
+        .itemColorInput{
+            text-align: left;
+        }
+        .label{
+            font-size: 1.3vw;
+            align-self: center;
+        }
+        .deleteConfirmCont{
+            display: grid;
+            grid-column: span 2;
+            grid-template-columns: auto 1fr 1fr;
+            gap: 0.75vw;
         }
     </style>
 </head>
@@ -134,39 +171,109 @@
                 <input type="datetime-local" class="timeInput">
                 <div class="subitemOuterCont" id="sioc1"></div>
                 <button onclick="newSubitem(1)" class="newSubitemButton">New Sub-item</button>
+                <button onclick="itemComplete(1)" class="itemCompleteButton">Mark as Complete</button>
+                <button onclick="settings(1, true)" class="itemSettingsButton" id="isb1">Settings</button>
+            </div>
+            <div class="settingsCont" id="sc1">
+                <span class="label">Color:</span>
+                <input type="text" placeholder="#012345, red, linear-gradient(red, green)..." class="itemColorInput">
+                <button onclick="deleteItem(1)" class="delete">Delete item</button>
+            </div>
+            <div class="deleteConfirmCont">
+                <span class="label">Are you sure you want to delete?</span>
+                <button class="delete">Delete</button>
+                <button>Back</button>
             </div>
         </div>
     </div>
     <script>
-        id = 1
+        sid = 1
         function newSubitem(itemID){
             // subitemInnerCont
             let subitemInnerCont = document.createElement("div")
-            subitemInnerCont.id = "siic"+id
             subitemInnerCont.className = "subitemInnerCont"
+            subitemInnerCont.id = "siic"+sid
             
             // subitemInnerCont > subitemInput
             let subitemInput = document.createElement("input")
             subitemInput.type = "text"
-            subitemInput.placeholder = id
+            subitemInput.placeholder = "Assignment..."
             subitemInput.className = "subitemInput"
+            subitemInput.id = "sii"+sid
 
-            // subitemInnerCont > subitemDelete
+            // subitemInnerCont > delete
             let subitemDelete = document.createElement("button")
-            subitemDelete.setAttribute("onclick", `deleteSubitem(${id})`)
+            subitemDelete.setAttribute("onclick", `deleteSubitem(${sid})`)
             subitemDelete.innerHTML = "Delete"
-            subitemDelete.className = "subitemDelete"
+            subitemDelete.className = "delete"
+            
+            // subitemInnerCont > subitemComplete
+            let subitemComplete = document.createElement("button")
+            subitemComplete.setAttribute("onclick", `completeSubitem(${sid})`)
+            subitemComplete.innerHTML = "Incomplete"
+            subitemComplete.id = "sic"+sid
+
+            // subitemInnerCont > subitemCompleteState
+            let subitemCompleteState = document.createElement("span")
+            subitemCompleteState.innerHTML = "0"
+            subitemCompleteState.style.display = "none"
+            subitemCompleteState.id = "sics"+sid
+
+
 
             // Children appending
             subitemInnerCont.appendChild(subitemInput)
+            subitemInnerCont.appendChild(subitemComplete)
+            subitemInnerCont.appendChild(subitemCompleteState)
             subitemInnerCont.appendChild(subitemDelete)
             document.getElementById("sioc"+itemID).appendChild(subitemInnerCont)
             
-            id++
+            sid++
+        }
+        id = 1
+        function newItem() {
+            // itemOuterCont
+            let itemOuterCont = document.createElement("div")
+            itemOuterCont.className = "itemOuterCont"
+            itemOuterCont.id = "ioc"+id
+
+            // itemOuterCont > itemColor
+            let itemColor = document.createElement("div")
+            itemColor
+        }
+        function settings(id, state){
+            let settingsCont = document.getElementById("sc"+id)
+            let settingsButton = document.getElementById("isb"+id)
+            if(state){ // hidden > true
+                settingsCont.style.display = "grid"
+                settingsButton.setAttribute("onclick", `settings(${id}, false)`)
+            }else{ // hidden > false
+                settingsCont.style.display = "none"
+                settingsButton.setAttribute("onclick", `settings(${id}, true)`)
+            }
         }
         function deleteSubitem(id){
             document.getElementById("siic"+id).innerHTML = ""
             document.getElementById("siic"+id).remove()
+        }
+        function completeSubitem(id){
+            let state = document.getElementById("sics"+id)
+            let button = document.getElementById("sic"+id)
+            let input = document.getElementById("sii"+id)
+            switch(Number(state.innerHTML)){
+                case 0:
+                    state.innerHTML = 1
+                    button.innerHTML = "Complete"
+                    input.style.color = "#888"
+                    input.style.textDecoration = "line-through"
+                    break;
+                case 1:
+                    state.innerHTML = 0
+                    button.innerHTML = "Incomplete"
+                    input.style.textDecoration = "none"
+                    input.style.color = "#fff"
+                    break;
+            }
         }
     </script>
 </body>
