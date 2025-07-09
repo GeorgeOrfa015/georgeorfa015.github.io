@@ -69,7 +69,7 @@ input{
     color: #fff;
     border: none;
     border-radius: 0.5vw;
-    width: 100%;
+    width: calc(100% - 0.5vw);
     text-align: center;
     font-size: 1.2vw;
     font-family: inherit;
@@ -84,6 +84,7 @@ input::placeholder{
 input[type=datetime-local]{
     background:#0005;
     -webkit-min-logical-width: calc(100% - 1vw);
+    padding-right: 0.5vw;
 }
 input[type=datetime-local]::placeholder{
     background: #2b8561;
@@ -195,7 +196,7 @@ input.top-button::placeholder{
     button{
         font-size: 3vw;
         transition: 0.2s background;
-        border-radius: 2vw;
+        border-radius: 1.75vw;
     }
     .controls-inner-cont{
         grid-template-columns: 5fr 2fr;
@@ -210,7 +211,7 @@ input.top-button::placeholder{
         font-size: 3vw;
     }
     input[type=datetime-local]{
-        -webkit-min-logical-width: calc(100% - 2vw);
+        width: calc(100% - 2vw);
         height: 100%;
     }
     .top-buttons{
