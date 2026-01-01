@@ -64,7 +64,7 @@ function randomSubmit() {
 }
 function gettime() {
     let crTime = new Date();
-    let cdTime = new Date(2026,0,1,0,0,0);
+    let cdTime = new Date(2027,0,1,0,0,0);
     let timeDifference = cdTime.getTime()-crTime.getTime();
     if (timeDifference>=0) {
         clock.innerHTML = Math.floor(timeDifference/(24*60*60*1000)) + " Days ";
