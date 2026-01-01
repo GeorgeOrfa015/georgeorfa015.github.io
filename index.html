@@ -15,6 +15,15 @@
     <title>George Orfanides</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        @keyframes falling{
+            from{
+                top: -10%;
+                opacity: 0.75;
+            }
+            to{
+                top: 110%;
+            }
+        }
         div{
             background-color: #ffffff00;
             padding: 0px;
@@ -389,16 +398,16 @@
             <div id="latestNewsHeader">Latest News</div>
             <div id="article">
                 <span class="title">
-                    Friday, April 18, 2025
+                    Thursday, January 1, 2026
                 </span>
                 <span class="articleText">
-                    Added groups in <a href="timers/index.html" class="news">Timers</a>, <a href="progress-bars/index.html" class="news">Progress Bars</a> and <a href="counters/index.html" class="news">Counters</a> for better categorization and organization. Save codes have all received a version update as well.
+                    Added snow on the home page and the news page to celebrate the holiday season! <!--<a href="timers/index.html" class="news">Timers</a>-->
                 </span>
             </div>
             <div id="additionalInfo">
                 <div id="commitInfo">
-                    <a id="commit" href="https://github.com/GeorgeOrfa015/georgeorfa015.github.io/commit/007b3fd6f93662ba135e9f57b890dbf23cbd79fa">Commit 3 on savecode-groups</a>
-                    <a id="pullRequest" href="https://github.com/GeorgeOrfa015/georgeorfa015.github.io/commit/0d2ad04d69534360e1f07d700c2dc8f741d4044f">Pull Request #15 by GeorgeOrfa015</a>
+                    <a id="commit" href="https://github.com/GeorgeOrfa015/georgeorfa015.github.io/commit/">Commit 2 on snow</a>
+                    <a id="pullRequest" href="https://github.com/GeorgeOrfa015/georgeorfa015.github.io/commit/">Pull Request #16 by GeorgeOrfa015</a>
                 </div>
             <a id="seeMoreText" href="news.html">See More...</a></div>
         </div>
@@ -599,6 +608,46 @@
         setTimeout(animation1, 750)
         let date = new Date();
         document.getElementById("yearTimerProject").innerHTML = "Countdown to " + (date.getFullYear()+1);
+
+        // Snow
+        function rand(min, max){
+            return Number(Math.round(Math.random() * (max-min) + min));
+        }
+        class Flake{
+            constructor({color, size, disappearDelay}){
+                this.size = size
+                let flake = document.createElement("div")
+                flake.style.background = color;
+                flake.style.width = size+"vw";
+                flake.style.height = size+"vw";;
+                flake.style.borderRadius = size+"vw";;
+                flake.style.position = "fixed";
+                flake.style.left = rand(0, window.innerWidth-size)+"px";
+                flake.style.top = "-10%";
+                flake.style.animationName = "falling";
+                flake.style.animationDuration = disappearDelay+"s";
+                flake.style.animationDelay = rand(0, 100)/100+"s";
+                flake.style.animationTimingFunction = "ease-out"
+                flake.style.opacity = rand(100, 700)/-100;
+                flake.style.zIndex = -1
+                document.body.appendChild(flake);
+                setTimeout(function(){flake.remove()}, disappearDelay*1000)
+            }
+            remove(){
+                flake.remove()
+            }
+        }
+        
+        setInterval(function(){
+            for(i=0;i<10;i++){
+                flake1 = new Flake({
+                    color: "#ccc", 
+                    size: rand(2, 6)/10,
+                    disappearDelay: rand(1000, 1500)/100
+                })
+            }
+        }, 1000)
+
     </script>
 </body>
 </html>
