@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snow</title>
+    <style>
+        @keyframes falling{
+            from{
+                top: -10%;
+                opacity: 0.75;
+            }
+            to{
+                top: 100%;
+            }
+        }
+        body{
+            background-color: #000;
+        }
+    </style>
+</head>
+<body>
+<script>
+    function rand(min, max){
+        return Number(Math.round(Math.random() * (max-min) + min));
+    }
+    class Flake{
+        constructor({color, size, disappearDelay}){
+            this.size = size
+            let flake = document.createElement("div")
+            flake.style.background = color;
+            flake.style.width = size+"px";
+            flake.style.height = size+"px";;
+            flake.style.borderRadius = size+"px";;
+            flake.style.position = "absolute";
+            flake.style.left = rand(0, window.innerWidth-size)+"px";
+            flake.style.top = "-10%";
+            flake.style.animationName = "falling";
+            flake.style.animationDuration = disappearDelay+"s";
+            flake.style.opacity = rand(100, 700)/-100
+            document.body.appendChild(flake);
+            setTimeout(function(){flake.remove()}, disappearDelay*1000)
+        }
+        remove(){
+            flake.remove()
+        }
+    }
+    
+    setInterval(function(){
+        for(i=0;i<5;i++){
+            flake1 = new Flake({
+                color: "#fff", 
+                size: rand(3, 6),
+                disappearDelay: rand(1000, 1500)/100
+            })
+        }
+    }, 1000)
+
+    
+</script>
+</body>
+</html>

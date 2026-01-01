@@ -15,6 +15,15 @@
     <title>George Orfanides</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        @keyframes falling{
+            from{
+                top: -10%;
+                opacity: 0.75;
+            }
+            to{
+                top: 110%;
+            }
+        }
         div{
             background-color: #ffffff00;
             padding: 0px;
@@ -599,6 +608,46 @@
         setTimeout(animation1, 750)
         let date = new Date();
         document.getElementById("yearTimerProject").innerHTML = "Countdown to " + (date.getFullYear()+1);
+
+        // Snow
+        function rand(min, max){
+            return Number(Math.round(Math.random() * (max-min) + min));
+        }
+        class Flake{
+            constructor({color, size, disappearDelay}){
+                this.size = size
+                let flake = document.createElement("div")
+                flake.style.background = color;
+                flake.style.width = size+"vw";
+                flake.style.height = size+"vw";;
+                flake.style.borderRadius = size+"vw";;
+                flake.style.position = "fixed";
+                flake.style.left = rand(0, window.innerWidth-size)+"px";
+                flake.style.top = "-10%";
+                flake.style.animationName = "falling";
+                flake.style.animationDuration = disappearDelay+"s";
+                flake.style.animationDelay = rand(0, 100)/100+"s";
+                flake.style.animationTimingFunction = "ease-out"
+                flake.style.opacity = rand(100, 700)/-100;
+                flake.style.zIndex = -1
+                document.body.appendChild(flake);
+                setTimeout(function(){flake.remove()}, disappearDelay*1000)
+            }
+            remove(){
+                flake.remove()
+            }
+        }
+        
+        setInterval(function(){
+            for(i=0;i<10;i++){
+                flake1 = new Flake({
+                    color: "#ccc", 
+                    size: rand(2, 6)/10,
+                    disappearDelay: rand(1000, 1500)/100
+                })
+            }
+        }, 1000)
+
     </script>
 </body>
 </html>
