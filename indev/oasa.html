@@ -11,6 +11,7 @@
             display: none;
         }
 
+
         body{
             background-color: #000;
             color: #fff;
@@ -18,7 +19,12 @@
             font-size: 1vw;
         }
         div{
-            border: 1px solid red;
+            border: 0px solid red;
+        }
+        #date{
+            position: fixed;
+            bottom: 0.1vw;
+            right: 0.1vw;
         }
         #outerCont{
             display: grid;
@@ -45,6 +51,10 @@
             padding: 0.5vw;
             border-radius: 0.2vw;
             text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
         }
         .LineName{
             padding: 0.5vw;
@@ -57,6 +67,7 @@
             display: grid;
             background: #222;
             grid-template-columns: 1fr;
+            grid-template-rows: auto 1fr;
             border-radius: 0.5vw;
             overflow: hidden;
             height: 20vw;
@@ -69,11 +80,19 @@
             padding: 0.5vw;
             height: fit-content;
         }
+        .none{
+            text-align: center;
+            font-size: 1.25vw;
+            color: #ddd;
+        }
 
     </style>
 </head>
 <body>
     <div id="outerCont">
+
+    </div>
+    <div id="date">
 
     </div>
     <script>
@@ -124,6 +143,8 @@
                             number = route.LineID
                         }
                     });
+                    console.log(name)
+                    console.log(number)
 
                     let mins = element.btime2
                     // "Frontend"
@@ -149,14 +170,19 @@
 
                 });
             }else{
-                console.log("poulo") // no routes
+                let item = document.createElement("div");
+                item.style.gridColumn = "span 3";
+                item.innerHTML = "Δεν αναμένονται αφίξεις."
+                item.className = "none"
+                cont.appendChild(item);
             }
-
-
+        
+            document.getElementById("date").innerHTML = "Last refreshed: "+new Date();
         }
-        async function createWidget(stop_id) {
+        async function createWidget(stop_id, order) {
             let module = document.createElement("div");
-            module.className = "module"
+            module.className = "module";
+            module.style.order = order
 
             let stop = await getStopNameAndXY(stop_id)
             let header = document.createElement("div");
@@ -173,9 +199,23 @@
             createArrivals(stop_id)
             setInterval(function() {createArrivals(stop_id)}, 30000);
         }
-        
-        createWidget("061040");
-        createWidget("481194");
+
+        list = [
+            "061040",
+            "481194",
+            "090138",
+            "440014",
+            "140057"
+        ]
+        let i = 0
+        function loop() {
+            if (i<=list.length){
+                createWidget(list[i], i+1)
+                i++;
+                setTimeout(loop, 1000)
+            }     
+        }
+        loop()
     </script>
 </body>
 </html>
