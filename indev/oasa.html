@@ -36,7 +36,7 @@
             grid-template-columns: 1fr;
             gap: 0.5vw;
             padding: 0.5vw;
-            height: fit-content;
+            height: calc(100% - 1vw);
             overflow-y: scroll;
         }
         
@@ -196,8 +196,8 @@
             module.appendChild(header)
             module.appendChild(innerCont)
             document.getElementById("outerCont").appendChild(module)
-            createArrivals(stop_id)
-            setInterval(function() {createArrivals(stop_id)}, 30000);
+            await createArrivals(stop_id)
+            setInterval(async function() {await createArrivals(stop_id)}, 30000);
         }
 
         list = [
@@ -208,11 +208,11 @@
             "140057"
         ]
         let i = 0
-        function loop() {
+        async function loop() {
             if (i<=list.length){
-                createWidget(list[i], i+1)
+                await createWidget(list[i], i+1)
                 i++;
-                setTimeout(loop, 1000)
+                setTimeout(loop, 1)
             }     
         }
         loop()
