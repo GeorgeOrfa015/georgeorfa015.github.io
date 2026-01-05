@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OASA TELEMATICS but better</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
+
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        body{
+            background-color: #000;
+            color: #fff;
+            font-family: "Manrope";
+            font-size: 1vw;
+        }
+        div{
+            border: 1px solid red;
+        }
+        #outerCont{
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1vw;
+        }
+        .innerCont{
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.5vw;
+            padding: 0.5vw;
+            height: fit-content;
+            overflow-y: scroll;
+        }
+        
+        .item{
+            display: grid;
+            grid-template-columns: auto 2fr auto;
+            height: fit-content;
+        }
+        .LineID{
+            background-color: #056c30;
+            width: 2.5vw;
+            padding: 0.5vw;
+            border-radius: 0.2vw;
+            text-align: center;
+        }
+        .LineName{
+            padding: 0.5vw;
+        }
+        .ArrivalTime{
+            padding: 0.5vw;
+            text-align: right;
+        }
+        .module{
+            display: grid;
+            background: #222;
+            grid-template-columns: 1fr;
+            border-radius: 0.5vw;
+            overflow: hidden;
+            height: 20vw;
+        }
+        .header{
+            background: #444;
+            text-align: center;
+            font-weight: 500;
+            font-size: 1.5vw;
+            padding: 0.5vw;
+            height: fit-content;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="outerCont">
+
+    </div>
+    <script>
+        async function getData(url) {
+            const ts = Date.now();
+
+            const response = await fetch(
+                "https://corsproxy.io/?" +
+                encodeURIComponent(
+                    `http://telematics.oasa.gr/api/?act=${url}&_=${ts}`
+                ),
+                {
+                    cache: "no-store"
+                }
+            );
+
+            return response.json();
+        }
+
+
+        async function getStopNameAndXY(id) {
+            return await getData("getStopNameAndXY&p1="+id);
+        }
+        async function getStopArrivals(id) {
+            return await getData("getStopArrivals&p1="+id);
+        }
+        async function webRoutesForStop(id) {
+            return await getData("webRoutesForStop&p1="+id);
+        }
+        
+        async function createArrivals(stop_id) {
+            console.table(await webRoutesForStop(stop_id));
+            console.table(await getStopArrivals(stop_id));
+            
+            routes = await webRoutesForStop(stop_id);
+            arrivals = await getStopArrivals(stop_id);
+
+            let cont = document.getElementById("innerCont"+stop_id)
+            cont.innerHTML=''
+            if (arrivals!=null) {
+                arrivals.forEach(element => { // FIRST LOOP
+                    let name;
+                    let number;
+                    code = element.route_code
+                    routes.forEach(route => { // SECOND LOOP
+                        if (code == route.RouteCode) {
+                            name = route.RouteDescr
+                            number = route.LineID
+                        }
+                    });
+
+                    let mins = element.btime2
+                    // "Frontend"
+                    let item = document.createElement("div")
+                    item.className = "item";
+                    
+                    let LineID = document.createElement("div")
+                    LineID.innerHTML = number;
+                    LineID.className = "LineID"
+                    
+                    let LineName = document.createElement("span");
+                    LineName.innerHTML = name;
+                    LineName.className = "LineName";
+                    
+                    let ArrivalTime = document.createElement("span");
+                    ArrivalTime.innerHTML = mins+"'";
+                    ArrivalTime.className = "ArrivalTime";
+
+                    item.appendChild(LineID)
+                    item.appendChild(LineName);
+                    item.appendChild(ArrivalTime);
+                    cont.appendChild(item)
+
+                });
+            }else{
+                console.log("poulo") // no routes
+            }
+
+
+        }
+        async function createWidget(stop_id) {
+            let module = document.createElement("div");
+            module.className = "module"
+
+            let stop = await getStopNameAndXY(stop_id)
+            let header = document.createElement("div");
+            header.innerHTML = stop[0].stop_descr;
+            header.className = "header"
+
+            let innerCont = document.createElement("div")
+            innerCont.className = "innerCont";
+            innerCont.id = "innerCont"+stop_id
+
+            module.appendChild(header)
+            module.appendChild(innerCont)
+            document.getElementById("outerCont").appendChild(module)
+            createArrivals(stop_id)
+            setInterval(function() {createArrivals(stop_id)}, 30000);
+        }
+        
+        createWidget("061040");
+        createWidget("481194");
+    </script>
+</body>
+</html>
