@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASTIKO KTEL TELEMATICS but better</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
+
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+
+        body{
+            background-color: #000;
+            color: #fff;
+            font-family: "Manrope";
+            font-size: 1vw;
+        }
+        div{
+            border: 0px solid red;
+        }
+        #date{
+            position: fixed;
+            bottom: 0.1vw;
+            right: 0.1vw;
+        }
+        #outerCont{
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1vw;
+        }
+        .innerCont{
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: auto;
+            gap: 0.5vw;
+            padding: 0.5vw;
+            height: fit-content;
+            overflow-y: scroll;
+            max-height: 15.5vw;
+        }
+        
+        .item{
+            display: grid;
+            grid-template-columns: auto 2fr auto;
+            height: fit-content;
+        }
+        .LineID{
+            background-color: #056c30;
+            width: 1.5vw;
+            padding: 0.2vw 0.5vw;
+            border-radius: 0.2vw;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+        }
+        .LineName{
+            padding: 0.2vw 0.5vw;
+        }
+        .ArrivalTime{
+            padding: 0.2vw 0.5vw;
+            text-align: right;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .module{
+            display: grid;
+            background: #222;
+            grid-template-columns: 1fr;
+            grid-template-rows: auto 1fr;
+            border-radius: 0.5vw;
+            overflow: hidden;
+            height: 20vw;
+        }
+        .header{
+            background: #444;
+            text-align: center;
+            font-weight: 500;
+            font-size: 1.25vw;
+            padding: 0.5vw;
+            height: 2.5vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+        .none{
+            text-align: center;
+            font-size: 1.25vw;
+            color: #ddd;
+        }
+        @media(max-width:700px) {
+            #outerCont{
+                grid-template-columns: 1fr;
+                gap: 2vw;
+            }
+            .module{
+                border-radius: 2vw;
+                height: 60vw;
+            }
+            .header{
+                height: 9vw;
+                font-size: 4vw;
+                font-weight: 800;
+            }
+            .LineName, .LineID, .ArrivalTime{
+                font-size: 3vw;
+            }
+            .LineID{
+                width: 10vw;
+                border-radius: 1.5vw;
+            }
+            .innerCont{
+                gap: 2vw;
+                padding: 2vw;
+                max-height: 46vw;
+            }
+            .item{
+                gap: 1vw;
+            }
+            .none{
+                font-size: 3.5vw;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            #date{
+                text-align: center;
+                font-size: 2.5vw;
+                width: fit-content;
+                backdrop-filter: blur(3px);
+                left: 50%;
+                transform: translateX(-50%);
+                padding: 2vw;
+                border-radius: 5vw;
+                border: 0.05vw #333 solid;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div id="outerCont">
+
+    </div>
+    <div id="date">
+        Fetching data...
+    </div>
+    <script>
+        delay = 20000
+        let testValue = {
+            "vehicles":[
+                {
+                    "vehicleCode":"20260105_31015_1000000_23_15",
+                    "borderColor":"#AC0000",
+                    "longitude":"25.124617",
+                    "latitude":"35.336471",
+                    "departureSeconds":53,
+                    "lineName":"AIRPORT",
+                    "departureMins":3,
+                    "routeCode":"31015",
+                    "routeName":"HERAKLION HOSPITAL (PAGNI) - AIRPORT",
+                    "lineCode":"06",
+                    "lineColor":"#2e7d32",
+                    "lineTextColor":"#ffffff"
+                },
+                {
+                    "vehicleCode":"20260105_31015_1000000_23_15",
+                    "borderColor":"#AC0000",
+                    "longitude":"25.124617",
+                    "latitude":"35.336471",
+                    "departureSeconds":53,
+                    "lineName":"AIRPORT",
+                    "departureMins":5,
+                    "routeCode":"31015",
+                    "routeName":"GAZI - AIRPORT",
+                    "lineCode":"11",
+                    "lineColor":"#b71c1c",
+                    "lineTextColor":"#ffffff"
+                },
+                {
+                    "vehicleCode":"20260105_31009_1000000_23_15",
+                    "borderColor":"#AC0000",
+                    "longitude":"25.081521",
+                    "latitude":"35.335661",
+                    "departureSeconds":34,
+                    "lineName":"AIRPORT",
+                    "departureMins":13,
+                    "routeCode":"31018",
+                    "routeName":"AMOUDARA - AIRPORT",
+                    "lineCode":"50",
+                    "lineColor":"#787878",
+                    "lineTextColor":"#ffffff"
+                }
+            ]
+        }
+        async function getData(key, id) {
+            const response = await fetch(
+                "https://corsproxy.io/?https://rest.citybus.gr/api/v1/el/110/stops/live/" + id,
+                {
+                    cache: "no-store",
+                    headers: {
+                        "Authorization": key,
+                        "Cache-Control": "no-cache, no-store, must-revalidate",
+                        "Pragma": "no-cache",
+                        "Expires": "0"
+                    }
+                }
+            );
+
+
+            // return testValue;
+            // if (!response.ok) {
+            //     throw new Error(`HTTP error: ${response.status}`);
+            // }
+
+            return await response.json();
+        }
+        
+        
+        async function getHTML(id) {
+            const url = "https://corsproxy.io/?https://irakleio.citybus.gr/stops/live/"+id;
+            const response = await fetch(url);
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error: ${response.status}`);
+            }
+            
+            return await response.text();
+        }
+
+        let colorDict = {
+            L01: "#c42a19",
+            L02: "#7e786f",
+            L03: "#8c705d",
+            L04: "#570096",
+            L05: "#7e0d48",
+            L06: "#4b8136",
+            L07: "#6483db",
+            L09: "#360408",
+            L10: "#7e786f",
+            L11: "#d82e5c",
+            L12: "#5300d9",
+            L14: "#7e786f",
+            L15: "#487f83",
+            L16: "#4c007d",
+            L17: "#e89c31",
+            L19: "#5300d9",
+            L20: "#6fb454",
+            L23: "#23211e",
+            L21: "#e24172",
+            L31: "#4f585c",
+            L50: "#000080",
+            L91: "#dd6059",
+            L92: "#5f6ee5",
+            L93: "#65c251"
+        }
+        let stop_id = "9911"
+        function createWidget(stop_id) {
+            
+            getHTML(stop_id).then(html => {
+                let name = html.split("Στάση:<br/><span>")[1].split("</span>'")[0]
+                console.log(name)
+
+                let module = document.createElement("div");
+                module.className = "module";
+                module.style.order = 1
+
+                let header = document.createElement("div");
+                header.innerHTML = name;
+                header.className = "header"
+                header.id = "header"+stop_id
+
+                let innerCont = document.createElement("div")
+                innerCont.className = "innerCont";
+                innerCont.id = "innerCont"+stop_id
+
+                module.appendChild(header)
+                module.appendChild(innerCont)
+                document.getElementById("outerCont").appendChild(module)
+                
+                function loop() {
+                    
+                    header.style.background = "#555"
+                    
+                    getData("Bearer " + html.split("token = '")[1].split("';")[0],stop_id).then(data => {
+                        header.style.background = "#444"
+                        innerCont.innerHTML = ""
+                        
+                        data.vehicles.forEach(route => {
+                            
+                            console.table(route)
+                            console.log(route.lineCode)
+                            console.log(route.routeName)
+                            console.log(route.departureMins)
+                            
+                            let mins = route.departureMins
+                            let name = route.routeName
+                            let number = route.lineCode
+                            let color = route.lineColor
+                            
+                            let item = document.createElement("div")
+                            item.className = "item";
+                            
+                            let LineID = document.createElement("div")
+                            LineID.innerHTML = number;
+                            LineID.className = "LineID"
+                            LineID.style.background = colorDict["L"+number]
+                            
+                            let LineName = document.createElement("span");
+                            LineName.innerHTML = name;
+                            LineName.className = "LineName";
+                            
+                            let ArrivalTime = document.createElement("div");
+                            ArrivalTime.innerHTML = mins+"'";
+                            ArrivalTime.className = "ArrivalTime";
+                            
+                            item.appendChild(LineID)
+                            item.appendChild(LineName);
+                            item.appendChild(ArrivalTime);
+                            innerCont.appendChild(item)
+                            
+                        })
+                        document.getElementById("date").innerHTML = "Last refreshed: "+`${new Date().getFullYear()}-${("0" + new Date().getMonth()+1).slice(-2)}-${("0" + new Date().getDate()).slice(-2)} ${("0" + new Date().getHours()).slice(-2)}:${("0" + new Date().getMinutes()).slice(-2)}:${("0" + new Date().getSeconds()).slice(-2)}`;
+                    })
+                    .catch(err => {
+                        console.log("No arrivals in the next 30 minutes.")
+                        let item = document.createElement("div");
+                        item.style.gridColumn = "span 3";
+                        item.innerHTML = "Δεν αναμένονται αφίξεις."
+                        item.className = "none"
+                        innerCont.appendChild(item);
+                    })
+                }
+                loop();
+                setInterval(loop, 20000)
+            })
+        }
+        
+        list = [
+            "0714",
+            "2215",
+            "0135",
+            "1029",
+            "1030",
+            "1031",
+            "1032",
+            "1033",
+            "1034",
+            "1035",
+            "1036",
+            "1037",
+            "1038",
+            "1039",
+            "1029",
+            "9911",
+            "0085",
+        ]
+        i = 0;
+        list.forEach(code => {
+            newWidget(code);
+        });
+        function newWidget(stop_id) {
+            createWidget(list[i], i+1)
+            i++;
+        }
+        
+        
+        
+        // a rat was here
+
+        //
+        // OLD CODE
+        //
+
+
+
+        async function getStopNameAndXY(id) {
+            return await getData("getStopNameAndXY&p1="+id);
+        }
+        async function getStopArrivals(id) {
+            return await getData("getStopArrivals&p1="+id);
+        }
+        async function webRoutesForStop(id) {
+            return await getData("webRoutesForStop&p1="+id);
+        }
+        
+        async function createArrivals(stop_id) {
+            let cont = document.getElementById("innerCont"+stop_id)
+            let header = document.getElementById("header"+stop_id)
+
+            header.style.background = "#555"
+            
+            let routes = await webRoutesForStop(stop_id);
+            let arrivals = await getStopArrivals(stop_id);
+            
+            header.style.background = "#444"
+            cont.innerHTML=''
+            
+            if (arrivals!=null) {
+                arrivals.forEach(element => { // FIRST LOOP
+                    let name;
+                    let number;
+                    code = element.route_code
+                    routes.forEach(route => { // SECOND LOOP
+                        if (code == route.RouteCode) {
+                            name = route.RouteDescr
+                            number = route.LineID
+                        }
+                    });
+                    console.log(name)
+                    console.log(number)
+
+                    let mins = element.btime2
+                    // "Frontend"
+                    let item = document.createElement("div")
+                    item.className = "item";
+                    
+                    let LineID = document.createElement("div")
+                    LineID.innerHTML = number;
+                    LineID.className = "LineID"
+                    
+                    let LineName = document.createElement("span");
+                    LineName.innerHTML = name;
+                    LineName.className = "LineName";
+                    
+                    let ArrivalTime = document.createElement("div");
+                    ArrivalTime.innerHTML = mins+"'";
+                    ArrivalTime.className = "ArrivalTime";
+
+                    item.appendChild(LineID)
+                    item.appendChild(LineName);
+                    item.appendChild(ArrivalTime);
+                    cont.appendChild(item)
+
+                });
+            }else{
+                let item = document.createElement("div");
+                item.style.gridColumn = "span 3";
+                item.innerHTML = "Δεν αναμένονται αφίξεις."
+                item.className = "none"
+                cont.appendChild(item);
+            }
+            if (routes=null) {
+                let item = document.createElement("div");
+                item.style.gridColumn = "span 3";
+                item.innerHTML = "Αδυναμία φόρτωσης δεδομένων"
+                item.className = "none"
+                cont.appendChild(item);
+
+            }
+        
+            document.getElementById("date").innerHTML = "Last refreshed: "+`${new Date().getFullYear()}-${("0" + new Date().getMonth()+1).slice(-2)}-${("0" + new Date().getDate()).slice(-2)} ${("0" + new Date().getHours()).slice(-2)}:${("0" + new Date().getMinutes()).slice(-2)}:${("0" + new Date().getSeconds()).slice(-2)}`;
+        }
+        // async function createWidget(stop_id, order) {
+        //     let module = document.createElement("div");
+        //     module.className = "module";
+        //     module.style.order = order
+
+        //     let stop = await getStopNameAndXY(stop_id)
+        //     let header = document.createElement("div");
+        //     header.innerHTML = stop[0].stop_descr;
+        //     header.className = "header"
+        //     header.id = "header"+stop_id
+
+        //     let innerCont = document.createElement("div")
+        //     innerCont.className = "innerCont";
+        //     innerCont.id = "innerCont"+stop_id
+
+        //     module.appendChild(header)
+        //     module.appendChild(innerCont)
+        //     document.getElementById("outerCont").appendChild(module)
+        //     await createArrivals(stop_id)
+        //     setInterval(async function() {await createArrivals(stop_id)}, delay);
+        // }
+
+        // list = [
+        //     "090138",
+        //     "061040",
+        //     "481194",
+        //     "440014",
+        //     "140057",
+        //     "480050"
+        // ]
+        // i = 0;
+
+        // list.forEach(code => {
+        //     newWidget(code);
+        // });
+        // function newWidget(stop_id) {
+        //     createWidget(list[i], i+1)
+        //     i++;
+        // }
+    </script>
+</body>
+</html>
