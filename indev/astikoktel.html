@@ -92,7 +92,10 @@
         .none{
             text-align: center;
             font-size: 1.25vw;
-            color: #ddd;
+            color: #fff;
+        }
+        .live{
+            color: #30d158
         }
         @media(max-width:700px) {
             #outerCont{
@@ -109,7 +112,8 @@
                 font-weight: 800;
             }
             .LineName, .LineID, .ArrivalTime{
-                font-size: 3vw;
+                font-size: 2.75vw;
+                font-weight: 400;
             }
             .LineID{
                 width: 10vw;
@@ -131,14 +135,15 @@
             }
             #date{
                 text-align: center;
-                font-size: 2.5vw;
+                font-size: 2.6vw;
                 width: fit-content;
-                backdrop-filter: blur(3px);
+                backdrop-filter: blur(2px);
                 left: 50%;
                 transform: translateX(-50%);
                 padding: 2vw;
                 border-radius: 5vw;
-                border: 0.05vw #333 solid;
+                border: 0.05vw #444 solid;
+                background-color: #2224;
             }
         }
 
@@ -261,7 +266,7 @@
             L93: "#65c251"
         }
         let stop_id = "9911"
-        function createWidget(stop_id) {
+        function createWidget(stop_id, order) {
             
             getHTML(stop_id).then(html => {
                 let name = html.split("Στάση:<br/><span>")[1].split("</span>'")[0]
@@ -269,7 +274,7 @@
 
                 let module = document.createElement("div");
                 module.className = "module";
-                module.style.order = 1
+                module.style.order = order
 
                 let header = document.createElement("div");
                 header.innerHTML = name;
@@ -309,16 +314,20 @@
                             
                             let LineID = document.createElement("div")
                             LineID.innerHTML = number;
-                            LineID.className = "LineID"
                             LineID.style.background = colorDict["L"+number]
-                            
+                            LineID.className = "LineID"
+
                             let LineName = document.createElement("span");
                             LineName.innerHTML = name;
                             LineName.className = "LineName";
                             
                             let ArrivalTime = document.createElement("div");
                             ArrivalTime.innerHTML = mins+"'";
-                            ArrivalTime.className = "ArrivalTime";
+                            if (route.longitude == 0) { 
+                                ArrivalTime.className = "ArrivalTime";
+                            }else{
+                                ArrivalTime.className = "ArrivalTime live";
+                            }
                             
                             item.appendChild(LineID)
                             item.appendChild(LineName);
@@ -329,6 +338,7 @@
                         document.getElementById("date").innerHTML = "Last refreshed: "+`${new Date().getFullYear()}-${("0" + new Date().getMonth()+1).slice(-2)}-${("0" + new Date().getDate()).slice(-2)} ${("0" + new Date().getHours()).slice(-2)}:${("0" + new Date().getMinutes()).slice(-2)}:${("0" + new Date().getSeconds()).slice(-2)}`;
                     })
                     .catch(err => {
+                        innerCont.innerHTML = ""
                         console.log("No arrivals in the next 30 minutes.")
                         let item = document.createElement("div");
                         item.style.gridColumn = "span 3";
@@ -343,159 +353,29 @@
         }
         
         list = [
-            "0714",
+            "0712",
+            "0710",
             "2215",
             "0135",
             "1029",
             "1030",
-            "1031",
-            "1032",
-            "1033",
-            "1034",
-            "1035",
-            "1036",
-            "1037",
-            "1038",
             "1039",
             "1029",
             "9911",
             "0085",
         ]
-        i = 0;
+        let i = 0;
         list.forEach(code => {
             newWidget(code);
         });
         function newWidget(stop_id) {
-            createWidget(list[i], i+1)
             i++;
+            createWidget(stop_id, i)
         }
         
         
         
         // a rat was here
-
-        //
-        // OLD CODE
-        //
-
-
-
-        async function getStopNameAndXY(id) {
-            return await getData("getStopNameAndXY&p1="+id);
-        }
-        async function getStopArrivals(id) {
-            return await getData("getStopArrivals&p1="+id);
-        }
-        async function webRoutesForStop(id) {
-            return await getData("webRoutesForStop&p1="+id);
-        }
-        
-        async function createArrivals(stop_id) {
-            let cont = document.getElementById("innerCont"+stop_id)
-            let header = document.getElementById("header"+stop_id)
-
-            header.style.background = "#555"
-            
-            let routes = await webRoutesForStop(stop_id);
-            let arrivals = await getStopArrivals(stop_id);
-            
-            header.style.background = "#444"
-            cont.innerHTML=''
-            
-            if (arrivals!=null) {
-                arrivals.forEach(element => { // FIRST LOOP
-                    let name;
-                    let number;
-                    code = element.route_code
-                    routes.forEach(route => { // SECOND LOOP
-                        if (code == route.RouteCode) {
-                            name = route.RouteDescr
-                            number = route.LineID
-                        }
-                    });
-                    console.log(name)
-                    console.log(number)
-
-                    let mins = element.btime2
-                    // "Frontend"
-                    let item = document.createElement("div")
-                    item.className = "item";
-                    
-                    let LineID = document.createElement("div")
-                    LineID.innerHTML = number;
-                    LineID.className = "LineID"
-                    
-                    let LineName = document.createElement("span");
-                    LineName.innerHTML = name;
-                    LineName.className = "LineName";
-                    
-                    let ArrivalTime = document.createElement("div");
-                    ArrivalTime.innerHTML = mins+"'";
-                    ArrivalTime.className = "ArrivalTime";
-
-                    item.appendChild(LineID)
-                    item.appendChild(LineName);
-                    item.appendChild(ArrivalTime);
-                    cont.appendChild(item)
-
-                });
-            }else{
-                let item = document.createElement("div");
-                item.style.gridColumn = "span 3";
-                item.innerHTML = "Δεν αναμένονται αφίξεις."
-                item.className = "none"
-                cont.appendChild(item);
-            }
-            if (routes=null) {
-                let item = document.createElement("div");
-                item.style.gridColumn = "span 3";
-                item.innerHTML = "Αδυναμία φόρτωσης δεδομένων"
-                item.className = "none"
-                cont.appendChild(item);
-
-            }
-        
-            document.getElementById("date").innerHTML = "Last refreshed: "+`${new Date().getFullYear()}-${("0" + new Date().getMonth()+1).slice(-2)}-${("0" + new Date().getDate()).slice(-2)} ${("0" + new Date().getHours()).slice(-2)}:${("0" + new Date().getMinutes()).slice(-2)}:${("0" + new Date().getSeconds()).slice(-2)}`;
-        }
-        // async function createWidget(stop_id, order) {
-        //     let module = document.createElement("div");
-        //     module.className = "module";
-        //     module.style.order = order
-
-        //     let stop = await getStopNameAndXY(stop_id)
-        //     let header = document.createElement("div");
-        //     header.innerHTML = stop[0].stop_descr;
-        //     header.className = "header"
-        //     header.id = "header"+stop_id
-
-        //     let innerCont = document.createElement("div")
-        //     innerCont.className = "innerCont";
-        //     innerCont.id = "innerCont"+stop_id
-
-        //     module.appendChild(header)
-        //     module.appendChild(innerCont)
-        //     document.getElementById("outerCont").appendChild(module)
-        //     await createArrivals(stop_id)
-        //     setInterval(async function() {await createArrivals(stop_id)}, delay);
-        // }
-
-        // list = [
-        //     "090138",
-        //     "061040",
-        //     "481194",
-        //     "440014",
-        //     "140057",
-        //     "480050"
-        // ]
-        // i = 0;
-
-        // list.forEach(code => {
-        //     newWidget(code);
-        // });
-        // function newWidget(stop_id) {
-        //     createWidget(list[i], i+1)
-        //     i++;
-        // }
     </script>
 </body>
 </html>
