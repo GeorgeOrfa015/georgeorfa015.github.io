@@ -28,7 +28,7 @@
 	<url>
 		<loc>https://www.georgeorfa015.github.io/indev</loc>
 		<priority>0.67</priority>
-		<lastmod>2026-01-05</lastmod>
+		<lastmod>2026-01-08</lastmod>
 	</url>
 	<url>
 		<loc>https://www.georgeorfa015.github.io</loc>
@@ -88,7 +88,7 @@
 	<url>
 		<loc>https://www.georgeorfa015.github.io/indev</loc>
 		<priority>0.67</priority>
-		<lastmod>2026-01-05</lastmod>
+		<lastmod>2026-01-08</lastmod>
 	</url>
 	<url>
 		<loc>https://www.georgeorfa015.github.io/chase-button/legacy</loc>
@@ -104,6 +104,11 @@
 		<loc>https://www.georgeorfa015.github.io/news.html</loc>
 		<priority>0.67</priority>
 		<lastmod>2026-01-01</lastmod>
+	</url>
+	<url>
+		<loc>https://www.georgeorfa015.github.io/indev/astikoktelstops.html</loc>
+		<priority>0.50</priority>
+		<lastmod>2026-01-08</lastmod>
 	</url>
 	<url>
 		<loc>https://www.georgeorfa015.github.io/indev/oasa2.html</loc>

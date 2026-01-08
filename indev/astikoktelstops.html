@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All of the stops</title>
+    <style>
+        
+        @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
+        body{
+            color: #fff;
+            background: #000;
+            font-family: "Manrope";
+        }
+        div{
+            border: 0px solid red;
+        }
+        #outerCont{
+            display: grid;
+            gap: 1vw;
+            grid-template-columns: 1fr;
+        }
+        .stopCont{
+            display: grid;
+            grid-template-columns: 7.25vw auto;
+            grid-template-rows: 1fr 1fr;
+            gap: 0.75vw;
+            padding: 1vw;
+            background: #222;
+            border-radius: 1vw;
+        }
+        .stopID{
+            grid-row: span 2;
+            width: 7vw;
+            height: 7vw;
+            font-size: 2.5vw;
+            font-weight: 700;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #056c30;
+            border-radius: 0.5vw;
+            margin-right: 0.25vw;
+        }
+        .stopName{
+            font-size: 2vw;
+            display: flex;
+            align-items: end;
+        }
+        .stopLinesCont{
+            display: flex;
+            flex-direction: row;
+            gap: 0.5vw;
+        }
+        .line{
+            width: fit-content;
+            height: 85%;
+            aspect-ratio: 1;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            background: #787878;
+            font-size: 1.5vw;
+        }
+    </style>
+</head>
+<body>
+    <div id="outerCont">
+        <!-- <div class="stopCont">
+            <div class="stopID">0714</div>
+            <div class="stopName">Ελευθερίου Βενιζέλου Αρωματικά</div>
+            <div class="stopLinesCont">
+                <div class="line">01</div>
+                <div class="line">02</div>
+                <div class="line">10</div>
+                <div class="line">14</div>
+            </div>
+        </div> -->
+    </div>
+    <script>
+        let colorDict = {
+            L01: "#c42a19",
+            L02: "#7e786f",
+            L03: "#8c705d",
+            L04: "#570096",
+            L05: "#7e0d48",
+            L06: "#4b8136",
+            L07: "#6483db",
+            L09: "#360408",
+            L10: "#7e786f",
+            L11: "#d82e5c",
+            L12: "#5300d9",
+            L14: "#7e786f",
+            L15: "#487f83",
+            L16: "#4c007d",
+            L17: "#e89c31",
+            L19: "#5300d9",
+            L20: "#6fb454",
+            L23: "#23211e",
+            L21: "#e24172",
+            L31: "#4f585c",
+            L50: "#000080",
+            L91: "#dd6059",
+            L92: "#5f6ee5",
+            L93: "#65c251"
+        }
+        async function getKey() {
+            const url = "https://corsproxy.io/?https://irakleio.citybus.gr/stops/live/0122";
+            const response = await fetch(url);
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error: ${response.status}`);
+            }
+            
+            return await response.text()
+        }
+
+        async function getData(key) {
+            const response = await fetch(
+                "https://corsproxy.io/?https://rest.citybus.gr/api/v1/el/110/stops",
+                {
+                    cache: "no-store",
+                    headers: {
+                        "Authorization": key,
+                        "Cache-Control": "no-cache, no-store, must-revalidate",
+                        "Pragma": "no-cache",
+                        "Expires": "0"
+                    }
+                }
+            );
+            return await response.json();
+        }
+        getKey().then(html => {
+            key = "Bearer " + html.split("token = '")[1].split("';")[0]
+            console.log(key)
+            let outerCont = document.getElementById("outerCont")
+            getData(key).then(data => {
+                console.table(data)
+                data.forEach(stop => {
+                    let stopCont = document.createElement("div")
+                    stopCont.className = "stopCont"
+                    stopCont.id = stop.code;
+                    
+                    let stopID = document.createElement("div")
+                    stopID.innerHTML = stop.code;
+                    stopID.className = "stopID";
+
+                    let stopName = document.createElement("div")
+                    stopName.className = "stopName";
+                    stopName.innerHTML = stop.name
+
+                    let stopLinesCont = document.createElement("div")
+                    stopLinesCont.className = "stopLinesCont";
+
+                    stopCont.appendChild(stopID);
+                    stopCont.appendChild(stopName);
+                    stopCont.appendChild(stopLinesCont);
+                    outerCont.appendChild(stopCont)
+                    console.log(`${stop.code} ${stop.name}`)
+
+                    stop.lineCodes.forEach(line => {
+                        let lineElement = document.createElement("div")
+                        lineElement.innerHTML = line
+                        lineElement.className = "line"
+                        lineElement.style.background = colorDict["L"+line]
+
+                        stopLinesCont.appendChild(lineElement);
+                        console.log(line)
+                    });
+                });
+            })
+            
+        })
+
+        //  https://rest.citybus.gr/api/v1/el/110/stops
+    </script>
+</body>
+</html>
