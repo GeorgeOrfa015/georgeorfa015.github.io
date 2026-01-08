@@ -28,6 +28,11 @@
             padding: 1vw;
             background: #222;
             border-radius: 1vw;
+            transition: 0.2s background;
+            cursor:pointer;
+        }
+        .stopCont:hover{
+            background: #333;
         }
         .stopID{
             grid-row: span 2;
@@ -140,36 +145,42 @@
             getData(key).then(data => {
                 console.table(data)
                 data.forEach(stop => {
-                    let stopCont = document.createElement("div")
-                    stopCont.className = "stopCont"
-                    stopCont.id = stop.code;
-                    
-                    let stopID = document.createElement("div")
-                    stopID.innerHTML = stop.code;
-                    stopID.className = "stopID";
 
-                    let stopName = document.createElement("div")
-                    stopName.className = "stopName";
-                    stopName.innerHTML = stop.name
+                    if (true) { //stop.lineCodes.includes("01")
+                        // let link = document.createElement("a");
+                        // link.href = `https://www.google.com/maps/place/${stop.latitude},${stop.longitude}`
+                        
+                        let stopCont = document.createElement("div")
+                        stopCont.className = "stopCont"
+                        stopCont.id = stop.code;
+                        
+                        let stopID = document.createElement("div")
+                        stopID.innerHTML = stop.code;
+                        stopID.className = "stopID";
 
-                    let stopLinesCont = document.createElement("div")
-                    stopLinesCont.className = "stopLinesCont";
+                        let stopName = document.createElement("div")
+                        stopName.className = "stopName";
+                        stopName.innerHTML = stop.name
 
-                    stopCont.appendChild(stopID);
-                    stopCont.appendChild(stopName);
-                    stopCont.appendChild(stopLinesCont);
-                    outerCont.appendChild(stopCont)
-                    console.log(`${stop.code} ${stop.name}`)
+                        let stopLinesCont = document.createElement("div")
+                        stopLinesCont.className = "stopLinesCont";
 
-                    stop.lineCodes.forEach(line => {
-                        let lineElement = document.createElement("div")
-                        lineElement.innerHTML = line
-                        lineElement.className = "line"
-                        lineElement.style.background = colorDict["L"+line]
+                        stopCont.appendChild(stopID);
+                        stopCont.appendChild(stopName);
+                        stopCont.appendChild(stopLinesCont);
+                        outerCont.appendChild(stopCont)
+                        console.log(`${stop.code} ${stop.name}`)
 
-                        stopLinesCont.appendChild(lineElement);
-                        console.log(line)
-                    });
+                        stop.lineCodes.forEach(line => {
+                            let lineElement = document.createElement("div")
+                            lineElement.innerHTML = line
+                            lineElement.className = "line"
+                            lineElement.style.background = colorDict["L"+line]
+
+                            stopLinesCont.appendChild(lineElement);
+                            console.log(line)
+                        });
+                    }
                 });
             })
             
