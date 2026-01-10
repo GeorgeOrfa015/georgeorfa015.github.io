@@ -40,12 +40,16 @@
             height: fit-content;
             overflow-y: scroll;
             max-height: 15.5vw;
+            width: calc(100% - 1vw);
         }
         
         .item{
             display: grid;
             grid-template-columns: auto 2fr auto;
             height: fit-content;
+            max-width: 100%;
+            background: #292929;
+            border-radius: 0.2vw;
         }
         .LineID{
             background-color: #056c30;
@@ -56,21 +60,31 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            font-weight: 600;
             
         }
         .LineNameCont{
             display: grid;
             padding: 0.2vw 0.5vw;
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
         }
         .LineName{
             font-size: 1vw;
+            display: inline-block;
         }
-        .ArrivalTime{
+        .ArrivalTimeCont{
             padding: 0.2vw 0.5vw;
             text-align: right;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            display: grid;
+        }
+        .ArrivalTime{
+            font-size: 1vw;
+        }
+        .ArrivalDate{
+            font-size: 0.85vw;
+            color: #bbb;
         }
         .module{
             display: grid;
@@ -91,7 +105,30 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        .headerText{
+            white-space: nowrap;
+            display: inline-block;
+            width: max-content;
+        }
+        .scroll{
+            animation: scroll-text 8s ease-in-out infinite;
+            animation-direction: alternate;
+        }
+        .scrollLine{
+            animation: scroll-line 8s ease-in-out infinite;
+            animation-direction: alternate;
+        }
+        @keyframes scroll-text {
+        0%   { transform: translateX(15%); }
+        100% { transform: translateX(-15%); }
+        }
 
+        @keyframes scroll-line {
+        0%   { transform: translateX(0%); }
+        100%   { transform: translateX(-10%); }
         }
         .none{
             text-align: center;
@@ -112,29 +149,40 @@
             }
             .module{
                 border-radius: 2vw;
-                height: 60vw;
+                height: 64.5vw;
             }
             .header{
                 height: 9vw;
                 font-size: 4vw;
                 font-weight: 800;
             }
-            .LineName, .LineID, .ArrivalTime{
-                font-size: 2.75vw;
+            .LineName, .ArrivalTime{
+                font-size: 3.9vw;
                 font-weight: 400;
+            }
+            .ArrivalTimeCont{
+                padding-left: 1vw;
+            }
+            .LineNameCont{
+                width: 100%;
+                white-space: nowrap;
             }
             .LineID{
                 width: 10vw;
                 border-radius: 1.5vw;
-                font-size: 3vw;
+                font-size: 4vw;
+                padding: 0vw;
             }
             .innerCont{
                 gap: 2vw;
                 padding: 2vw;
-                max-height: 46vw;
+                max-height: 50.5vw;
+                width: calc(100% - 4vw);
             }
             .item{
-                gap: 1vw;
+                gap: 1.5vw;
+                max-width: 100%;
+                border-radius: 1.5vw;
             }
             .none{
                 font-size: 3.5vw;
@@ -144,19 +192,29 @@
             }
             #date{
                 text-align: center;
-                font-size: 2.6vw;
+                font-size: 3vw;
                 width: fit-content;
-                backdrop-filter: blur(0.3vw);
+                backdrop-filter: blur(0.4vw);
                 left: 50%;
                 transform: translateX(-50%);
-                padding: 2vw;
+                padding:  2vw 4vw;
                 border-radius: 5vw;
-                border: 0vw #444 solid;
-                background-color: #2224;
-                box-shadow: inset 0 0 0.3vw #fff2;
+                background-color: #2225;
+                box-shadow: inset 0 0 0.6vw #fff3;
+                white-space: nowrap;
+                font-weight: 600;;
             }
-            .gps{
-                font-size: 2vw;
+            .gps, .ArrivalDate{
+                font-size: 3.5vw;
+            }
+            @keyframes scroll-text {
+            0%   { transform: translateX(20%); }
+            100% { transform: translateX(-20%); }
+            }
+
+            @keyframes scroll-line {
+            0%   { transform: translateX(0%); }
+            100%   { transform: translateX(-30%); }
             }
         }
 
@@ -272,6 +330,13 @@
             
             return await response.text();
         }
+        function updateScroll(ticker, element, className) {
+            const span = ticker.querySelector(element);
+            span.classList.toggle(
+                className,
+                span.scrollWidth > ticker.clientWidth
+            );
+        }
 
         let colorDict = {
             L01: "#c42a19",
@@ -284,7 +349,7 @@
             L09: "#360408",
             L10: "#7e786f",
             L11: "#d82e5c",
-            L12: "#5300d9",
+            L12: "#2e4bf2",
             L14: "#7e786f",
             L15: "#487f83",
             L16: "#4c007d",
@@ -312,14 +377,22 @@
                 module.style.order = order
 
                 let header = document.createElement("div");
-                header.innerHTML = name;
                 header.className = "header"
                 header.id = "header"+stop_id
+
+                let headerText = document.createElement("span");
+                headerText.innerHTML = name;
+                headerText.className = "headerText"
 
                 let innerCont = document.createElement("div")
                 innerCont.className = "innerCont";
                 innerCont.id = "innerCont"+stop_id
 
+
+                header.appendChild(headerText)
+                document.fonts.ready.then(() => {
+                    updateScroll(header, 'span', 'scroll');
+                });
                 module.appendChild(header)
                 module.appendChild(innerCont)
                 document.getElementById("outerCont").appendChild(module)
@@ -375,6 +448,7 @@
                             let LineName = document.createElement("span");
                             LineName.innerHTML = name;
                             LineName.className = "LineName";
+
                             
                             let LineDistance = document.createElement("span");
                             LineDistance.innerHTML = distance;
@@ -384,19 +458,33 @@
                                 LineDistance.className = "gps";
                             }
 
-                            let ArrivalTime = document.createElement("div");
+                            let ArrivalTimeCont = document.createElement("div")
+                            ArrivalTimeCont.className = "ArrivalTimeCont"
+
+                            let ArrivalTime = document.createElement("span");
                             ArrivalTime.innerHTML = mins+"'";
                             ArrivalTime.className = "ArrivalTime"
+
+                            let timeNow = new Date(new Date().getTime()+(mins*60000))
+
+                            let ArrivalDate = document.createElement("span")
+                            ArrivalDate.className = "ArrivalDate"
+                            ArrivalDate.innerHTML = `${("0" + timeNow.getHours()).slice(-2)}:${("0" + timeNow.getMinutes()).slice(-2)}`
                             
                             item.appendChild(LineID)
                             LineNameCont.appendChild(LineName)
                             LineNameCont.appendChild(LineDistance)
                             item.appendChild(LineNameCont);
-                            item.appendChild(ArrivalTime);
+                            document.fonts.ready.then(() => {
+                                updateScroll(LineNameCont, ".LineName", 'scrollLine');
+                            });
+                            ArrivalTimeCont.appendChild(ArrivalTime)
+                            ArrivalTimeCont.appendChild(ArrivalDate)
+                            item.appendChild(ArrivalTimeCont);
                             innerCont.appendChild(item)
                             
                         })
-                        document.getElementById("date").innerHTML = "Last refreshed: "+`${new Date().getFullYear()}-${("0" + new Date().getMonth()+1).slice(-2)}-${("0" + new Date().getDate()).slice(-2)} ${("0" + new Date().getHours()).slice(-2)}:${("0" + new Date().getMinutes()).slice(-2)}:${("0" + new Date().getSeconds()).slice(-2)}`;
+                        document.getElementById("date").innerHTML = "Last update: "+`${new Date().getFullYear()}-${("0" + new Date().getMonth()+1).slice(-2)}-${("0" + new Date().getDate()).slice(-2)} ${("0" + new Date().getHours()).slice(-2)}:${("0" + new Date().getMinutes()).slice(-2)}:${("0" + new Date().getSeconds()).slice(-2)}`;
                     })
                     .catch(err => {
                         innerCont.innerHTML = ""
@@ -418,7 +506,7 @@
             "9911",
             "0714",
             "1030",
-            "0111",
+            "0307",
             "0110"
         ]
         let i = 0;
@@ -430,7 +518,22 @@
             createWidget(stop_id, i)
         }
         
-        
+        function updateAllScroll() {
+            document.querySelectorAll(".header").forEach(header => {
+                updateScroll(header, 'span', 'scroll');
+            });
+
+            document.querySelectorAll(".LineNameCont").forEach(cont => {
+                updateScroll(cont, ".LineName", 'scrollLine');
+            });
+        }
+        let resizeTimeout;
+        window.addEventListener("resize", () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(updateAllScroll, 10);
+        });
+
+                
         
         // a rat was here
     </script>
