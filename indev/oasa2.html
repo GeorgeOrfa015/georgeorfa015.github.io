@@ -154,6 +154,29 @@
     </div>
     <script>
         delay = 20000
+
+        let trolleyList = [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "10",
+            "11",
+            "12",
+            "14",
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "19Β",
+            "20",
+            "21",
+            "24",
+            "25",
+        ]
         async function getData(url) {
             const ts = Date.now();
 
@@ -214,7 +237,10 @@
                     
                     let LineID = document.createElement("div")
                     LineID.innerHTML = number;
-                    LineID.className = "LineID"
+                    LineID.className = "LineID";
+                    if (trolleyList.includes(number)) {
+                        LineID.style.background = "#f0991f"
+                    }
                     
                     let LineName = document.createElement("span");
                     LineName.innerHTML = name;
@@ -278,6 +304,7 @@
             "140057",
             "480050"
         ]
+        list = ["061040", "400087", "060299"]
         i = 0;
 
         list.forEach(code => {

@@ -58,8 +58,12 @@
             align-items: center;
             
         }
-        .LineName{
+        .LineNameCont{
+            display: grid;
             padding: 0.2vw 0.5vw;
+        }
+        .LineName{
+            font-size: 1vw;
         }
         .ArrivalTime{
             padding: 0.2vw 0.5vw;
@@ -94,6 +98,10 @@
             font-size: 1.25vw;
             color: #fff;
         }
+        .gps{
+            color: #bbb;
+            font-size: 0.85vw;
+        }
         .live{
             color: #30d158
         }
@@ -118,6 +126,7 @@
             .LineID{
                 width: 10vw;
                 border-radius: 1.5vw;
+                font-size: 3vw;
             }
             .innerCont{
                 gap: 2vw;
@@ -137,13 +146,17 @@
                 text-align: center;
                 font-size: 2.6vw;
                 width: fit-content;
-                backdrop-filter: blur(2px);
+                backdrop-filter: blur(0.3vw);
                 left: 50%;
                 transform: translateX(-50%);
                 padding: 2vw;
                 border-radius: 5vw;
-                border: 0.05vw #444 solid;
+                border: 0vw #444 solid;
                 background-color: #2224;
+                box-shadow: inset 0 0 0.3vw #fff2;
+            }
+            .gps{
+                font-size: 2vw;
             }
         }
 
@@ -204,6 +217,27 @@
                 }
             ]
         }
+
+        function calcDistance(lat1, lon1, lat2, lon2) {
+            const R = 6371000; // Earth radius in meters
+            const toRad = deg => deg * Math.PI / 180;
+
+            const f1 = toRad(lat1);
+            const f2 = toRad(lat2);
+            const Df = toRad(lat2 - lat1);
+            const Dl = toRad(lon2 - lon1);
+
+            const a =
+                Math.sin(Df / 2) ** 2 +
+                Math.cos(f1) * Math.cos(f2) *
+                Math.sin(Dl / 2) ** 2;
+
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+            return R * c;
+        }
+
+
         async function getData(key, id) {
             const response = await fetch(
                 "https://corsproxy.io/?https://rest.citybus.gr/api/v1/el/110/stops/live/" + id,
@@ -270,7 +304,8 @@
             
             getHTML(stop_id).then(html => {
                 let name = html.split("Στάση:<br/><span>")[1].split("</span>'")[0]
-                console.log(name)
+                let stopLat = html.split("'latitude': ")[1].split(",")[0]
+                let stopLong = html.split("'longitude': ")[1].split(",")[0]
 
                 let module = document.createElement("div");
                 module.className = "module";
@@ -308,6 +343,23 @@
                             let name = route.routeName
                             let number = route.lineCode
                             let color = route.lineColor
+                            let busLat = route.latitude
+                            let busLong = route.longitude
+                            let distance, isLocationAvailable;
+                            
+                            if (busLong != 0) {
+                                distance = calcDistance(busLat, busLong, stopLat, stopLong).toFixed(2);
+                                if (distance >= 0) {
+                                    distance = (distance/1000).toFixed(1)+" km"
+                                }else{
+                                    distance = distance + " m"
+                                }
+                                isLocationAvailable = true
+                            }else{
+                                distance = "No GPS data"
+                                isLocationAvailable = false
+                            }
+                            console.log(distance)
                             
                             let item = document.createElement("div")
                             item.className = "item";
@@ -316,21 +368,30 @@
                             LineID.innerHTML = number;
                             LineID.style.background = colorDict["L"+number]
                             LineID.className = "LineID"
-
+                            
+                            let LineNameCont = document.createElement("div");
+                            LineNameCont.className = "LineNameCont";
+                            
                             let LineName = document.createElement("span");
                             LineName.innerHTML = name;
                             LineName.className = "LineName";
                             
+                            let LineDistance = document.createElement("span");
+                            LineDistance.innerHTML = distance;
+                            if (isLocationAvailable) {
+                                LineDistance.className = "gps live";
+                            }else{
+                                LineDistance.className = "gps";
+                            }
+
                             let ArrivalTime = document.createElement("div");
                             ArrivalTime.innerHTML = mins+"'";
-                            if (route.longitude == 0) { 
-                                ArrivalTime.className = "ArrivalTime";
-                            }else{
-                                ArrivalTime.className = "ArrivalTime live";
-                            }
+                            ArrivalTime.className = "ArrivalTime"
                             
                             item.appendChild(LineID)
-                            item.appendChild(LineName);
+                            LineNameCont.appendChild(LineName)
+                            LineNameCont.appendChild(LineDistance)
+                            item.appendChild(LineNameCont);
                             item.appendChild(ArrivalTime);
                             innerCont.appendChild(item)
                             
@@ -353,16 +414,12 @@
         }
         
         list = [
-            "0712",
-            "0710",
             "2215",
-            "0135",
-            "1029",
-            "1030",
-            "1039",
-            "1029",
             "9911",
-            "0085",
+            "0714",
+            "1030",
+            "0111",
+            "0110"
         ]
         let i = 0;
         list.forEach(code => {
