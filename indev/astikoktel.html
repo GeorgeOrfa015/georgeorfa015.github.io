@@ -30,6 +30,12 @@
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
             gap: 1vw;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: calc(100% - 1.5vw);
+            height:fit-content;
+            padding: 0.75vw
         }
         .innerCont{
             display: grid;
@@ -122,13 +128,13 @@
             animation-direction: alternate;
         }
         @keyframes scroll-text {
-        0%   { transform: translateX(15%); }
-        100% { transform: translateX(-15%); }
+            0%   { transform: translateX(15%); }
+            100% { transform: translateX(-15%); }
         }
-
+        
         @keyframes scroll-line {
-        0%   { transform: translateX(0%); }
-        100%   { transform: translateX(-10%); }
+            0%   { transform: translateX(0%); }
+            100%   { transform: translateX(-10%); }
         }
         .none{
             text-align: center;
@@ -141,6 +147,62 @@
         }
         .live{
             color: #30d158
+        }
+        #settingsBackdrop{
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: #0002; /*url(data:image/jpeg;base64,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);*/
+            backdrop-filter: blur(0.05vw);
+            opacity: 1;
+            display: none;
+        }
+        #settings{
+            width: 30vw;
+            height: 50vh;
+            background: #222222ee;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            backdrop-filter: blur(0.3vw);
+            border-radius: 1vw;
+            z-index: 2;
+            box-shadow: inset 0 0 0.3vw #fff2;
+            display: none;
+            grid-template-columns: 1fr;
+            grid-template-rows: 3vw 20vw;
+        }
+        .settingsHeader{
+            padding: 0.75vw 1vw;
+            font-size: 1.25vw;
+            font-weight: 700;
+        }
+        #settingsButtonsCont{
+            height: fit-content;
+            padding: 0.75vw;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5vw;
+        }
+        button{
+            color: #fff;
+            background: #056c30aa;
+            border: none;
+            border-radius: 10vw;
+            backdrop-filter: blur(0.2vw);
+            box-shadow: inset 0 0 0.3vw #fff4;
+            padding: 0.4vw 0.7vw;
+            font-size: 1vw;
+            font-weight: 600;
+            font-family: "Manrope";
+            transition: 0.1s background, 0.2s border;
+        }
+        button:hover{
+            box-shadow: inset 0 0 0.3vw #fff8;
+            background: #168d48aa;
         }
         @media(max-width:700px) {
             #outerCont{
@@ -224,6 +286,16 @@
     <div id="outerCont">
 
     </div>
+    <div id="settings">
+        <span class="settingsHeader">Settings > Stop management</span>
+        <div id="settingsButtonsCont">
+            <button id="newStopButton">Add Stop</button>
+            <button id="newStopButton">Add Stop</button>
+        </div>
+    </div>
+    <div id="settingsBackdrop">
+    </div>
+
     <div id="date">
         Fetching data...
     </div>
@@ -365,12 +437,14 @@
             L93: "#65c251"
         }
         let stop_id = "9911"
+        let key;
         function createWidget(stop_id, order) {
             
             getHTML(stop_id).then(html => {
                 let name = html.split("Στάση:<br/><span>")[1].split("</span>'")[0]
                 let stopLat = html.split("'latitude': ")[1].split(",")[0]
                 let stopLong = html.split("'longitude': ")[1].split(",")[0]
+                key = "Bearer " + html.split("token = '")[1].split("';")[0]
 
                 let module = document.createElement("div");
                 module.className = "module";
@@ -401,7 +475,7 @@
                     
                     header.style.background = "#555"
                     
-                    getData("Bearer " + html.split("token = '")[1].split("';")[0],stop_id).then(data => {
+                    getData(key,stop_id).then(data => {
                         header.style.background = "#444"
                         innerCont.innerHTML = ""
                         
@@ -502,12 +576,12 @@
         }
         
         list = [
-            "2215",
-            "9911",
             "0714",
+            "0710",
             "1030",
-            "0307",
-            "0110"
+            "2215",
+            "1104",
+            "1116",
         ]
         let i = 0;
         list.forEach(code => {
@@ -532,7 +606,46 @@
             clearTimeout(resizeTimeout);
             resizeTimeout = setTimeout(updateAllScroll, 10);
         });
+        // ^ Stop arrivals
 
+        // Stop names and stop managing
+        async function getKey() {
+            const url = "https://corsproxy.io/?https://irakleio.citybus.gr/stops/live/0122";
+            const response = await fetch(url);
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error: ${response.status}`);
+            }
+            
+            return await response.text()
+        }
+
+        async function getStopsData(key) {
+            const response = await fetch(
+                "https://corsproxy.io/?https://rest.citybus.gr/api/v1/el/110/stops",
+                {
+                    cache: "no-store",
+                    headers: {
+                        "Authorization": key,
+                        "Cache-Control": "no-cache, no-store, must-revalidate",
+                        "Pragma": "no-cache",
+                        "Expires": "0"
+                    }
+                }
+            );
+            return await response.json();
+        }
+        let stopsArray;
+        getKey().then(html => {
+            key = "Bearer " + html.split("token = '")[1].split("';")[0]
+            console.log(key)
+            let outerCont = document.getElementById("outerCont")
+            getStopsData(key).then(data => {
+                stopsArray = data
+            })
+        })
+        
+        setTimeout(() => {console.log(stopsArray)}, 1000)
                 
         
         // a rat was here
