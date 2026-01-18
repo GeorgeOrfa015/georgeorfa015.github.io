@@ -6,7 +6,7 @@
     <title>ASTIKO KTEL TELEMATICS but better</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
-
+        @import url('https://fonts.googleapis.com/css2?family=Zalando+Sans+Expanded:ital,wght@0,200..900;1,200..900&display=swap');
         ::-webkit-scrollbar {
             display: none;
         }
@@ -22,34 +22,41 @@
             border: 0px solid red;
         }
         #date{
-            position: fixed;
-            bottom: 0.1vw;
             text-align: center;
-            font-size: 0.75vw;
+            font-size: 1vw;
             width: fit-content;
             backdrop-filter: blur(0.2vw);
-            left: 50%;
-            transform: translateX(-50%);
             padding: .3vw .7vw;
             border-radius: 5vw;
             background-color: #2225;
             box-shadow: inset 0 0 0.6vw #fff3;
             white-space: nowrap;
             font-weight: 600;
+        }
+        #infoContainer{
+            position: fixed;
+            bottom: 0.3vw;
+            transform: translateX(-50%);
+            left: 50%;
+            display: grid;
+            grid-template-columns: auto auto;
+            gap: 0.3vw;
             z-index: -1;
         }
         #outerCont{
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
             gap: 1vw;
-            position: fixed;
+            position: absolute;
             top: 0;
             left: 0;
             width: calc(100% - 1.5vw);
             height:fit-content;
-            max-height: calc(100%);
-            margin: 0.75vw;
+            max-height: calc(100%) - 2vw;
+            padding: 0.75vw;
             overflow: scroll;
+            z-index: -2;
+            padding-bottom: 2.6vw;
         }
         .innerCont{
             display: grid;
@@ -168,14 +175,15 @@
             position: fixed;
             top: 0;
             left: 0;
-            background: #0002; /*url(data:image/jpeg;base64,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);*/
-            backdrop-filter: blur(0.05vw);
-            opacity: 1;
-            display: block;
+            background: #0004; /*url(data:image/jpeg;base64,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);*/
+            backdrop-filter: blur(0.2vw);
+            opacity: 0;
+            display: none;
+            transition: 0.2s
         }
         #settings{
-            width: 30vw;
-            height: 50vh;
+            width: 40vw;
+            height: 60vh;
             background: #222222ee;
             position: fixed;
             top: 50%;
@@ -185,11 +193,12 @@
             border-radius: 1.75vw;
             z-index: 2;
             box-shadow: inset 0 0 0.3vw #fff2;
-            display: grid;
+            display: none;
             grid-template-columns: 1fr;
-            grid-template-rows: 2vw 2vw 2.4vw;
+            grid-template-rows: 2vw 2vw 2.4vw auto 2vw;
             gap: 0.5vw;
             padding-top: 0.75vw;
+            padding-bottom: 0.75vw;
         }
         .settingsHeader{
             font-size: 1.25vw;
@@ -257,12 +266,12 @@
             background-color: #333a;
             border-radius: 1.4vw;
             padding: 0.2vw;
-            height: calc(100% - 1.1vw);
+            height: calc(100% - 0.5vw);
         }
         #topStuffCont{
             padding: 0 0.75vw;
             display: grid;
-            grid-template-columns: 3.5fr 1fr 2fr;
+            grid-template-columns: 3.1fr 1fr 2fr;
             gap: 0.4vw;
         }
         .destructive{
@@ -292,17 +301,33 @@
         .settingsStopName{
             align-self: center;
             padding-left: 0.4vw;
+            white-space: nowrap;
+            overflow: hidden;
         }
         .stopInfoButton{
             font-size: 0.75vw;
             width: 2vw;
             padding: 0;
             aspect-ratio: 1;
+            font-family: "Zalando Sans Expanded";
+        }
+        .exitButtons{
+            margin: 0 0.75vw;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.4vw;
+        }
+        #settingsButton{
+            background: #056c3055;
+        }
+        #settingsButton:hover{
+            background: #168d4888;
         }
         @media(max-width:700px) {
             #outerCont{
                 grid-template-columns: 1fr;
                 gap: 2vw;
+                padding-bottom: 8.6vw;
             }
             .module{
                 border-radius: 2vw;
@@ -352,14 +377,34 @@
                 font-size: 3vw;
                 width: fit-content;
                 backdrop-filter: blur(0.4vw);
-                left: 50%;
-                transform: translateX(-50%);
                 padding:  2vw 4vw;
                 border-radius: 5vw;
                 background-color: #2225;
                 box-shadow: inset 0 0 0.6vw #fff3;
                 white-space: nowrap;
                 font-weight: 600;;
+            }
+            #infoContainer{
+                position: fixed;
+                bottom: 0.3vw;
+                transform: translateX(-50%);
+                left: 50%;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 1vw;
+                z-index: -1;
+                align-items: center;
+                text-align: center;
+            }
+            button{
+                font-size: 3vw;
+                height: 8vw;
+                padding:  1vw 4vw;
+                box-shadow: inset 0 0 0.6vw #fff3;
+                text-align: center;
+                margin: auto;
+                backdrop-filter: blur(0.4vw);
+                width: 100%;
             }
             .gps, .ArrivalDate{
                 font-size: 3.5vw;
@@ -373,6 +418,65 @@
             0%   { transform: translateX(0%); }
             100%   { transform: translateX(-30%); }
             }
+            #settings{
+                width: 95vw;
+                height: 90vh;
+                backdrop-filter: blur(0.3vw);
+                border-radius: 5vw;
+                box-shadow: inset 0 0 0.3vw #fff2;
+                grid-template-rows: 8vw 8vw 10vw auto 8vw;
+                gap: 1.5vw;
+                padding-top: 2vw;
+                padding-bottom: 2vw;
+            }
+            #settingsBackdrop{
+                backdrop-filter: blur(0.6vw);
+            }
+            .settingsHeader{
+                font-size: 5vw;
+                font-weight: 700;
+                align-self: center;
+                padding: 0;
+                text-align: center;
+            }
+            #topStuffCont{
+                grid-template-columns: 1fr;
+            }
+            #settingsButtonsCont{
+                padding: 0 2vw;
+                gap: 1.5vw;
+            }
+            #settingsGroupCont{
+                margin: 0 2vw;
+                padding: 1vw;
+                gap: 1.25vw;
+            }
+            #stopsList{
+                margin: 0 2vw;
+                border-radius: 6vw;
+                padding: 1vw;
+                height: calc(100% - 2vw);
+            }
+            .exitButtons{
+                margin: 0 2vw;
+                gap: 1.25vw;
+            }
+            .stopInfo{
+                grid-template-columns: 8fr 8vw 8vw 8vw;
+                border-radius: 5vw;
+                padding: 1vw;
+                gap: 0.75vw;
+            }
+            .stopInfoButton{
+                font-size: 3.5vw;
+                width: 8vw;
+                padding: 0;
+                aspect-ratio: 1;
+            }
+            .settingsStopName{
+                font-size: 3.5vw;
+                padding-left: 2vw;
+            }
         }
 
     </style>
@@ -383,9 +487,7 @@
     </div>
     <div id="settings">
         <div id="topStuffCont">
-            <span class="settingsHeader">Stop management</span>
-            <button id="closeButton" class="generic" onclick="closeSettings()">Close</button>
-            <button id="saveButton" class="destructive">Save & Reload</button>
+            <span class="settingsHeader">Settings > Stop management</span>
         </div>
         <div id="settingsButtonsCont">
             <button id="newStopButton">Add Stop</button>
@@ -399,18 +501,24 @@
 
         <div id="stopsList">
             <div class="stopInfo">
-                <span class="settingsStopName">0714 - Ελευθερίου Βενιζέλου Αρωματικά</span>
-                <button class="stopInfoButton generic">🠝</button>
-                <button class="stopInfoButton generic">🠟</button>
-                <button class="stopInfoButton destructive">𐌢</button>
+                <span class="settingsStopName">0307 | ΑΜΝΙΣΣΟΣ -ΠΑΡΑΛΙΑ ΚΑΡΤΕΡΟΥ-ΑΘΛΗΤΙΚΕΣ ΕΓΚΑΤΑΣΤΑΣΕΙΣ</span>
+                <button class="stopInfoButton generic">↑</button>
+                <button class="stopInfoButton generic">↓</button>
+                <button class="stopInfoButton destructive">X</button>
             </div>
+        </div>
+        <div class="exitButtons">
+            
+            <button id="closeButton" class="generic" onclick="closeSettings()">Close without saving</button>
+            <button id="saveButton" class="destructive">Save & Reload</button>
         </div>
     </div>
     <div id="settingsBackdrop">
     </div>
 
-    <div id="date">
-        Fetching data...
+    <div id="infoContainer">
+        <button onclick="openSettings()" id="settingsButton">Settings</button>
+        <div id="date">Fetching data...</div>
     </div>
     <script>
         delay = 20000
@@ -695,9 +803,9 @@
             "2215",
             "1104",
             "1116",
-            "0714",
-            "0714",
-            "0714",
+            "0122",
+            "0120",
+            "9911",
         ]
         let i = 0;
         list.forEach(code => {
@@ -771,6 +879,14 @@
             backdrop.style.display = "none";
             settings.style.display = "none"
         }
+        function openSettings(){
+            let backdrop = document.querySelector("#settingsBackdrop")
+            let settings = document.querySelector("#settings")
+            backdrop.style.display = "block";
+            backdrop.style.opacity = 1;
+            settings.style.display = "grid"
+        }
+        openSettings();
         
         // a rat was here
     </script>
