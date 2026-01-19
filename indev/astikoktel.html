@@ -148,12 +148,20 @@
             animation: scroll-line 8s ease-in-out infinite;
             animation-direction: alternate;
         }
+        .scrollStop{
+            animation: scroll-stop 10s ease-in-out infinite;
+            animation-direction: alternate;
+        }
         @keyframes scroll-text {
             0%   { transform: translateX(15%); }
             100% { transform: translateX(-15%); }
         }
         
         @keyframes scroll-line {
+            0%   { transform: translateX(0%); }
+            100%   { transform: translateX(-10%); }
+        }
+        @keyframes scroll-stop {
             0%   { transform: translateX(0%); }
             100%   { transform: translateX(-10%); }
         }
@@ -190,7 +198,7 @@
             left: 50%;
             transform: translate(-50%, -50%);
             backdrop-filter: blur(0.3vw);
-            border-radius: 1.75vw;
+            border-radius: 1.25vw;
             z-index: 2;
             box-shadow: inset 0 0 0.3vw #fff2;
             display: none;
@@ -211,7 +219,7 @@
             padding: 0 0.75vw;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 0.4vw;
+            gap: 0.5vw;
         }
         #settingsGroupCont{
             height: fit-content;
@@ -220,16 +228,15 @@
             grid-template-columns: 1fr 1fr 1fr;
             gap: 0.25vw;
             background-color: #333a;
-            border-radius: 10vw;
+            border-radius: 0.7vw;
             padding: 0.2vw
         }
         button{
             color: #fff;
             background: #056c30aa;
             border: none;
-            border-radius: 10vw;
+            border-radius: 0.5vw;
             backdrop-filter: blur(0.2vw);
-            box-shadow: inset 0 0 0.3vw #fff4;
             padding: 0.3vw 0.7vw;
             font-size: 1vw;
             font-weight: 600;
@@ -238,7 +245,6 @@
             height: 2vw;
         }
         button:hover{
-            box-shadow: inset 0 0 0.3vw #fff8;
             background: #168d48aa;
         }
         .groupButton{
@@ -248,15 +254,13 @@
         }
         .groupButton:hover{
             background: #8881;
-            box-shadow: inset 0 0 0.3vw #fff3;
         }
         .selected{
             background: #aaa3;
-            box-shadow: inset 0 0 0.3vw #fff3;
         }
         .selected:hover{
             background: #aaa3;
-            box-shadow: inset 0 0 0.3vw #fff3;
+
         }
         #stopsList{
             margin: 0 0.75vw;
@@ -264,9 +268,10 @@
             grid-template-columns: 1fr;
             gap: 0.25vw;
             background-color: #333a;
-            border-radius: 1.4vw;
+            border-radius: 0.9vw;
             padding: 0.2vw;
-            height: calc(100% - 0.5vw);
+            height: calc(100% - 0.4vw);
+            overflow: scroll;
         }
         #topStuffCont{
             padding: 0 0.75vw;
@@ -279,30 +284,42 @@
         }
         .destructive:hover{
             background: #e75e5eaf;
-            box-shadow: inset 0 0 0.3vw #fff7;
         }
         .generic{
-            background: #bbb2;
-            box-shadow: inset 0 0 0.3vw #fff2;
+            background: #bbb4;
         }
         .generic:hover{
-            background: #aaa3;
-            box-shadow: inset 0 0 0.3vw #fff4;
+            background: #aaa7;
         }
         .stopInfo{
-            background: #555;
+            background: #444;
             height: fit-content;
-            border-radius: 1.25vw;
+            border-radius: 0.7vw;
             padding: 0.3vw;
             display: grid;
-            grid-template-columns: 8fr 2vw 2vw 2vw;
+            grid-template-columns: 3vw 1fr 2vw 2vw 2vw;
             gap: 0.3vw
         }
         .settingsStopName{
             align-self: center;
-            padding-left: 0.4vw;
+            padding-left: 0.1vw;
             white-space: nowrap;
             overflow: hidden;
+            display: inline-block;
+        }
+        .settingsStopNameText{
+            display: inline-block;
+            width: max-content;
+        }
+        .settingsStopId{
+            align-self: center;
+            background: #1b6138;
+            text-align: center;
+            border-radius: 0.5vw;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         .stopInfoButton{
             font-size: 0.75vw;
@@ -311,17 +328,45 @@
             aspect-ratio: 1;
             font-family: "Zalando Sans Expanded";
         }
+        .stopInfoButton.generic{
+            background: #666
+        }
+        .stopInfoButton.generic:hover{
+            background: #777
+        }
+        .stopInfoButton.destructive{
+            background: #aa4040
+        }
+        .stopInfoButton.destructive:hover{
+            background: #aa4c4c
+        }
         .exitButtons{
             margin: 0 0.75vw;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 0.4vw;
+            gap: 0.5vw;
         }
         #settingsButton{
             background: #056c3055;
+            color: #fff;
+            border: none;
+            border-radius: 10vw;
+            backdrop-filter: blur(0.2vw);
+            box-shadow: inset 0 0 0.3vw #fff4;
+            padding: 0.3vw 0.7vw;
+            font-size: 1vw;
+            font-weight: 600;
+            font-family: "Manrope";
+            transition: 0.1s background, 0.2s border;
+            height: 2vw;
         }
         #settingsButton:hover{
             background: #168d4888;
+        }
+        #stopsListInnerCont{
+            gap: 0.3vw;
+            display: grid;
+            height: fit-content;
         }
         @media(max-width:700px) {
             #outerCont{
@@ -400,6 +445,17 @@
                 font-size: 3vw;
                 height: 8vw;
                 padding:  1vw 4vw;
+
+                text-align: center;
+                margin: auto;
+                backdrop-filter: blur(0.4vw);
+                width: 100%;
+                border-radius: 2vw;
+            }
+            #settingsButton{
+                font-size: 3vw;
+                height: 8vw;
+                padding:  1vw 4vw;
                 box-shadow: inset 0 0 0.6vw #fff3;
                 text-align: center;
                 margin: auto;
@@ -418,11 +474,15 @@
             0%   { transform: translateX(0%); }
             100%   { transform: translateX(-30%); }
             }
+            @keyframes scroll-stop {
+                0%   { transform: translateX(0%); }
+                100%   { transform: translateX(-50%); }
+            }
             #settings{
                 width: 95vw;
                 height: 90vh;
                 backdrop-filter: blur(0.3vw);
-                border-radius: 5vw;
+                border-radius: 3vw;
                 box-shadow: inset 0 0 0.3vw #fff2;
                 grid-template-rows: 8vw 8vw 10vw auto 8vw;
                 gap: 1.5vw;
@@ -450,10 +510,11 @@
                 margin: 0 2vw;
                 padding: 1vw;
                 gap: 1.25vw;
+                border-radius: 2.5vw;
             }
             #stopsList{
                 margin: 0 2vw;
-                border-radius: 6vw;
+                border-radius: 2.5vw;
                 padding: 1vw;
                 height: calc(100% - 2vw);
             }
@@ -462,20 +523,32 @@
                 gap: 1.25vw;
             }
             .stopInfo{
-                grid-template-columns: 8fr 8vw 8vw 8vw;
-                border-radius: 5vw;
+                grid-template-columns: 12vw 1fr 8vw 8vw 8vw;
+                border-radius: 2vw;
                 padding: 1vw;
                 gap: 0.75vw;
+            }
+            .settingsStopId{
+                font-size: 3.5vw;
+                border-radius: 1vw;
+                font-weight: 700;
             }
             .stopInfoButton{
                 font-size: 3.5vw;
                 width: 8vw;
                 padding: 0;
-                aspect-ratio: 1;
             }
             .settingsStopName{
                 font-size: 3.5vw;
-                padding-left: 2vw;
+                padding-left: 0.5vw;
+                white-space: unset;
+            }
+            .settingsStopNameText{
+                white-space:initial;
+                width: 100%;
+            }
+            #stopsListInnerCont{
+                gap: 1vw;
             }
         }
 
@@ -500,11 +573,25 @@
         </div>
 
         <div id="stopsList">
-            <div class="stopInfo">
-                <span class="settingsStopName">0307 | ΑΜΝΙΣΣΟΣ -ΠΑΡΑΛΙΑ ΚΑΡΤΕΡΟΥ-ΑΘΛΗΤΙΚΕΣ ΕΓΚΑΤΑΣΤΑΣΕΙΣ</span>
-                <button class="stopInfoButton generic">↑</button>
-                <button class="stopInfoButton generic">↓</button>
-                <button class="stopInfoButton destructive">X</button>
+            <div id="stopsListInnerCont">
+                <div class="stopInfo">
+                    <div class="settingsStopId">0703</div>
+                    <div class="settingsStopName">
+                        <span class="settingsStopNameText">ΑΜΝΙΣΣΟΣ -ΠΑΡΑΛΙΑ ΚΑΡΤΕΡΟΥ-ΑΘΛΗΤΙΚΕΣ ΕΓΚΑΤΑΣΤΑΣΕΙΣ</span>
+                    </div>
+                    <button class="stopInfoButton generic">↑</button>
+                    <button class="stopInfoButton generic">↓</button>
+                    <button class="stopInfoButton destructive">X</button>
+                </div>
+                <div class="stopInfo">
+                    <div class="settingsStopId">0714</div>
+                    <div class="settingsStopName">
+                        <span class="settingsStopNameText">ΕΛΕΥΘΕΡΙΟΥ ΒΕΝΙΖΕΛΟΥ ΑΡΩΜΑΤΙΚΑ</span>
+                    </div>
+                    <button class="stopInfoButton generic">↑</button>
+                    <button class="stopInfoButton generic">↓</button>
+                    <button class="stopInfoButton destructive">X</button>
+                </div>
             </div>
         </div>
         <div class="exitButtons">
@@ -824,6 +911,10 @@
             document.querySelectorAll(".LineNameCont").forEach(cont => {
                 updateScroll(cont, ".LineName", 'scrollLine');
             });
+
+            document.querySelectorAll(".settingsStopName").forEach(cont => {
+                updateScroll(cont, ".settingsStopNameText", 'scrollStop')
+            });
         }
         let resizeTimeout;
         window.addEventListener("resize", () => {
@@ -887,7 +978,7 @@
             settings.style.display = "grid"
         }
         openSettings();
-        
+        setTimeout(() => {updateAllScroll()}, 1)
         // a rat was here
     </script>
 </body>
