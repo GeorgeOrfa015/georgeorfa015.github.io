@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DNA Proteins</title>
+    <style>
+        body{
+            background: #000;
+            color: #aaa
+        }
+        .group{
+            color: #2a5;
+            padding-left: 3em;
+        }
+    </style>
+</head>
+<body>
+    <button onclick="addBase('U')">U</button>
+    <button onclick="addBase('C')">C</button>
+    <button onclick="addBase('A')">A</button>
+    <button onclick="addBase('G')">G</button>
+    <button onclick="startInterval()">Generate Randomly</button>
+    <button onclick="endInterval()">Stop generating</button>
+    <button onclick="clearCont()">Clear</button>
+    <div id="outerCont">
+
+    </div>
+    <script>
+        let tripletIndex = 0;
+        let start = false;
+        let i = 0;
+        let c, p1, p2;
+        let dictionary = {
+            UUU: "Phenylalanine (phe)",
+            UUC: "Phenylalanine (phe)",
+            UUA: "Leucine (leu)",
+            UUG: "Leucine (leu)",
+            CUU: "Leucine (leu)",
+            CUC: "Leucine (leu)",
+            CUA: "Leucine (leu)",
+            CUG: "Leucine (leu)",
+            AUU: "Isoleucine (ile)",
+            AUC: "Isoleucine (ile)",
+            AUA: "Isoleucine (ile)",
+            AUG: "Methionine (met)",
+            GUU: "Valine (val)",
+            GUC: "Valine (val)",
+            GUA: "Valine (val)",
+            GUG: "Valine (val)",
+            UCU: "Serine (ser)",
+            UCC: "Serine (ser)",
+            UCA: "Serine (ser)",
+            UCG: "Serine (ser)",
+            CCU: "Proline (pro)",
+            CCC: "Proline (pro)",
+            CCA: "Proline (pro)",
+            CCG: "Proline (pro)",
+            ACU: "Threonine (thr)",
+            ACC: "Threonine (thr)",
+            ACA: "Threonine (thr)",
+            ACG: "Threonine (thr)",
+            GCU: "Alanine (ala)",
+            GCC: "Alanine (ala)",
+            GCA: "Alanine (ala)",
+            GCG: "Alanine (ala)",
+            UAU: "Tyrosine (tyr)",
+            UAC: "Tyrosine (tyr)",
+            UAA: "end",
+            UAG: "end",
+            CAU: "Histidine (his)",
+            CAC: "Histidine (his)",
+            CAA: "Glutamine (gln)",
+            CAG: "Glutamine (gln)",
+            AAU: "Asparagine (asn)",
+            AAC: "Asparagine (asn)",
+            AAA: "Lysine (lys)",
+            AAG: "Lysine (lys)",
+            GAU: "Aspartic Acid (asp)",
+            GAC: "Aspartic Acid (asp)",
+            GAA: "Glutamic Acid (glu)",
+            GAG: "Glutamic Acid (glu)",
+            UGU: "Cysteine (cys)",
+            UGC: "Cysteine (cys)",
+            UGA: "end",
+            UGG: "Tryptophan (trp)",
+            CGU: "Arginine (arg)",
+            CGC: "Arginine (arg)",
+            CGA: "Arginine (arg)",
+            CGG: "Arginine (arg)",
+            AGU: "Serine (ser)",
+            AGC: "Serine (ser)",
+            AGA: "Arginine (arg)",
+            AGG: "Arginine (arg)",
+            GGU: "Glycine (gly)",
+            GGC: "Glycine (gly)",
+            GGA: "Glycine (gly)",
+            GGG: "Glycine (gly)",
+
+        }   
+        function addBase(base){
+            i++;
+            p2=p1
+            p1=c
+            c=base
+            let triplet = p2+p1+c
+            if(!start){
+                createItem(base, "none", i)
+                if (triplet == "AUG") {
+                    start = true
+                    console.log(i, p2, p1, c, triplet, start, dictionary[triplet])
+                    groupItems(i, dictionary[triplet])
+                }
+            }else{
+                tripletIndex++;
+                createItem(base, "triplet", i)
+                if (tripletIndex == 3) {
+                    if (dictionary[triplet] == 'end') {
+                        start = false
+                    }else{
+                        groupItems(i, dictionary[triplet])
+                    }
+                    console.log(i, p2, p1, c, triplet, start, dictionary[triplet])
+                    tripletIndex = 0
+                }
+            }
+        }
+        function createItem(base, state, id){
+            let item = document.createElement("div")
+            item.innerHTML = base
+            item.id = id
+            item.className = state
+
+            document.querySelector("#outerCont").appendChild(item)
+        }
+        function groupItems(i, triplet){
+            let c = document.getElementById(i)
+            let p1 = document.getElementById(i-1)
+            let p2 = document.getElementById(i-2)
+            let name = document.createElement("span")
+            name.innerHTML = triplet;
+
+            let group = document.createElement("div")
+            group.className = "group"
+            group.appendChild(p2)
+            group.appendChild(p1)
+            group.appendChild(c)
+            group.appendChild(name)
+            document.querySelector("#outerCont").appendChild(group)
+        }
+        function rand(min, max){
+            return Math.round(Math.random() * (max-min) + min);
+        }
+        function generate(){
+            let list = [
+                "U","C","A","G"
+            ]
+            addBase(list[rand(0,3)]);
+        }
+        let intervalID;
+        function startInterval() {
+            clearInterval(intervalID)
+            intervalID = setInterval(generate, 10)
+        }   
+        function endInterval() {
+            clearInterval(intervalID)
+        }
+        function clearCont() {
+            document.getElementById("outerCont").innerHTML = ""
+            start = false;
+            tripletIndex = 0;
+            c = undefined
+            p1 = undefined
+            p2 = undefined
+        }
+    </script>
+</body>
+</html>

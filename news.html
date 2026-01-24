@@ -444,15 +444,21 @@
             }
         }
         
-        setInterval(function(){
-            for(i=0;i<10;i++){
-                flake1 = new Flake({
-                    color: "#ccc", 
-                    size: rand(2, 6)/10,
-                    disappearDelay: rand(1000, 1500)/100
-                })
-            }
-        }, 1000)
+        year = new Date().getFullYear()
+        let startDate = new Date(year, 11, 20).getTime()
+        let endDate = new Date(year, 0, 15).getTime()
+        let currentTime = new Date().getTime()
+        if (currentTime > startDate || currentTime < endDate) {
+            setInterval(function(){
+                for(i=0;i<10;i++){
+                    flake1 = new Flake({
+                        color: "#ccc", 
+                        size: rand(2, 6)/10,
+                        disappearDelay: rand(1000, 1500)/100
+                    })
+                }
+            }, 1000)
+        }
     </script>
 </body>
 </html>
