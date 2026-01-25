@@ -51,7 +51,7 @@
             top: 0;
             left: 0;
             width: calc(100% - 1.5vw);
-            height:fit-content;
+            height: auto;
             max-height: calc(100%) - 2vw;
             padding: 0.75vw;
             overflow: scroll;
@@ -134,6 +134,7 @@
             align-items: center;
             overflow: hidden;
             white-space: nowrap;
+            transition: 0.2s background;
         }
         .headerText{
             white-space: nowrap;
@@ -531,6 +532,17 @@
                 width: 100%;
                 border-radius: 2vw;
             }
+            input{
+                border-radius: 2vw;
+                backdrop-filter: blur(0.2vw);
+                padding: 0 1.5vw;
+                font-size: 4vw;
+                font-weight: 600;
+                font-family: "Manrope";
+                transition: 0.1s background, 0.2s border;
+                height: 8vw;
+                width: calc(100% - 3vw);
+            }
             #settingsButton{
                 font-size: 3vw;
                 height: 8vw;
@@ -628,6 +640,42 @@
             }
             #stopsListInnerCont{
                 gap: 1vw;
+            }
+            .settingsSubmenu{
+                max-height: 30vw;
+                width: 90vw;
+                backdrop-filter: blur(0.3vw);
+                padding: 2vw;
+                border-radius: 3vw;
+                box-shadow: inset 0 0 0.5vw #fff7;
+                gap: 1.5vw;
+            }
+            .label{
+                align-self: center;
+                font-size: 4vw;
+            }
+            .settingsSubmenu > #newStopAdd{
+                background: #2b9b5add;
+                transition: 0.2s background, 0.2s color;
+                cursor: pointer;
+            }
+            .settingsSubmenu > #newStopAdd:disabled{
+                background: #2a774add;
+                color: #aaa;
+                cursor:default;
+            }
+            .settingsSubmenu > input{
+                background: #1d8548dd
+            }
+            #stopNameOutput{
+                min-height: 8vw;
+                align-content: center;
+                text-align: center;
+                font-size: 4vw;
+            }
+            .error{
+                font-style: italic;
+                color: #ddd;
             }
         }
 
@@ -968,7 +1016,12 @@
                 setInterval(loop, 20000)
             })
         }
-        let list = localStorage.getItem("busList").split(",")
+        let list = localStorage.getItem("busList")
+        if (list != null) {
+            list = localStorage.getItem("busList").split(",")
+        }else{
+            list = []
+        }
         if (list[0] == '') {
             list = []
         }

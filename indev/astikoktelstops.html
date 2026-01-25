@@ -116,6 +116,34 @@
         #searchBar:focus{
             outline: none;
         }
+        .actionsCont{
+            display: none;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            grid-column: span 2;
+            gap: 0.75vw;
+        }
+        button{
+            color: #fff;
+            background: #056c30aa;
+            border: none;
+            border-radius: 0.5vw;
+            backdrop-filter: blur(0.2vw);
+            padding: 0.3vw 0.7vw;
+            font-size: 1.25vw;
+            font-weight: 600;
+            font-family: "Manrope";
+            transition: 0.1s background, 0.2s border;
+            height: 2.5vw;
+            width: 100%;
+        }
+        button:hover{
+            background: #168d48aa;
+        }
+        button:disabled{
+            background: #056c3044;
+            color: #aaa;
+            cursor:default;
+        }
         @media(max-width:700px) {
             #outerCont{
                 gap: 2vw;
@@ -214,6 +242,15 @@
             L92: "#5f6ee5",
             L93: "#65c251"
         }
+        let list = localStorage.getItem("busList")
+        if (list != null) {
+            list = localStorage.getItem("busList").split(",")
+        }else{
+            list = []
+        }
+        if (list[0] == '') {
+            list = []
+        }
         async function getKey() {
             const url = "https://corsproxy.io/?https://irakleio.citybus.gr/stops/live/0122";
             const response = await fetch(url);
@@ -255,6 +292,7 @@
                         let stopCont = document.createElement("div")
                         stopCont.className = "stopCont"
                         stopCont.id = stop.code;
+                        stopCont.setAttribute("onclick", `expand("${String(stop.code)}")`)
                         
                         let stopID = document.createElement("div")
                         stopID.innerHTML = stop.code;
@@ -267,9 +305,41 @@
                         let stopLinesCont = document.createElement("div")
                         stopLinesCont.className = "stopLinesCont";
 
+                        let actionsCont = document.createElement("div")
+                        actionsCont.className = "actionsCont"
+                        
+                        let addToBoardButton = document.createElement("button")
+                        addToBoardButton.className = "addToBoardButton"
+                        addToBoardButton.setAttribute("onclick", `addToBoard("${stop.code}")`)
+                        addToBoardButton.innerHTML = "Add to Arrivals Board"
+                        if (list.includes(stop.code)) {
+                            addToBoardButton.innerHTML = "Added"
+                            addToBoardButton.disabled = true
+                        }
+                        
+                        let showScheduleButton = document.createElement("button")
+                        showScheduleButton.className = "showScheduleButton"
+                        showScheduleButton.setAttribute("onclick", `showSchedule("${stop.code}")`)
+                        showScheduleButton.innerHTML = "Show Schedule"
+                        
+                        let showLiveDeparturesButton = document.createElement("button")
+                        showLiveDeparturesButton.className = "showLiveDeparturesButton"
+                        showLiveDeparturesButton.setAttribute("onclick", `showLiveDepartures("${stop.code}")`)
+                        showLiveDeparturesButton.innerHTML = "Show Live Arrivals"
+                     
+                        let showOnMapsButton = document.createElement("button")
+                        showOnMapsButton.className = "showOnMapsButton"
+                        showOnMapsButton.setAttribute("onclick", `showOnMaps("${stop.latitude}","${stop.longitude}")`)
+                        showOnMapsButton.innerHTML = "Show on Maps"
+                     
                         stopCont.appendChild(stopID);
                         stopCont.appendChild(stopName);
                         stopCont.appendChild(stopLinesCont);
+                        actionsCont.appendChild(showScheduleButton)
+                        actionsCont.appendChild(showLiveDeparturesButton)
+                        actionsCont.appendChild(addToBoardButton)
+                        actionsCont.appendChild(showOnMapsButton)
+                        stopCont.appendChild(actionsCont);
                         outerCont.appendChild(stopCont)
                         console.log(`${stop.code} ${stop.name}`)
 
@@ -280,10 +350,10 @@
                             lineElement.style.background = colorDict["L"+line]
 
                             stopLinesCont.appendChild(lineElement);
-                            console.log(line)
                         });
                     }
                 });
+            // expand("0122")
             })
             
         })
@@ -292,6 +362,9 @@
             let input = document.getElementById('searchBar');
             let filter = input.value.toUpperCase();
             let stops = document.querySelectorAll(".stopCont");
+            let prev = document.getElementById(expandedStop).childNodes[3]
+            prev.style.display = "none"
+            expandedStop = id
 
             for (i = 0; i < stops.length; i++) {
                 let name = stops[i].querySelector(".stopName").innerText;
@@ -302,6 +375,37 @@
                     stops[i].style.display = "none";
                 }
             }
+        }
+        console.log(localStorage.getItem("busList"))
+        let expandedStop = "0122"
+        function expand(id){
+            let prev = document.getElementById(expandedStop).childNodes[3]
+            prev.style.display = "none"
+            expandedStop = id
+            let actionsCont = document.getElementById(id).childNodes[3]
+            actionsCont.style.display = "grid"
+        }
+
+        function addToBoard(id) {
+            let list = localStorage.getItem("busList")
+            if (list != null) {
+                list = localStorage.getItem("busList").split(",")
+            }else{
+                list = []
+            }
+            if (list[0] == '') {
+                list = []
+            }
+            list.push(id)
+            console.log(list)
+            localStorage.setItem("busList", list)
+            let button = document.getElementById(id).childNodes[3].childNodes[2]
+            button.innerHTML = "Added"
+            button.disabled = "true"
+        }
+
+        function showOnMaps(lat, long) {
+            window.open(`https://www.google.com/maps/search/?api=1&query=${lat},${long}`).focus();
         }
 
         //  https://rest.citybus.gr/api/v1/el/110/stops
