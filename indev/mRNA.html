@@ -13,6 +13,9 @@
             color: #2a5;
             padding-left: 3em;
         }
+        .end{
+            color: #FF4500;
+        }
     </style>
 </head>
 <body>
@@ -117,6 +120,7 @@
                 if (tripletIndex == 3) {
                     if (dictionary[triplet] == 'end') {
                         start = false
+                        groupItems(i, "END")
                     }else{
                         groupItems(i, dictionary[triplet])
                     }
@@ -142,6 +146,13 @@
 
             let group = document.createElement("div")
             group.className = "group"
+            
+            if (triplet == "END") {
+                c.className = "triplet end"
+                p1.className = "triplet end"
+                p2.className = "triplet end"
+                name.className = "end"
+            }
             group.appendChild(p2)
             group.appendChild(p1)
             group.appendChild(c)
