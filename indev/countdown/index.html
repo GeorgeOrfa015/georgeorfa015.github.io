@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Countdown</title>
+</head>
+<body>
+    <span id="output"></span>
+    <script>
+        const hash = window.location.hash;
+        if (hash) {
+            setInterval(()=>{updateTime("output")}, 200)
+        } else {
+            document.write("No hash found in URL");
+        }
+        function updateTime(id) {
+            // let year = ""+hash[1]+hash[2]+hash[3]+hash[4]
+            // let month = ""+hash[6]+hash[7]
+            // let day = ""+hash[9]+hash[10]
+            // let hour = ""+hash[12]+hash[13]
+            // let minute = ""+hash[15]+hash[16]
+            // Date parsing from string when you've just woken up
+            let parts = hash.split("&")
+            let date = parts[0].split("-")
+            let cdTime = new Date(date[0].split("#")[1], date[1]-1, date[2], date[3], date[4]);
+            console.log(date)
+            let output = document.getElementById(id);
+            let crTime = new Date();
+            let timeDifference = cdTime.getTime()-crTime.getTime()+1000;
+            if (hash == "") {
+                output.innerHTML = "Enter a date";
+            }else{
+                if (timeDifference>0) {
+                    output.innerHTML = Math.floor(timeDifference/(24*60*60*1000)) + " Days ";
+                    output.innerHTML+= Math.floor(timeDifference%(24*60*60*1000)/(60*60*1000)) + "h ";
+                    output.innerHTML+= Math.floor(timeDifference%(60*60*1000)/(60*1000)) + "m ";
+                    output.innerHTML+= Math.floor(timeDifference%(60*1000)/1000) + "s";
+                    output.innerHTML+= " until "+decodeURI(parts[1])
+                }else{
+                    let timeDifferenceNegative = crTime.getTime() - cdTime.getTime();
+                    output.innerHTML = Math.floor(timeDifferenceNegative/(24*60*60*1000)) + " Days ";
+                    output.innerHTML+= Math.floor(timeDifferenceNegative%(24*60*60*1000)/(60*60*1000)) + "h ";
+                    output.innerHTML+= Math.floor(timeDifferenceNegative%(60*60*1000)/(60*1000)) + "m ";
+                    output.innerHTML+= Math.floor(timeDifferenceNegative%(60*1000)/1000) + "s";
+                    output.innerHTML+= " since "+decodeURI(parts[1])
+                }
+            }
+        }
+            
+    </script>
+</body>
+</html>
