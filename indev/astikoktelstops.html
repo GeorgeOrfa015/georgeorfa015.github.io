@@ -129,11 +129,11 @@
             border-radius: 0.5vw;
             backdrop-filter: blur(0.2vw);
             padding: 0.3vw 0.7vw;
-            font-size: 1.25vw;
+            font-size: 1.5vw;
             font-weight: 600;
             font-family: "Manrope";
             transition: 0.1s background, 0.2s border;
-            height: 2.5vw;
+            height: 3vw;
             width: 100%;
         }
         button:hover{
@@ -155,7 +155,7 @@
                 grid-template-columns: 12vw 1fr;
                 grid-template-rows: 1fr auto;
                 padding: 2vw;
-                gap: 2vw;
+                gap: 1.75vw;
             }
             .stopID{
                 grid-row: span 1;
@@ -172,7 +172,7 @@
             }
             .stopLinesCont{
                 grid-column: span 2;
-                gap: 1.5vw;
+                gap: 1vw;
             }
             .line{
                 height: 5vw;
@@ -197,6 +197,23 @@
             #searchBar:hover{
                 background: #fff2;
                 box-shadow: inset 0 0 1vw #fff3;
+            }
+            .actionsCont{
+                display: none;
+                grid-template-columns: 1fr 1fr;
+                grid-column: span 2;
+                gap: 1.5vw;
+            }
+            button{
+                border-radius: 2vw;
+                backdrop-filter: blur(0.2vw);
+                padding: 0.3vw 0.7vw;
+                font-size: 3.5vw;
+                font-weight: 600;
+                font-family: "Manrope";
+                transition: 0.1s background, 0.2s border;
+                height: 7vw;
+                width: 100%;
             }
         }
     </style>
@@ -364,7 +381,6 @@
             let stops = document.querySelectorAll(".stopCont");
             let prev = document.getElementById(expandedStop).childNodes[3]
             prev.style.display = "none"
-            expandedStop = id
 
             for (i = 0; i < stops.length; i++) {
                 let name = stops[i].querySelector(".stopName").innerText;
