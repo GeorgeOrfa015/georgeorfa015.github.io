@@ -201,7 +201,7 @@
         }
         async function getData(key, id) {
             const response = await fetch(
-                "https://corsproxy.io/?https://rest.citybus.gr/api/v1/el/110/stops/live/" + id,
+                "https://corsbypass.orfanidesg15-main.workers.dev/?url=https://rest.citybus.gr/api/v1/el/110/stops/live/" + id,
                 {
                     cache: "no-store",
                     headers: {
@@ -224,7 +224,7 @@
         
         
         async function getHTML(id) {
-            const url = "https://corsproxy.io/?https://irakleio.citybus.gr/stops/live/"+id;
+            const url = "https://corsbypass.orfanidesg15-main.workers.dev/?url=https://irakleio.citybus.gr/stops/live/"+id;
             const response = await fetch(url);
             
             if (!response.ok) {
