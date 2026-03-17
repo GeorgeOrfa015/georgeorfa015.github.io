@@ -13,6 +13,14 @@
             color: #fff;
             font-family: "Manrope";
         }
+        /* div>*{
+            transform: rotate3d(0, 0, 0, 0);
+            transition: transform 10s;
+            perspective: 600px;
+        }
+        div>*:hover{
+            transform: rotate3d(0.5, 0.7, 0.3, 1800deg) scaleZ(2);
+        } */
         #outerContainer{
             display: grid;
             gap: 1vw;
@@ -81,6 +89,7 @@
         }
         .arrival{
             font-family: "Manrope";
+            font-size: 1.2vw;
         }
         .hourOuterCont{
             padding: 0vw;
@@ -89,26 +98,58 @@
             grid-template-columns: 1fr;
             grid-template-rows: auto 1fr;
             border-radius: 1vw;
+            overflow: hidden;
         }
         .lineCont{
-            display: none;
+            display: grid;
+            grid-template-columns: auto 1fr;
+            background: #292929;
+            border-radius: 0.75vw;
+            padding: 0.5vw;
+            gap: 0.625vw;
         }
         .hourContTextBox{
             display: grid;
             width: fit-content;
-            grid-template-columns: auto auto;
+            grid-template-columns: auto 1fr;
             gap: 1vw;
             background: #555;
+            width: 100%;
+            padding: 0.8vw 1vw;
         }
         .hourText{
             font-weight: 800;
-            font-size: 1.8vw;
-            font-family: "Manrope"
+            font-size: 2.2vw;
+            font-family: "Manrope";
+            width: fit-content;
         }
         .counterText{
             align-self:center;
             color: #ddd;
             font-size: 1.5vw;
+            text-align: left;
+        }
+        .lineNumber{
+            background: #787878;
+            text-align: center;
+            width: 2vw;
+            align-content: center;
+            font-size: 1.2vw;
+            font-weight: 700;
+            border-radius: 0.5vw;
+            height: 100%;
+        }
+        .lineNumberCont{
+            align-content: center;
+        }
+        .hourInnerCont{
+            padding: 0.75vw;
+            display: grid;
+            gap: 0.5vw;
+            background: #222;
+        }
+        .arrivalCont{
+            align-content: center
         }
         @media(max-width:700px) {
             #search{
@@ -139,16 +180,24 @@
         <button id="dayButton">MONDAY</button>
     </div>
     <div id="outerContainer">
-        <div class="hourOuterCont" style="display: block">
+        <!-- <div class="hourOuterCont" style="display: grid">
             <div class="hourContTextBox">
                 <span class="hourText">4:00</span>
                 <span class="counterText">0 scheduled arrivals</span>
             </div>
             <div class="hourInnerCont" id="hic4">
-                <div class="lineCont" id="lc4L10"></div>
-                <div class="arrival">04:12 | 10 | Γάζι Αεροδρόμιο</div>
+                <div class="lineCont" id="lc4L10">
+                    <div class="lineNumber">10</div>
+                    <div class="arrivalCont">
+                        <div class="arrival">04:12 | 10 | Γάζι Αεροδρόμιο</div>
+                        <div class="arrival">04:12 | 10 | Γάζι Αεροδρόμιο</div>
+                        <div class="arrival">04:12 | 10 | Γάζι Αεροδρόμιο</div>
+                        <div class="arrival">04:12 | 10 | Γάζι Αεροδρόμιο</div>
+                        <div class="arrival">04:12 | 10 | Γάζι Αεροδρόμιο</div>
+                    </div>
+                </div>
             </div>
-        </div>
+        </div> -->
     </div>
     <script>
         const hash = window.location.hash;
@@ -261,17 +310,31 @@
                     counter.className = "counterText"
                     counter.id = "c"+(i+2)%24
 
+                    let hourInnerCont = document.createElement("div");
+                    hourInnerCont.id = "hic"+(i+2)%24
+                    hourInnerCont.className = "hourInnerCont"
+
                     hourContTextBox.appendChild(hour)
                     hourContTextBox.appendChild(counter)
                     hourOuterCont.appendChild(hourContTextBox)
+                    hourOuterCont.appendChild(hourInnerCont)
                     document.getElementById("outerContainer").appendChild(hourOuterCont)
                     allLineNumbers.forEach(line => {
                         let lineCont = document.createElement("div")
-                        lineCont.innerHTML = line;
                         lineCont.className = "lineCont"
                         lineCont.id = "lc"+((i+2)%24)+"L"+line
-                        lineCont.style.background = colorDict["L"+line]+"11"    
-                        hourOuterCont.appendChild(lineCont)
+
+                        let lineNumber = document.createElement("div")
+                        lineNumber.className = "lineNumber"
+                        lineNumber.innerHTML = line
+                        lineNumber.style.background = colorDict["L"+line]
+                        
+                        let arrivalCont = document.createElement("div")
+                        arrivalCont.className = "arrivalCont"
+                        
+                        lineCont.appendChild(lineNumber)
+                        lineCont.appendChild(arrivalCont)
+                        hourInnerCont.appendChild(lineCont)
                     });
                 }
                 data.forEach(element => {
@@ -295,26 +358,25 @@
 
 
                     let cont = document.createElement("div")
-                    cont.innerHTML = `${element.tripTime} | ${element.lineCode} | ${element.routeName}`
-                    cont.style.color = colorDict["L"+element.lineCode]
+                    cont.innerHTML = `${element.tripTime} | ${element.routeName}`
                     cont.className = "arrival"
                     let hc = document.getElementById("hc"+element.tripTimeHour)
-                    hc.style.display = "block"
+                    hc.style.display = "grid"
                     let lc = document.getElementById("lc"+element.tripTimeHour+"L"+element.lineCode)
-                    lc.style.display = "block"
-                    lc.appendChild(cont)
+                    lc.style.display = "grid"
+                    lc.childNodes[1].appendChild(cont)
                     let counter = document.getElementById("c"+element.tripTimeHour)
                     counter.innerHTML = Number(counter.innerHTML.split(" ")[0])+1+((Number(counter.innerHTML.split(" ")[0])+1==1)?" scheduled arrival":" scheduled arrivals")
                 });
                 for (i=0;i<=23;i++) {
                     let hc = document.getElementById("hc"+i)
-                    if (hc.style.display != "block") {
+                    if (hc.style.display != "grid") {
                         hc.innerHTML=""
                         hc.remove()
                     }else{
                         allLineNumbers.forEach(line => {
                             let lc = document.getElementById("lc"+i+"L"+line)
-                            if (lc.style.display != 'block') {
+                            if (lc.style.display != 'grid') {
                                 lc.remove()
                             }
                         });
