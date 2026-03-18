@@ -132,9 +132,9 @@
         .lineNumber{
             background: #787878;
             text-align: center;
-            width: 2vw;
+            width: 4vw;
             align-content: center;
-            font-size: 1.2vw;
+            font-size: 2vw;
             font-weight: 700;
             border-radius: 0.5vw;
             height: 100%;
@@ -150,6 +150,33 @@
         }
         .arrivalCont{
             align-content: center
+        }
+        .fullArrival{
+            display: grid;
+            grid-template-columns: 3.75vw 0.15vw 3vw auto;
+            gap: 0.5vw;
+            background: #292929;
+            font-size: 1.4vw;
+            padding: 0.25vw 0.5vw;
+            border-radius: 0.5vw;
+        }
+        .smallNumber{
+            text-align: center;
+            border-radius: 0.5vw;
+            font-weight: 700;
+        }
+        .routeName{
+            font-weight: 300;
+        }
+        .time{
+            text-align: center;
+            font-family: "Manrope", monospace;
+            align-self: center;
+            font-weight: 600;
+        }
+        .separator{
+            background: #333;
+            border-radius: 5vw;
         }
         @media(max-width:700px) {
             #search{
@@ -233,6 +260,7 @@
         } else {
             document.write("No hash found in URL");
         }
+        let linesGrouped = false
         async function getKey() {
             const url = "https://corsbypass.orfanidesg15-main.workers.dev/?url=https://irakleio.citybus.gr/stops/live/0122";
             const response = await fetch(url);
@@ -260,6 +288,9 @@
             return await response.json();
         }
         async function getMoreData(key, stop, day){
+            if (day==3) {
+                day = 2
+            }
             const response = await fetch(
                 `https://corsbypass.orfanidesg15-main.workers.dev/?url=https://rest.citybus.gr/api/v1/el/110/trips/stop/${stop}/day/${day}`,
                 {
@@ -319,23 +350,26 @@
                     hourOuterCont.appendChild(hourContTextBox)
                     hourOuterCont.appendChild(hourInnerCont)
                     document.getElementById("outerContainer").appendChild(hourOuterCont)
-                    allLineNumbers.forEach(line => {
-                        let lineCont = document.createElement("div")
-                        lineCont.className = "lineCont"
-                        lineCont.id = "lc"+((i+2)%24)+"L"+line
-
-                        let lineNumber = document.createElement("div")
-                        lineNumber.className = "lineNumber"
-                        lineNumber.innerHTML = line
-                        lineNumber.style.background = colorDict["L"+line]
-                        
-                        let arrivalCont = document.createElement("div")
-                        arrivalCont.className = "arrivalCont"
-                        
-                        lineCont.appendChild(lineNumber)
-                        lineCont.appendChild(arrivalCont)
-                        hourInnerCont.appendChild(lineCont)
-                    });
+                    // Line groups
+                    if (linesGrouped) {
+                        allLineNumbers.forEach(line => {
+                            let lineCont = document.createElement("div")
+                            lineCont.className = "lineCont"
+                            lineCont.id = "lc"+((i+2)%24)+"L"+line
+    
+                            let lineNumber = document.createElement("div")
+                            lineNumber.className = "lineNumber"
+                            lineNumber.innerHTML = line
+                            lineNumber.style.background = colorDict["L"+line]
+                            
+                            let arrivalCont = document.createElement("div")
+                            arrivalCont.className = "arrivalCont"
+                            
+                            lineCont.appendChild(lineNumber)
+                            lineCont.appendChild(arrivalCont)
+                            hourInnerCont.appendChild(lineCont)
+                        });
+                    }
                 }
                 data.forEach(element => {
                     console.log(element)
@@ -356,17 +390,47 @@
                     // tripTimeMinute: 57
                 
 
+                    if (linesGrouped){
+                        let cont = document.createElement("div")
+                        cont.innerHTML = `${element.tripTime} | ${element.routeName}`
+                        cont.className = "arrival"
+                        let hc = document.getElementById("hc"+element.tripTimeHour)
+                        hc.style.display = "grid"
+                        let lc = document.getElementById("lc"+element.tripTimeHour+"L"+element.lineCode)
+                        lc.style.display = "grid"
+                        lc.childNodes[1].appendChild(cont)
+                        let counter = document.getElementById("c"+element.tripTimeHour)
+                        counter.innerHTML = Number(counter.innerHTML.split(" ")[0])+1+((Number(counter.innerHTML.split(" ")[0])+1==1)?" scheduled arrival":" scheduled arrivals")
+                    }else{
+                        let cont = document.createElement("div")
+                        cont.className = "fullArrival"
+                        
+                        let time = document.createElement("span")
+                        time.className = "time"
+                        time.innerHTML = element.tripTime
+                        
+                        let separator = document.createElement("div")
+                        separator.className = "separator"
 
-                    let cont = document.createElement("div")
-                    cont.innerHTML = `${element.tripTime} | ${element.routeName}`
-                    cont.className = "arrival"
-                    let hc = document.getElementById("hc"+element.tripTimeHour)
-                    hc.style.display = "grid"
-                    let lc = document.getElementById("lc"+element.tripTimeHour+"L"+element.lineCode)
-                    lc.style.display = "grid"
-                    lc.childNodes[1].appendChild(cont)
-                    let counter = document.getElementById("c"+element.tripTimeHour)
-                    counter.innerHTML = Number(counter.innerHTML.split(" ")[0])+1+((Number(counter.innerHTML.split(" ")[0])+1==1)?" scheduled arrival":" scheduled arrivals")
+                        let number = document.createElement("div")
+                        number.className = "smallNumber"
+                        number.innerHTML = element.lineCode
+                        number.style.background = colorDict["L"+element.lineCode]
+                        
+                        let name = document.createElement("span")
+                        name.className = "routeName"
+                        name.innerHTML = element.routeName
+
+                        let hc = document.getElementById("hc"+element.tripTimeHour)
+                        cont.appendChild(time)
+                        cont.appendChild(separator)
+                        cont.appendChild(number)
+                        cont.appendChild(name)
+                        hc.childNodes[1].appendChild(cont)
+                        hc.style.display = "grid"
+                        let counter = document.getElementById("c"+element.tripTimeHour)
+                        counter.innerHTML = Number(counter.innerHTML.split(" ")[0])+1+((Number(counter.innerHTML.split(" ")[0])+1==1)?" scheduled arrival":" scheduled arrivals")
+                    }
                 });
                 for (i=0;i<=23;i++) {
                     let hc = document.getElementById("hc"+i)
@@ -374,12 +438,14 @@
                         hc.innerHTML=""
                         hc.remove()
                     }else{
-                        allLineNumbers.forEach(line => {
-                            let lc = document.getElementById("lc"+i+"L"+line)
-                            if (lc.style.display != 'grid') {
-                                lc.remove()
-                            }
-                        });
+                        if (linesGrouped) {
+                            allLineNumbers.forEach(line => {
+                                let lc = document.getElementById("lc"+i+"L"+line)
+                                if (lc.style.display != 'grid') {
+                                    lc.remove()
+                                }
+                            });
+                        }
                     }
                 }
             })
