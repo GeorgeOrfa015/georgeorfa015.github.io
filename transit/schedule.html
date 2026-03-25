@@ -90,6 +90,9 @@
         .arrival{
             font-family: "Manrope";
             font-size: 1.2vw;
+            display: grid;
+            grid-template-columns: 3.5vw 0.15vw auto;
+            gap: 0.5vw;
         }
         .hourOuterCont{
             padding: 0vw;
@@ -153,7 +156,7 @@
         }
         .fullArrival{
             display: grid;
-            grid-template-columns: 3.75vw 0.15vw 3vw auto;
+            grid-template-columns: 3.85vw 0.15vw 3vw auto;
             gap: 0.5vw;
             background: #292929;
             font-size: 1.4vw;
@@ -175,10 +178,15 @@
             font-weight: 600;
         }
         .separator{
-            background: #333;
+            background: #3b3b3b;
             border-radius: 5vw;
         }
         @media(max-width:700px) {
+            #outerContainer{
+                gap: 2vw;
+                top: 0;
+                padding-bottom: 15vw
+            }
             #search{
                 left: 0;
                 top: unset;
@@ -196,6 +204,81 @@
             #searchBar:hover{
                 background: #fff2;
                 box-shadow: inset 0 0 1vw #fff3;
+            }
+            .hourOuterCont{
+                border-radius: 4vw;
+            }
+            .hourText{
+                font-size: 6vw;
+                padding: 0 1vw;
+                text-align: center;
+                width: calc(100% - 2vw);
+                height: 7vw
+            }
+            .hourContTextBox{
+                grid-template-columns: 1fr;
+                width: calc(100% - 2vw);
+                gap: 0
+            }
+            .hourInnerCont{
+                padding: 1.5vw;
+                gap: 1.5vw;
+            }
+            .counterText{
+                text-align: center;
+                font-size: 4vw;
+                padding-top: -1vw;
+            }
+            .lineCont{
+                grid-template-columns: 11vw 1fr;
+                padding: 0;
+                border-radius: 2.5vw;
+                overflow: hidden;
+                gap: 2vw
+            }
+            .lineNumber{
+                width: initial;
+                font-size: 6vw;
+                padding: 0 1vw;
+                border-radius: 2.5vw;
+            }
+            .arrival{
+                font-size: 4vw;
+                display: grid;
+                grid-template-columns: 11.5vw 1vw auto;
+                gap: 1vw;
+                background: #333;
+                border-radius: 1.5vw;
+            }
+            .arrivalCont{
+                display: grid;
+                grid-template-columns: 1fr;
+                padding: 1vw 0;
+                gap: 1vw;
+                padding-right: 1vw;
+            }
+            .separator{
+                margin: 0vw 0;
+            }
+            .fullArrival{
+                border-radius: 2.5vw;
+                grid-template-columns: 11.5vw 1vw 7vw auto;
+                gap: 1vw;
+                padding: 0 1vw;
+            }
+            .time{
+                font-size: 4vw;
+            }
+            .arrival > .time{
+                padding-left: 0.5vw;
+            }
+            .routeName{
+                font-size: 4vw;
+            }
+            .smallNumber{
+                font-size: 4vw;
+                align-content: center;
+                border-radius: 1vw;
             }
         }
     </style>
@@ -260,7 +343,7 @@
         } else {
             document.write("No hash found in URL");
         }
-        let linesGrouped = false
+        let linesGrouped = true
         async function getKey() {
             const url = "https://corsbypass.orfanidesg15-main.workers.dev/?url=https://irakleio.citybus.gr/stops/live/0122";
             const response = await fetch(url);
@@ -392,8 +475,20 @@
 
                     if (linesGrouped){
                         let cont = document.createElement("div")
-                        cont.innerHTML = `${element.tripTime} | ${element.routeName}`
                         cont.className = "arrival"
+
+                        let time = document.createElement("span")
+                        time.innerHTML = element.tripTime
+                        time.className = "time"
+                        let separator = document.createElement("div")
+                        separator.className = "separator"
+                        let name = document.createElement("span")
+                        name.innerHTML = element.routeName
+
+                        cont.append(time)
+                        cont.append(separator)
+                        cont.append(name)
+
                         let hc = document.getElementById("hc"+element.tripTimeHour)
                         hc.style.display = "grid"
                         let lc = document.getElementById("lc"+element.tripTimeHour+"L"+element.lineCode)

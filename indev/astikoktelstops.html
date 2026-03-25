@@ -423,6 +423,9 @@
         function showOnMaps(lat, long) {
             window.open(`https://www.google.com/maps/search/?api=1&query=${lat},${long}`).focus();
         }
+        function showSchedule(stop){
+            window.open(`../transit/schedule.html#${stop}`)
+        }
 
         //  https://rest.citybus.gr/api/v1/el/110/stops
     </script>
