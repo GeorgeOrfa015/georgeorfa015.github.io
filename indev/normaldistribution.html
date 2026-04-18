@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="myCanvas" height="4000" width="4000" style="position: absolute; top: 0; left: 0;"></canvas>
+    <script>
+        
+        const canvas = document.getElementById("myCanvas");
+        const ctx = canvas.getContext("2d");
+
+        // for (x=0;x<1358*4;x++){
+        //     for (y=0;y<664*4;y++){
+        //         let h = x*3
+        //         let s = 100
+        //         let l = 50
+                
+        //     ctx.fillStyle = `hsl(${h}, ${s}%, ${l}%)`;
+        //     ctx.fillRect(y, x, x, 1);
+        //     }
+        // }
+        let x = 0
+        let y = 0
+        let h = 0
+        let list = []
+        for (i=1;i<=10000;i++) {
+            list.push(0)
+        }
+        function rand(min, max) {
+            return Math.floor(Math.random() * (max+min) + min);
+        }
+        function draw() {
+            let sum 
+            for (i=1; i<=10;i++) {
+                sum+=rand(1,10)
+            }
+            list[sum-1]+=1
+            ctx.fillStyle = `hsl(${h+sum}, 50%, 50%)`
+            h+=0.003
+            ctx.fillRect(list[sum-1]*1, (sum-1)*1, 1, 1);
+        }
+        function drawmore() {
+
+            for (i=1; i<=500; i++) {
+                draw()
+            }        
+        }
+        setInterval(drawmore, 10)
+
+    </script>
+</body>
+</html>
