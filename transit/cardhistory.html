@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card History</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
+        body{
+            background: #000;
+            color: #fff;
+            font-family: "Manrope" ;
+        }
+        .outerCont{
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.5em;
+            padding-top: 4em;
+        }
+        .element{
+            width: calc(100% - 1em);
+            height: fit-content;
+            display: grid;
+            grid-template-columns: auto 1fr;
+            padding: 0.6em;
+            gap: 0.65em;
+            border-radius: 1em;
+            background: #222;
+        }
+        .lineNumber{
+            width: 2em;
+            height: 2em;
+            background: #000;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            font-weight: 600;
+            font-size: 2.5em;
+            border-radius: 0.2em;;
+            align-self: center;
+        }
+        .routeName{
+            font-size: 1.5em;
+            font-weight: 300;
+            line-height: 1em;
+        }
+        .innerCont{
+            align-self: center;
+        }
+        .date{
+            font-size: 1em;
+            color: #ccc;
+            font-weight: 400;
+        }
+        .header{
+            text-align: left;
+            font-size: 2em;
+            font-weight: 800;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(#000f
+            
+             5%, #0009);
+            backdrop-filter: blur(0.15em);
+            height: 2em;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            padding-left: 0.4em;
+            border-bottom: 0.5px solid #333;
+        }
+        @media(max-width: 700px) {
+            .header{
+                text-align: center;
+                padding-left: 0em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">Bus Card History</div>
+    <div class="outerCont">
+
+    </div>
+    <script>
+        let colorDict = {
+            L01: "#c42a19",
+            L02: "#7e786f",
+            L03: "#8c705d",
+            L04: "#570096",
+            L05: "#7e0d48",
+            L06: "#4b8136",
+            L07: "#6483db",
+            L09: "#360408",
+            L10: "#7e786f",
+            L11: "#d82e5c",
+            L12: "#5300d9",
+            L14: "#7e786f",
+            L15: "#487f83",
+            L16: "#4c007d",
+            L17: "#e89c31",
+            L19: "#5300d9",
+            L20: "#6fb454",
+            L23: "#23211e",
+            L21: "#e24172",
+            L31: "#4f585c",
+            L50: "#000080",
+            L91: "#dd6059",
+            L92: "#5f6ee5",
+            L93: "#65c251"
+        }
+        async function fetchData() {
+            let response = await fetch("http://panchovilla5574.ddns.net:5087/history?n=all")
+            let data = await response.json()
+            return data
+        }
+
+        async function load() {
+            let data = await fetchData();
+            data.data.reverse().forEach(element => {
+                console.log(element)
+                // DATA SPLITTING
+                element // 2026-05-22 14:56:00 | 05-ΑΕΡΟΔΡΟΜΙΟ - ΔΗΜΗΤΡΙΟΥ- ΘΕΡΙΣΣΟΣ - ΑΕΡΟΔΡΟΜΙΟ
+                let lineNumberText = element.split(" | ")[1].split("-")[0]
+                let routeNameText = element.split(" | ")[1].slice(3)
+                let timestamp = new Date(element.split(" | ")[0])
+                
+
+                let elementOuterCont = document.createElement("div")
+                elementOuterCont.className = "element"
+                
+                let lineNumber = document.createElement("div")
+                lineNumber.className = "lineNumber"
+                lineNumber.innerHTML = lineNumberText
+                lineNumber.style.background = colorDict["L"+lineNumberText]
+                
+                let routeName = document.createElement("div")
+                routeName.className = "routeName"
+                routeName.innerHTML = routeNameText
+
+                let date = document.createElement("div")
+                date.className = "date"
+                date.innerHTML = timestamp.toDateString() + " - " + `${("0" + timestamp.getHours()).slice(-2)}:${("0" + timestamp.getMinutes()).slice(-2)}:${("0" + timestamp.getSeconds()).slice(-2)}`;
+
+                let innerCont = document.createElement("div")
+                innerCont.className = "innerCont"
+
+                innerCont.append(routeName)
+                innerCont.append(date)
+                elementOuterCont.append(lineNumber)
+                elementOuterCont.append(innerCont)
+                document.getElementsByClassName("outerCont")[0].append(elementOuterCont)
+            });
+        }
+        load()
+    </script>
+</body>
+</html>
