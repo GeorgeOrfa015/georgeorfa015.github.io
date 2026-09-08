@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #hostScreen{
+            display: none;
+        }
+        body{
+            background: #000;
+            color: #fff;
+
+        }
+    </style>
+</head>
+<body>
+    <div id="connectionButtons">
+        <input type="text" id="username"><br>
+        <button onclick="host()">Host</button>
+        <input type="text" id="roomcodeInput">
+        <button onclick="connect()">Connect</button>
+    </div>
+    <div id="hostScreen">
+        <span id="roomcode">Waiting for code...</span>
+    </div>
+    <script>
+        let connected = false
+        let isHost = false
+        function connect() {
+            if (!connected) {
+                connected = true
+                let roomcode = document.getElementById("roomcodeInput").value
+                let username = document.getElementById("username").value
+                const ws = new WebSocket(`https://georgeorfa015.duckdns.org:5087?mode=test&username=${username}`)
+                ws.addEventListener('open', () => {
+                    ws.send(roomcode)
+                    document.body.style.background = "#050"
+                })
+                ws.addEventListener("message", (data) => {
+                    window.alert(data.toString())
+                })
+                ws.addEventListener("close", () => {
+                    wsDisc()
+                })
+            }
+        }
+        function host() {
+            document.getElementById("hostScreen").style.display = "block"
+            isHost = true
+            let username = document.getElementById("username").value
+            const ws = new WebSocket(`https://georgeorfa015.duckdns.org:5087?mode=host&username=${username}`)
+            ws.addEventListener("message", ({data}) => {
+                
+                let message = data.toString();
+                console.log("MESSAGE RECEIVED: "+message)
+                let mode = message.split(" ")[0]
+                if (mode == "roomcode:") { // ROOMCODE
+                    console.log(message.split(" ")[1])
+                    let roomcodeElement = document.getElementById("roomcode")
+                    roomcodeElement.innerHTML = message.split(" ")[1]
+                }
+                if (mode = "newClient") {
+
+                }
+
+            })
+
+            ws.addEventListener("close", ()=> {
+                wsDisc()
+            })
+        }
+
+        function wsDisc() {
+            document.body.style.background = "#500";
+            setTimeout(function() {window.location.reload()}, 3000)
+            console.log("WEBSOCKET ERROR.")
+        }
+    </script>
+</body>
+</html>
