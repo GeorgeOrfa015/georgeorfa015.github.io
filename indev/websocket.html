@@ -33,7 +33,7 @@
                 connected = true
                 let roomcode = document.getElementById("roomcodeInput").value
                 let username = document.getElementById("username").value
-                const ws = new WebSocket(`https://georgeorfa015.duckdns.org:5087?mode=test&username=${username}`)
+                const ws = new WebSocket(`wss://georgeorfa015.duckdns.org:5087?mode=test&username=${username}`)
                 ws.addEventListener('open', () => {
                     ws.send(roomcode)
                     document.body.style.background = "#050"
@@ -50,7 +50,7 @@
             document.getElementById("hostScreen").style.display = "block"
             isHost = true
             let username = document.getElementById("username").value
-            const ws = new WebSocket(`https://georgeorfa015.duckdns.org:5087?mode=host&username=${username}`)
+            const ws = new WebSocket(`wss://georgeorfa015.duckdns.org:5087?mode=host&username=${username}`)
             ws.addEventListener("message", ({data}) => {
                 
                 let message = data.toString();
@@ -61,7 +61,7 @@
                     let roomcodeElement = document.getElementById("roomcode")
                     roomcodeElement.innerHTML = message.split(" ")[1]
                 }
-                if (mode = "newClient") {
+                if (mode == "newClient") {
 
                 }
 
