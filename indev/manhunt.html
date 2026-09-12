@@ -292,7 +292,7 @@
                 getNextPingTime().then(timestamp => {
                     nextPing = timestamp;
                     console.log(nextPing)
-                    document.getElementById("timerCont").innerHTML = `<span id="timerText">Next location ping:</span><span id="timer">9m 32s (16:24)</span>`
+                    document.getElementById("timerCont").innerHTML = `<span id="timerText">Next location ping:</span><span id="timer"></span>`
                     setInterval(timer, 200)
                 })
             }
