@@ -33,22 +33,23 @@
             return Math.floor(Math.random() * (max+min) + min);
         }
         function draw() {
-            let sum 
-            for (i=1; i<=10;i++) {
-                sum+=rand(1,10)
+            let sum = 0
+            for (let i=1; i<=100;i++) {
+                sum+=Number(rand(1,10));
             }
+            console.log(sum)
             list[sum-1]+=1
             ctx.fillStyle = `hsl(${h+sum}, 50%, 50%)`
             h+=0.003
             ctx.fillRect(list[sum-1]*1, (sum-1)*1, 1, 1);
+            console.log("called!")
         }
         function drawmore() {
-
-            for (i=1; i<=500; i++) {
+            for (let i=1; i<=500; i++) {
                 draw()
             }        
         }
-        setInterval(drawmore, 10)
+        setInterval(drawmore, 100)
 
     </script>
 </body>

@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MANHUNT CLIENT</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
+        body{
+            background: #111;
+            color: #fff;
+            font-family: Manrope;
+        }
+        #outerCont{
+            display: grid;
+            grid-template-rows: 1fr 1fr 2fr 6fr 1fr;
+            height: 90vh;
+            gap: 0.5em;
+
+        }
+        button{
+            background-color: #0f7a3c;
+            border: none;
+            color: #fff;
+            font-size: 2em;
+            border-radius: 0.25em;
+            font-family: inherit;
+            padding: 0em;
+            transition: background 0.2s color 0.2s;
+            font-weight: 700;
+        }
+        button:hover{
+            background:#1ca856;
+        }
+        button:active{
+            background:#24bd64;
+            transition: none;
+        }
+        button:disabled{
+            color: #ccc;
+            background-color: hsl(145, 35%, 27%);
+        }
+        button:disabled:hover{
+            background: #0f7a3c;
+            background-color: hsl(145, 35%, 27%);
+        }
+        input{
+            background-color: #222;
+            border: none;
+            color: #fff;
+            font-size: 2em;
+            border-radius: 0.25em;
+            font-family: inherit;
+            padding: 0;
+            transition: background 0.2s color 0.2s;
+            text-align: center;
+            outline: none;
+        }
+        input:hover{
+            background:#333;
+        }
+        input:active{
+            background:#444;
+            transition: none;
+        }
+        input::placeholder{
+            color: #666
+        }
+        input:disabled{
+            color: #aaa
+        }
+        input:disabled:hover{
+            background: #222;
+        }
+        #info, #timer, #timerText{
+            text-align: center;
+        }
+        #info{
+            font-size: 1.25em;
+            z-index: 0;
+        }
+        span#timerText{
+            font-size: 1.5em;
+        }
+        span#timer{
+            font-size: 2em;
+        }
+        div.timer{
+            align-self: center;
+            display:grid;
+            transform:translateY(-3em)
+        }
+        #buttonCont{
+            height: 100%;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5em;
+        }
+        #switchRoleButton{
+            display: none;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="outerCont">
+        <input type="text" placeholder="Username" id="username">
+        <div id="buttonCont">
+            <button onclick="register(`runner`)" id="registerR">Runner</button>
+            <button onclick="register(`hunter`)" id="registerH">Hunter</button>
+        </div>
+        <button id="switchRoleButton" onclick="swapRoles()">Switch Role</button>
+        <span id="info"></span>
+        <div class="timer" id="timerCont">
+            
+        </div>
+        <button onclick="getLocation()" id="location">Send location</button>
+    </div>
+    <script>
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+
+        async function showPosition(position) {
+            if (window.confirm("Are you sure you want to send your location? (This sends your location even if the game is not running!)")) {
+                console.log(position.coords.latitude, position.coords.longitude)
+                try{
+                    const response = await fetch('https://georgeorfa015.duckdns.org:5087/manhunt/locationPing', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ "username": document.getElementById("username").value, "location": position.coords.latitude+","+position.coords.longitude})
+                    });
+                    document.getElementById("location").innerHTML = "Sent!"
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 5000);
+                }catch (err){
+                    console.log(err)
+                }
+            }
+        }
+
+        function showError(error) {
+            switch(error.code) {
+                case error.PERMISSION_DENIED:
+                alert("User denied the request for Geolocation.");
+                break;
+                case error.POSITION_UNAVAILABLE:
+                alert("Location information is unavailable.");
+                break;
+                case error.TIMEOUT:
+                alert("The request to get user location timed out.");
+                break;
+                case error.UNKNOWN_ERROR:
+                alert("An unknown error occurred.");
+                break;
+            }
+        }
+
+        async function registrationRequest(username, role) {
+            try {
+                const response = await fetch('https://georgeorfa015.duckdns.org:5087/manhunt/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ "username": username, "role": role })
+                });
+                const data = await response.json();
+                return data;
+            } catch (err){
+                console.log(err)
+                return err;
+            }
+        }
+        async function registrationStatus(username) {
+            try{
+                const response = await fetch ('https://georgeorfa015.duckdns.org:5087/manhunt/registerCheck/'+username)
+                const data = await response.json();
+                return data.registered;
+            }catch(err){
+                return err;
+            }
+        }
+        let gameStateBool = false;
+        async function gameStatus() {
+            try{
+                const response = await fetch ('https://georgeorfa015.duckdns.org:5087/manhunt/state')
+                const data = await response.json();
+                return data.started;
+            }catch(err){
+                return err;
+            }
+        }
+
+        async function userData(username) {
+            try{
+                const response = await fetch ('https://georgeorfa015.duckdns.org:5087/manhunt/userData/'+username)
+                const data = await response.json();
+                return data;
+            }catch(err){
+                return err;
+            }
+        }
+        
+        async function register(role) {
+            let username = document.getElementById("username").value;
+            let response = await registrationRequest(username, role)
+            let errorElement = document.getElementById("info")
+            console.log(username)
+            console.log(response)
+            console.log(response.registrationState)
+            if (response.registrationState == "success") {
+                errorElement.innerHTML = "User "+username+" registered successfully!<br>Please subscribe to the following topics on ntfy.sh:<br>GO15MH-ALL<br>GO15MH-"+username
+                errorElement.style.color = "#aca"
+                localStorage.setItem("manhuntUsername", username)
+                document.getElementById("username").setAttribute("disabled", true)
+                document.getElementById("registerR").setAttribute("disabled", true)
+                document.getElementById("registerH").setAttribute("disabled", true)
+
+                await updateRoleButton();
+                document.getElementById("buttonCont").style.display = "none";
+                document.getElementById("switchRoleButton").style.display = "inline";
+            }else if(response.reason == "User already registered"){
+                errorElement.innerHTML = "User "+username+" already registered.<br>Your topics on ntfy.sh are:<br>GO15MH-ALL<br>GO15MH-"+username
+                errorElement.style.color = "#caa"
+            }else{
+                errorElement.innerHTML = "Error."
+                errorElement.style.color = "#caa"
+            }
+        } 
+
+        async function getNextPingTime() {
+            try{
+                const response = await fetch ('https://georgeorfa015.duckdns.org:5087/manhunt/nextPingTS')
+                const data = await response.json();
+                console.log(data)
+                return data.nextPingTS;
+            }catch(err){
+                return err;
+            }
+        }
+
+        let cachedUsername = localStorage.getItem("manhuntUsername")
+        if (cachedUsername != null) {
+            registrationStatus(cachedUsername).then(data => {
+                if (data) {
+                    console.log(cachedUsername)
+                    document.getElementById("username").value = cachedUsername
+                    document.getElementById("username").setAttribute("disabled", true)
+                    document.getElementById("registerR").setAttribute("disabled", true)
+                    document.getElementById("registerH").setAttribute("disabled", true)
+                    document.getElementById("info").innerHTML = "ntfy.sh topics:<br>GO15MH-ALL &nbsp;&nbsp; GO15MH-"+cachedUsername
+                    document.getElementById("info").style.color = "#aaa"
+                    updateRoleButton().then(() => {
+                        document.getElementById("buttonCont").style.display = "none";
+                        document.getElementById("switchRoleButton").style.display = "inline";
+                    });
+
+                    // Check Role
+                    userData(cachedUsername).then(userData => {
+                        if (userData.role == "hunter") {
+                            
+                        }else{
+
+                        }
+                    })
+                }else{
+                    document.getElementById("username").value = cachedUsername 
+                    document.getElementById("info").innerHTML = "Please register"
+                }
+                
+            });
+        }else{
+            document.getElementById("info").innerHTML = "Please register"
+        }
+        // check registration state on server
+        let nextPing = 0
+        console.log(nextPing)
+        gameStatus().then(state => {
+            gameStateBool = state;
+            if (!state) {
+                document.getElementById("timerCont").innerHTML = "<span id='timerText'>Game not started.</span>"
+            }else{
+                getNextPingTime().then(timestamp => {
+                    nextPing = timestamp;
+                    console.log(nextPing)
+                    document.getElementById("timerCont").innerHTML = `<span id="timerText">Next location ping:</span><span id="timer">9m 32s (16:24)</span>`
+                    setInterval(timer, 200)
+                })
+            }
+        })
+
+
+        function timer() {
+            let currentDate = new Date().getTime()
+            let targetDate = new Date(nextPing).getTime()
+            let clock = document.getElementById("timer")
+            let targetDateObj = new Date(nextPing)
+
+
+            let timeDifference = targetDate-currentDate;
+            console.log(timeDifference)
+                if (timeDifference>=0) {
+                    clock.innerHTML= Math.floor(timeDifference/(60*1000)) + "m ";
+                    clock.innerHTML+= Math.floor(timeDifference%(60*1000)/1000) + "s";
+                    clock.innerHTML+= ` (${targetDateObj.getHours()}:${("0" + targetDateObj.getMinutes()).slice(-2)})`
+                }else{
+                    clock.innerHTML = "Time to ping!"
+                }
+
+        }
+
+
+
+
+        async function updateRoleButton(roleParam) {
+            if (roleParam == "runner") {
+                document.getElementById("switchRoleButton").innerHTML = "Switch to Hunter"
+            }else if (roleParam == "hunter") {
+                document.getElementById("switchRoleButton").innerHTML = "Switch to Runner";
+            }else{ //Check the server
+                const { role } = await userData(document.getElementById("username").value)
+                if (role == "hunter") {
+                    document.getElementById("switchRoleButton").innerHTML = "Switch to Runner";
+                }else{
+                    document.getElementById("switchRoleButton").innerHTML = "Switch to Hunter"
+                }
+            }
+        }
+        async function swapRoles() {
+            const state = await gameStatus();
+            if (state) {
+                userData(document.getElementById("username").value).then(async data => {
+                    if (data.role == "runner") {
+                        if (window.confirm("Switching to hunter means you've been caught. Are you sure you'd like to do that?")) {
+                            try {
+                                const response = await fetch('https://georgeorfa015.duckdns.org:5087/manhunt/switchRole', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    },
+                                    body: JSON.stringify({ "username": document.getElementById("username").value })
+                                });
+                                const data = await response.json();
+                                console.log(data)
+                                updateRoleButton(data.newRole);
+                            } catch (err){
+                                console.log(err)
+                            }
+                        }
+                    }else{
+                        window.alert("You can't change from a hunter to a runner once the game has started.")
+                    }
+                })
+            }else{
+                try {
+                    const response = await fetch('https://georgeorfa015.duckdns.org:5087/manhunt/switchRole', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ "username": document.getElementById("username").value })
+                    });
+                    const data = await response.json();
+                    console.log(data)
+                    updateRoleButton(data.newRole);
+                } catch (err){
+                    console.log(err)
+                }
+            }
+        }
+
+
+
+
+
+        document.addEventListener("visibilitychange", () => {
+            if (document.visibilityState === "visible") {
+                window.location.reload();
+            }
+        });
+
+    </script>
+</body>
+</html>
