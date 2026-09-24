@@ -300,6 +300,7 @@
 
 
         function timer() {
+            if (!gameStarted) return
             let currentDate = new Date().getTime()
             let targetDate = new Date(nextPing).getTime()
             let clock = document.getElementById("timer")
