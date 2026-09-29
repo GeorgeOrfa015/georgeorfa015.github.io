@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arrivals</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@300;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Zalando+Sans+Expanded:ital,wght@0,200..900;1,200..900&display=swap');
+        body, html{
+            background:transparent;
+            color: #fff;
+            font-family: Manrope;
+            text-shadow: 0px 0px 1px 1px black;
+        }
+        #outerCont{
+            height:100%;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: 2.4em auto;
+            padding:0;
+            margin:0;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        #stopTitle{
+            text-align: left;
+            text-wrap: nowrap;
+            overflow: hidden;
+            font-weight: 900;
+            font-size: 1.5em;
+        }
+        #arrivalsCont{
+            display: grid;
+            gap: 0.5em;
+            max-height: 100%;
+            height: fit-content;
+            overflow: scroll;
+        }
+        .arrival{
+            display: grid;
+            grid-template-columns: 2em auto 2em;
+            font-size: 1.1em;
+            width: 100%;
+        }
+        .routeName{
+            overflow:hidden;
+            text-wrap: nowrap;
+            margin-right: 0.5em;
+            font-weight: 300;
+        }
+        .lineNumber{
+            color: #fff;
+            font-weight: 800;
+            text-align: center;
+            background-color: #f77;
+            border-radius: 0.5em;
+            margin-right: 0.25em;
+        }
+        .mins{
+            width: 100%;
+            text-align: right;
+        }
+        .loading{
+            color: #bbb;
+        }
+        .live{
+            color: #6d6;
+        }
+        .lastUpdate{
+            color: #999;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="outerCont">
+        <div id="stopTitle" class="loading">Loading...</div>
+        <div id="arrivalsCont">
+            <!-- <div class="arrival"> -->
+                <!-- <div class="lineNumber">01</div><span class="routeName">ΑΜΜΟΥΑΡΑ - ΑΕΡΟΔΡΟΜΙΟ ( Ε )</span><span class="mins">5'</span> -->
+            <!-- </div> -->
+             <div id="loadingArrivals" class="loading">Loading...</div>
+        </div>
+    </div>
+    <script>
+        const colorDict = {
+            L01: "#c42a19",
+            L02: "#7e786f",
+            L03: "#8c705d",
+            L04: "#570096",
+            L05: "#7e0d48",
+            L06: "#4b8136",
+            L07: "#6483db",
+            L09: "#360408",
+            L10: "#7e786f",
+            L11: "#d82e5c",
+            L12: "#5300d9",
+            L14: "#7e786f",
+            L15: "#487f83",
+            L16: "#4c007d",
+            L17: "#e89c31",
+            L19: "#5300d9",
+            L20: "#6fb454",
+            L23: "#23211e",
+            L21: "#e24172",
+            L31: "#4f585c",
+            L50: "#000080",
+            L91: "#dd6059",
+            L92: "#5f6ee5",
+            L93: "#65c251"
+        }
+        const hash = window.location.hash
+        let stop_id;
+        let key;
+        if (hash) {
+            stop_id = hash.split("#")[1]
+            getBusStopInfo(stop_id)
+        }else{
+            getLocation();
+        }
+        async function getBusStopInfo(id) {
+            try{
+                // JWT Token acquiry
+                const url = "https://corsbypass.orfanidesg15-main.workers.dev/?url=https://irakleio.citybus.gr/stops/live/0122";
+                const response = await fetch(url);
+                const data = await response.text()
+                key = "Bearer " + data.split("token = '")[1].split("';")[0]
+                
+                const url2 = "https://corsbypass.orfanidesg15-main.workers.dev/?url=https://rest.citybus.gr/api/v1/el/110/stops";
+                const response2 = await fetch(url2, {
+                    cache: "no-store",
+                    headers: {
+                        "Authorization": key,
+                        "Cache-Control": "no-cache, no-store, must-revalidate",
+                        "Pragma": "no-cache",
+                        "Expires": "0"
+                    }
+                });
+                const stopslist = await response2.json();
+                stopData = stopslist.filter(item => item.code == id)[0]
+                console.log(stopData)
+                await updateArrivals(key);
+                document.getElementById("stopTitle").innerHTML = stopData.name
+                document.getElementById("stopTitle").className = ""
+
+
+            } catch (error) {
+                console.error("Could not load bus stop info:", error);
+            }
+        }
+        async function updateArrivals() {
+            const url = "https://corsbypass.orfanidesg15-main.workers.dev/?url=https://rest.citybus.gr/api/v1/el/110/stops/live/"+stop_id;
+            const response = await fetch(url, {
+                cache: "no-store",
+                headers: {
+                    "Authorization": key,
+                    "Cache-Control": "no-cache, no-store, must-revalidate",
+                    "Pragma": "no-cache",
+                    "Expires": "0"
+                }
+            });
+            if (!response.ok) {
+                document.getElementById("arrivalsCont").innerHTML = "No arrivals in the next 30'"
+            }else{
+                
+                const stopArrivals = await response.json();
+                console.log(stopArrivals)
+                document.getElementById("arrivalsCont").innerHTML = ""
+                stopArrivals.vehicles.forEach(element => {
+                    console.log(element)
+                    let arrivalCont = document.createElement("div")
+                    arrivalCont.className = "arrival";
+                    
+                    let number = document.createElement("div")
+                    number.className = "lineNumber";
+                    number.innerHTML = element.lineCode;
+                    number.style.backgroundColor = colorDict["L"+element.lineCode];
+                    
+                    let routeName = document.createElement("span")
+                    routeName.innerHTML = element.routeName
+                    routeName.className = "routeName"
+                    
+                    let mins = document.createElement("span")
+                    mins.innerHTML = element.departureMins+"'"
+                    mins.className = "mins";
+                    if (element.longitude != 0) {
+                        mins.className += " live"
+                    }
+                    
+                    arrivalCont.appendChild(number)
+                    arrivalCont.appendChild(routeName)
+                    arrivalCont.appendChild(mins)
+                    document.getElementById("arrivalsCont").appendChild(arrivalCont)
+                });
+                let currentDate = new Date();
+                let lastUpdate = document.createElement("div")
+                lastUpdate.className = "lastUpdate"
+                lastUpdate.innerHTML = "Last update: "+("0"+currentDate.getHours()).slice(-2)+":"+("0"+currentDate.getMinutes()).slice(-2)+":"+("0"+currentDate.getSeconds()).slice(-2)
+                document.getElementById("arrivalsCont").appendChild(lastUpdate)
+                
+            }
+
+            setTimeout(updateArrivals, 20000)
+        }
+
+
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+
+        
+        
+        function showError(error) {
+            switch(error.code) {
+                case error.PERMISSION_DENIED:
+                    alert("User denied the request for Geolocation.");
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    alert("Location information is unavailable.");
+                    break;
+                case error.TIMEOUT:
+                    alert("The request to get user location timed out.");
+                    break;
+                case error.UNKNOWN_ERROR:
+                    alert("An unknown error occurred.");
+                    break;
+            }
+        }
+        async function showPosition(position) {
+            try{
+                // JWT Token acquiry
+                const url = "https://corsbypass.orfanidesg15-main.workers.dev/?url=https://irakleio.citybus.gr/stops/live/0122";
+                const response = await fetch(url);
+                const data = await response.text()
+                key = "Bearer " + data.split("token = '")[1].split("';")[0]
+                
+                const url2 = "https://corsbypass.orfanidesg15-main.workers.dev/?url=https://rest.citybus.gr/api/v1/el/110/stops";
+                const response2 = await fetch(url2, {
+                    cache: "no-store",
+                    headers: {
+                        "Authorization": key,
+                        "Cache-Control": "no-cache, no-store, must-revalidate",
+                        "Pragma": "no-cache",
+                        "Expires": "0"
+                    }
+                });
+                const stopslist = await response2.json();
+                let minDistance = 9999999999;
+                stopslist.forEach(stop=>{
+                    let distance = calcDistance(position.coords.latitude, position.coords.longitude, stop.latitude, stop.longitude);
+                    if (distance < minDistance) {
+                        minDistance=distance;
+                        stop_id = stop.code
+                    }
+                })
+                let stopData = stopslist.filter(item => item.code == stop_id)[0]
+                await updateArrivals(key);
+                document.getElementById("stopTitle").innerHTML = stopData.name
+                document.getElementById("stopTitle").className = ""
+
+
+            } catch (error) {
+                console.error("Could not load bus stop info:", error);
+            }
+
+        }
+
+        function calcDistance(lat1, lon1, lat2, lon2) {
+            const R = 6371000; // Earth radius in meters
+            const toRad = deg => deg * Math.PI / 180;
+
+            const f1 = toRad(lat1);
+            const f2 = toRad(lat2);
+            const Df = toRad(lat2 - lat1);
+            const Dl = toRad(lon2 - lon1);
+
+            const a =
+                Math.sin(Df / 2) ** 2 +
+                Math.cos(f1) * Math.cos(f2) *
+                Math.sin(Dl / 2) ** 2;
+
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+            return R * c;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Tab</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@300;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Zalando+Sans+Expanded:ital,wght@0,200..900;1,200..900&display=swap');
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            background: #000;
+        }
+
+        body {
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+        #blak{
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            background-color: #000b;
+            z-index: 0;
+        }
+        #outerCont{
+            display: grid;
+            height: fit-content;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            gap: 1em;
+            width: 100%;
+            align-content: center;
+        }
+        #widgetCont{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1em;
+            width: fit-content;
+            align-self: center;
+            margin: auto
+        }
+        .widget{
+            height: calc(20em - 2em);
+            width: calc(25em - 2em);
+            background: linear-gradient(#2b2b2b87, #15151577);
+            backdrop-filter: blur(7px);
+            border-radius: 2em;
+            box-shadow: inset 0 0 0.3em #fff2;
+            padding: 1em;
+        }
+        iframe{
+            border: none;
+            height: 100%;
+            width: 100%;
+            background: #f000
+        }
+        #clock{
+            text-align: center;
+            font-family: "Manrope";
+            margin-bottom: 3em;
+        }
+        #time{
+            font-size: 6em;
+            color: #fff;
+            text-align: center;
+            font-weight: 900;
+        }
+        #searchbar{
+            background: linear-gradient(#2b2b2b87, #15151577);
+            backdrop-filter: blur(7px);
+            border-radius: 2em;
+            box-shadow: inset 0 0 0.3em #fff2;
+            padding: 1em;
+            width: 55%;
+            margin: auto;
+            margin-bottom: 2em;
+        }
+        #searchInput{
+            background:transparent;
+            outline: none;
+            border: none;
+            color: #fff;
+            width:100%;
+            font-size: 1.25em;
+        }
+        #searchInput:focus{
+            outline: none;
+        }
+        #searchInput::placeholder{
+            color: #666;
+        }
+        @media(max-width: 600px) {
+            .widget{
+                height: calc(15em - 2em);
+                width: calc(20em - 2em);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="blak"></div>
+    <div id="outerCont">
+        <div id="clock">
+            <span id="time"></span>
+        </div>
+        <div id="searchbar">
+            <form action="https://www.google.com/search" method="GET">
+                <input type="text" name="q" id="searchInput" placeholder="Search..." autofocus autocomplete="off">
+            </form>
+        </div>
+        <div id="widgetCont">
+            <div class="widget">
+                <iframe id="busstop"></iframe>
+            </div>
+            <div class="widget">
+                <iframe></iframe>
+            </div>
+        </div>
+    </div>
+    <!-- <form action="https://www.google.com/search" method="GET">
+        <input type="text" name="q" placeholder="Search..." autofocus>
+        <button type="submit">Go</button>
+    </form> -->
+    <script>
+
+        const UNSPLASH_KEY = "Nvz7zBWDdxE3cNWbqau8EYrPYlct_a2i78vh71LK0B4";
+        const CACHE_KEY = "bgImageCache";
+        const MAX_IMAGES = 20;
+        const FETCH_INTERVAL = 3 * 60 * 1000;
+
+        function loadCache() {
+            return JSON.parse(localStorage.getItem(CACHE_KEY) || "null") || {
+                images: [],
+                lastFetch: 0
+            };
+        }
+
+        function saveCache(cache) {
+            localStorage.setItem(CACHE_KEY, JSON.stringify(cache));
+        }
+
+        async function fetchNewImage(topic) {
+            try {
+                const res = await fetch(`https://georgeorfa015.duckdns.org:5087/api/unsplash-image?topic=`+encodeURI(topic));
+                const data = await res.json();
+                return data.urls.full;
+            } catch (err) {
+                console.error("Unsplash fetch failed:", err);
+                return null;
+            }
+        }
+
+        async function updateBG(topic) {
+            let cache = loadCache();
+            const now = Date.now();
+
+            if (cache.images.length < MAX_IMAGES && now - cache.lastFetch > FETCH_INTERVAL) {
+                cache.images.forEach(image => {
+                    image.lifetime += -1
+                });
+                const newUrl = await fetchNewImage(topic);
+                if (newUrl) {
+                    cache.images.push({ url: newUrl, lifetime: MAX_IMAGES });
+                    cache.lastFetch = now;
+                }
+            }
+            cache.images = cache.images.filter(imageObj => imageObj.lifetime > 0)
+
+            saveCache(cache);
+
+            if (cache.images.length > 0) {
+                const chosen = cache.images[Math.floor(Math.random() * cache.images.length)].url;
+                document.body.style.backgroundImage = `url('${chosen}')`;
+            }
+        }
+
+        
+        function clearCache() {
+            localStorage.setItem(CACHE_KEY, null)
+        }
+
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+
+        
+        
+        function showError(error) {
+            switch(error.code) {
+                case error.PERMISSION_DENIED:
+                    alert("User denied the request for Geolocation.");
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    alert("Location information is unavailable.");
+                    break;
+                case error.TIMEOUT:
+                    alert("The request to get user location timed out.");
+                    break;
+                case error.UNKNOWN_ERROR:
+                    alert("An unknown error occurred.");
+                    break;
+            }
+        }
+        
+        
+        async function showPosition(position) {
+            console.log(position.coords.latitude, position.coords.longitude)
+            let minDistance = 99999999;
+            let code = 2215;
+            locationList.forEach(location=>{
+                let distance = calcDistance(position.coords.latitude, position.coords.longitude, location.latitude, location.longitude);
+                if (distance < minDistance) {
+                    minDistance=distance;
+                    code = location.stop
+                }
+            })
+            if (useallstops) {
+                document.querySelector('#busstop').src = "busstop.html";
+            }else{
+                document.querySelector('#busstop').src = "busstop.html#"+"2215";
+                
+            }
+            
+        }
+
+        function calcDistance(lat1, lon1, lat2, lon2) {
+            const R = 6371000; // Earth radius in meters
+            const toRad = deg => deg * Math.PI / 180;
+
+            const f1 = toRad(lat1);
+            const f2 = toRad(lat2);
+            const Df = toRad(lat2 - lat1);
+            const Dl = toRad(lon2 - lon1);
+
+            const a =
+                Math.sin(Df / 2) ** 2 +
+                Math.cos(f1) * Math.cos(f2) *
+                Math.sin(Dl / 2) ** 2;
+
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+            return R * c;
+        }
+        
+        
+        
+        function clock() {
+            let date = new Date();
+            let element = document.getElementById("time");
+            element.innerHTML = ("0"+date.getHours()).slice(-2)+":"+("0"+date.getMinutes()).slice(-2);
+            setTimeout(clock, 1000);
+        }
+        
+        
+        
+        
+        let locationList = [
+            {name: "University", latitude: "35.30863726035576", longitude: "25.08466238852381", stop:"2222"},
+            {name: "Home", latitude:"5.3291631", longitude:"25.0800198", stop:"0713"},
+        ]
+
+        let useallstops = false;
+        let useLocation = false;
+        let builtinstopid = "2222";
+        let backgroundTopic = "lines of code"
+        
+        clock();
+        updateBG(backgroundTopic);
+        if (useLocation) {
+            getLocation();
+        }else{
+            document.querySelector('#busstop').src = "busstop.html#"+builtinstopid;
+        }
+        </script>
+</body>
+</html>
