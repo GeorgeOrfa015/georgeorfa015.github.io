@@ -22,6 +22,49 @@
             background-repeat: no-repeat;
             background-attachment: fixed;
             min-height: 100vh;
+            font-family: Manrope;
+            color: #fff;
+        }
+        .glass{
+            background: linear-gradient(#2b2b2b87, #15151577);
+            backdrop-filter: blur(7px);
+            border-radius: 2em;
+            box-shadow: inset 0 0 0.3em #fff2;
+        }
+        .interact:hover{
+            background: linear-gradient(hsla(0, 0%, 24%, 0.529), hsla(0, 0%, 16%, 0.467));
+            cursor: pointer;
+        }
+        button{
+            background: #056c30;
+            color: #fff;
+            border: none;
+            border-radius: 0.5em;
+            padding: 0.35em;
+            font-family: Manrope;
+            font-size: 1.2em;
+        }
+        button:hover{
+            background: #0c9143;
+            color: #fff;
+            border: none;
+            outline: none;
+            cursor: pointer;
+        }
+        input{
+            background: #333;
+            color: #fff;
+            border: none;
+            border-radius: 0.5em;
+            padding: 0.35em;
+            font-family: Manrope;
+            font-size: 1.2em;
+        }
+        input:focus{
+            outline: none;
+        }
+        .settingInput{
+            border-radius: 0.5em;
         }
         #blak{
             height: 100%;
@@ -42,8 +85,9 @@
             align-content: center;
         }
         #widgetCont{
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+            display: flex;
+            grid-template-columns: 1fr;
+            flex-direction: row;
             gap: 1em;
             width: fit-content;
             align-self: center;
@@ -52,10 +96,6 @@
         .widget{
             height: calc(20em - 2em);
             width: calc(25em - 2em);
-            background: linear-gradient(#2b2b2b87, #15151577);
-            backdrop-filter: blur(7px);
-            border-radius: 2em;
-            box-shadow: inset 0 0 0.3em #fff2;
             padding: 1em;
         }
         iframe{
@@ -76,10 +116,6 @@
             font-weight: 900;
         }
         #searchbar{
-            background: linear-gradient(#2b2b2b87, #15151577);
-            backdrop-filter: blur(7px);
-            border-radius: 2em;
-            box-shadow: inset 0 0 0.3em #fff2;
             padding: 1em;
             width: 55%;
             margin: auto;
@@ -99,6 +135,68 @@
         #searchInput::placeholder{
             color: #666;
         }
+        #settingsButton{
+            color: #fff;
+            padding: 0.5em 1em;
+            width: fit-content;
+            text-align: center;
+            position: absolute;
+            bottom: 0.5em;
+            right: 0.5em;
+        }
+
+        #settingsCont{
+            display: none;
+            max-height: 80vh;
+            width: calc(50em - 2em);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            align-content: top;
+            z-index: 2;
+            padding: 1em;
+            padding-top: 0.75em;
+            overflow-y: scroll;
+            -ms-overflow-style: none; /* Internet Explorer and Edge */
+            scrollbar-width: none; /* Firefox */
+        }
+        #settingsBigTitle{
+            font-size: 2.5em;
+            font-weight: 600;
+        }
+        #settingTitle{
+            font-size: 1.75em;
+            font-weight: 400;
+        }
+        .settingsSection{
+            display: grid;
+            gap: 0.35em;
+        }
+        .settingDescription{
+            display: grid;
+            gap: 0.25em;
+        }
+        .settingInteractable{
+            display: grid;
+            gap: 0.5em;
+        }
+        .widgetSettingCont{
+            display: grid;
+            background: #0006;
+            box-shadow: inset 0 0 0.2em #fff5;
+            border-radius: 0.5em;
+            grid-template-columns: 1fr 5fr 15fr;
+            padding: 0.5em;
+        }
+        .widgetInteractableID{
+            font-family: Chivo Mono;
+            color: #888;
+            align-self: center;
+        }
+        label{
+            align-self: center;
+        }
         @media(max-width: 600px) {
             .widget{
                 height: calc(15em - 2em);
@@ -108,23 +206,51 @@
     </style>
 </head>
 <body>
-    <div id="blak"></div>
+
+    <div id="blak"><!-- Black background --></div>
+
+    <div id="settingsButton" class="glass interact" onclick="showSettings()">Settings</div>
+
+    <div id="settingsCont" class="glass">
+        <span id="settingsBigTitle">Settings</span>
+        <div class="settingsSection">
+            <div class="settingDescription">
+                <span id="settingTitle">Widgets</span>
+                <span>Widgets appear below the search bar and can include any website. Websites with transparent backgrounds work best, and there are also some presets available.</span>
+            </div>
+            <div class="settingInteractable" id="settingsWidgetInteractable">
+                <button onclick="addNewWidget()">+ Add Widget</button>
+                <div id="widgetInteractableInner">
+                    <!-- <div class="widgetSettingCont">
+                        <span class="widgetInteractableID">1</span>
+                        <label>Widget URL: </label><input oninput="updateWidgetURL(1)" type="text" class="glass settingInput">
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div id="outerCont">
         <div id="clock">
             <span id="time"></span>
         </div>
-        <div id="searchbar">
+
+        <div id="searchbar" class="glass">
             <form action="https://www.google.com/search" method="GET" target="_top">
                 <input type="text" name="q" id="searchInput" placeholder="Search..." autofocus autocomplete="off">
             </form>
         </div>
+
         <div id="widgetCont">
-            <div class="widget">
+
+            <!-- <div class="widget glass">
                 <iframe id="busstop"></iframe>
             </div>
-            <div class="widget">
+
+            <div class="widget glass">
                 <iframe></iframe>
-            </div>
+            </div> -->
+
         </div>
     </div>
     <!-- <form action="https://www.google.com/search" method="GET">
@@ -132,7 +258,7 @@
         <button type="submit">Go</button>
     </form> -->
     <script>
-
+        showSettings()
         const UNSPLASH_KEY = "Nvz7zBWDdxE3cNWbqau8EYrPYlct_a2i78vh71LK0B4";
         const CACHE_KEY = "bgImageCache";
         const MAX_IMAGES = 20;
@@ -147,6 +273,24 @@
 
         function saveCache(cache) {
             localStorage.setItem(CACHE_KEY, JSON.stringify(cache));
+        }
+
+        function clearCache() {
+            localStorage.setItem(CACHE_KEY, null)
+        }
+
+        function showSettings() {
+            document.getElementById("settingsCont").style.display = "grid";
+            document.getElementById("blak").style.zIndex = "1";
+            document.getElementById("blak").style.background = "#000d";
+            document.getElementById("blak").setAttribute("onclick", "hideSettings()")
+        }
+        
+        function hideSettings() {
+            document.getElementById("settingsCont").style.display = "none";
+            document.getElementById("blak").style.zIndex = "0";
+            document.getElementById("blak").style.background = "#000b";
+            document.getElementById("blak").setAttribute("onclick", "hideSettings()")
         }
 
         async function fetchNewImage(topic) {
@@ -185,11 +329,7 @@
         }
 
         
-        function clearCache() {
-            localStorage.setItem(CACHE_KEY, null)
-        }
-
-
+       
         function getLocation() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(showPosition, showError);
@@ -220,19 +360,20 @@
         
         async function showPosition(position) {
             console.log(position.coords.latitude, position.coords.longitude)
-            let minDistance = 99999999;
-            let code = 2215;
-            locationList.forEach(location=>{
-                let distance = calcDistance(position.coords.latitude, position.coords.longitude, location.latitude, location.longitude);
-                if (distance < minDistance) {
-                    minDistance=distance;
-                    code = location.stop
-                }
-            })
             if (useallstops) {
                 document.querySelector('#busstop').src = "busstop.html";
             }else{
-                document.querySelector('#busstop').src = "busstop.html#"+"2215";
+                let minDistance = 99999999;
+                let code = 2215;
+                locationList.forEach(location=>{
+                    let distance = calcDistance(position.coords.latitude, position.coords.longitude, location.latitude, location.longitude);
+                    if (distance < minDistance) {
+                        minDistance=distance;
+                        code = location.stop
+                    }
+                })
+                console.log(code);
+                document.querySelector('#busstop').src = "busstop.html#"+code;
                 
             }
             
@@ -271,20 +412,91 @@
         
         let locationList = [
             {name: "University", latitude: "35.30863726035576", longitude: "25.08466238852381", stop:"2222"},
-            {name: "Home", latitude:"5.3291631", longitude:"25.0800198", stop:"0713"},
+            {name: "Home", latitude:"35.3291631", longitude:"25.0800198", stop:"0713"},
         ]
 
         let useallstops = false;
         let useLocation = false;
-        let builtinstopid = "2222";
+        let builtinstopid = "0714";
         let backgroundTopic = "lines of code"
         
         clock();
         updateBG(backgroundTopic);
-        if (useLocation) {
-            getLocation();
-        }else{
-            document.querySelector('#busstop').src = "busstop.html#"+builtinstopid;
+        // if (useLocation) {
+        //     getLocation();
+        // }else{
+        //     document.querySelector('#busstop').src = "busstop.html#"+builtinstopid;
+        // }
+
+
+        let widgetID = 0;
+        function addNewWidget() {
+            // add setting subsection and add actual widget below the search bar
+            // Source - https://stackoverflow.com/a/222847
+            // Posted by harpo, modified by community. See post 'Timeline' for change history
+            // Retrieved 2026-10-02, License - CC BY-SA 4.0
+
+            let arr = Array.prototype.slice.call( document.getElementsByClassName("widget") )
+
+        
+            
+            arr.forEach(element => {
+                if (element.id.split("widget")[1]>widgetID) {
+                    widgetID = element.id.split("widget")[1] + 1
+                }
+            })
+            // widgetID is unique
+            let settingCont = document.getElementById("widgetInteractableInner")
+            let widgetCont = document.getElementById("widgetCont")
+
+            // settings interactable thingy
+            let cont = document.createElement("div")
+            cont.id = "widgetSettingCont" +widgetID
+            cont.className = "widgetSettingCont"
+
+            let idSpan = document.createElement("span");
+            idSpan.innerHTML = widgetID
+            idSpan.className = "widgetInteractableID"
+
+            let label = document.createElement("label");
+            label.innerHTML = "Widget URL:"
+            
+            let input = document.createElement("input")
+            input.type = "text"
+            input.className = "glass settingInput"
+            input.setAttribute("oninput", `updateWidgetURL(${widgetID})`);
+            input.id = "widgetInput"+widgetID
+
+            cont.appendChild(idSpan)
+            cont.appendChild(label)
+            cont.appendChild(input)
+            settingCont.appendChild(cont)
+
+            let widget = document.createElement("div")
+            widget.id = "widget"+widgetID
+            widget.className = "widget glass"
+
+            let iframe = document.createElement("iframe")
+            iframe.id = "widgetIframe"+widgetID
+
+            widget.appendChild(iframe)
+            widgetCont.appendChild(widget)
+
+            //<!-- 
+            //    <div id="widgetInteractableInner">
+            //        <div class="widgetSettingCont">
+            //            <span class="widgetInteractableID">1</span>
+            //            <label>Widget URL: </label><input oninput="updateWidgetURL(1)" type="text" class="glass settingInput">
+            //        </div>
+            //    </div>
+            //-->
+            widgetID++                
+        }
+
+
+        function updateWidgetURL(id) {
+            let source = document.getElementById("widgetInput"+id).value
+            document.getElementById("widgetIframe"+id).src = source;
         }
         </script>
 </body>

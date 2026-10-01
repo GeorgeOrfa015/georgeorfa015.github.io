@@ -38,7 +38,12 @@
             gap: 0.5em;
             max-height: 100%;
             height: fit-content;
-            overflow: scroll;
+            overflow-y: scroll;
+            -ms-overflow-style: none; /* Internet Explorer and Edge */
+            scrollbar-width: none; /* Firefox */
+        }
+        #arrivalsCont::-webkit-scrollbar{
+            display: none;
         }
         .arrival{
             display: grid;
@@ -117,9 +122,11 @@
         let stop_id;
         let key;
         if (hash) {
+            console.log("HASH")
             stop_id = hash.split("#")[1]
             getBusStopInfo(stop_id)
         }else{
+            console.log("NO HASH")
             getLocation();
         }
         async function getBusStopInfo(id) {
@@ -236,13 +243,15 @@
             }
         }
         async function showPosition(position) {
+            console.log("Position")
             try{
+                console.log("Location")
                 // JWT Token acquiry
                 const url = "https://corsbypass.orfanidesg15-main.workers.dev/?url=https://irakleio.citybus.gr/stops/live/0122";
                 const response = await fetch(url);
                 const data = await response.text()
                 key = "Bearer " + data.split("token = '")[1].split("';")[0]
-                
+                console.log("Token")
                 const url2 = "https://corsbypass.orfanidesg15-main.workers.dev/?url=https://rest.citybus.gr/api/v1/el/110/stops";
                 const response2 = await fetch(url2, {
                     cache: "no-store",
@@ -254,6 +263,7 @@
                     }
                 });
                 const stopslist = await response2.json();
+                console.log("Stops")
                 let minDistance = 9999999999;
                 stopslist.forEach(stop=>{
                     let distance = calcDistance(position.coords.latitude, position.coords.longitude, stop.latitude, stop.longitude);
@@ -263,6 +273,7 @@
                     }
                 })
                 let stopData = stopslist.filter(item => item.code == stop_id)[0]
+                console.log(stopData)
                 await updateArrivals(key);
                 document.getElementById("stopTitle").innerHTML = stopData.name
                 document.getElementById("stopTitle").className = ""
