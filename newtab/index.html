@@ -26,7 +26,7 @@
             color: #fff;
         }
         .glass{
-            background: linear-gradient(#2b2b2b87, #15151577);
+            background: linear-gradient(#2b2b2b77, #15151577);
             backdrop-filter: blur(7px);
             border-radius: 2em;
             box-shadow: inset 0 0 0.3em #fff2;
@@ -66,6 +66,13 @@
         .settingInput{
             border-radius: 0.5em;
         }
+        .delete{
+            background: hsl(0, 73%, 26%); 
+            margin-left: 0.25em
+        }
+        .delete:hover{
+            background: hsl(0, 63%, 46%);
+        }
         #blak{
             height: 100%;
             width: 100%;
@@ -102,7 +109,8 @@
             border: none;
             height: 100%;
             width: 100%;
-            background: #f000
+            background: #f000;
+            border-radius: 1em;
         }
         #clock{
             text-align: center;
@@ -186,13 +194,17 @@
             background: #0006;
             box-shadow: inset 0 0 0.2em #fff5;
             border-radius: 0.5em;
-            grid-template-columns: 1fr 5fr 15fr;
+            grid-template-columns: 2fr 5fr 15fr auto;
             padding: 0.5em;
         }
         .widgetInteractableID{
             font-family: Chivo Mono;
             color: #888;
             align-self: center;
+        }
+        #widgetInteractableInner{
+            display: grid;
+            gap: 0.5em;
         }
         label{
             align-self: center;
@@ -258,7 +270,6 @@
         <button type="submit">Go</button>
     </form> -->
     <script>
-        showSettings()
         const UNSPLASH_KEY = "Nvz7zBWDdxE3cNWbqau8EYrPYlct_a2i78vh71LK0B4";
         const CACHE_KEY = "bgImageCache";
         const MAX_IMAGES = 20;
@@ -429,8 +440,8 @@
         // }
 
 
-        let widgetID = 0;
-        function addNewWidget() {
+        let widgetID = 1;
+        function addNewWidget(url = "") {
             // add setting subsection and add actual widget below the search bar
             // Source - https://stackoverflow.com/a/222847
             // Posted by harpo, modified by community. See post 'Timeline' for change history
@@ -455,7 +466,7 @@
             cont.className = "widgetSettingCont"
 
             let idSpan = document.createElement("span");
-            idSpan.innerHTML = widgetID
+            idSpan.innerHTML = "ID:" + widgetID
             idSpan.className = "widgetInteractableID"
 
             let label = document.createElement("label");
@@ -465,11 +476,20 @@
             input.type = "text"
             input.className = "glass settingInput"
             input.setAttribute("oninput", `updateWidgetURL(${widgetID})`);
+            input.setAttribute("onfocusout", `saveSettings()`);
             input.id = "widgetInput"+widgetID
+            input.value = url
+
+            let deleteButton = document.createElement("button")
+            deleteButton.innerHTML = "Delete";
+            deleteButton.className = "delete";
+            deleteButton.setAttribute("onclick", `deleteWidget(${widgetID})`)
+
 
             cont.appendChild(idSpan)
             cont.appendChild(label)
             cont.appendChild(input)
+            cont.appendChild(deleteButton)
             settingCont.appendChild(cont)
 
             let widget = document.createElement("div")
@@ -477,10 +497,12 @@
             widget.className = "widget glass"
 
             let iframe = document.createElement("iframe")
-            iframe.id = "widgetIframe"+widgetID
+            iframe.id = "widgetIframe"+widgetID;
+            iframe.src = url;
 
             widget.appendChild(iframe)
             widgetCont.appendChild(widget)
+            updateWidgetURL(widgetID)
 
             //<!-- 
             //    <div id="widgetInteractableInner">
@@ -490,14 +512,62 @@
             //        </div>
             //    </div>
             //-->
-            widgetID++                
+            widgetID++    
+            saveSettings()            
         }
 
 
         function updateWidgetURL(id) {
             let source = document.getElementById("widgetInput"+id).value
-            document.getElementById("widgetIframe"+id).src = source;
+            let iframe = document.getElementById("widgetIframe"+id)
+            iframe.src = "";
+            iframe.src = source;
+            function hideScrollbar() { // this only works with my websites so yeah, sorry if you want to embed something else, it wont be transparent unless it has a transparent background.
+                iframe.contentDocument.body.style.background = "transparent";
+                const doc = iframe.contentDocument;
+                const style = doc.createElement("style");
+                style.textContent = `
+                    html { scrollbar-width: none; }
+                    html::-webkit-scrollbar { display: none; }
+                `;
+                doc.head.appendChild(style);
+            }
+
+            iframe.addEventListener("load", hideScrollbar);
         }
+
+        function deleteWidget(id) {
+            document.getElementById("widget"+id).remove()
+            document.getElementById("widgetSettingCont"+id).remove()
+            saveSettings()
+        }
+
+
+
+
+        function saveSettings() {
+            // WIDGETS
+            let widgetElements = Array.prototype.slice.call( document.getElementsByClassName("widgetSettingCont") )
+            let widgetList = []
+            widgetElements.forEach(element => {
+                widgetList.push({
+                    "id": element.childNodes[0].innerHTML.split("ID:")[1],
+                    "url": element.childNodes[2].value
+                })
+            })
+            let settings = {
+                "widgets": widgetList
+            }
+            localStorage.setItem("newTabSettings", JSON.stringify(settings));
+        }
+
+        function loadSettings() {
+            let settings = JSON.parse(localStorage.getItem("newTabSettings"))
+            settings.widgets.forEach(widget => {
+                addNewWidget(widget.url)
+            })
+        }
+        loadSettings();
         </script>
 </body>
 </html>
