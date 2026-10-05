@@ -28,7 +28,7 @@
         .glass{
             background: linear-gradient(#2b2b2b77, #15151577);
             backdrop-filter: blur(7px);
-            border-radius: 2em;
+            border-radius: 1.5em;
             box-shadow: inset 0 0 0.3em #fff2;
         }
         .interact:hover{
@@ -128,6 +128,7 @@
             width: 80em;
             margin: auto;
             margin-bottom: 2em;
+            border-radius: 2em;
         }
         #searchInput{
             background:transparent;
@@ -168,13 +169,14 @@
             overflow-y: scroll;
             -ms-overflow-style: none; /* Internet Explorer and Edge */
             scrollbar-width: none; /* Firefox */
-            gap: 1.2em
+            gap: 1.2em;
+            border-radius: 1.5em;
         }
         #settingsBigTitle{
             font-size: 2.5em;
             font-weight: 600;
         }
-        #settingTitle{
+        .settingTitle{
             font-size: 1.75em;
             font-weight: 500;
         }
@@ -227,6 +229,12 @@
             background: #555;
         }
         .select:hover{
+            background: #666;
+        }
+        .generic{
+            background: #555;
+        }
+        .generic:hover{
             background: #666;
         }
         .selected{
@@ -304,6 +312,43 @@
             0 0 4px #000,
             0 0 4px #000
         }
+        #settingsExportInteractable{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+        #importCont, #exportCont{
+            display: none;
+            position: absolute;
+            z-index: 4;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            height: fit-content;
+            width: 35em;
+            padding: 1em;
+            grid-template-columns: 1fr;
+            gap: 0.5em;
+        }
+        textarea{
+            background: #0006;
+            border: none;
+            color: #bbb;
+            font-family: Chivo Mono;
+            resize: none;
+            border-radius: 0.5em;
+            overflow-y: scroll;
+            box-shadow: inset 0 0 0.2em #fff5;
+            height: 20em;
+            padding: 0.5em;
+        }
+        textarea:focus{
+            outline: none;
+        }
+        .buttonCont{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5em;
+        }
         @media(max-width: 600px) {
             .widget{
                 height: calc(15em - 2em);
@@ -316,13 +361,37 @@
 
     <div id="blak"><!-- Black background --></div>
 
+    <div id="importCont" class="glass">
+        <div class="settingDescription">
+            <span class="settingTitle">Import</span>
+            <span>Please paste the JSON in the box below:</span>
+        </div>
+        <textarea id="importTextArea" placeholder='{"widgets":[]...}'></textarea>
+        <div class="buttonCont">
+            <button onclick="closeTransferScreen()" class="generic">Go back</button>
+            <button onclick="importSettings()">Done</button>
+        </div>
+    </div>
+    <div id="exportCont" class="glass">
+        <div class="settingDescription">
+            <span class="settingTitle">Export</span>
+            <span>The following string of text contains all of your new tab settings. You can paste this into the import tab on another device to transfer your settings there.</span>
+        </div>
+        <textarea id="exportTextArea" editable="false" disabled="true"></textarea>
+        <div class="buttonCont">
+            <button onclick="closeTransferScreen()" class="generic">Go back</button>
+            <button onclick="copySettings()" id="copyButton">Copy to clipboard</button>
+        </div>
+
+    </div>
+
     <div id="settingsButton" class="glass interact" onclick="showSettings()">Settings</div>
 
     <div id="settingsCont" class="glass">
         <span id="settingsBigTitle">Settings</span>
         <div class="settingsSection">
             <div class="settingDescription">
-                <span id="settingTitle">Widgets</span>
+                <span class="settingTitle">Widgets</span>
                 <span>Widgets appear below the search bar and can include any website. Websites with transparent backgrounds work best. All georgeorfa015.github.io subsites will have a transparent background when used for widgets.</span>
             </div>
             <div class="settingInteractable" id="settingsWidgetInteractable">
@@ -337,7 +406,7 @@
         </div>
         <div class="settingsSection">
             <div class="settingDescription">
-                <span id="settingTitle">Search Engine</span>
+                <span class="settingTitle">Search Engine</span>
                 <span>Select the search engine you'd like to use with the search bar.</span>
             </div>
             <div class="settingInteractable" id="settingsSearchInteractable">
@@ -352,7 +421,7 @@
         </div>
         <div class="settingsSection">
             <div class="settingDescription">
-                <span id="settingTitle">Backgrounds</span>
+                <span class="settingTitle">Backgrounds</span>
                 <span>Modify stored images and change the general theme of the random background images. Images are fetched from the <a href="https://unsplash.com" target="_top">Unsplash API</a> every three minutes and the last 20 are cached so there's a new background for every new tab.</span>
             </div>
             <div class="settingInteractable" id="settingsBackgroundInteractable">
@@ -382,6 +451,15 @@
                     <div class="settingsImage" id="image19"><div class="imagePlaceholder">No image</div></div>
                     <div class="settingsImage" id="image20"><div class="imagePlaceholder">No image</div></div>
                 </div>
+            </div>
+        </div>
+        <div class="settingsSection">
+            <div class="settingDescription">
+                <div class="settingTitle">Import/Export Settings</div>
+            </div>
+            <div class="settingInteractable" id="settingsExportInteractable">
+                <button id="exportButton" onclick="showTransferScreen('export')">Export</button>
+                <button id="importButton" onclick="showTransferScreen('import')">Import</button>
             </div>
         </div>
     </div>
@@ -432,7 +510,34 @@
             document.getElementById("settingsCont").style.display = "none";
             document.getElementById("blak").style.zIndex = "0";
             document.getElementById("blak").style.background = "#000b";
+            document.getElementById("blak").setAttribute("onclick", "")
+        }
+        function showTransferScreen(mode) {
+            document.getElementById(mode+"Cont").style.display = "grid";
+            document.getElementById("blak").style.zIndex = "3";
+            document.getElementById("blak").style.background = "#000e";
+            document.getElementById("blak").setAttribute("onclick", "closeTransferScreen()")
+            document.getElementById("exportTextArea").value = localStorage.getItem("newTabSettings")
+        }
+        
+        function closeTransferScreen() {
+            document.getElementById("importCont").style.display = "none";
+            document.getElementById("exportCont").style.display = "none";
+            document.getElementById("blak").style.zIndex = "1";
+            document.getElementById("blak").style.background = "#000d";
             document.getElementById("blak").setAttribute("onclick", "hideSettings()")
+        }
+        function copySettings() {
+            let settingsTxt = localStorage.getItem("newTabSettings")
+            navigator.clipboard.writeText(settingsTxt);
+            let copyButton = document.getElementById("copyButton")
+            copyButton.innerHTML = "Copied!"
+            setTimeout(function(){document.getElementById("copyButton").innerHTML = "Copy to Clipboard"}, 2000)
+        }
+        function importSettings() {
+            let textareaValue = document.getElementById("importTextArea").value;
+            localStorage.setItem("newTabSettings", textareaValue)
+            window.location.reload();
         }
 
         async function fetchNewImage(topic) {
@@ -479,7 +584,6 @@
                 let div = document.getElementById("image"+j)
                 div.innerHTML = "<div class='imagePlaceholder'>No image</div>"
                 div.style.background = "#0006"
-                console.log(j)
             }
             let i = 1
             let imagesReversed = cache.images.reverse()
@@ -546,7 +650,7 @@
         // }
 
 
-        function addNewWidget(url = "") {
+        function addNewWidget(url = "", save = true) {
             // add setting subsection and add actual widget below the search bar
             // Source - https://stackoverflow.com/a/222847
             // Posted by harpo, modified by community. See post 'Timeline' for change history
@@ -618,8 +722,10 @@
             //        </div>
             //    </div>
             //-->
-            widgetID++    
-            saveSettings()            
+            widgetID++
+            if (save) {
+                saveSettings()            
+            }
         }
 
 
@@ -648,7 +754,7 @@
             saveSettings()
         }
 
-        function selectSearchEngine(index) {
+        function selectSearchEngine(index, save = true) {
             if (index > 6) {
                 let url = document.getElementById("customSearchInput").value;
                 document.getElementById("searchForm").setAttribute("action", url);
@@ -663,7 +769,9 @@
             let selection = document.getElementById("searchEngineButton"+(index))
             selection.innerHTML = 'Selected'
             selection.className = "select selected"
-            saveSettings()
+            if (save) {
+                saveSettings()
+            }
         }
 
         function saveSettings() {
@@ -692,9 +800,10 @@
                     "topic": backgroundTopic
                 }
             }
+            console.log(settings);
             localStorage.setItem("newTabSettings", JSON.stringify(settings));
         }
-
+        
         function loadSettings() {
             let settings = JSON.parse(localStorage.getItem("newTabSettings") || "null") || {
                 "widgets": [],
@@ -706,14 +815,16 @@
                     "topic": "nature"
                 }
             };
-            settings.widgets.forEach(widget => {
-                addNewWidget(widget.url)
-            })
-
-            document.getElementById("customSearchInput").value = settings.search.customURL
-            selectSearchEngine(settings.search.index)
-
             document.getElementById("imageThemeInput").value = settings.background.topic
+
+            settings.widgets.forEach(widget => {
+                addNewWidget(widget.url, false)
+            })
+            
+            document.getElementById("customSearchInput").value = settings.search.customURL
+            selectSearchEngine(settings.search.index, false)
+            
+            document.getElementById("exportTextArea").value = JSON.stringify(settings)
         }
         
         </script>
