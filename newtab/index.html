@@ -479,7 +479,6 @@
         </div>
     </div>
     <script>
-        const UNSPLASH_KEY = "Nvz7zBWDdxE3cNWbqau8EYrPYlct_a2i78vh71LK0B4";
         const CACHE_KEY = "bgImageCache";
         const LIFETIME = 20;
         const FETCH_INTERVAL = 3 * 60 * 1000;
@@ -556,15 +555,20 @@
             const now = Date.now();
 
             if (now - cache.lastFetch > FETCH_INTERVAL) {
+                let topic = document.getElementById("imageThemeInput").value
+                const newUrl = await fetchNewImage(topic);
                 cache.images.forEach(image => {
                     image.lifetime += -1
                 });
-                let topic = document.getElementById("imageThemeInput").value
-                const newUrl = await fetchNewImage(topic);
                 console.log(newUrl)
                 if (newUrl) {
-                    cache.images.push({ url: newUrl, lifetime: LIFETIME });
-                    cache.lastFetch = now;
+                    let array = cache.images.filter(imageObj => imageObj.url == newUrl)
+                    if (array.length > 0) {
+                        updateBG()
+                    }else{
+                        cache.images.push({ url: newUrl, lifetime: LIFETIME });
+                        cache.lastFetch = now;
+                    }
                 }
             }
             cache.images = cache.images.filter(imageObj => imageObj.lifetime > 0)
