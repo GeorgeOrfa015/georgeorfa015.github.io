@@ -297,3 +297,32 @@ function barColor(id) {
 
 
 setTimeout(load, 1)
+
+const hash = window.location.hash
+if (hash) {
+    let first_tag = hash.split("#")[1]
+    if (first_tag === "transparent") {
+        document.documentElement.classList.add("transparent");
+        document.body.classList.add("transparent");
+    }
+}
+
+
+
+// html, body {
+//             margin: 0;
+//             padding: 0;
+//             height: 100%;
+//             width: 100%;
+//             background: #000;
+//         }
+
+//         body {
+//             background-size: cover;
+//             background-position: center;
+//             background-repeat: no-repeat;
+//             background-attachment: fixed;
+//             min-height: 100vh;
+//             font-family: Manrope;
+//             color: #fff;
+//         }

@@ -22,6 +22,55 @@
             background-repeat: no-repeat;
             background-attachment: fixed;
             min-height: 100vh;
+            font-family: Manrope;
+            color: #fff;
+        }
+        .glass{
+            background: linear-gradient(#2b2b2b77, #15151577);
+            backdrop-filter: blur(7px);
+            border-radius: 1.5em;
+            box-shadow: inset 0 0 0.3em #fff2;
+        }
+        .interact:hover{
+            background: linear-gradient(hsla(0, 0%, 24%, 0.529), hsla(0, 0%, 16%, 0.467));
+            cursor: pointer;
+        }
+        button{
+            background: #056c30;
+            color: #fff;
+            border: none;
+            border-radius: 0.5em;
+            padding: 0.35em;
+            font-family: Manrope;
+            font-size: 1.2em;
+        }
+        button:hover{
+            background: #0c9143;
+            color: #fff;
+            border: none;
+            outline: none;
+            cursor: pointer;
+        }
+        input{
+            background: #333;
+            color: #fff;
+            border: none;
+            border-radius: 0.5em;
+            padding: 0.35em;
+            font-family: Manrope;
+            font-size: 1.2em;
+        }
+        input:focus{
+            outline: none;
+        }
+        .settingInput{
+            border-radius: 0.5em;
+        }
+        .delete{
+            background: hsl(0, 73%, 26%); 
+        }
+        .delete:hover{
+            background: hsl(0, 63%, 46%);
         }
         #blak{
             height: 100%;
@@ -42,8 +91,9 @@
             align-content: center;
         }
         #widgetCont{
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+            display: flex;
+            grid-template-columns: 1fr;
+            flex-direction: row;
             gap: 1em;
             width: fit-content;
             align-self: center;
@@ -52,17 +102,15 @@
         .widget{
             height: calc(20em - 2em);
             width: calc(25em - 2em);
-            background: linear-gradient(#2b2b2b87, #15151577);
-            backdrop-filter: blur(7px);
-            border-radius: 2em;
-            box-shadow: inset 0 0 0.3em #fff2;
             padding: 1em;
         }
         iframe{
             border: none;
             height: 100%;
             width: 100%;
-            background: #f000
+            background: #f000;
+            border-radius: 1em;
+            color: #fff
         }
         #clock{
             text-align: center;
@@ -76,14 +124,11 @@
             font-weight: 900;
         }
         #searchbar{
-            background: linear-gradient(#2b2b2b87, #15151577);
-            backdrop-filter: blur(7px);
-            border-radius: 2em;
-            box-shadow: inset 0 0 0.3em #fff2;
-            padding: 1em;
-            width: 55%;
+            padding: 0.75em;
+            width: 80em;
             margin: auto;
             margin-bottom: 2em;
+            border-radius: 2em;
         }
         #searchInput{
             background:transparent;
@@ -99,6 +144,211 @@
         #searchInput::placeholder{
             color: #666;
         }
+        #settingsButton{
+            color: #fff;
+            padding: 0.5em 1em;
+            width: fit-content;
+            text-align: center;
+            position: absolute;
+            bottom: 0.5em;
+            right: 0.5em;
+        }
+
+        #settingsCont{
+            display: none;
+            max-height: 80vh;
+            width: calc(50em - 2em);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            align-content: top;
+            z-index: 2;
+            padding: 1em;
+            padding-top: 0.75em;
+            overflow-y: scroll;
+            -ms-overflow-style: none; /* Internet Explorer and Edge */
+            scrollbar-width: none; /* Firefox */
+            gap: 1.2em;
+            border-radius: 1.5em;
+        }
+        #settingsBigTitle{
+            font-size: 2.5em;
+            font-weight: 600;
+        }
+        .settingTitle{
+            font-size: 1.75em;
+            font-weight: 500;
+        }
+        .settingsSection{
+            display: grid;
+            gap: 0.5em;
+        }
+        .settingDescription{
+            display: grid;
+            gap: 0.25em;
+        }
+        .settingInteractable{
+            display: grid;
+            gap: 0.5em;
+        }
+        .widgetSettingCont{
+            display: grid;
+            background: #0006;
+            box-shadow: inset 0 0 0.2em #fff5;
+            border-radius: 0.5em;
+            grid-template-columns: 2fr 5fr 15fr 3fr;
+            padding: 0.5em;
+        }
+        .widgetInteractableID{
+            font-family: Chivo Mono;
+            color: #888;
+            align-self: center;
+        }
+        #widgetInteractableInner{
+            display: grid;
+            gap: 0.5em;
+        }
+        #settingsSearchInteractable{
+            display: grid;
+            grid-template-columns: 1fr 3fr 10fr;
+        }
+        label{
+            align-self: center;
+            font-size: 1.2em
+        }
+        .searchEngineText, .searchEngineURL{
+            align-self: center;
+            font-size: 1.2em;
+        }
+        .searchEngineURL{
+            font-family: Chivo Mono;
+            color: #888
+        }
+        .select{
+            background: #555;
+        }
+        .select:hover{
+            background: #666;
+        }
+        .generic{
+            background: #555;
+        }
+        .generic:hover{
+            background: #666;
+        }
+        .selected{
+            background: #056c30;
+        }
+        .selected:hover{
+            background: #0c9143;
+        }
+        #customSearchInput{
+            font-family: Chivo Mono;
+        }
+        a{
+            color: #54df8e;
+            transition: 0.1s color;
+            text-decoration:underline;
+            text-decoration-color: #065629;
+        }
+        a:hover{
+            color: #85f6b4;
+            text-decoration-color: #0b7338;
+        }
+        #imagesPreview{
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 0.5em;
+        }
+        .settingsImage{
+            aspect-ratio: 1.77;;
+            width: calc(100% - 2px);
+            border-radius: 0.5em;
+            overflow: hidden;
+            box-shadow: inset 0 0 0.2em #fff5;
+            border: 1px #ddd5 solid;
+            background: #0006;
+        }
+        .imagePlaceholder{
+            height: 100%;
+            width: 100%;
+            text-align: center;
+            align-content: center;
+        }
+        #topicInputCont{
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 0.5em;
+        }
+        .imageInnerCont{
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: 1fr 50fr;
+            width: 100%;
+            height: 100%;;
+        }
+        .deleteImageButton{
+            padding: 0.25em;
+            font-size: 1em;
+            margin: 0.25em;
+        }
+        .deleteButtonCont{
+            opacity: 0;
+            height: calc(100%);
+            align-content:end;
+            text-align: right;
+        }
+        .deleteButtonCont:hover{
+            opacity: 1;
+        }
+        .lifetimeSpan{
+            margin: 0.25em;
+            mix-blend-mode:hard-light;
+            font-weight: 800;
+            text-shadow:
+            0 0 4px #000,
+            0 0 4px #000,
+            0 0 4px #000,
+            0 0 4px #000
+        }
+        #settingsExportInteractable{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+        #importCont, #exportCont{
+            display: none;
+            position: absolute;
+            z-index: 4;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            height: fit-content;
+            width: 35em;
+            padding: 1em;
+            grid-template-columns: 1fr;
+            gap: 0.5em;
+        }
+        textarea{
+            background: #0006;
+            border: none;
+            color: #bbb;
+            font-family: Chivo Mono;
+            resize: none;
+            border-radius: 0.5em;
+            overflow-y: scroll;
+            box-shadow: inset 0 0 0.2em #fff5;
+            height: 20em;
+            padding: 0.5em;
+        }
+        textarea:focus{
+            outline: none;
+        }
+        .buttonCont{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5em;
+        }
         @media(max-width: 600px) {
             .widget{
                 height: calc(15em - 2em);
@@ -108,34 +358,129 @@
     </style>
 </head>
 <body>
-    <div id="blak"></div>
+
+    <div id="blak"><!-- Black background --></div>
+
+    <div id="importCont" class="glass">
+        <div class="settingDescription">
+            <span class="settingTitle">Import</span>
+            <span>Please paste the JSON in the box below:</span>
+        </div>
+        <textarea id="importTextArea" placeholder='{"widgets":[]...}'></textarea>
+        <div class="buttonCont">
+            <button onclick="closeTransferScreen()" class="generic">Go back</button>
+            <button onclick="importSettings()">Done</button>
+        </div>
+    </div>
+    <div id="exportCont" class="glass">
+        <div class="settingDescription">
+            <span class="settingTitle">Export</span>
+            <span>The following string of text contains all of your new tab settings. You can paste this into the import tab on another device to transfer your settings there.</span>
+        </div>
+        <textarea id="exportTextArea" editable="false" disabled="true"></textarea>
+        <div class="buttonCont">
+            <button onclick="closeTransferScreen()" class="generic">Go back</button>
+            <button onclick="copySettings()" id="copyButton">Copy to clipboard</button>
+        </div>
+
+    </div>
+
+    <div id="settingsButton" class="glass interact" onclick="showSettings()">Settings</div>
+
+    <div id="settingsCont" class="glass">
+        <span id="settingsBigTitle">Settings</span>
+        <div class="settingsSection">
+            <div class="settingDescription">
+                <span class="settingTitle">Widgets</span>
+                <span>Widgets appear below the search bar and can include any website. Websites with transparent backgrounds work best. All georgeorfa015.github.io subsites will have a transparent background when used for widgets.</span>
+            </div>
+            <div class="settingInteractable" id="settingsWidgetInteractable">
+                <button onclick="addNewWidget()">+ Add Widget</button>
+                <div id="widgetInteractableInner">
+                    <!-- <div class="widgetSettingCont">
+                        <span class="widgetInteractableID">1</span>
+                        <label>Widget URL: </label><input oninput="updateWidgetURL(1)" type="text" class="glass settingInput">
+                    </div> -->
+                </div>
+            </div>
+        </div>
+        <div class="settingsSection">
+            <div class="settingDescription">
+                <span class="settingTitle">Search Engine</span>
+                <span>Select the search engine you'd like to use with the search bar.</span>
+            </div>
+            <div class="settingInteractable" id="settingsSearchInteractable">
+                <button onclick="selectSearchEngine(1)" id="searchEngineButton1" class="select selected">Selected</button><span class="searchEngineText">Google</span><span class="searchEngineURL">https://www.google.com/search</span>
+                <button onclick="selectSearchEngine(2)" id="searchEngineButton2" class="select">Select</button><span class="searchEngineText">DuckDuckGo</span><span class="searchEngineURL">https://duckduckgo.com/</span>
+                <button onclick="selectSearchEngine(3)" id="searchEngineButton3" class="select">Select</button><span class="searchEngineText">Ecosia</span><span class="searchEngineURL">https://www.ecosia.org/search</span>
+                <button onclick="selectSearchEngine(4)" id="searchEngineButton4" class="select">Select</button><span class="searchEngineText">Yahoo</span><span class="searchEngineURL">https://search.yahoo.com/search</span>
+                <button onclick="selectSearchEngine(5)" id="searchEngineButton5" class="select">Select</button><span class="searchEngineText">Brave Search</span><span class="searchEngineURL">https://search.brave.com/search</span>
+                <button onclick="selectSearchEngine(6)" id="searchEngineButton6" class="select">Select</button><span class="searchEngineText">Microsoft Bing</span><span class="searchEngineURL">https://www.bing.com/search</span>
+                <button onclick="selectSearchEngine(7)" id="searchEngineButton7" class="select">Select</button><span class="searchEngineText">Custom: </span><input id="customSearchInput" class="glass settingInput" oninput="selectSearchEngine(7)">
+            </div>
+        </div>
+        <div class="settingsSection">
+            <div class="settingDescription">
+                <span class="settingTitle">Backgrounds</span>
+                <span>Modify stored images and change the general theme of the random background images. Images are fetched from the <a href="https://unsplash.com" target="_top">Unsplash API</a> every three minutes and the last 20 are cached so there's a new background for every new tab.</span>
+            </div>
+            <div class="settingInteractable" id="settingsBackgroundInteractable">
+                <div id="topicInputCont">
+                    <label>Image Theme:</label>
+                    <input class="glass settingInput" id="imageThemeInput" oninput="saveSettings()">
+                </div>
+                <div id="imagesPreview">
+                    <div class="settingsImage" id="image1"><div class="imagePlaceholder">No image</div></div>
+                    <div class="settingsImage" id="image2"><div class="imagePlaceholder">No image</div></div>
+                    <div class="settingsImage" id="image3"><div class="imagePlaceholder">No image</div></div>
+                    <div class="settingsImage" id="image4"><div class="imagePlaceholder">No image</div></div>
+                    <div class="settingsImage" id="image5"><div class="imagePlaceholder">No image</div></div>
+                    <div class="settingsImage" id="image6"><div class="imagePlaceholder">No image</div></div>
+                    <div class="settingsImage" id="image7"><div class="imagePlaceholder">No image</div></div>
+                    <div class="settingsImage" id="image8"><div class="imagePlaceholder">No image</div></div>
+                    <div class="settingsImage" id="image9"><div class="imagePlaceholder">No image</div></div>
+                    <div class="settingsImage" id="image10"><div class="imagePlaceholder">No image</div></div>
+                    <div class="settingsImage" id="image11"><div class="imagePlaceholder">No image</div></div>
+                    <div class="settingsImage" id="image12"><div class="imagePlaceholder">No image</div></div>
+                    <div class="settingsImage" id="image13"><div class="imagePlaceholder">No image</div></div>
+                    <div class="settingsImage" id="image14"><div class="imagePlaceholder">No image</div></div>
+                    <div class="settingsImage" id="image15"><div class="imagePlaceholder">No image</div></div>
+                    <div class="settingsImage" id="image16"><div class="imagePlaceholder">No image</div></div>
+                    <div class="settingsImage" id="image17"><div class="imagePlaceholder">No image</div></div>
+                    <div class="settingsImage" id="image18"><div class="imagePlaceholder">No image</div></div>
+                    <div class="settingsImage" id="image19"><div class="imagePlaceholder">No image</div></div>
+                    <div class="settingsImage" id="image20"><div class="imagePlaceholder">No image</div></div>
+                </div>
+            </div>
+        </div>
+        <div class="settingsSection">
+            <div class="settingDescription">
+                <div class="settingTitle">Import/Export Settings</div>
+            </div>
+            <div class="settingInteractable" id="settingsExportInteractable">
+                <button id="exportButton" onclick="showTransferScreen('export')">Export</button>
+                <button id="importButton" onclick="showTransferScreen('import')">Import</button>
+            </div>
+        </div>
+    </div>
+
     <div id="outerCont">
         <div id="clock">
             <span id="time"></span>
         </div>
-        <div id="searchbar">
-            <form action="https://www.google.com/search" method="GET" target="_top">
+
+        <div id="searchbar" class="glass">
+            <form id="searchForm" action="https://www.google.com/search" method="GET" target="_top">
                 <input type="text" name="q" id="searchInput" placeholder="Search..." autofocus autocomplete="off">
             </form>
         </div>
+
         <div id="widgetCont">
-            <div class="widget">
-                <iframe id="busstop"></iframe>
-            </div>
-            <div class="widget">
-                <iframe></iframe>
-            </div>
         </div>
     </div>
-    <!-- <form action="https://www.google.com/search" method="GET">
-        <input type="text" name="q" placeholder="Search..." autofocus>
-        <button type="submit">Go</button>
-    </form> -->
     <script>
-
-        const UNSPLASH_KEY = "Nvz7zBWDdxE3cNWbqau8EYrPYlct_a2i78vh71LK0B4";
         const CACHE_KEY = "bgImageCache";
-        const MAX_IMAGES = 20;
+        const LIFETIME = 20;
         const FETCH_INTERVAL = 3 * 60 * 1000;
 
         function loadCache() {
@@ -149,6 +494,51 @@
             localStorage.setItem(CACHE_KEY, JSON.stringify(cache));
         }
 
+        function clearCache() {
+            localStorage.setItem(CACHE_KEY, null)
+        }
+
+        function showSettings() {
+            document.getElementById("settingsCont").style.display = "grid";
+            document.getElementById("blak").style.zIndex = "1";
+            document.getElementById("blak").style.background = "#000d";
+            document.getElementById("blak").setAttribute("onclick", "hideSettings()")
+        }
+        
+        function hideSettings() {
+            document.getElementById("settingsCont").style.display = "none";
+            document.getElementById("blak").style.zIndex = "0";
+            document.getElementById("blak").style.background = "#000b";
+            document.getElementById("blak").setAttribute("onclick", "")
+        }
+        function showTransferScreen(mode) {
+            document.getElementById(mode+"Cont").style.display = "grid";
+            document.getElementById("blak").style.zIndex = "3";
+            document.getElementById("blak").style.background = "#000e";
+            document.getElementById("blak").setAttribute("onclick", "closeTransferScreen()")
+            document.getElementById("exportTextArea").value = localStorage.getItem("newTabSettings")
+        }
+        
+        function closeTransferScreen() {
+            document.getElementById("importCont").style.display = "none";
+            document.getElementById("exportCont").style.display = "none";
+            document.getElementById("blak").style.zIndex = "1";
+            document.getElementById("blak").style.background = "#000d";
+            document.getElementById("blak").setAttribute("onclick", "hideSettings()")
+        }
+        function copySettings() {
+            let settingsTxt = localStorage.getItem("newTabSettings")
+            navigator.clipboard.writeText(settingsTxt);
+            let copyButton = document.getElementById("copyButton")
+            copyButton.innerHTML = "Copied!"
+            setTimeout(function(){document.getElementById("copyButton").innerHTML = "Copy to Clipboard"}, 2000)
+        }
+        function importSettings() {
+            let textareaValue = document.getElementById("importTextArea").value;
+            localStorage.setItem("newTabSettings", textareaValue)
+            window.location.reload();
+        }
+
         async function fetchNewImage(topic) {
             try {
                 const res = await fetch(`https://georgeorfa015.duckdns.org:5087/api/unsplash-image?topic=`+encodeURI(topic));
@@ -160,18 +550,25 @@
             }
         }
 
-        async function updateBG(topic) {
+        async function updateBG() {
             let cache = loadCache();
             const now = Date.now();
 
-            if (cache.images.length < MAX_IMAGES && now - cache.lastFetch > FETCH_INTERVAL) {
+            if (now - cache.lastFetch > FETCH_INTERVAL) {
+                let topic = document.getElementById("imageThemeInput").value
+                const newUrl = await fetchNewImage(topic);
                 cache.images.forEach(image => {
                     image.lifetime += -1
                 });
-                const newUrl = await fetchNewImage(topic);
+                console.log(newUrl)
                 if (newUrl) {
-                    cache.images.push({ url: newUrl, lifetime: MAX_IMAGES });
-                    cache.lastFetch = now;
+                    let array = cache.images.filter(imageObj => imageObj.url == newUrl)
+                    if (array.length > 0) {
+                        updateBG()
+                    }else{
+                        cache.images.push({ url: newUrl, lifetime: LIFETIME });
+                        cache.lastFetch = now;
+                    }
                 }
             }
             cache.images = cache.images.filter(imageObj => imageObj.lifetime > 0)
@@ -182,82 +579,52 @@
                 const chosen = cache.images[Math.floor(Math.random() * cache.images.length)].url;
                 document.body.style.backgroundImage = `url('${chosen}')`;
             }
+            updateImageSettings()
         }
 
-        
-        function clearCache() {
-            localStorage.setItem(CACHE_KEY, null)
-        }
-
-
-        function getLocation() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(showPosition, showError);
-            } else {
-                alert("Geolocation is not supported by this browser.");
+        function updateImageSettings() {
+            let cache = loadCache();
+            for (let j = 1; j <= 20; j++) {
+                let div = document.getElementById("image"+j)
+                div.innerHTML = "<div class='imagePlaceholder'>No image</div>"
+                div.style.background = "#0006"
             }
-        }
+            let i = 1
+            let imagesReversed = cache.images.reverse()
+            imagesReversed.forEach(image => {
+                let div = document.getElementById("image"+i)
+                div.style = `background: url(${image.url});background-size: cover;background-position: center;background-repeat: no-repeat;background-attachment: fixed;`
+                div.innerHTML = ""
+                let innerCont = document.createElement("div")
+                innerCont.className = "imageInnerCont";
 
-        
-        
-        function showError(error) {
-            switch(error.code) {
-                case error.PERMISSION_DENIED:
-                    alert("User denied the request for Geolocation.");
-                    break;
-                case error.POSITION_UNAVAILABLE:
-                    alert("Location information is unavailable.");
-                    break;
-                case error.TIMEOUT:
-                    alert("The request to get user location timed out.");
-                    break;
-                case error.UNKNOWN_ERROR:
-                    alert("An unknown error occurred.");
-                    break;
-            }
-        }
-        
-        
-        async function showPosition(position) {
-            console.log(position.coords.latitude, position.coords.longitude)
-            let minDistance = 99999999;
-            let code = 2215;
-            locationList.forEach(location=>{
-                let distance = calcDistance(position.coords.latitude, position.coords.longitude, location.latitude, location.longitude);
-                if (distance < minDistance) {
-                    minDistance=distance;
-                    code = location.stop
-                }
+                let lifetimeSpan = document.createElement("span")
+                lifetimeSpan.innerHTML = "Lifetime: "+image.lifetime
+                lifetimeSpan.className = "lifetimeSpan"
+
+                let deleteButtonCont = document.createElement("div")
+                deleteButtonCont.className = "deleteButtonCont"
+                let deleteButton = document.createElement("button")
+                deleteButton.innerHTML = "Delete"
+                deleteButton.className = "deleteImageButton delete";
+                deleteButton.setAttribute("onclick", "deleteImage('"+(image.url)+"')")
+
+                deleteButtonCont.appendChild(deleteButton)
+                innerCont.appendChild(lifetimeSpan)
+                innerCont.appendChild(deleteButtonCont)
+                div.appendChild(innerCont)
+                i++
             })
-            if (useallstops) {
-                document.querySelector('#busstop').src = "busstop.html";
-            }else{
-                document.querySelector('#busstop').src = "busstop.html#"+"2215";
-                
-            }
-            
-        }
-
-        function calcDistance(lat1, lon1, lat2, lon2) {
-            const R = 6371000; // Earth radius in meters
-            const toRad = deg => deg * Math.PI / 180;
-
-            const f1 = toRad(lat1);
-            const f2 = toRad(lat2);
-            const Df = toRad(lat2 - lat1);
-            const Dl = toRad(lon2 - lon1);
-
-            const a =
-                Math.sin(Df / 2) ** 2 +
-                Math.cos(f1) * Math.cos(f2) *
-                Math.sin(Dl / 2) ** 2;
-
-            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-
-            return R * c;
-        }
+        }      
         
-        
+        function deleteImage(src) {
+            let cache = loadCache();
+            console.log(cache)
+            cache.images = cache.images.filter(image => image.url != src)
+            console.log(cache)
+            saveCache(cache);
+            updateImageSettings();
+        }
         
         function clock() {
             let date = new Date();
@@ -265,27 +632,205 @@
             element.innerHTML = ("0"+date.getHours()).slice(-2)+":"+("0"+date.getMinutes()).slice(-2);
             setTimeout(clock, 1000);
         }
-        
-        
-        
-        
-        let locationList = [
-            {name: "University", latitude: "35.30863726035576", longitude: "25.08466238852381", stop:"2222"},
-            {name: "Home", latitude:"5.3291631", longitude:"25.0800198", stop:"0713"},
+    
+        let widgetID = 1;
+        let searchEngineList = [
+            "https://www.google.com/search",
+            "https://duckduckgo.com/",
+            "https://www.ecosia.org/search",
+            "https://search.yahoo.com/search",
+            "https://search.brave.com/search",
+            "https://www.bing.com/search",
         ]
 
-        let useallstops = false;
-        let useLocation = false;
-        let builtinstopid = "2222";
-        let backgroundTopic = "lines of code"
-        
+        loadSettings();
         clock();
-        updateBG(backgroundTopic);
-        if (useLocation) {
-            getLocation();
-        }else{
-            document.querySelector('#busstop').src = "busstop.html#"+builtinstopid;
+        updateBG();
+        updateImageSettings();
+        // if (useLocation) {
+        //     getLocation();
+        // }else{
+        //     document.querySelector('#busstop').src = "busstop.html#"+builtinstopid;
+        // }
+
+
+        function addNewWidget(url = "", save = true) {
+            // add setting subsection and add actual widget below the search bar
+            // Source - https://stackoverflow.com/a/222847
+            // Posted by harpo, modified by community. See post 'Timeline' for change history
+            // Retrieved 2026-10-02, License - CC BY-SA 4.0
+
+            let arr = Array.prototype.slice.call( document.getElementsByClassName("widget") )
+
+        
+            
+            arr.forEach(element => {
+                if (element.id.split("widget")[1]>widgetID) {
+                    widgetID = element.id.split("widget")[1] + 1
+                }
+            })
+            // widgetID is unique
+            let settingCont = document.getElementById("widgetInteractableInner")
+            let widgetCont = document.getElementById("widgetCont")
+
+            // settings interactable thingy
+            let cont = document.createElement("div")
+            cont.id = "widgetSettingCont" +widgetID
+            cont.className = "widgetSettingCont"
+
+            let idSpan = document.createElement("span");
+            idSpan.innerHTML = "ID:" + widgetID
+            idSpan.className = "widgetInteractableID"
+
+            let label = document.createElement("label");
+            label.innerHTML = "Widget URL:"
+            
+            let input = document.createElement("input")
+            input.type = "text"
+            input.className = "glass settingInput"
+            input.setAttribute("oninput", `updateWidgetURL(${widgetID})`);
+            input.setAttribute("onfocusout", `saveSettings()`);
+            input.id = "widgetInput"+widgetID
+            input.value = url
+
+            let deleteButton = document.createElement("button")
+            deleteButton.innerHTML = "Delete";
+            deleteButton.className = "delete";
+            deleteButton.style.marginLeft = "0.25em"
+            deleteButton.setAttribute("onclick", `deleteWidget(${widgetID})`)
+
+
+            cont.appendChild(idSpan)
+            cont.appendChild(label)
+            cont.appendChild(input)
+            cont.appendChild(deleteButton)
+            settingCont.appendChild(cont)
+
+            let widget = document.createElement("div")
+            widget.id = "widget"+widgetID
+            widget.className = "widget glass"
+
+            let iframe = document.createElement("iframe")
+            iframe.id = "widgetIframe"+widgetID;
+            iframe.src = url;
+
+            widget.appendChild(iframe)
+            widgetCont.appendChild(widget)
+            updateWidgetURL(widgetID)
+
+            //<!-- 
+            //    <div id="widgetInteractableInner">
+            //        <div class="widgetSettingCont">
+            //            <span class="widgetInteractableID">1</span>
+            //            <label>Widget URL: </label><input oninput="updateWidgetURL(1)" type="text" class="glass settingInput">
+            //        </div>
+            //    </div>
+            //-->
+            widgetID++
+            if (save) {
+                saveSettings()            
+            }
         }
+
+
+        function updateWidgetURL(id) {
+            let source = document.getElementById("widgetInput"+id).value
+            let iframe = document.getElementById("widgetIframe"+id)
+            iframe.src = "";
+            iframe.src = source;
+            function hideScrollbar() { // this only works with my websites so yeah, sorry if you want to embed something else, it wont be transparent unless it has a transparent background.
+                iframe.contentDocument.body.style.background = "transparent";
+                const doc = iframe.contentDocument;
+                const style = doc.createElement("style");
+                style.textContent = `
+                    html { scrollbar-width: none; }
+                    html::-webkit-scrollbar { display: none; }
+                `;
+                doc.head.appendChild(style);
+            }
+
+            iframe.addEventListener("load", hideScrollbar);
+        }
+
+        function deleteWidget(id) {
+            document.getElementById("widget"+id).remove()
+            document.getElementById("widgetSettingCont"+id).remove()
+            saveSettings()
+        }
+
+        function selectSearchEngine(index, save = true) {
+            if (index > 6) {
+                let url = document.getElementById("customSearchInput").value;
+                document.getElementById("searchForm").setAttribute("action", url);
+            }else{
+                document.getElementById("searchForm").setAttribute("action", searchEngineList[index-1]);
+            }
+            let buttons = Array.prototype.slice.call( document.getElementsByClassName("select") )
+            buttons.forEach(element => {
+                element.className = "select";
+                element.innerHTML = "Select"
+            })
+            let selection = document.getElementById("searchEngineButton"+(index))
+            selection.innerHTML = 'Selected'
+            selection.className = "select selected"
+            if (save) {
+                saveSettings()
+            }
+        }
+
+        function saveSettings() {
+            // WIDGETS
+            let widgetElements = Array.prototype.slice.call( document.getElementsByClassName("widgetSettingCont") )
+            let widgetList = []
+            widgetElements.forEach(element => {
+                widgetList.push({
+                    "id": element.childNodes[0].innerHTML.split("ID:")[1],
+                    "url": element.childNodes[2].value
+                })
+            })
+
+            let searchIndex = document.getElementsByClassName("selected")[0].id.split("searchEngineButton")[1]
+            let customSearchURL = document.getElementById("customSearchInput").value
+
+            let backgroundTopic = document.getElementById("imageThemeInput").value
+
+            let settings = {
+                "widgets": widgetList,
+                "search": {
+                    "index": searchIndex,
+                    "customURL": customSearchURL
+                },
+                "background": {
+                    "topic": backgroundTopic
+                }
+            }
+            console.log(settings);
+            localStorage.setItem("newTabSettings", JSON.stringify(settings));
+        }
+        
+        function loadSettings() {
+            let settings = JSON.parse(localStorage.getItem("newTabSettings") || "null") || {
+                "widgets": [],
+                "search": {
+                    "index": 1,
+                    "customURL": ""
+                },
+                "background": {
+                    "topic": "nature"
+                }
+            };
+            document.getElementById("imageThemeInput").value = settings.background.topic
+
+            settings.widgets.forEach(widget => {
+                addNewWidget(widget.url, false)
+            })
+            
+            document.getElementById("customSearchInput").value = settings.search.customURL
+            selectSearchEngine(settings.search.index, false)
+            
+            document.getElementById("exportTextArea").value = JSON.stringify(settings)
+        }
+        
         </script>
 </body>
 </html>

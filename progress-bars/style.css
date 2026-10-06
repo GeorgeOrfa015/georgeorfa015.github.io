@@ -7,6 +7,9 @@ body{
 div{
     border: 0px solid red;
 }
+body.transparent, html.transparent {
+    background: transparent !important;
+}
 .outer-container{
     display: grid;
     grid-template-columns: 1fr 1fr;
