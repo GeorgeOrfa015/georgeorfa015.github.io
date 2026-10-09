@@ -115,7 +115,7 @@
         #clock{
             text-align: center;
             font-family: "Manrope";
-            margin-bottom: 3em;
+            margin-bottom: 0em;
         }
         #time{
             font-size: 6em;
@@ -282,22 +282,21 @@
             gap: 0.5em;
         }
         .imageInnerCont{
-            display: grid;
-            grid-template-columns: 1fr;
-            grid-template-rows: 1fr 50fr;
             width: 100%;
-            height: 100%;;
+            height: 100%;
+            position: relative;
         }
         .deleteImageButton{
             padding: 0.25em;
             font-size: 1em;
             margin: 0.25em;
-        }
-        .deleteButtonCont{
+            position: absolute;
+            bottom: 0;
+            right: 0;
             opacity: 0;
-            height: calc(100%);
-            align-content:end;
-            text-align: right;
+        }
+        .imageInnerCont:hover .deleteImageButton{
+            opacity: 1;
         }
         .deleteButtonCont:hover{
             opacity: 1;
@@ -310,7 +309,8 @@
             0 0 4px #000,
             0 0 4px #000,
             0 0 4px #000,
-            0 0 4px #000
+            0 0 4px #000;
+            position: absolute;
         }
         #settingsExportInteractable{
             display: grid;
@@ -348,6 +348,54 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 0.5em;
+        }
+        #favorites{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            gap: 1em;
+            width: 100%;
+        }
+        .favorite{
+            position: relative;
+            padding: 0;
+            margin: 0;
+            aspect-ratio: 1;
+        }
+        .favoriteEdit{
+            position: absolute;
+            top: 0.25em;
+            right: 0.25em;
+            opacity: 0;
+            padding: 0.2em;
+            border-radius: 50%;
+        }
+        img.favoriteEdit{
+            height: 1em;
+            width: 1em;
+            background: #5553;
+        }
+        .favorite:hover .favoriteEdit{
+            opacity: 1;
+        }
+        img.favoriteEdit:hover{
+            background: #4448;
+            box-shadow: inset 0 0 0.2em #fff5;
+            backdrop-filter: blur(6px);
+            cursor: pointer;
+        }
+        .favoriteLinkOuterCont{
+            margin: 0.75em;
+            height: 64px;
+            position: inline;
+        }
+        img.favoriteFavicon{
+            border-radius: 1em;
+            height: 64px;
+            width: 64px;
+        }
+        .favoriteOuterCont{
+            position: relative;
         }
         @media(max-width: 600px) {
             .widget{
@@ -448,7 +496,7 @@
                     <div class="settingsImage" id="image16"><div class="imagePlaceholder">No image</div></div>
                     <div class="settingsImage" id="image17"><div class="imagePlaceholder">No image</div></div>
                     <div class="settingsImage" id="image18"><div class="imagePlaceholder">No image</div></div>
-                    <div class="settingsImage" id="image19"><div class="imagePlaceholder">No image</div></div>
+                    <div class="settingsImage"georgeorfa015.github.io id="image19"><div class="imagePlaceholder">No image</div></div>
                     <div class="settingsImage" id="image20"><div class="imagePlaceholder">No image</div></div>
                 </div>
             </div>
@@ -468,7 +516,22 @@
         <div id="clock">
             <span id="time"></span>
         </div>
+        <div id="favorites">
+            <div class="favoriteOuterCont">
 
+                <div class="favorite glass" id="favoriteCont1">
+                    <div class="favoriteLinkOuterCont">
+                        <a href="https://youtube.com/" class="favoriteLink">
+                            <img src="https://www.google.com/s2/favicons?domain=https://youtube.com/&amp;sz=64" class="favoriteFavicon">
+                        </a>
+                    </div>
+                    <div class="favoriteEdit">
+                        <img src="dots.png" class="favoriteEdit">
+                    </div>
+            </div>
+            <span>bookmark</span>
+        </div>
+        </div>
         <div id="searchbar" class="glass">
             <form id="searchForm" action="https://www.google.com/search" method="GET" target="_top">
                 <input type="text" name="q" id="searchInput" placeholder="Search..." autofocus autocomplete="off">
@@ -602,16 +665,13 @@
                 lifetimeSpan.innerHTML = "Lifetime: "+image.lifetime
                 lifetimeSpan.className = "lifetimeSpan"
 
-                let deleteButtonCont = document.createElement("div")
-                deleteButtonCont.className = "deleteButtonCont"
                 let deleteButton = document.createElement("button")
                 deleteButton.innerHTML = "Delete"
                 deleteButton.className = "deleteImageButton delete";
                 deleteButton.setAttribute("onclick", "deleteImage('"+(image.url)+"')")
 
-                deleteButtonCont.appendChild(deleteButton)
                 innerCont.appendChild(lifetimeSpan)
-                innerCont.appendChild(deleteButtonCont)
+                innerCont.appendChild(deleteButton)
                 div.appendChild(innerCont)
                 i++
             })
@@ -634,6 +694,7 @@
         }
     
         let widgetID = 1;
+        let favoriteID = 1;
         let searchEngineList = [
             "https://www.google.com/search",
             "https://duckduckgo.com/",
@@ -777,6 +838,55 @@
                 saveSettings()
             }
         }
+
+        function newFavorite(url, name="bookmark") {
+            let favoritesCont = document.getElementById("favorites")
+            
+            let favoriteCont = document.createElement("div")
+            favoriteCont.className = "favorite glass"
+            favoriteCont.id = "favoriteCont"+favoriteID
+
+            let favoriteLinkOuterCont = document.createElement("div")
+            favoriteLinkOuterCont.className = "favoriteLinkOuterCont"
+
+            let favoriteLink = document.createElement("a")
+            favoriteLink.href = url;
+            favoriteLink.className = "favoriteLink"
+
+            let favoriteFavicon = document.createElement("img")
+            favoriteFavicon.src = "https://www.google.com/s2/favicons?domain="+url+"&sz=64"
+            favoriteFavicon.className = "favoriteFavicon"
+            favoriteFavicon.onload = () => {
+                if (favoriteFavicon.naturalWidth <= 16) {
+                    favoriteFavicon.onload = null;
+                    favoriteFavicon.src = "worldwide.png"
+                }
+            }
+
+            let favoriteEdit = document.createElement("div")
+            favoriteEdit.className = "favoriteEdit"
+
+            let favoriteEditImg = document.createElement("img")
+            favoriteEditImg.src = "dots.png"
+            favoriteEditImg.className = "favoriteEdit"
+
+            let favoriteTitle = document.createElement("span")
+            favoriteTitle.innerHTML = name
+
+            favoriteCont.appendChild(favoriteLinkOuterCont)
+            favoriteCont.appendChild(favoriteTitle)
+            favoriteLinkOuterCont.appendChild(favoriteLink)
+            favoriteLink.appendChild(favoriteFavicon)
+            favoriteCont.appendChild(favoriteEdit)
+            favoriteEdit.appendChild(favoriteEditImg)
+            favoritesCont.appendChild(favoriteCont)
+            favoriteID ++;
+        }
+        newFavorite("https://youtube.com/")
+        newFavorite("https://x.com/")
+        newFavorite("https://instagram.com/")
+        newFavorite("https://facebook.com/")
+        newFavorite("https://linedin.com/")
 
         function saveSettings() {
             // WIDGETS
