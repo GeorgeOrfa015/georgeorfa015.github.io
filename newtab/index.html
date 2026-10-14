@@ -103,6 +103,9 @@
             height: calc(20em - 2em);
             width: calc(25em - 2em);
             padding: 1em;
+            isolation: isolate;
+            transform: translateZ(0);    
+            overflow: hidden;
         }
         iframe{
             border: none;
@@ -110,7 +113,8 @@
             width: 100%;
             background: #f000;
             border-radius: 1em;
-            color: #fff
+            color: #fff;
+            display: block;
         }
         #clock{
             text-align: center;
@@ -396,6 +400,9 @@
         }
         .favoriteOuterCont{
             position: relative;
+            display: grid;
+            gap: 0.25em;
+            text-align: center;
         }
         @media(max-width: 600px) {
             .widget{
@@ -517,7 +524,7 @@
             <span id="time"></span>
         </div>
         <div id="favorites">
-            <div class="favoriteOuterCont">
+            <!-- <div class="favoriteOuterCont">
 
                 <div class="favorite glass" id="favoriteCont1">
                     <div class="favoriteLinkOuterCont">
@@ -528,9 +535,9 @@
                     <div class="favoriteEdit">
                         <img src="dots.png" class="favoriteEdit">
                     </div>
-            </div>
-            <span>bookmark</span>
-        </div>
+                </div>
+                <span>bookmark</span>
+            </div> -->
         </div>
         <div id="searchbar" class="glass">
             <form id="searchForm" action="https://www.google.com/search" method="GET" target="_top">
@@ -606,11 +613,25 @@
             try {
                 const res = await fetch(`https://georgeorfa015.duckdns.org:5087/api/unsplash-image?topic=`+encodeURI(topic));
                 const data = await res.json();
-                return data.urls.full;
+                console.log(data.urls)
+                return data.urls;
             } catch (err) {
                 console.error("Unsplash fetch failed:", err);
                 return null;
             }
+        }
+
+        async function addImage() {
+            let topic = document.getElementById("imageThemeInput").value
+            let cache = loadCache();
+            const newUrl = await fetchNewImage(topic);
+            cache.images.forEach(image => {
+                image.lifetime += -1
+            });
+            cache.images.push({ urls: newUrl, lifetime: LIFETIME })
+            saveCache(cache)
+            updateImageSettings()
+
         }
 
         async function updateBG() {
@@ -625,11 +646,11 @@
                 });
                 console.log(newUrl)
                 if (newUrl) {
-                    let array = cache.images.filter(imageObj => imageObj.url == newUrl)
+                    let array = cache.images.filter(imageObj => imageObj.urls == newUrl)
                     if (array.length > 0) {
                         updateBG()
                     }else{
-                        cache.images.push({ url: newUrl, lifetime: LIFETIME });
+                        cache.images.push({ urls: newUrl, lifetime: LIFETIME });
                         cache.lastFetch = now;
                     }
                 }
@@ -639,7 +660,7 @@
             saveCache(cache);
 
             if (cache.images.length > 0) {
-                const chosen = cache.images[Math.floor(Math.random() * cache.images.length)].url;
+                const chosen = cache.images[Math.floor(Math.random() * cache.images.length)].urls.regular; //Sizes: thumb, small, regular, full, RAWWWWWWWW
                 document.body.style.backgroundImage = `url('${chosen}')`;
             }
             updateImageSettings()
@@ -656,7 +677,7 @@
             let imagesReversed = cache.images.reverse()
             imagesReversed.forEach(image => {
                 let div = document.getElementById("image"+i)
-                div.style = `background: url(${image.url});background-size: cover;background-position: center;background-repeat: no-repeat;background-attachment: fixed;`
+                div.style = `background: url(${image.urls.small});background-size: cover;background-position: center;background-repeat: no-repeat;background-attachment: fixed;`
                 div.innerHTML = ""
                 let innerCont = document.createElement("div")
                 innerCont.className = "imageInnerCont";
@@ -668,7 +689,7 @@
                 let deleteButton = document.createElement("button")
                 deleteButton.innerHTML = "Delete"
                 deleteButton.className = "deleteImageButton delete";
-                deleteButton.setAttribute("onclick", "deleteImage('"+(image.url)+"')")
+                deleteButton.setAttribute("onclick", "deleteImage('"+(image.urls.small)+"')")
 
                 innerCont.appendChild(lifetimeSpan)
                 innerCont.appendChild(deleteButton)
@@ -680,7 +701,7 @@
         function deleteImage(src) {
             let cache = loadCache();
             console.log(cache)
-            cache.images = cache.images.filter(image => image.url != src)
+            cache.images = cache.images.filter(image => image.urls.small != src)
             console.log(cache)
             saveCache(cache);
             updateImageSettings();
@@ -842,8 +863,11 @@
         function newFavorite(url, name="bookmark") {
             let favoritesCont = document.getElementById("favorites")
             
+            let favoriteOuterCont = document.createElement("div")
+            favoriteOuterCont.className = "favoriteOuterCont"
+
             let favoriteCont = document.createElement("div")
-            favoriteCont.className = "favorite glass"
+            favoriteCont.className = "favorite glass interact"
             favoriteCont.id = "favoriteCont"+favoriteID
 
             let favoriteLinkOuterCont = document.createElement("div")
@@ -864,7 +888,7 @@
             }
 
             let favoriteEdit = document.createElement("div")
-            favoriteEdit.className = "favoriteEdit"
+            favoriteEdit.className = "favoriteEdit interact"
 
             let favoriteEditImg = document.createElement("img")
             favoriteEditImg.src = "dots.png"
@@ -873,20 +897,21 @@
             let favoriteTitle = document.createElement("span")
             favoriteTitle.innerHTML = name
 
+            favoriteOuterCont.appendChild(favoriteCont)
+            favoriteOuterCont.appendChild(favoriteTitle)
             favoriteCont.appendChild(favoriteLinkOuterCont)
-            favoriteCont.appendChild(favoriteTitle)
             favoriteLinkOuterCont.appendChild(favoriteLink)
             favoriteLink.appendChild(favoriteFavicon)
             favoriteCont.appendChild(favoriteEdit)
             favoriteEdit.appendChild(favoriteEditImg)
-            favoritesCont.appendChild(favoriteCont)
+            favoritesCont.appendChild(favoriteOuterCont)
             favoriteID ++;
         }
-        newFavorite("https://youtube.com/")
-        newFavorite("https://x.com/")
-        newFavorite("https://instagram.com/")
-        newFavorite("https://facebook.com/")
-        newFavorite("https://linedin.com/")
+        newFavorite("https://youtube.com/", "YouTube")
+        newFavorite("https://x.com/", "Twitter")
+        newFavorite("https://instagram.com/", "Instagram")
+        newFavorite("https://facebook.com/", "Facebook")
+        newFavorite("https://linedin.com/", "Idk man")
 
         function saveSettings() {
             // WIDGETS
