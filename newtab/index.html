@@ -29,7 +29,7 @@
             background: linear-gradient(#2b2b2b77, #15151577);
             backdrop-filter: blur(7px);
             border-radius: 1.5em;
-            box-shadow: inset 0 0 0.3em #fff2;
+            box-shadow: inset 0 0 0.3em #fff3;
         }
         .interact:hover{
             background: linear-gradient(hsla(0, 0%, 24%, 0.529), hsla(0, 0%, 16%, 0.467));
@@ -103,6 +103,9 @@
             height: calc(20em - 2em);
             width: calc(25em - 2em);
             padding: 1em;
+            isolation: isolate;
+            transform: translateZ(0);    
+            overflow: hidden;
         }
         iframe{
             border: none;
@@ -110,12 +113,13 @@
             width: 100%;
             background: #f000;
             border-radius: 1em;
-            color: #fff
+            color: #fff;
+            display: block;
         }
         #clock{
             text-align: center;
             font-family: "Manrope";
-            margin-bottom: 3em;
+            margin-bottom: 0em;
         }
         #time{
             font-size: 6em;
@@ -197,15 +201,33 @@
             background: #0006;
             box-shadow: inset 0 0 0.2em #fff5;
             border-radius: 0.5em;
-            grid-template-columns: 2fr 5fr 15fr 3fr;
             padding: 0.5em;
+            grid-template-columns: 2fr 6fr 15fr 3fr;
+            gap: 0.3em;
         }
-        .widgetInteractableID{
+        .favoriteSettingCont{
+            display: grid;
+            background: #0006;
+            box-shadow: inset 0 0 0.2em #fff5;
+            border-radius: 0.5em;
+            padding: 0.5em;
+            grid-template-columns: 2fr 6fr 15fr 3fr;
+            gap: 0.3em;
+            
+        }
+        .widgetInteractableID, .favoriteInteractableID{
             font-family: Chivo Mono;
             color: #888;
             align-self: center;
         }
-        #widgetInteractableInner{
+        .favoriteInteractableID{
+            grid-row: span 2
+        }
+        .favoriteDelete{
+            grid-row: span 2;
+            tab: 5;
+        }
+        #widgetInteractableInner, #favoriteInteractableInner{
             display: grid;
             gap: 0.5em;
         }
@@ -243,7 +265,7 @@
         .selected:hover{
             background: #0c9143;
         }
-        #customSearchInput{
+        #customSearch{
             font-family: Chivo Mono;
         }
         a{
@@ -282,22 +304,21 @@
             gap: 0.5em;
         }
         .imageInnerCont{
-            display: grid;
-            grid-template-columns: 1fr;
-            grid-template-rows: 1fr 50fr;
             width: 100%;
-            height: 100%;;
+            height: 100%;
+            position: relative;
         }
         .deleteImageButton{
             padding: 0.25em;
             font-size: 1em;
             margin: 0.25em;
-        }
-        .deleteButtonCont{
+            position: absolute;
+            bottom: 0;
+            right: 0;
             opacity: 0;
-            height: calc(100%);
-            align-content:end;
-            text-align: right;
+        }
+        .imageInnerCont:hover .deleteImageButton{
+            opacity: 1;
         }
         .deleteButtonCont:hover{
             opacity: 1;
@@ -310,7 +331,8 @@
             0 0 4px #000,
             0 0 4px #000,
             0 0 4px #000,
-            0 0 4px #000
+            0 0 4px #000;
+            position: absolute;
         }
         #settingsExportInteractable{
             display: grid;
@@ -349,6 +371,87 @@
             grid-template-columns: 1fr 1fr;
             gap: 0.5em;
         }
+        #favorites{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            gap: 1em;
+            width: 100%;
+        }
+        .favorite{
+            position: relative;
+            padding: 0;
+            margin: 0;
+            aspect-ratio: 1;
+        }
+        .favoriteEdit{
+            position: absolute;
+            top: 0.25em;
+            right: 0.25em;
+            opacity: 0;
+            padding: 0.2em;
+            border-radius: 50%;
+        }
+        img.favoriteEdit{
+            height: 1em;
+            width: 1em;
+            background: #5553;
+        }
+        .favorite:hover .favoriteEdit{
+            opacity: 1;
+        }
+        img.favoriteEdit:hover{
+            background: #4448;
+            box-shadow: inset 0 0 0.2em #fff5;
+            backdrop-filter: blur(6px);
+            cursor: pointer;
+        }
+        .favoriteLinkOuterCont{
+            margin: 0.75em;
+            height: 64px;
+            position: inline;
+        }
+        img.favoriteFavicon{
+            border-radius: 1em;
+            height: 64px;
+            width: 64px;
+        }
+        .favoriteOuterCont{
+            position: relative;
+            display: grid;
+            gap: 0.25em;
+            text-align: center;
+        }
+        #favoriteEditCont{
+            display: none;
+            max-height: 20em;
+            width: calc(30em - 2em);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            align-content: top;
+            z-index: 2;
+            padding: 1em;
+            padding-top: 0.75em;
+            overflow-y: scroll;
+            -ms-overflow-style: none; /* Internet Explorer and Edge */
+            scrollbar-width: none; /* Firefox */
+            gap: 1.2em;
+            border-radius: 1.5em;
+        }
+        .favoriteEditInner{
+            display: grid;
+            grid-template-columns: 1fr 9fr;
+            gap: 0.5em;
+        }
+        .favoriteEditButtons{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5em;
+            width: 100%;
+            grid-column: span 2;
+        }
         @media(max-width: 600px) {
             .widget{
                 height: calc(15em - 2em);
@@ -382,6 +485,23 @@
             <button onclick="closeTransferScreen()" class="generic">Go back</button>
             <button onclick="copySettings()" id="copyButton">Copy to clipboard</button>
         </div>
+    </div>
+
+    <div id="favoriteEditCont" class="glass">
+        <div class="settingDescription">
+            <span class="settingTitle">Edit Favorite</span>
+            <div class="favoriteEditInner">
+                <label>Name:</label>
+                <input class="glass settingInput" id="favoriteEditScreenName">
+                <label>URL:</label>
+                <input class="glass settingInput" id="favoriteEditScreenURL">
+                <div class="favoriteEditButtons">
+                    <button class="generic" onclick="hideFavoriteEditScreen()">Cancel</button><button id="saveFavoriteEdits">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="glass" id="favoritesEditMenu">
 
     </div>
 
@@ -399,7 +519,23 @@
                 <div id="widgetInteractableInner">
                     <!-- <div class="widgetSettingCont">
                         <span class="widgetInteractableID">1</span>
-                        <label>Widget URL: </label><input oninput="updateWidgetURL(1)" type="text" class="glass settingInput">
+                        <label>Widget URL: </label><input oninput="updateURL(1)" type="text" class="glass settingInput">
+                    </div> -->
+                </div>
+            </div>
+        </div>
+        <!-- FAVORITES -->
+        <div class="settingsSection">
+            <div class="settingDescription">
+                <span class="settingTitle">Bookmarks/Favorites</span>
+                <span>Favorite Links are located above the search bar and can redirect to any URL.</span>
+            </div>
+            <div class="settingInteractable" id="settingsFavoritesInteractable">
+                <button onclick="addNewFavorite()">+ Add Favorite</button>
+                <div id="favoriteInteractableInner">
+                    <!-- <div class="widgetSettingCont">
+                        <span class="widgetInteractableID">1</span>
+                        <label>Widget URL: </label><input oninput="updateURL(1)" type="text" class="glass settingInput">
                     </div> -->
                 </div>
             </div>
@@ -448,7 +584,7 @@
                     <div class="settingsImage" id="image16"><div class="imagePlaceholder">No image</div></div>
                     <div class="settingsImage" id="image17"><div class="imagePlaceholder">No image</div></div>
                     <div class="settingsImage" id="image18"><div class="imagePlaceholder">No image</div></div>
-                    <div class="settingsImage" id="image19"><div class="imagePlaceholder">No image</div></div>
+                    <div class="settingsImage"georgeorfa015.github.io id="image19"><div class="imagePlaceholder">No image</div></div>
                     <div class="settingsImage" id="image20"><div class="imagePlaceholder">No image</div></div>
                 </div>
             </div>
@@ -468,7 +604,22 @@
         <div id="clock">
             <span id="time"></span>
         </div>
+        <div id="favorites">
+            <!-- <div class="favoriteOuterCont">
 
+                <div class="favorite glass" id="favoriteCont1">
+                    <div class="favoriteLinkOuterCont">
+                        <a href="https://youtube.com/" class="favoriteLink">
+                            <img src="https://www.google.com/s2/favicons?domain=https://youtube.com/&amp;sz=64" class="favoriteFavicon">
+                        </a>
+                    </div>
+                    <div class="favoriteEdit">
+                        <img src="dots.png" class="favoriteEdit">
+                    </div>
+                </div>
+                <span>bookmark</span>
+            </div> -->
+        </div>
         <div id="searchbar" class="glass">
             <form id="searchForm" action="https://www.google.com/search" method="GET" target="_top">
                 <input type="text" name="q" id="searchInput" placeholder="Search..." autofocus autocomplete="off">
@@ -526,6 +677,18 @@
             document.getElementById("blak").style.background = "#000d";
             document.getElementById("blak").setAttribute("onclick", "hideSettings()")
         }
+        function showFavoriteEditScreen() {
+            document.getElementById("favoriteEditCont").style.display = "grid";
+            document.getElementById("blak").style.zIndex = "1";
+            document.getElementById("blak").style.background = "#000d";
+            document.getElementById("blak").setAttribute("onclick", "hideFavoriteEditScreen()")
+        }
+        function hideFavoriteEditScreen() {
+            document.getElementById("favoriteEditCont").style.display = "none";
+            document.getElementById("blak").style.zIndex = "0";
+            document.getElementById("blak").style.background = "#000b";
+            document.getElementById("blak").setAttribute("onclick", "")
+        }
         function copySettings() {
             let settingsTxt = localStorage.getItem("newTabSettings")
             navigator.clipboard.writeText(settingsTxt);
@@ -543,11 +706,25 @@
             try {
                 const res = await fetch(`https://georgeorfa015.duckdns.org:5087/api/unsplash-image?topic=`+encodeURI(topic));
                 const data = await res.json();
-                return data.urls.full;
+                console.log(data.urls)
+                return data.urls;
             } catch (err) {
                 console.error("Unsplash fetch failed:", err);
                 return null;
             }
+        }
+
+        async function addImage() {
+            let topic = document.getElementById("imageThemeInput").value
+            let cache = loadCache();
+            const newUrl = await fetchNewImage(topic);
+            cache.images.forEach(image => {
+                image.lifetime += -1
+            });
+            cache.images.push({ urls: newUrl, lifetime: LIFETIME })
+            saveCache(cache)
+            updateImageSettings()
+
         }
 
         async function updateBG() {
@@ -562,11 +739,11 @@
                 });
                 console.log(newUrl)
                 if (newUrl) {
-                    let array = cache.images.filter(imageObj => imageObj.url == newUrl)
+                    let array = cache.images.filter(imageObj => imageObj.urls == newUrl)
                     if (array.length > 0) {
                         updateBG()
                     }else{
-                        cache.images.push({ url: newUrl, lifetime: LIFETIME });
+                        cache.images.push({ urls: newUrl, lifetime: LIFETIME });
                         cache.lastFetch = now;
                     }
                 }
@@ -576,7 +753,7 @@
             saveCache(cache);
 
             if (cache.images.length > 0) {
-                const chosen = cache.images[Math.floor(Math.random() * cache.images.length)].url;
+                const chosen = cache.images[Math.floor(Math.random() * cache.images.length)].urls.regular; //Sizes: thumb, small, regular, full, RAWWWWWWWW
                 document.body.style.backgroundImage = `url('${chosen}')`;
             }
             updateImageSettings()
@@ -593,7 +770,7 @@
             let imagesReversed = cache.images.reverse()
             imagesReversed.forEach(image => {
                 let div = document.getElementById("image"+i)
-                div.style = `background: url(${image.url});background-size: cover;background-position: center;background-repeat: no-repeat;background-attachment: fixed;`
+                div.style = `background: url(${image.urls.small});background-size: cover;background-position: center;background-repeat: no-repeat;background-attachment: fixed;`
                 div.innerHTML = ""
                 let innerCont = document.createElement("div")
                 innerCont.className = "imageInnerCont";
@@ -602,16 +779,13 @@
                 lifetimeSpan.innerHTML = "Lifetime: "+image.lifetime
                 lifetimeSpan.className = "lifetimeSpan"
 
-                let deleteButtonCont = document.createElement("div")
-                deleteButtonCont.className = "deleteButtonCont"
                 let deleteButton = document.createElement("button")
                 deleteButton.innerHTML = "Delete"
                 deleteButton.className = "deleteImageButton delete";
-                deleteButton.setAttribute("onclick", "deleteImage('"+(image.url)+"')")
+                deleteButton.setAttribute("onclick", "deleteImage('"+(image.urls.small)+"')")
 
-                deleteButtonCont.appendChild(deleteButton)
                 innerCont.appendChild(lifetimeSpan)
-                innerCont.appendChild(deleteButtonCont)
+                innerCont.appendChild(deleteButton)
                 div.appendChild(innerCont)
                 i++
             })
@@ -620,7 +794,7 @@
         function deleteImage(src) {
             let cache = loadCache();
             console.log(cache)
-            cache.images = cache.images.filter(image => image.url != src)
+            cache.images = cache.images.filter(image => image.urls.small != src)
             console.log(cache)
             saveCache(cache);
             updateImageSettings();
@@ -634,6 +808,7 @@
         }
     
         let widgetID = 1;
+        let favoriteID = 1;
         let searchEngineList = [
             "https://www.google.com/search",
             "https://duckduckgo.com/",
@@ -642,7 +817,7 @@
             "https://search.brave.com/search",
             "https://www.bing.com/search",
         ]
-
+        
         loadSettings();
         clock();
         updateBG();
@@ -656,7 +831,7 @@
 
         function addNewWidget(url = "", save = true) {
             // add setting subsection and add actual widget below the search bar
-            // Source - https://stackoverflow.com/a/222847
+            // Source - https://stackoverflow.com/a/re2847
             // Posted by harpo, modified by community. See post 'Timeline' for change history
             // Retrieved 2026-10-02, License - CC BY-SA 4.0
 
@@ -688,7 +863,7 @@
             let input = document.createElement("input")
             input.type = "text"
             input.className = "glass settingInput"
-            input.setAttribute("oninput", `updateWidgetURL(${widgetID})`);
+            input.setAttribute("oninput", `updateURL(${widgetID},1)`);
             input.setAttribute("onfocusout", `saveSettings()`);
             input.id = "widgetInput"+widgetID
             input.value = url
@@ -696,7 +871,6 @@
             let deleteButton = document.createElement("button")
             deleteButton.innerHTML = "Delete";
             deleteButton.className = "delete";
-            deleteButton.style.marginLeft = "0.25em"
             deleteButton.setAttribute("onclick", `deleteWidget(${widgetID})`)
 
 
@@ -716,13 +890,13 @@
 
             widget.appendChild(iframe)
             widgetCont.appendChild(widget)
-            updateWidgetURL(widgetID)
+            updateURL(widgetID, 1)
 
             //<!-- 
             //    <div id="widgetInteractableInner">
             //        <div class="widgetSettingCont">
             //            <span class="widgetInteractableID">1</span>
-            //            <label>Widget URL: </label><input oninput="updateWidgetURL(1)" type="text" class="glass settingInput">
+            //            <label>Widget URL: </label><input oninput="updateURL(1)" type="text" class="glass settingInput">
             //        </div>
             //    </div>
             //-->
@@ -731,30 +905,173 @@
                 saveSettings()            
             }
         }
+        function addNewFavorite(url = "", name="", save = true) {
+            // add setting subsection and add actual widget below the search bar
+            // Source - https://stackoverflow.com/a/222847
+            // Posted by harpo, modified by community. See post 'Timeline' for change history
+            // Retrieved 2026-10-02, License - CC BY-SA 4.0
+
+            let arr = Array.prototype.slice.call( document.getElementsByClassName("favoriteOuterCont") )
+
+        
+            
+            arr.forEach(element => {
+                if (element.id.split("favoriteOuterCont")[1]>favoriteID) {
+                    favoriteID = element.id.split("favoriteOuterCont")[1] + 1
+                }
+            })
+            // favoriteID is unique
+            let settingCont = document.getElementById("favoriteInteractableInner")
+            let favoritesCont = document.getElementById("favorites")
+
+            // settings interactable thingy
+            let cont = document.createElement("div")
+            cont.id = "favoriteSettingCont" +favoriteID
+            cont.className = "favoriteSettingCont"
+
+            let idSpan = document.createElement("span");
+            idSpan.innerHTML = "ID:" + favoriteID
+            idSpan.className = "favoriteInteractableID"
+
+            let label = document.createElement("label");
+            label.innerHTML = "Bookmark Name:"
+            
+            let input = document.createElement("input")
+            input.type = "text"
+            input.className = "glass settingInput"
+            input.setAttribute("onfocusout", `saveSettings(); updateURL(${favoriteID}, 2)`);
+            input.id = "favoriteInputName"+favoriteID
+            input.value = name
+
+            let label2 = document.createElement("label");
+            label2.innerHTML = "Bookmark URL:"
+            
+            let input2 = document.createElement("input")
+            input2.type = "text"
+            input2.className = "glass settingInput"
+            input2.setAttribute("onfocusout", `saveSettings(); updateURL(${favoriteID}, 2)`);
+            input2.id = "favoriteInput"+favoriteID
+            input2.value = url
+
+            let deleteButton = document.createElement("button")
+            deleteButton.innerHTML = "Delete";
+            deleteButton.className = "delete favoriteDelete";
+            deleteButton.setAttribute("onclick", `deleteFavorite(${favoriteID})`)
+            deleteButton.tabIndex = "-1"
 
 
-        function updateWidgetURL(id) {
-            let source = document.getElementById("widgetInput"+id).value
-            let iframe = document.getElementById("widgetIframe"+id)
-            iframe.src = "";
-            iframe.src = source;
-            function hideScrollbar() { // this only works with my websites so yeah, sorry if you want to embed something else, it wont be transparent unless it has a transparent background.
-                iframe.contentDocument.body.style.background = "transparent";
-                const doc = iframe.contentDocument;
-                const style = doc.createElement("style");
-                style.textContent = `
-                    html { scrollbar-width: none; }
-                    html::-webkit-scrollbar { display: none; }
-                `;
-                doc.head.appendChild(style);
+            cont.appendChild(idSpan)
+            cont.appendChild(label)
+            cont.appendChild(input)
+            cont.appendChild(deleteButton)
+            cont.appendChild(label2)
+            cont.appendChild(input2)
+            settingCont.appendChild(cont)
+
+            // Favorite Element in page
+            let favoriteOuterCont = document.createElement("div")
+            favoriteOuterCont.className = "favoriteOuterCont"
+            favoriteOuterCont.id = "favoriteOuterCont"+favoriteID
+
+            let favoriteCont = document.createElement("div")
+            favoriteCont.className = "favorite glass interact"
+            favoriteCont.id = "favoriteCont"+favoriteID
+
+            let favoriteLinkOuterCont = document.createElement("div")
+            favoriteLinkOuterCont.className = "favoriteLinkOuterCont"
+
+            let favoriteLink = document.createElement("a")
+            favoriteLink.id = "favoriteLink"+favoriteID
+            favoriteLink.href = url;
+            favoriteLink.className = "favoriteLink"
+
+            let favoriteFavicon = document.createElement("img")
+            favoriteFavicon.src = "https://www.google.com/s2/favicons?domain="+url+"&sz=64"
+            favoriteFavicon.className = "favoriteFavicon"
+            favoriteFavicon.id = "favoriteFavicon" + favoriteID
+            favoriteFavicon.onload = () => {
+                if (favoriteFavicon.naturalWidth <= 16) {
+                    favoriteFavicon.onload = null;
+                    favoriteFavicon.src = "worldwide.png"
+                }
             }
 
-            iframe.addEventListener("load", hideScrollbar);
+            let favoriteEdit = document.createElement("div")
+            favoriteEdit.className = "favoriteEdit interact"
+            favoriteEdit.setAttribute("onclick", `editFavorite(${favoriteID})`)
+
+            let favoriteEditImg = document.createElement("img")
+            favoriteEditImg.src = "dots.png"
+            favoriteEditImg.className = "favoriteEdit"
+
+            let favoriteTitle = document.createElement("span")
+            favoriteTitle.id = "favoriteTitle" + favoriteID
+            favoriteTitle.innerHTML = name
+
+            favoriteOuterCont.appendChild(favoriteCont)
+            favoriteOuterCont.appendChild(favoriteTitle)
+            favoriteCont.appendChild(favoriteLinkOuterCont)
+            favoriteLinkOuterCont.appendChild(favoriteLink)
+            favoriteLink.appendChild(favoriteFavicon)
+            favoriteCont.appendChild(favoriteEdit)
+            favoriteEdit.appendChild(favoriteEditImg)
+            favoritesCont.appendChild(favoriteOuterCont)
+
+            updateURL(favoriteID, 2)
+
+            //<!-- 
+            //    <div id="widgetInteractableInner">
+            //        <div class="widgetSettingCont">
+            //            <span class="widgetInteractableID">1</span>
+            //            <label>Widget URL: </label><input oninput="updateURL(1)" type="text" class="glass settingInput">
+            //        </div>
+            //    </div>
+            //-->
+            favoriteID++
+            if (save) {
+                saveSettings()            
+            }
+        }
+
+
+        function updateURL(id, mode) {
+            if (mode == 1) {
+                let source = document.getElementById("widgetInput"+id).value
+                let iframe = document.getElementById("widgetIframe"+id)
+                iframe.src = "";
+                iframe.src = source;
+                function hideScrollbar() { // this only works with my websites so yeah, sorry if you want to embed something else, it wont be transparent unless it has a transparent background.
+                    iframe.contentDocument.body.style.background = "transparent";
+                    const doc = iframe.contentDocument;
+                    const style = doc.createElement("style");
+                    style.textContent = `
+                        html { scrollbar-width: none; }
+                        html::-webkit-scrollbar { display: none; }
+                    `;
+                    doc.head.appendChild(style);
+                }
+    
+                iframe.addEventListener("load", hideScrollbar);
+            }else if (mode == 2){
+                let source = document.getElementById("favoriteInput"+id).value;
+                let nameSource = document.getElementById("favoriteInputName"+id).value;
+                let img = document.getElementById("favoriteFavicon"+id)
+                img.src = "https://www.google.com/s2/favicons?domain="+source+"&sz=64"
+                let a = document.getElementById("favoriteLink"+id)
+                a.href = source
+                let name = document.getElementById("favoriteTitle"+id)
+                name.innerHTML = nameSource
+            }
         }
 
         function deleteWidget(id) {
             document.getElementById("widget"+id).remove()
             document.getElementById("widgetSettingCont"+id).remove()
+            saveSettings()
+        }
+        function deleteFavorite(id) {
+            document.getElementById("favoriteOuterCont"+id).remove()
+            document.getElementById("favoriteSettingCont"+id).remove()
             saveSettings()
         }
 
@@ -778,6 +1095,32 @@
             }
         }
 
+        function newFavorite(url, name="bookmark") {
+            let favoritesCont = document.getElementById("favorites")
+            
+
+            favoriteID ++;
+        }
+        function editFavorite(id) {
+            showFavoriteEditScreen()
+            let editScreenName = document.getElementById("favoriteEditScreenName")
+            let editScreenURL = document.getElementById("favoriteEditScreenURL")
+            editScreenName.value = document.getElementById("favoriteTitle"+id).innerHTML
+            editScreenURL.value = document.getElementById("favoriteLink"+id).href
+            document.getElementById("saveFavoriteEdits").setAttribute("onclick", `updateFavorite(${id})`)
+        }
+        function updateFavorite(id) {
+            let name = document.getElementById("favoriteEditScreenName").value
+            let url = document.getElementById("favoriteEditScreenURL").value
+            document.getElementById("favoriteTitle"+id).innerHTML = name;
+            document.getElementById("favoriteInputName"+id).value = name;
+            document.getElementById("favoriteLink"+id).href = url;
+            document.getElementById("favoriteInput"+id).value = url;
+            updateURL(id, 2)
+            saveSettings();
+            hideFavoriteEditScreen();
+        }
+
         function saveSettings() {
             // WIDGETS
             let widgetElements = Array.prototype.slice.call( document.getElementsByClassName("widgetSettingCont") )
@@ -788,6 +1131,15 @@
                     "url": element.childNodes[2].value
                 })
             })
+            let favoriteElements = Array.prototype.slice.call( document.getElementsByClassName("favoriteSettingCont") )
+            let favoriteList = []
+            favoriteElements.forEach(element => {
+                favoriteList.push({
+                    "id": element.childNodes[0].innerHTML.split("ID:")[1],
+                    "url": element.childNodes[5].value,
+                    "name": element.childNodes[2].value
+                })
+            })
 
             let searchIndex = document.getElementsByClassName("selected")[0].id.split("searchEngineButton")[1]
             let customSearchURL = document.getElementById("customSearchInput").value
@@ -796,6 +1148,7 @@
 
             let settings = {
                 "widgets": widgetList,
+                "favorites": favoriteList,
                 "search": {
                     "index": searchIndex,
                     "customURL": customSearchURL
@@ -811,6 +1164,7 @@
         function loadSettings() {
             let settings = JSON.parse(localStorage.getItem("newTabSettings") || "null") || {
                 "widgets": [],
+                "favorites": [],
                 "search": {
                     "index": 1,
                     "customURL": ""
@@ -821,8 +1175,14 @@
             };
             document.getElementById("imageThemeInput").value = settings.background.topic
 
-            settings.widgets.forEach(widget => {
+            let widgets = settings.widgets || []
+            widgets.forEach(widget => {
                 addNewWidget(widget.url, false)
+            })
+
+            let favorites = settings.favorites || []
+            favorites.forEach(favorite => {
+                addNewFavorite(favorite.url, favorite.name, false)
             })
             
             document.getElementById("customSearchInput").value = settings.search.customURL
