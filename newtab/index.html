@@ -983,7 +983,8 @@
             let favoriteLink = document.createElement("a")
             favoriteLink.id = "favoriteLink"+favoriteID
             favoriteLink.href = url;
-            favoriteLink.className = "favoriteLink"
+            favoriteLink.className = "favoriteLink";
+            favoriteLink.target = "_top"
 
             let favoriteFavicon = document.createElement("img")
             favoriteFavicon.src = "https://www.google.com/s2/favicons?domain="+url+"&sz=64"
@@ -1189,6 +1190,10 @@
             selectSearchEngine(settings.search.index, false)
             
             document.getElementById("exportTextArea").value = JSON.stringify(settings)
+        }
+        let settings = localStorage.getItem(CACHE_KEY)
+        if (!images[0].urls){
+            clearCache();
         }
         
         </script>
