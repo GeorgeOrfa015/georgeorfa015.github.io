@@ -225,7 +225,6 @@
         }
         .favoriteDelete{
             grid-row: span 2;
-            tab: 5;
         }
         #widgetInteractableInner, #favoriteInteractableInner{
             display: grid;
@@ -452,6 +451,16 @@
             width: 100%;
             grid-column: span 2;
         }
+        .imageResolutionCont{
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 0.5em;
+        }
+        #imageResolution{
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.5em;
+        }
         @media(max-width: 600px) {
             .widget{
                 height: calc(15em - 2em);
@@ -546,19 +555,19 @@
                 <span>Select the search engine you'd like to use with the search bar.</span>
             </div>
             <div class="settingInteractable" id="settingsSearchInteractable">
-                <button onclick="selectSearchEngine(1)" id="searchEngineButton1" class="select selected">Selected</button><span class="searchEngineText">Google</span><span class="searchEngineURL">https://www.google.com/search</span>
-                <button onclick="selectSearchEngine(2)" id="searchEngineButton2" class="select">Select</button><span class="searchEngineText">DuckDuckGo</span><span class="searchEngineURL">https://duckduckgo.com/</span>
-                <button onclick="selectSearchEngine(3)" id="searchEngineButton3" class="select">Select</button><span class="searchEngineText">Ecosia</span><span class="searchEngineURL">https://www.ecosia.org/search</span>
-                <button onclick="selectSearchEngine(4)" id="searchEngineButton4" class="select">Select</button><span class="searchEngineText">Yahoo</span><span class="searchEngineURL">https://search.yahoo.com/search</span>
-                <button onclick="selectSearchEngine(5)" id="searchEngineButton5" class="select">Select</button><span class="searchEngineText">Brave Search</span><span class="searchEngineURL">https://search.brave.com/search</span>
-                <button onclick="selectSearchEngine(6)" id="searchEngineButton6" class="select">Select</button><span class="searchEngineText">Microsoft Bing</span><span class="searchEngineURL">https://www.bing.com/search</span>
-                <button onclick="selectSearchEngine(7)" id="searchEngineButton7" class="select">Select</button><span class="searchEngineText">Custom: </span><input id="customSearchInput" class="glass settingInput" oninput="selectSearchEngine(7)">
+                <button onclick="selectSearchEngine(1)" id="searchEngineButton1" class="searchEngine select selected">Selected</button><span class="searchEngineText">Google</span><span class="searchEngineURL">https://www.google.com/search</span>
+                <button onclick="selectSearchEngine(2)" id="searchEngineButton2" class="searchEngine select">Select</button><span class="searchEngineText">DuckDuckGo</span><span class="searchEngineURL">https://duckduckgo.com/</span>
+                <button onclick="selectSearchEngine(3)" id="searchEngineButton3" class="searchEngine select">Select</button><span class="searchEngineText">Ecosia</span><span class="searchEngineURL">https://www.ecosia.org/search</span>
+                <button onclick="selectSearchEngine(4)" id="searchEngineButton4" class="searchEngine select">Select</button><span class="searchEngineText">Yahoo</span><span class="searchEngineURL">https://search.yahoo.com/search</span>
+                <button onclick="selectSearchEngine(5)" id="searchEngineButton5" class="searchEngine select">Select</button><span class="searchEngineText">Brave Search</span><span class="searchEngineURL">https://search.brave.com/search</span>
+                <button onclick="selectSearchEngine(6)" id="searchEngineButton6" class="searchEngine select">Select</button><span class="searchEngineText">Microsoft Bing</span><span class="searchEngineURL">https://www.bing.com/search</span>
+                <button onclick="selectSearchEngine(7)" id="searchEngineButton7" class="searchEngine select">Select</button><span class="searchEngineText">Custom: </span><input id="customSearchInput" class="glass settingInput" oninput="selectSearchEngine(7)">
             </div>
         </div>
         <div class="settingsSection">
             <div class="settingDescription">
-                <span class="settingTitle">Backgrounds</span>
-                <span>Modify stored images and change the general theme of the random background images. Images are fetched from the <a href="https://unsplash.com" target="_top">Unsplash API</a> every three minutes and the last 20 are cached so there's a new background for every new tab.</span>
+                <span class="settingTitle">Background Images</span>
+                <span>Modify stored images and change the general theme of the random background images. Images are fetched from the <a href="https://unsplash.com" target="_top">Unsplash API</a> every three minutes and the last 20 are cached so there's a new background for every new tab.<br>If there's a problem with the cache and the images or the page isn't loading correctly, please open the developer console on your browser by either pressing F12, Ctrl+I or right click and Inspect, write <code>clearCache()</code> in the console and press Enter. This will delete your stored images.</span>
             </div>
             <div class="settingInteractable" id="settingsBackgroundInteractable">
                 <div id="topicInputCont">
@@ -586,6 +595,15 @@
                     <div class="settingsImage" id="image18"><div class="imagePlaceholder">No image</div></div>
                     <div class="settingsImage"georgeorfa015.github.io id="image19"><div class="imagePlaceholder">No image</div></div>
                     <div class="settingsImage" id="image20"><div class="imagePlaceholder">No image</div></div>
+                </div>
+                <div id="imageResolution">
+                    <span class="settingTitle">Background Image Resolution</span>
+                    <div class="imageResolutionCont">
+                        <button id="imageResolution0" onclick="selectImageResolution(0)" class="imageResolution select">Small</button>
+                        <button id="imageResolution1" onclick="selectImageResolution(1)" class="imageResolution select selected">Regular</button>
+                        <button id="imageResolution2" onclick="selectImageResolution(2)" class="imageResolution select">Full</button>
+                        <button id="imageResolution3" onclick="selectImageResolution(3)" class="imageResolution select">Raw</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -630,6 +648,13 @@
         </div>
     </div>
     <script>
+        let imageResolution;
+        let imageResolutionList = [
+            "small",
+            "regular",
+            "full",
+            "raw"
+        ]
         const CACHE_KEY = "bgImageCache";
         const LIFETIME = 20;
         const FETCH_INTERVAL = 3 * 60 * 1000;
@@ -753,7 +778,7 @@
             saveCache(cache);
 
             if (cache.images.length > 0) {
-                const chosen = cache.images[Math.floor(Math.random() * cache.images.length)].urls.regular; //Sizes: thumb, small, regular, full, RAWWWWWWWW
+                const chosen = cache.images[Math.floor(Math.random() * cache.images.length)].urls[imageResolutionList[Number(imageResolution)]]; //Sizes: thumb, small, regular, full, RAWWWWWWWW
                 document.body.style.backgroundImage = `url('${chosen}')`;
             }
             updateImageSettings()
@@ -1082,15 +1107,30 @@
             }else{
                 document.getElementById("searchForm").setAttribute("action", searchEngineList[index-1]);
             }
-            let buttons = Array.prototype.slice.call( document.getElementsByClassName("select") )
+            let buttons = Array.prototype.slice.call( document.getElementsByClassName("searchEngine") )
             buttons.forEach(element => {
-                element.className = "select";
+                element.className = "searchEngine select";
                 element.innerHTML = "Select"
             })
             let selection = document.getElementById("searchEngineButton"+(index))
             selection.innerHTML = 'Selected'
-            selection.className = "select selected"
+            selection.className = "searchEngine select selected"
             if (save) {
+                saveSettings()
+            }
+        }
+
+    
+        function selectImageResolution(index, save = true) {
+            imageResolution = index
+            let buttons = Array.prototype.slice.call( document.getElementsByClassName("imageResolution") )
+            buttons.forEach(element => {
+                element.className = "imageResolution select";
+            })
+            let selection = document.getElementById("imageResolution"+(index))
+            selection.className = "imageResolution select selected"
+            if (save) {
+                updateBG()
                 saveSettings()
             }
         }
@@ -1154,7 +1194,8 @@
                     "customURL": customSearchURL
                 },
                 "background": {
-                    "topic": backgroundTopic
+                    "topic": backgroundTopic,
+                    "resolution": String(imageResolution)
                 }
             }
             console.log(settings);
@@ -1170,7 +1211,8 @@
                     "customURL": ""
                 },
                 "background": {
-                    "topic": "nature"
+                    "topic": "nature",
+                    "resolution": "1"
                 }
             };
             document.getElementById("imageThemeInput").value = settings.background.topic
@@ -1184,6 +1226,9 @@
             favorites.forEach(favorite => {
                 addNewFavorite(favorite.url, favorite.name, false)
             })
+            let resolution = settings.background.resolution || 2
+            imageResolution = resolution
+            selectImageResolution(resolution, false)
             
             document.getElementById("customSearchInput").value = settings.search.customURL
             selectSearchEngine(settings.search.index, false)

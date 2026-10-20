@@ -175,10 +175,9 @@
             }else{
                 
                 const stopArrivals = await response.json();
-                console.log(stopArrivals)
+                
                 document.getElementById("arrivalsCont").innerHTML = ""
                 stopArrivals.vehicles.forEach(element => {
-                    console.log(element)
                     let arrivalCont = document.createElement("div")
                     arrivalCont.className = "arrival";
                     
