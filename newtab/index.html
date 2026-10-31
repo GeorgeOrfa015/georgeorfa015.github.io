@@ -374,15 +374,17 @@
             display: flex;
             flex-direction: row;
             justify-content: center;
-            gap: 1em;
-            width: 100%;
+            gap: 0.75em;
+            width: fit-content;
+            margin: auto;
         }
         .favorite{
             position: relative;
             aspect-ratio: 1;
         }
         .favoriteOuterCont{
-            width: 5em;
+            width: 5.5em;
+            max-width: 5.5em;
             position: relative;
             padding: 0;
             margin: 0;
@@ -470,6 +472,11 @@
             display: grid;
             grid-template-columns: 1fr;
             gap: 0.5em;
+        }
+        .favoriteTitle{
+            max-width: 6em;
+            overflow: hidden;
+            text-align: center;
         }
         @media(max-width: 600px) {
             .widget{
@@ -1042,7 +1049,8 @@
 
             let favoriteTitle = document.createElement("span")
             favoriteTitle.id = "favoriteTitle" + favoriteID
-            favoriteTitle.innerHTML = name
+            favoriteTitle.innerHTML = name;
+            favoriteTitle.className = "favoriteTitle"
 
             favoriteOuterCont.appendChild(favoriteCont)
             favoriteOuterCont.appendChild(favoriteTitle)
