@@ -23,14 +23,17 @@
         } */
         #outerContainer{
             display: grid;
-            gap: 1vw;
+            align-content: center;
+            gap: 1em;
             grid-template-columns: 1fr;
             position: absolute;
             top: 5vw;
-            left: 0;
+            left: 50%;
+            transform: translateX(-50%);
             width: calc(100% - 2vw);
             z-index: -1;
-            padding: 1vw;
+            padding: 1em;
+            max-width: 125ch;
         }
         #search{
             display: grid;
@@ -89,10 +92,10 @@
         }
         .arrival{
             font-family: "Manrope";
-            font-size: 1.2vw;
+            font-size: 2em;
             display: grid;
-            grid-template-columns: 3.5vw 0.15vw auto;
-            gap: 0.5vw;
+            grid-template-columns: 3em 0.15em auto;
+            gap: 0.5em;
         }
         .hourOuterCont{
             padding: 0vw;
@@ -100,55 +103,55 @@
             display: grid;
             grid-template-columns: 1fr;
             grid-template-rows: auto 1fr;
-            border-radius: 1vw;
+            border-radius: 1em;
             overflow: hidden;
         }
         .lineCont{
             display: grid;
             grid-template-columns: auto 1fr;
             background: #292929;
-            border-radius: 0.75vw;
-            padding: 0.5vw;
-            gap: 0.625vw;
+            border-radius: 0.75em;
+            padding: 0.5em;
+            gap: 0.625em;
         }
         .hourContTextBox{
             display: grid;
             width: fit-content;
             grid-template-columns: auto 1fr;
-            gap: 1vw;
+            gap: 1em;
             background: #555;
-            width: 100%;
-            padding: 0.8vw 1vw;
+            width: calc(100% - 2em);
+            padding: 0.8em 1em;
         }
         .hourText{
             font-weight: 800;
-            font-size: 2.2vw;
+            font-size: 3.2em;
             font-family: "Manrope";
             width: fit-content;
         }
         .counterText{
             align-self:center;
             color: #ddd;
-            font-size: 1.5vw;
+            font-size: 2.5em;
             text-align: left;
         }
         .lineNumber{
             background: #787878;
             text-align: center;
-            width: 4vw;
+            width: 2em;
             align-content: center;
-            font-size: 2vw;
+            font-size: 3em;
             font-weight: 700;
-            border-radius: 0.5vw;
+            border-radius: 0.2em;
             height: 100%;
         }
         .lineNumberCont{
             align-content: center;
         }
         .hourInnerCont{
-            padding: 0.75vw;
+            padding: 0.75em;
             display: grid;
-            gap: 0.5vw;
+            gap: 0.5em;
             background: #222;
         }
         .arrivalCont{
@@ -156,17 +159,18 @@
         }
         .fullArrival{
             display: grid;
-            grid-template-columns: 3.85vw 0.15vw 3vw auto;
-            gap: 0.5vw;
-            background: #292929;
-            font-size: 1.4vw;
-            padding: 0.25vw 0.5vw;
-            border-radius: 0.5vw;
+            grid-template-columns: 3em 0.15em 2em auto;
+            gap: 0.4em;
+            background: #333;
+            font-size: 2em;
+            padding: 0.25em 0.5em;
+            border-radius: 0.5em;
         }
         .smallNumber{
             text-align: center;
-            border-radius: 0.5vw;
+            border-radius: 0.2em;
             font-weight: 700;
+            align-content: center;
         }
         .routeName{
             font-weight: 300;
@@ -178,14 +182,16 @@
             font-weight: 600;
         }
         .separator{
-            background: #3b3b3b;
+            background: #444;
             border-radius: 5vw;
         }
         @media(max-width:700px) {
             #outerContainer{
-                gap: 2vw;
+                gap: 0.75em;
                 top: 0;
-                padding-bottom: 15vw
+                padding: 0;
+                padding-bottom: 15vw;
+                width: calc(100% - 2vw);
             }
             #search{
                 left: 0;
@@ -194,91 +200,94 @@
                 background: #0000;
             }
             #searchBar{
-                font-size: 4vw;
-                padding: 2vw 4vw;
+                font-size: 2em;
+                padding: 0.5em 1em;
                 backdrop-filter: blur(0.3vw);
-                margin: 2vw;
+                margin: 0;
                 margin-bottom: 1vw;
                 box-shadow: inset 0 0 0.3vw #fff2;
+                width: calc(100% - 2em);
             }
             #searchBar:hover{
                 background: #fff2;
                 box-shadow: inset 0 0 1vw #fff3;
             }
             .hourOuterCont{
-                border-radius: 4vw;
+                border-radius: 1em;
             }
             .hourText{
-                font-size: 6vw;
-                padding: 0 1vw;
+                font-size: 1.7em;
+                padding: 0 1em;
                 text-align: center;
-                width: calc(100% - 2vw);
+                width: calc(100% - 2em);
                 height: 7vw
             }
             .hourContTextBox{
                 grid-template-columns: 1fr;
-                width: calc(100% - 2vw);
+                width: calc(100% - 2em);
                 gap: 0
             }
             .hourInnerCont{
-                padding: 1.5vw;
+                padding: 0.5em;
                 gap: 1.5vw;
             }
             .counterText{
                 text-align: center;
-                font-size: 4vw;
-                padding-top: -1vw;
+                font-size: 1.2em;
+                padding-top: 0.2em;
             }
             .lineCont{
-                grid-template-columns: 11vw 1fr;
+                grid-template-columns: 3em 1fr;
                 padding: 0;
-                border-radius: 2.5vw;
+                border-radius: 0.5em;
                 overflow: hidden;
-                gap: 2vw
+                gap: 0.4em
             }
             .lineNumber{
                 width: initial;
-                font-size: 6vw;
-                padding: 0 1vw;
-                border-radius: 2.5vw;
+                font-size: 1.5em;
+                padding: 0;
+                border-radius: 0.3em;
             }
             .arrival{
-                font-size: 4vw;
+                font-size: 1em;
                 display: grid;
-                grid-template-columns: 11.5vw 1vw auto;
-                gap: 1vw;
+                grid-template-columns: 3em 0.2em auto;
+                gap: 0.25em;
                 background: #333;
-                border-radius: 1.5vw;
+                border-radius: 0.5em;
             }
             .arrivalCont{
                 display: grid;
                 grid-template-columns: 1fr;
-                padding: 1vw 0;
-                gap: 1vw;
-                padding-right: 1vw;
+                padding: 0.25em 0.1em;
+                gap: 0.25em;
+                padding-right: 0.25em;
             }
             .separator{
-                margin: 0vw 0;
+                margin: 0 0;
             }
             .fullArrival{
-                border-radius: 2.5vw;
-                grid-template-columns: 11.5vw 1vw 7vw auto;
-                gap: 1vw;
-                padding: 0 1vw;
+                border-radius: 0.2em;
+                grid-template-columns: 1.5em 0.1em 1.2em auto;
+                gap: 0.25em;
+                padding: 0.15em;
             }
             .time{
-                font-size: 4vw;
+                font-size: 0.5em;
             }
             .arrival > .time{
-                padding-left: 0.5vw;
+                font-size: 0.85em;
+                padding-left: 0.6em;
             }
             .routeName{
-                font-size: 4vw;
+                font-size: 0.5em;
+                align-content: center;
             }
             .smallNumber{
-                font-size: 4vw;
+                font-size: 0.55em;
                 align-content: center;
-                border-radius: 1vw;
+                border-radius: 0.25em;
             }
         }
     </style>
@@ -310,7 +319,6 @@
         </div> -->
     </div>
     <script>
-        const hash = window.location.hash;
         const colorDict = {
             L01: "#c42a19",
             L02: "#7e786f",
@@ -338,8 +346,8 @@
             L93: "#65c251"
         }
         const allLineNumbers = ["01","02","03","04","05","06","07","09","10","11","12","14","15","16","17","19","20","21","23","31","50","91","92","93"]
-        if (hash) {
-            document.getElementById("searchBar").value = hash.split("#")[1]
+        if (window.location.hash) {
+            document.getElementById("searchBar").value = window.location.hash.split("#")[1]
         } else {
             document.write("No hash found in URL");
         }
@@ -551,6 +559,16 @@
             if (event.keyCode === 13) {
                 document.getElementById("searchBar").blur();
             }
+        });
+        window.addEventListener("hashchange", () => {
+            let newHash;
+            if (window.location.hash) {
+                newHash = window.location.hash.split("#")[1]
+                document.getElementById("searchBar").value = newHash
+            } else {
+                document.write("No hash found in URL");
+            }
+            showSchedule()
         });
         //https://rest.citybus.gr/api/v1/en/110/trips/stop/2196/day/5
     </script>
