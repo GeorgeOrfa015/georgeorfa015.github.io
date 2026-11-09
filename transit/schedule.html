@@ -27,7 +27,7 @@
             gap: 1em;
             grid-template-columns: 1fr;
             position: absolute;
-            top: 5vw;
+            top: 7em;
             left: 50%;
             transform: translateX(-50%);
             width: calc(100% - 2vw);
@@ -37,33 +37,31 @@
         }
         #search{
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 1vw;
+            grid-template-columns: 10fr 1fr;
+            gap: 1em;
             margin-bottom: 1vw;
             position: fixed;
             top: 0;
             left: 0;
-            width: calc(100% - 2vw);
-            padding: 1vw;
+            width: calc(100% - 2em);
+            padding: 1em;
             background: linear-gradient(#000a, #0000)
         }
         #searchBar{
-            font-size: 1.75vw;
+            font-size: 2em;
             width: auto;
-            /* background: #333;
-            border: 0px;
-            padding: 0.75vw;
-            border-radius: 1vw;*/
             color: #fff;
             transition: 0.2s background; 
             backdrop-filter: blur(0.15vw);
-            background: #4446;
+            background: #4445;
             text-shadow: 0 0 0.3vw #000;
-            padding: 1vw 1.25vw;
-            border-radius: 5vw;
+            padding: 0.5em 1.25em;
+            border-radius: 5em;
             border: 0vw #333a solid;
             bottom: 1vw;
             box-shadow: inset 0 0 0.3vw #fff2;
+            color-scheme: dark;
+            min-width: 1px;
         }
         #searchBar::placeholder{
             color: #fff;
@@ -76,15 +74,15 @@
         #searchBar:focus{
             outline: none;
         }
-        #dayButton{
-            background: #056c3055;
+        #options{
+            background: #056c30aa;
             color: #fff;
             border: none;
             border-radius: 10vw;
             backdrop-filter: blur(0.15vw);
             box-shadow: inset 0 0 0.3vw #fff4;
-            padding: 0.3vw 0.7vw;
-            font-size: 1.75vw;
+            padding: 0.3em 0.7em;
+            font-size: 2em;
             font-weight: 600;
             font-family: "Manrope";
             transition: 0.1s background, 0.2s border;
@@ -185,46 +183,52 @@
             background: #444;
             border-radius: 5vw;
         }
-        @media(max-width:700px) {
+        @media(max-width:600px) {
             #outerContainer{
                 gap: 0.75em;
                 top: 0;
                 padding: 0;
-                padding-bottom: 15vw;
-                width: calc(100% - 2vw);
+                padding-bottom: 7em;
+                width: calc(100% - 2em);
             }
             #search{
                 left: 0;
                 top: unset;
                 bottom: 0;
                 background: #0000;
+                grid-template-columns: 1fr;
+                gap: 0;
             }
             #searchBar{
-                font-size: 2em;
+                -webkit-appearance: none;
+                font-size: 1.2em;
                 padding: 0.5em 1em;
-                backdrop-filter: blur(0.3vw);
+                backdrop-filter: blur(0.3em);
                 margin: 0;
                 margin-bottom: 1vw;
-                box-shadow: inset 0 0 0.3vw #fff2;
-                width: calc(100% - 2em);
+                box-shadow: inset 0 0 0.6vw #fff4;
+                width: calc(100%);
             }
             #searchBar:hover{
                 background: #fff2;
-                box-shadow: inset 0 0 1vw #fff3;
+                box-shadow: inset 0 0 0.6vw #fff4;
+            }
+            #options{
+                box-shadow: inset 0 0 0.6vw #fff4;
+                backdrop-filter: blur(0.3em);
+                font-size: 1.2em;
             }
             .hourOuterCont{
                 border-radius: 1em;
             }
             .hourText{
                 font-size: 1.7em;
-                padding: 0 1em;
+                padding: 0 0;
                 text-align: center;
                 width: calc(100% - 2em);
-                height: 7vw
             }
             .hourContTextBox{
-                grid-template-columns: 1fr;
-                width: calc(100% - 2em);
+                grid-template-columns: auto 1fr;
                 gap: 0
             }
             .hourInnerCont{
@@ -232,9 +236,9 @@
                 gap: 1.5vw;
             }
             .counterText{
-                text-align: center;
+                text-align: right;
                 font-size: 1.2em;
-                padding-top: 0.2em;
+                align-content: center;
             }
             .lineCont{
                 grid-template-columns: 3em 1fr;
@@ -294,9 +298,10 @@
 </head>
 <body>
     <div id="search">
-        <button id="dayButton">Select Stop</button>
-        <input type="text" onfocusout="showSchedule()" id="searchBar" placeholder="Enter a Bus Stop ID...">
-        <button id="dayButton">MONDAY</button>
+        <select type="text" oninput="showSchedule()" id="searchBar" placeholder="Enter a Bus Stop ID...">
+
+        </select>
+        <button id="options">Options</button>
     </div>
     <div id="outerContainer">
         <!-- <div class="hourOuterCont" style="display: grid">
@@ -351,7 +356,7 @@
         } else {
             document.write("No hash found in URL");
         }
-        let linesGrouped = true
+        let linesGrouped = false
         async function getKey() {
             const url = "https://corsbypass.orfanidesg15-main.workers.dev/?url=https://irakleio.citybus.gr/stops/live/0122";
             const response = await fetch(url);
@@ -405,6 +410,13 @@
             let outerCont = document.getElementById("outerCont")
             getData(key).then(data => {
                 list = data
+                console.log(data)
+                data.forEach(stop => {
+                    let option = document.createElement("option")
+                    option.innerHTML = stop.code + " - " + stop.name
+                    option.value = stop.code
+                    document.getElementById("searchBar").appendChild(option)
+                })
                 showSchedule(Number(new Date().getDay()))
             })
         })
@@ -565,8 +577,6 @@
             if (window.location.hash) {
                 newHash = window.location.hash.split("#")[1]
                 document.getElementById("searchBar").value = newHash
-            } else {
-                document.write("No hash found in URL");
             }
             showSchedule()
         });
