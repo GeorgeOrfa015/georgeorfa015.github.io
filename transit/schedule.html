@@ -21,6 +21,22 @@
         div>*:hover{
             transform: rotate3d(0.5, 0.7, 0.3, 1800deg) scaleZ(2);
         } */
+        button{
+            background: #056c30;
+            color: #fff;
+            border: none;
+            border-radius: 0.5em;
+            padding: 0.35em;
+            font-family: Manrope;
+            font-size: 1.2em;
+        }
+        button:hover{
+            background: #0c9143;
+            color: #fff;
+            border: none;
+            outline: none;
+            cursor: pointer;
+        }
         #outerContainer{
             display: grid;
             align-content: center;
@@ -45,7 +61,6 @@
             left: 0;
             width: calc(100% - 2em);
             padding: 1em;
-            background: linear-gradient(#000a, #0000)
         }
         #searchBar{
             font-size: 2em;
@@ -53,7 +68,7 @@
             color: #fff;
             transition: 0.2s background; 
             backdrop-filter: blur(0.15vw);
-            background: #4445;
+            background: #222d;
             text-shadow: 0 0 0.3vw #000;
             padding: 0.5em 1.25em;
             border-radius: 5em;
@@ -68,14 +83,14 @@
             text-shadow: 0 0 0.3vw #0003;
         }
         #searchBar:hover{
-            background: #fff2;
+            background: #333d;
             box-shadow: inset 0 0 0.3vw #fff3;
         }
         #searchBar:focus{
             outline: none;
         }
         #options{
-            background: #056c30aa;
+            background: #056c30dd;
             color: #fff;
             border: none;
             border-radius: 10vw;
@@ -88,9 +103,14 @@
             transition: 0.1s background, 0.2s border;
             height: 100%;
         }
+        #options:hover{
+            background: #28d671aa;
+            box-shadow: inset 0 0 0.3vw #fff8;
+            cursor: pointer;
+        }
         .arrival{
             font-family: "Manrope";
-            font-size: 2em;
+            font-size: 1.2em;
             display: grid;
             grid-template-columns: 3em 0.15em auto;
             gap: 0.5em;
@@ -123,14 +143,14 @@
         }
         .hourText{
             font-weight: 800;
-            font-size: 3.2em;
+            font-size: 2.2em;
             font-family: "Manrope";
             width: fit-content;
         }
         .counterText{
             align-self:center;
             color: #ddd;
-            font-size: 2.5em;
+            font-size: 1.5em;
             text-align: left;
         }
         .lineNumber{
@@ -138,7 +158,7 @@
             text-align: center;
             width: 2em;
             align-content: center;
-            font-size: 3em;
+            font-size: 2em;
             font-weight: 700;
             border-radius: 0.2em;
             height: 100%;
@@ -160,7 +180,7 @@
             grid-template-columns: 3em 0.15em 2em auto;
             gap: 0.4em;
             background: #333;
-            font-size: 2em;
+            font-size: 1.2em;
             padding: 0.25em 0.5em;
             border-radius: 0.5em;
         }
@@ -182,6 +202,99 @@
         .separator{
             background: #444;
             border-radius: 5vw;
+        }
+        .glass{
+            background: linear-gradient(#2b2b2baa, #151515aa);
+            backdrop-filter: blur(7px);
+            border-radius: 1.5em;
+            box-shadow: inset 0 0 0.3em #fff3;
+        }
+        #settingsCont{
+            display: none;
+            max-height: 80vh;
+            width: calc(50em - 2em);
+            max-width: calc(100% - 2em);
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            align-content: top;
+            z-index: 2;
+            padding: 1em;
+            padding-top: 0.75em;
+            overflow-y: scroll;
+            -ms-overflow-style: none; /* Internet Explorer and Edge */
+            scrollbar-width: none; /* Firefox */
+            gap: 0.5em;
+            border-radius: 1.5em;
+        }
+        #settingsBigTitle{
+            font-size: 2.5em;
+            font-weight: 600;
+        }
+        .settingTitle{
+            font-size: 1.75em;
+            font-weight: 500;
+        }
+        .settingsSection{
+            display: grid;
+            gap: 0.5em;
+        }
+        .settingDescription{
+            display: grid;
+            gap: 0.25em;
+        }
+        .settingInteractable{
+            display: grid;
+            gap: 0.5em;
+        }
+        #blak{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            z-index: 0;
+        }
+        #settingsHeader{
+            display: grid;
+            grid-template-columns: 1fr auto;
+        }
+        #closeButton{
+            height: 70%;
+            margin-top: 0.25em;
+        }
+       .select{
+            background: #555;
+        }
+        .select:hover{
+            background: #666;
+        }
+        .generic{
+            background: #555;
+        }
+        .generic:hover{
+            background: #666;
+        }
+        .selected{
+            background: #056c30;
+        }
+        .selected:hover{
+            background: #0c9143;
+        }
+        #settingsDateInteractable{
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+        #settingsGroupInteractable{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+        .error{
+            color: #bbb;
+            font-size: 2em;
+            text-align: center;
         }
         @media(max-width:600px) {
             #outerContainer{
@@ -276,6 +389,7 @@
                 grid-template-columns: 1.5em 0.1em 1.2em auto;
                 gap: 0.25em;
                 padding: 0.15em;
+                font-size: 1.75em;
             }
             .time{
                 font-size: 0.5em;
@@ -293,37 +407,56 @@
                 align-content: center;
                 border-radius: 0.25em;
             }
+            #settingsDateInteractable{
+                display: grid;
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
+    <div id="blak"></div>
+    <div id="settingsCont" class="glass">
+        <div id="settingsHeader">
+            <span id="settingsBigTitle">Options</span>
+            <button id="closeButton" class="generic" onclick="hideSettings()">Close</button>
+        </div>
+        <div class="settingsSection">
+            <div class="settingDescription">
+                <span class="settingTitle">Day of week</span>
+                <span>Change which version of the current weekly schedule you'd like. Weekdays consist of Monday through Friday, Saturdays are Saturdays, and during national holidays, Sunday's schedule is usually used.</span>
+            </div>
+            <div class="settingInteractable" id="settingsDateInteractable">
+                <button id="dayofweek0" class="select selected dayofweek" onclick="selectDate(0)">Weekdays</button>
+                <button id="dayofweek1" class="select select dayofweek" onclick="selectDate(1)">Saturdays</button>
+                <button id="dayofweek2" class="select select dayofweek" onclick="selectDate(2)">Sundays/National Holidays</button>
+            </div>
+        </div>
+        <div class="settingsSection">
+            <div class="settingDescription">
+                <span class="settingTitle">Group Lines</span>
+                <span>Change the way the arrivals are displayed. Groupping by line groups all arrivals that are from the same line together, while the other option just shows all arrivals in order from the earliest to the latest.</span>
+            </div>
+            <div class="settingInteractable" id="settingsGroupInteractable">
+                <button id="linegroup0" class="select selected linegroup" onclick="selectGroup(0)">Default</button>
+                <button id="linegroup1" class="select select linegroup" onclick="selectGroup(1)">Group by Lines</button>
+            </div>
+        </div>
+    </div>
     <div id="search">
-        <select type="text" oninput="showSchedule()" id="searchBar" placeholder="Enter a Bus Stop ID...">
+        <select clas="glass" type="text" oninput="scheduleOnInput()" id="searchBar" placeholder="Enter a Bus Stop ID...">
 
         </select>
-        <button id="options">Options</button>
+        <button id="options" onclick="showOptions()">Options</button>
     </div>
     <div id="outerContainer">
-        <!-- <div class="hourOuterCont" style="display: grid">
-            <div class="hourContTextBox">
-                <span class="hourText">4:00</span>
-                <span class="counterText">0 scheduled arrivals</span>
-            </div>
-            <div class="hourInnerCont" id="hic4">
-                <div class="lineCont" id="lc4L10">
-                    <div class="lineNumber">10</div>
-                    <div class="arrivalCont">
-                        <div class="arrival">04:12 | 10 | Γάζι Αεροδρόμιο</div>
-                        <div class="arrival">04:12 | 10 | Γάζι Αεροδρόμιο</div>
-                        <div class="arrival">04:12 | 10 | Γάζι Αεροδρόμιο</div>
-                        <div class="arrival">04:12 | 10 | Γάζι Αεροδρόμιο</div>
-                        <div class="arrival">04:12 | 10 | Γάζι Αεροδρόμιο</div>
-                    </div>
-                </div>
-            </div>
-        </div> -->
+        
     </div>
     <script>
+        let dateIndex = 0
+        let linesGrouped;
+
+        
         const colorDict = {
             L01: "#c42a19",
             L02: "#7e786f",
@@ -351,12 +484,6 @@
             L93: "#65c251"
         }
         const allLineNumbers = ["01","02","03","04","05","06","07","09","10","11","12","14","15","16","17","19","20","21","23","31","50","91","92","93"]
-        if (window.location.hash) {
-            document.getElementById("searchBar").value = window.location.hash.split("#")[1]
-        } else {
-            document.write("No hash found in URL");
-        }
-        let linesGrouped = false
         async function getKey() {
             const url = "https://corsbypass.orfanidesg15-main.workers.dev/?url=https://irakleio.citybus.gr/stops/live/0122";
             const response = await fetch(url);
@@ -403,47 +530,61 @@
         }
         let list;
         let key;
-        getKey().then(html => {
+        getKey().then(html => { // First get the key
             key = "Bearer " + html.split("token = '")[1].split("';")[0]
             console.log(key)
             key = key
             let outerCont = document.getElementById("outerCont")
-            getData(key).then(data => {
-                list = data
+            getData(key).then(data => { // Get data using the extracted key
+                list = data // Copy stop data to global list
                 console.log(data)
-                data.forEach(stop => {
+                data.forEach(stop => { // Create dropdown options
                     let option = document.createElement("option")
                     option.innerHTML = stop.code + " - " + stop.name
                     option.value = stop.code
                     document.getElementById("searchBar").appendChild(option)
                 })
-                showSchedule(Number(new Date().getDay()))
+                if (window.location.hash) {
+                    document.getElementById("searchBar").value = window.location.hash.split("#")[1]
+                }
+                if (Number(new Date().getDay()) == 0) {
+                    selectDate(2)
+                }else if(Number(new Date().getDay()) == 6) {
+                    selectDate(1)
+                }else{
+                    selectDate(0)
+                }
             })
         })
-        function showSchedule(date = Number(new Date().getDay())){
+
+        function showSchedule(date){ // TAKES STOP INPUT FROM INPUT BOX
             let value = document.getElementById("searchBar").value
-            window.location.hash = value
+            if (window.location.hash.slice(1) !== value) {
+                history.replaceState(null, "", "#" + value)  // no hashchange event, no extra history entry
+            }
             console.log(value)
-            getMoreData(key, value, date).then(data => {
+            getMoreData(key, value, date).then(data => { // get schedule
                 document.getElementById("outerContainer").innerHTML = ""
                 console.table(data)
-                for (i=0;i<=23;i++){
-                    let hourOuterCont = document.createElement("div")
-                    hourOuterCont.id = "hc"+((i+2)%24)
-                    hourOuterCont.className = "hourOuterCont"
+                if (Array.isArray(data)) {
 
-                    let hourContTextBox = document.createElement("div")
-                    hourContTextBox.className = "hourContTextBox"
-
-                    let hour = document.createElement("span");
-                    hour.innerHTML = ((i+2)%24)+":00"
-                    hour.className = "hourText"
-
-                    let counter = document.createElement("span");
-                    counter.innerHTML = "0"
-                    counter.className = "counterText"
-                    counter.id = "c"+(i+2)%24
-
+                    for (i=0;i<=23;i++){
+                        let hourOuterCont = document.createElement("div")
+                        hourOuterCont.id = "hc"+((i+2)%24)
+                        hourOuterCont.className = "hourOuterCont"
+                        
+                        let hourContTextBox = document.createElement("div")
+                        hourContTextBox.className = "hourContTextBox"
+                        
+                        let hour = document.createElement("span");
+                        hour.innerHTML = ((i+2)%24)+":00"
+                        hour.className = "hourText"
+                        
+                        let counter = document.createElement("span");
+                        counter.innerHTML = "0"
+                        counter.className = "counterText"
+                        counter.id = "c"+(i+2)%24
+                        
                     let hourInnerCont = document.createElement("div");
                     hourInnerCont.id = "hic"+(i+2)%24
                     hourInnerCont.className = "hourInnerCont"
@@ -459,7 +600,7 @@
                             let lineCont = document.createElement("div")
                             lineCont.className = "lineCont"
                             lineCont.id = "lc"+((i+2)%24)+"L"+line
-    
+                            
                             let lineNumber = document.createElement("div")
                             lineNumber.className = "lineNumber"
                             lineNumber.innerHTML = line
@@ -491,12 +632,12 @@
                     // tripTime: "12:57"
                     // tripTimeHour: 12
                     // tripTimeMinute: 57
-                
-
+                    
+                    
                     if (linesGrouped){
                         let cont = document.createElement("div")
                         cont.className = "arrival"
-
+                        
                         let time = document.createElement("span")
                         time.innerHTML = element.tripTime
                         time.className = "time"
@@ -504,11 +645,11 @@
                         separator.className = "separator"
                         let name = document.createElement("span")
                         name.innerHTML = element.routeName
-
+                        
                         cont.append(time)
                         cont.append(separator)
                         cont.append(name)
-
+                        
                         let hc = document.getElementById("hc"+element.tripTimeHour)
                         hc.style.display = "grid"
                         let lc = document.getElementById("lc"+element.tripTimeHour+"L"+element.lineCode)
@@ -526,7 +667,7 @@
                         
                         let separator = document.createElement("div")
                         separator.className = "separator"
-
+                        
                         let number = document.createElement("div")
                         number.className = "smallNumber"
                         number.innerHTML = element.lineCode
@@ -535,7 +676,7 @@
                         let name = document.createElement("span")
                         name.className = "routeName"
                         name.innerHTML = element.routeName
-
+                        
                         let hc = document.getElementById("hc"+element.tripTimeHour)
                         cont.appendChild(time)
                         cont.appendChild(separator)
@@ -563,6 +704,9 @@
                         }
                     }
                 }
+            }else{
+               document.getElementById("outerContainer").innerHTML = '<span class="error">No data found.</span>'
+            }
             })
         }
         document.getElementById("searchBar")
@@ -578,8 +722,69 @@
                 newHash = window.location.hash.split("#")[1]
                 document.getElementById("searchBar").value = newHash
             }
-            showSchedule()
+            showSchedule(dateIndex)
         });
+        function selectDate(index) {
+            if (index == 0) {
+                dateIndex = 2
+            }else if (index == 1) {
+                dateIndex = 6
+            }else{
+                dateIndex = 0
+            }
+            let buttons = Array.prototype.slice.call( document.getElementsByClassName("dayofweek") )
+            buttons.forEach(element => {
+                element.className = "dayofweek select";
+            })
+            let selection = document.getElementById("dayofweek"+(index))
+            selection.className = "dayofweek select selected"
+            showSchedule(dateIndex)
+        }
+        function selectGroup(index) {
+            if (index == 0) {
+                linesGrouped = false
+            }else{
+                linesGrouped = true
+            }
+            let buttons = Array.prototype.slice.call( document.getElementsByClassName("linegroup") )
+            buttons.forEach(element => {
+                element.className = "linegroup select";
+            })
+            let selection = document.getElementById("linegroup"+(index))
+            selection.className = "linegroup select selected"
+            save(linesGrouped)
+            showSchedule(dateIndex)
+        }
+        function scheduleOnInput() {
+            showSchedule(dateIndex)
+        }
+        function showOptions() {
+            document.getElementById("settingsCont").style.display = "grid";
+            document.getElementById("blak").style.zIndex = "1";
+            document.getElementById("blak").style.background = "#000d";
+            document.getElementById("blak").setAttribute("onclick", "hideSettings()")
+        }
+        function hideSettings() {
+            document.getElementById("settingsCont").style.display = "none";
+            document.getElementById("blak").style.zIndex = "-1";
+            document.getElementById("blak").style.background = "#000b";
+            document.getElementById("blak").setAttribute("onclick", "")
+        }
+        hideSettings()
+        function save(value) {
+            localStorage.setItem("busScheduleGrouped", String(value))
+        }
+        function load() {
+            let grouped = localStorage.getItem("busScheduleGrouped") || "false"
+            console.log("Ayyyy",grouped)
+            if (grouped == "true") {
+                selectGroup(1)
+            }else{
+                selectGroup(0)
+            }
+            
+        }
+        load()
         //https://rest.citybus.gr/api/v1/en/110/trips/stop/2196/day/5
     </script>
 </body>
